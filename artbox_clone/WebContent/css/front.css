@@ -81,6 +81,12 @@ nav#top_menu a:hover{
 }
 	
 /* footer */
+
+.pageFooter{    display: block;
+    border-top: 1px solid #e4e4e4;height: 250px;
+    padding: 23px 0 42px;}
+    
+    
 .FooterMenu ul{list-style:none;
 font-family: verdana,Geneba,sans-serif;
 font-size: 13px;font-weight: 100;color: black;
@@ -97,9 +103,7 @@ padding: 10px; text-decoration: none;color: #7d7d7d;}
 
 
 
-.pageFooter{    display: block;
-    border-top: 1px solid #e4e4e4;height: 250px;
-    padding: 23px 0 42px;}
+
 /* .pageFooter .FooterInfo {padding-top:39px;} */
 .pageFooter .FooterInfo ul {width:1200px; margin:0 auto;list-style:none;}
 .pageFooter .FooterInfo ul li { float: left;   }

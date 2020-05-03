@@ -10,7 +10,7 @@
   <div class="logo">
  
  <p style="text-align: center;margin-top: 50px;">
-    <a href="../home/home2.jsp"><img  alt="logo" src="../Images/common/logo.png"></a>
+    <a href="../home/home.jsp"><img  alt="logo" src="../Images/common/logo.png"></a>
 </p>
 
 </div>
