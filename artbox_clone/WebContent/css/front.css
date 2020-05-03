@@ -20,7 +20,8 @@ BODY {
 	min-height: 170px;
 	width: 100%;
 	box-sizing: border-box;
-
+	border-bottom: 1px solid #e4e4e4;
+	padding-bottom: 70px;
 	}
 .logo{
 	clear: none;
@@ -48,6 +49,7 @@ BODY {
 	width: 100%;
 	box-sizing: border-box;
 	padding: 10px;
+	margin: 50px auto;
 	}
 	
 .pageFooter{
