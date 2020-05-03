@@ -31,7 +31,6 @@
 		<div class="clear"></div>
 	</div>
 	
-	<br>
 	
 	<div class="FooterInfo">
 	<div class="Customer">
@@ -48,17 +47,18 @@
 				<a href="/Home/Cscenter/Enquiry.asp" onclick="GA_event('FOOT', '최하단 메뉴 PC', '1:1 문의/상담');">
 				<img src="../Images/common/footer_btn2.png">1:1 문의/상담</a>
 			</li>
-		</ul>
-	</div>
-		<div class="Infomation">
+
+		<li class="Infomation">
 			(주)아트박스포트폴리오<br>
 			이 사이트는 포트폴리오용으로 제작되었습니다.<br>
 			 이 사이트의 운영은 어떠한 영리적 목적도 없음을 밝힙니다.<br>
 			COPYRIGHT © 2011 ARTBOX CO., LTD ALL RIGHTS RESERVED.
-		</div>
-		
+		</li>
+	</ul>
 		<div class="clear"></div>
 	</div>
+ 
+ </div>
  
  </div>
 <!-- </footer> -->

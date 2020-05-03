@@ -2,25 +2,23 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
 <head>
-  <meta charset="UTF-8">
-  <title>ARTBOX(포트폴리오)</title>
-  <link href="../css/front.css" rel="stylesheet" type="text/css">
+<meta charset="UTF-8">
+<title>ARTBOX(포트폴리오)</title>
+<link href="../css/front.css" rel="stylesheet" type="text/css">
   <link href="../css/slide.css" rel="stylesheet" type="text/css">
   <script src="../js/jquery-3.5.0.js"></script>
   <script type="text/javascript" src="../js/home.js"></script>
 </head>
-
 <body>
-  <div class="page">
-    <!-- 헤더 -->
-    <jsp:include page="../inc/top.jsp"></jsp:include>
-    <!-- 헤더 -->
-    <!-- 메인 콘텐츠  -->
-    <div class="pageContent" id="fixNextTag">
+<div class="page">
+<!-- 헤더 -->
+<jsp:include page="../inc/top.jsp"></jsp:include>
+<!-- 헤더 -->
 
-      <!--  슬라이드 -->
+ <!-- 메인 콘텐츠  -->
+ <div class="pageContent">
+ <!--  슬라이드 -->
       <div id="autoslideshow">
 
         <div class="mySlides fade">
@@ -80,17 +78,14 @@
         <%} %>
       </div>
       <!-- Grid -->
-
-
-
-
-    </div>
-    <!-- 메인 콘텐츠  -->
-
-    <!--  푸터 -->
-    <jsp:include page="../inc/bottom.jsp"></jsp:include>
-    <!--  푸터 -->
-  </div>
+ 
+ 
+ </div>
+ <!-- 메인 콘텐츠  -->
+ 
+<!--  푸터 -->
+ <jsp:include page="../inc/bottom.jsp"></jsp:include>
+<!--  푸터 -->
+</div>
 </body>
-
 </html>

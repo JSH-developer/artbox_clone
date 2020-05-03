@@ -10,14 +10,14 @@
   <div class="logo">
  
  <p style="text-align: center;margin-top: 50px;">
-    <a href="../home/home.jsp"><img  alt="logo" src="../Images/common/logo.png"></a>
+    <a href="../home/home2.jsp"><img  alt="logo" src="../Images/common/logo.png"></a>
 </p>
 
 </div>
 <!-- 로고 -->
 <!-- 네비게이션바 -->
  <div class="pageNavigationBar" id="topBar">
-<nav id="top_menu">
+		<nav id="top_menu">
 		<ul>
 			<li class="CategoryMiddle"><a href="#"onclick="GA_event('HEAD', '최상단 메뉴', '인형/토이');">인형/토이</a></li>
 			<li class="CategoryMiddle"><a href="#" onclick="GA_event('HEAD', '최상단 메뉴', '문구');">문구</a></li>
@@ -37,14 +37,16 @@
 			
 			<li class="MyPage">
 			
-				<a href="https://www.artboxmall.com:443/Home/Member/Login.asp?rtnURL=%2FHome%2Findex%2Easp" title="로그인" onclick="GA_event('HEAD', '최상단 메뉴', '로그인');"><img src="../Images/common/top_icon_login.png" id="MyInfoSummaryIcon"></a>
+				<a href="#" title="로그인" onclick="GA_event('HEAD', '최상단 메뉴', '로그인');"><img src="../Images/common/top_icon_login.png" id="MyInfoSummaryIcon"></a>
 				<a href="javascript:location.href='https://www.artboxmall.com:443/Home/Member/Login.asp?rtnURL=%2FHome%2Findex%2Easp';" id="LoginBalloon" onclick="GA_event('HEAD', '최상단 메뉴', '팝업로그인');" style="visibility: hidden;"><img src="/Images/common/login_balloon.png?v=2"></a>
 				<a class="btnBallon" href="javascript:fnLoginBalloon();"></a>
 			
 			</li>
 			<li class="Search">
 				<div id="CommonSearch">
-					<input type="text" id="kwd" value="" onkeypress="if(event.keyCode==13){fnCommonSearch(1);}"><a href="javascript:fnCommonSearch(1);" title="검색" onclick="GA_event('HEAD', '최상단 메뉴 PC', '검색');"><img src="../Images/common/top_icon_search.png"></a>
+					<input type="text" id="kwd" value="" onkeypress="if(event.keyCode==13){fnCommonSearch(1);}">
+					<a href="javascript:fnCommonSearch(1);" title="검색" onclick="GA_event('HEAD', '최상단 메뉴 PC', '검색');">
+					<img src="../Images/common/top_icon_search.png"></a>
 				</div>
 			</li>
 			
