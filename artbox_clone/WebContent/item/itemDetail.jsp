@@ -100,8 +100,35 @@
                         <span>Copyright ⓒ ARTBOX ALL rights reserved.</span></div>
             </section>
             <section class="item_content">
-            상품후
-            </section>
+				<div class="table">
+					<div class="tr">
+						<span class="td">★★★★★</span>
+						<span class="td type2">평소에 캔디머신을	구매할까하고 생각했었는데, 대부분 컬러가 원색만 있어...</span>
+						<span class="td">2019-12-28</span>
+						<span class="td">besi**</span>
+					</div>
+					<div class="ps on">
+						<span class="ps_score">10</span>
+						<div class="ps_sub1">
+							<span>기능 ★★★★★</span> <span>디자인 ★★★★★</span> <span>가격 ★★★★★</span> <span>품질 ★★★★★</span>
+						</div>
+						<div class="ps_sub2">평소에 캔디머신을 구매할까 하고 생각했었는데, 대부분 컬러가
+									원색만 있어서 좀 망설여졌었어요. 근데 아트박스에서 너무 예쁜 베이비핑크 컬러로 캔디머신이 나왔기에 냉큼
+									구입했습니다. 생각했던 컬러 그대로라 너무 만족합니다ㅎㅎ 크기도 너무 작지 않아서 좋아요. 그리고 위 아래로
+									통이 분리된다는게 최대 장점입니다. 세척하기도 편하고 용이해서 더 좋아요.</div>
+						<div class="ps_sub3">
+							<img src="http://www.poom.co.kr/Upload2/PostScript/201912/1805300328_0_123034_1.jpg">
+						</div>
+					</div>
+				</div>
+				<div class="paging">
+					<div>
+					<a href="javascript:;">	<img class="paging_pc" src="../Images/order/btn_board_prev.gif"> </a>
+					<a href="javascript:;" class="btn_pageon">1</a>
+					<a href="javascript:;"> <img class="paging_pc" src="../Images/order/btn_board_next.gif"> </a>
+					</div>
+				</div>
+			</section>
             <section class="item_content">
                     QnA
             </section>

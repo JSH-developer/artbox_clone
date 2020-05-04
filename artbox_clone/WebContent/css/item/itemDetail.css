@@ -20,6 +20,11 @@
 	clear: both;
 }
 
+a:link, a:visited, a:active, a:hover {
+    text-decoration: none;
+    color: #808080;
+}
+
 /* iteminfo */
 
 .iteminfo {
@@ -66,10 +71,6 @@
     font-size: 15px;
     line-height: 17px;
     color: #9d9d9d;
-}
-a:link, a:visited, a:active, a:hover {
-    text-decoration: none;
-    color: #808080;
 }
 .iteminfo .inner .pdtCategory a:nth-child(1):after {
     right: -15px;
@@ -218,16 +219,16 @@ a:link, a:visited, a:active, a:hover {
 
 /* item_content */
 
-.item_content.on {
-    display: block;
-    padding: 90px 0;
-    position: relative;
-}
 .item_content {
     display: none;
 }
-.item_content .contentsTopTop{
+.item_content.on {
+    display: block;
+    margin: 90px 0;
+    position: relative;
 	border-top: 1px solid #000000;
+}
+.item_content.on .contentsTopTop{
     position: relative;
     width: 900px;
     text-align: center;
@@ -236,7 +237,7 @@ a:link, a:visited, a:active, a:hover {
     margin: 30px auto;
     font-weight: bold;
 }
-.item_content .contentsTopBottom{
+.item_content.on .contentsTopBottom{
     position: relative;
     width: 900px;
     text-align: center;
@@ -245,17 +246,17 @@ a:link, a:visited, a:active, a:hover {
     font-size: 18px;
     margin: 30px auto;
 }
-.item_content .content{
+.item_content.on .content{
 	text-align: center;
 	margin-top: 45px;
 	padding: 0 30px;
 }
-.item_content .content img{
+.item_content.on .content img{
 	padding-bottom: 10px;
     max-width: 800px;
     width: 100%;
 }
-.item_content .content span{
+.item_content.on .content span{
 	display: block;
 	padding: 30px 0 70px 0;
 	font-size: 14px;
@@ -265,7 +266,83 @@ a:link, a:visited, a:active, a:hover {
 
 
 
+.item_content.on .table { border-bottom:1px solid #cacaca; }
+/* .item_content.on .table:nth-last-child(1) { border-bottom:0; } */
+.item_content.on .table .tr { display:block; cursor:pointer; position:relative;}
+.item_content.on .table .tr:after {
+    display: block;
+    content: " ";
+    clear: both;
+}
+.item_content.on .table .tr .td { width:150px;  display:block; float:left; font-size:18px; color:#000000; text-align:center; line-height:62px; }
+.item_content.on .table .tr .td.type2 { width:740px; text-align:left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+/* .item_content.on .table .tr .td.type3 { width:750px; text-align:left; padding:0 0 0 20px; background:url(/images/ver1/shop/reply_bullet.gif) no-repeat left center; } */
+/* .item_content.on .table .tr .td.type2 span { position:relative; } */
+/* .item_content.on .table .tr .td.type2:after { display:block; content:" "; clear:both; } */
+/* .item_content.on .table .tr .td.type2 .type02:after { display:block; content:" "; position:absolute; top:0; right:-40px; bottom:0; width:21px; background:url(/images/ver1/shop/img_postscript_picture.png) no-repeat center; } */
 
+/* .item_content.on .table .ClickQna .td:nth-child(1) { color:#868686; } */
 
+/* .item_content.on .table .tr .td.border { border-top:1px solid #cacaca; } */
+
+.item_content.on .table .ps { display:none; }
+.item_content.on .table .ps.on { display:block; position:relative; padding:0 0 50px 150px; background-color:#fafafa; border-top:1px solid #cacaca; }
+
+.item_content.on .table .ps.on .ps_score {
+    position: absolute;
+    top: 12px;
+    left: 44px;
+    width: 62px;
+    height: 62px;
+    background: url(/images/ver1/shop/img_postscript_score.png?v=20180814) no-repeat center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+    padding: 6px 0 0 8px;
+}
+.item_content.on .table .ps.on .ps_sub1 {
+    padding: 37px 0 37px 0;
+}
+.item_content.on .table .ps.on .ps_sub1 span {
+    display: block;
+    float: left;
+    padding: 0 35px;
+    font-size: 17px;
+    color: #000000;
+    position: relative;
+}
+.item_content.on .table .ps.on .ps_sub1:after {
+    display: block;
+    content: " ";
+    clear: both;
+}
+.item_content.on .table .ps.on .ps_sub2 {
+    padding: 25px 25px 0 0;
+    font-size: 16px;
+    color: #000000;
+    line-height: 30px;
+    border-top: 1px solid #cacaca;
+}
+.item_content.on .table .ps.on .ps_sub3 {
+    padding: 25px 0 0 0;
+}
+.item_content.on .table .ps.on .ps_sub3 img {
+    max-width: 800px;
+    margin: 10px 0 0 0;
+}
+.item_content.on .paging {
+	padding:35px 0 50px 0;
+	text-align: center;
+}
+
+.item_content.on .paging a {
+    line-height: 35px;
+    padding: 0 15px;
+}
+.btn_pageon {
+    color: #df2e38 !important;
+    font-size: 16px;
+    display: inline-block;
+}
 
 
