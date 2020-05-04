@@ -1,14 +1,14 @@
 @charset "UTF-8";
 
-th, td, p, input, button, textarea, select, div, xmp {font-family:'Spoqa Han Sans', 'Malgun Gothic', Dotum, Gulim, Tahoma, Helvetica, AppleGothic, Helvetica, Sans-serif; color:#808080; line-height:100%;}
+/* th, td, p, input, button, textarea, select, div, xmp {font-family:'Spoqa Han Sans', 'Malgun Gothic', Dotum, Gulim, Tahoma, Helvetica, AppleGothic, Helvetica, Sans-serif; color:#808080; line-height:100%;} */
 
-img {border:none;}
+/* img {border:none;} */
 
-a, input, textarea, select {outline:none; -webkit-appearance: none; -moz-appearance: none; border-radius:0;}
+/* a, input, textarea, select {outline:none; -webkit-appearance: none; -moz-appearance: none; border-radius:0;} */
 
-a:link, a:visited, a:active, a:hover { text-decoration:none; color:#808080; }
-a:hover                              { }
-a.privacy {/*font-weight:bold;*/color:#3a4b59;}
+/* a:link, a:visited, a:active, a:hover { text-decoration:none; color:#808080; } */
+/* a:hover                              { } */
+/* a.privacy {font-weight:bold;color:#3a4b59;} */
 
 BODY {
 	margin: 20px 0px 20px 0px;
@@ -123,8 +123,10 @@ color:#000000; padding-bottom:10px;}
 .pageFooter .FooterInfo li.Information {width:580px; font-size:12px; line-height:20px;display:inline-block;
 font-family: 'Spoqa Han Sans', 'Malgun Gothic', Dotum, Gulim, Tahoma, Helvetica, AppleGothic, Helvetica, Sans-serif;color: #808080;}
 .pageFooter .FooterInfo li.Information big {font-size:16px;}
+.pageFooter a, .FooterInfo{color:#808080;}
+
 .pageFooter .FooterInfo li.Information a.BizInfo {display:block; width:100px; height:24px; line-height:22px; border:1px solid #787878; 
-border-radius:3px; text-align:center; margin:5px 0;  text-decoration: none;}
+border-radius:3px; text-align:center; margin:5px 0;  text-decoration: none;color:#808080; }
 
 
 /* -------------------------------------------------------- */
