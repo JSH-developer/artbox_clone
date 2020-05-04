@@ -75,17 +75,14 @@
 				<div class="clear"></div>
                 <section class="item_content_bar">
                     <div class="tabBar">
-                        <span class="on">상품상세</span>
+                        <span>상품상세</span>
                         <span>상품후기(2)</span>
                         <span>상품Q&amp;A(2)</span>
                     </div>
                 </section>
-<<<<<<< HEAD
-
-=======
 				<div class="clear"></div>
->>>>>>> 3a3984e86fd1f5380eadf0162dc47669e3220ef9
-                <section class="item_content on">
+				<article class="warp_content">
+                <section class="item_content">
                     <div class="contentsTopTop">클래식 캔디머신 (베이비핑크)(53008340)</div>
                     <div style="margin: 0 auto; width: 37px; height: 3px; background-color: #000000;"></div>
                     <div class="contentsTopBottom">
@@ -102,6 +99,13 @@
                         <img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503596887597.jpg">
                         <span>Copyright ⓒ ARTBOX ALL rights reserved.</span></div>
             </section>
+            <section class="item_content">
+            상품후
+            </section>
+            <section class="item_content">
+                    QnA
+            </section>
+            </article>
             </div>
 
 
@@ -112,20 +116,44 @@
         <jsp:include page="../inc/bottom.jsp"></jsp:include>
         <!--  푸터 -->
     </div>
-     <script type="text/javascript"> 
-     var currentMenu;
-     var menu = document.querySelectorAll('.tabBar span');
-    
-    function onClick(e){
- 	   if(currentMenu){
-    		currentMenu.classList.remove('on');
-    	};
-    	e.target.classList.add('on');
-    	currentMenu = e.target;
+    <script type="text/javascript">
+    var currentMenu;
+    var menuIcon = document.querySelector('.tabBar');
+    var warp = document.querySelectorAll('.warp_content .item_content');
+   var arrayIcon = document.querySelectorAll('.tabBar span');
+   var currentWarp;
+   
+   
+    function inactivate(){
+   		currentMenu.classList.remove('on');
+   		currentWarp.classList.remove('on');
     };
     
-    menu.addEventListener('click',onClick);
-     </script> 
+   function activate(param){
+   	param.classList.add('on');
+   	currentMenu = param;
+   	for(var i = 0 ; i < arrayIcon.length ; i++){
+   		if(param === arrayIcon[i]){
+   			warp[i].classList.add('on');
+   			currentWarp = warp[i];
+   		}
+   	}
+   }
+    
+   function clickManuHandler(e){
+	   if(currentMenu){
+		   inactivate();   
+   	};
+	   activate(e.target);
+   };
+    
+ 
+    menuIcon.addEventListener('click',clickManuHandler);
+    
+    
+    activate(arrayIcon[0]);
+    
+    </script>
 </body>
 
 </html>
