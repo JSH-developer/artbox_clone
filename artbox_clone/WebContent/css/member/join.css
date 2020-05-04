@@ -1,0 +1,252 @@
+
+html, body {width:100%; margin:0; padding:0;}
+
+body {background-color:#ffffff; position:relative; min-width:320px;}
+
+
+dt {
+  display:table-cell;
+  vertical-align:middle;
+  width: 20%;
+  padding-right:5px;
+}
+dd {
+  display:table-cell;
+  vertical-align:middle;
+  width: 80%;
+  margin: 0;
+}
+
+input[type=password], input[type=tel],
+input[type=text] {width:90%; padding:0 22px; margin:0; line-height:56px; height:56px; color:#777777; font-size:15px; border:0; background-color:#f3f3f3; border-radius:5px;}
+
+input.readonly[type=text] {background-color:#ffffff; border:1px solid #424242; color:#424242;}
+
+input.conInput{display:inline-block; width:70%}
+
+select {display:block; border:1px solid #424242; width:100%; margin:0; height:56px; padding:0 15px; font-size:15px; background-color:#ffffff; background-image:url(/Images/Ver1/Common/select_bg.png); background-repeat:no-repeat; background-size:36px 9px; background-position:center right; border-radius:5px;}
+
+
+.LoginWrap    {width:100%; max-width:600px; margin:50px auto 70px; padding:0;}
+.LoginTitle   {width:100%; text-align:center; color:#000000; line-height:25px; font-size:25px; margin:0 0 30px 0;}
+.LoginComment {display:block; width:100%; font-size:14px; line-height:14px; margin:0 0 14px 0; color:#999999;}
+.LoginInput   {width:100%; margin-bottom:13px;}
+
+.JoinLink {width:100%; height:27px; margin:0 0 32px 0;}
+.JoinLink ul {}
+.JoinLink li {height:27px; line-height:27px; color:#777777; font-size:15px;}
+.JoinLink li.Left  {float:left; text-align:left;}
+.JoinLink li.Right {float:right; text-align:right;}
+.JoinLink li.Right a {color:#777777;}
+.JoinLink li.Right span {margin:0 10px; color:#aaaaaa;}
+
+a.LoginButton {display:block; width:100%; height:56px; line-height:56px; font-size:17px; color:#ffffff; background-color:#000000; font-weight:bold; text-align:center; border:0; border-radius:5px; margin:0 0 30px 0;}
+
+.SnsLoginWrap {width:100%; height:140px; border-top:1px solid #e4e4e4;}
+.SnsLoginWrap.NonMemberLogin {margin:60px 0 0 0; height:45px;}
+.SnsLoginTitle {width:100px; height:15px; line-height:15px; font-size:15px; background-color:#ffffff; margin:-8px auto 23px; text-align:center; color:#7c7c7c;}
+.SnsLoginTitle.NonMemberLogin {width:250px;}
+
+.SnsLoginList {width:280px; height:56px; margin:0 auto;}
+.SnsLoginList ul {}
+.SnsLoginList li {width:70px; height:56px;}
+.SnsLoginList li a {display:block; width:56px; height:56px; margin:0 auto; background-size:56px 56px; background-repeat:no-repeat; background-size:center;}
+.SnsLoginList li a img {width:56px; height:56px;}
+
+
+a.NonMemberButton {display:block; width:100%; height:56px; line-height:56px; font-size:17px; color:#656565; background-color:#ffffff; text-align:center; border:1px solid #656565; border-radius:5px; margin:0;}
+
+.BenefitImage {width:100%; padding:40px 0 0 0; background-image:url(/Images/Ver1/Member/benefit_bg.png); background-repeat:repeat-x; background-size:1px 163px; background-position:bottom;}
+.BenefitImage img {display:block; width:600px; height:163px; margin:0 auto;}
+
+#NonMemberForm {display:none; padding:40px 0 0 0;}
+.NonMemberFormComment {width:100%; font-size:14px; line-height:14px; color:#999999;}
+a.NonMemberOrderDetailButton {display:block; width:100%; height:56px; line-height:56px; font-size:17px; color:#ffffff; background-color:#000000; font-weight:bold; text-align:center; border:0; border-radius:5px; margin:27px 0 0 0;}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - êµ¬ë¶„ì„  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+.JoinCompleteWrap {width:100%; margin:50px auto 60px; padding:0;}
+.JoinCompleteWrap h1  {display:block; width:521px; height:29px; line-height:29px; font-size:29px; color:#000000; font-weight:bold; text-align:center; margin:0 auto; padding:0;}
+.JoinCompleteWrap h2  {display:block; width:521px; height:22px; line-height:22px; font-size:22px; color:#000000; font-weight:normal; text-align:center; margin:14px auto 0; padding:0;}
+.JoinCompleteWrap img {display:block; width:521px; height:598px; margin:30px auto 0; padding:0;}
+.JoinCompleteWrap a   {display:block; width:230px; height:50px; line-height:50px; font-size:16px; color:#ffffff; background-color:#000000; font-weight:bold; text-align:center; border:0; border-radius:5px; margin:30px auto 0;}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - êµ¬ë¶„ì„  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+.JoinWrap {width:100%; margin:50px auto 50px; padding:0;}
+.JoinWrap h1 {display:block; width:680px; height:25px; line-height:25px; font-size:25px; color:#000000; font-weight:normal; text-align:center; margin:0 auto; padding:0;}
+.JoinWrap .JoinForm {width:680px; margin:46px auto 0; padding:0;}
+.JoinWrap .MobileButton {display:none;}
+
+.trJoinSex dt {width:120px; line-height:27px; text-align:left; font-size:16px; color:#646464; padding:0 0 30px 0;}
+.trJoinSex dd {width:*; line-height:27px; text-align:left; font-size:16px; color:#646464; padding:0 0 30px 0;}
+
+.trJoin dt {width:120px; line-height:56px; text-align:left; font-size:16px; color:#646464;}
+.trJoin dd {width:*;}
+
+.trJoin dd.blank  {width:18px; text-align:center; font-size:15px; color:#646464; line-height:56px;}
+.trJoin dd.comment  {vertical-align:middle; text-align:left;  width:73%; color:#9c9c9c; line-height:27px; height:27px; font-size:14px;}
+.trJoin dd.checkbox {vertical-align:middle; text-align:right; width:27%; color:#646464; line-height:27px; height:27px; font-size:14px;}
+.trJoin dd.zipcode  {width:143px; line-height:56px;}
+.trJoin dd.button {display:table-cell; width:143px; padding:0 0 0 15px;}
+.trJoin dd.twoBtn   {width:49%;}
+.trJoin dd.threeBtn {width:32%;}
+.trJoin dd.button a, 
+.trJoin dd.zipcode a {display:block; width:100%; height:56px; line-height:56px; background-color:#424242; text-align:center; color:#ffffff; font-size:16px; border-radius:5px;}
+.trJoin dd.reasonchk {line-height:27px; color:#000000; font-size:17px;}
+.trJoin dd.reasonchk #i_reasonetc {display:none;}
+.trJoin dd.findpw {width:180px;}
+
+.trJoin dt.addinfo {width:180px;}
+
+
+.trJoin p.null  {margin:0; padding:0; height:15px;}
+.trJoin p.green {margin:0; padding:10px 0 16px 19px; height:40px; font-size:14px; text-align:left; color:#28bf0f;}
+.trJoin p.red   {margin:0; padding:10px 0 16px 19px; height:40px; font-size:14px; text-align:left; color:#e71e22;}
+.trJoin p.readonly {display:block; padding:0; text-align:left; margin:0; line-height:56px; height:56px; color:#000000; font-size:15px; border:0; background-color:#ffffff;}
+.trJoin p.comment  {display:block; padding:20px 0; text-align:left; margin:0; line-height:16px; height:auto; color:#9d9d9d; font-size:15px; border:0;}
+
+.trJoin a.PwdModify {display:block; width:164px; padding:0; text-align:center; margin:0; line-height:56px; height:56px; color:#ffffff; font-size:15px; border:0; background-color:#424242; border-radius:5px;}
+.trJoin a.btnCancel {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:54px; height:56px; color:#424242; font-size:21px; border:1px solid #424242; background-color:#ffffff; border-radius:5px;}
+.trJoin a.btnModify {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:56px; height:56px; color:#ffffff; font-size:21px; border:0; background-color:#000000; border-radius:5px; font-weight:bold;}
+
+.trJoin#trMEMID {display:none;}
+
+
+.AddInfoWrap {border-top:1px solid #e4e4e4; border-bottom:1px solid #e4e4e4; margin:34px 0 0 0; padding:14px 0;}
+.AddInfoWrap h2 {display:block; padding:0; margin:0; font-size:19px; line-height:19px; color:#000000; font-weight:normal;}
+.AddInfoWrap h2 a {display:block; float:right; width:18px; height:19px; background-repeat:no-repeat; background-position:center; background-size:18px 10px;}
+.AddInfoWrap h2 a.Open  {background-image:url(/Images/Ver1/Common/pc_arrow_up.png);}
+.AddInfoWrap h2 a.Close {background-image:url(/Images/Ver1/Common/pc_arrow_down.png);}
+.AddInfoWrap h3 {display:block; padding:0; margin:0 0 15px 0; color:#9c9c9c; line-height:14px; font-size:14px; font-weight:normal;}
+h3.MemberModify {display:block; padding:0; margin:0 0 15px 0; color:#9c9c9c; line-height:21px; font-size:14px; font-weight:normal;}
+h3.MemberModify .br {display:inline;}
+
+.AddInfoWrap #SectionAddInfo {display:block;}
+
+.AgreementWrap {padding:33px 0 0 0;}
+.AgreementWrap h2 {display:block; margin:0; font-size:19px; line-height:19px; color:#000000; font-weight:normal; padding:0 0 23px 0;}
+
+.AgreementTable {border:1px solid #424242; border-radius:5px; margin:0 0 34px 0;}
+.AgreementTr {padding:13px 0;}
+.AgreementTr.borderBlack  {border-top:1px solid #000000;}
+.AgreementTr.borderSilver {border-top:1px solid #e4e4e4;}
+
+.AgreementTr h3 {display:block; padding:0 13px; margin:0; font-weight:normal; color:#333333; font-size:17px; line-height:27px;}
+.AgreementTr h4 {display:block; padding:0 13px; margin:0; font-weight:normal; color:#646464; font-size:14px; line-height:27px;}
+
+.AgreementTr h4 a {display:block; float:right; text-align:left; width:50px; height:27px; line-height:27px; font-size:14px; background-repeat:no-repeat; background-position:right center; background-size:16px 9px; color:#6e6e6e;}
+.AgreementTr h4 a.Open  {background-image:url(/Images/Ver1/Member/pc_agree_arrow_up.png?v=1);}
+.AgreementTr h4 a.Close {background-image:url(/Images/Ver1/Member/pc_agree_arrow_down.png?v=1);}
+
+.AgreementText {display:none; padding:14px; width:100%; background-color:#f5f5f5; margin:13px 0 -13px 0;}
+.AgreementText p {font-size:14px; line-height:24px; height:250px; overflow-y:scroll; padding:0; margin:0; color:#aaaaaa; white-space:pre-line;}
+
+a.JoinButton {display:block; width:310px; height:56px; line-height:56px; font-size:22px; color:#ffffff; background-color:#000000; font-weight:bold; text-decoration:none; text-align:center; border:0; border-radius:5px; margin:0 auto;}
+a.conButton {display:inline-block; width:100px; height:56px; line-height:56px; font-size:17px; color:#ffffff; background-color:#8e939e; text-decoration:none; text-align:center; border:0; border-radius:5px; margin:0;}
+
+#JoinCheckBackground {position:fixed; z-index:1600; display:block; top:0; left:0; width:100%; height:100%; background-color:#000000; opacity:0.5;}
+#JoinCheckLayer {width:448px; height:574px; background-color:#ffffff; position:fixed; z-index:1601; display:block; top:50%; left:50%; margin:-287px 0 0 -224px; padding:0 20px;}
+#JoinCheckLayer h1 {display:block; margin:0; padding:19px 0; line-height:20px; font-size:20px; text-align:left; font-weight:normal; color:#000000; border-bottom:1px solid #e4e4e4;}
+#JoinCheckLayer h1 a {display:block; float:right; width:20px; height:20px; background-repeat:no-repeat; background-position:right center; background-size:20px 20px; background-image:url(/Images/Ver1/Member/pc_close.png);}
+#JoinCheckLayer h2 {display:block; margin:0; padding:13px 0 8px; line-height:25px; font-size:17px; text-align:left; font-weight:normal; color:#646464;}
+#JoinCheckLayer h3 {display:block; margin:0; padding:0 0 10px; line-height:20px; font-size:14px; text-align:left; font-weight:normal; color:#b6b6b6;}
+#JoinCheckLayer h4 {display:block; margin:0 0 40px; padding:0; background-color:#f8f8f8;}
+#JoinCheckLayer h4 img {display:block; width:373px; height:65px; margin:0 auto;}
+
+
+.JoinCheckWrap {width:100%; height:140px; border-top:1px solid #e4e4e4;}
+.JoinCheckWrapTitle {width:200px; height:15px; line-height:15px; font-size:15px; background-color:#ffffff; margin:-8px auto 20px; text-align:center; color:#b6b6b6;}
+
+#JoinCheckForm {display:block;}
+#JoinCheckForm a {display:block; width:157px; height:47px; line-height:47px; font-size:18px; color:#ffffff; background-color:#000000; font-weight:bold; text-align:center; border:0; border-radius:5px; margin:8px auto 0;}
+
+#JoinCheckJoinedY {display:none; line-height:26px; font-size:16px; color:#000000; text-align:center; padding:10px 0 0 0;}
+#JoinCheckJoinedY h5 {display:block; line-height:15px; font-size:15px; color:#b6b6b6; text-align:center; font-weight:normal; padding:20px 0 25px; margin:0;}
+#JoinCheckJoinedY a  {display:block; width:157px; height:47px; line-height:47px; font-size:18px; color:#ffffff; background-color:#000000; font-weight:bold; text-align:center; border:0; border-radius:5px; margin:0 auto;}
+#JoinCheckJoinedN {display:none; text-align:center; line-height:15px; font-size:15px; color:#b6b6b6; padding:40px 0 0 0;}
+#JoinCheckJoinedN a {display:block; width:210px; height:47px; line-height:47px; font-size:18px; color:#ffffff; background-color:#000000; font-weight:bold; text-align:center; border:0; border-radius:5px; margin:20px auto 0;}
+
+.SilverBorder {height:30px; width:100%;}
+.SilverBorder p {margin:0; padding:0; width:100%; height:15px; border-bottom:1px solid #e4e4e4;}
+.SilverBorder.paddingBottom {height:45px;}
+
+#MemberModifyWrap {display:block;}
+#PwdModifyWrap    {display:none;}
+#WithdrawWrap     {display:none;}
+
+.trPwd dt {width:175px; line-height:56px; text-align:left; font-size:16px; color:#646464;}
+.trPwd dd {width:*;}
+
+.WithdrawInfo {color:#646464; font-size:14px; line-height:22px; padding:0 0 0 0;}
+.WithdrawInfo a.LeftBtn,
+.WithdrawInfo a.RightBtn {display:inline-block; width:164px; padding:0; text-align:center; margin:14px 10px 24px 0; line-height:46px; height:46px; color:#ffffff; font-size:15px; border:0; background-color:#424242; border-radius:5px;}
+
+.trWithdraw dt {width:170px; text-align:center; font-size:14px; color:#646464; vertical-align:middle;}
+.trWithdraw dd {width:*; text-align:left; font-size:13px; line-height:22px; color:#646464; vertical-align:middle; padding:14px 20px;}
+.trWithdraw .LT {border-top:1px solid #646464; border-right:1px solid #646464; border-bottom:1px solid #646464; border-left:1px solid #646464; border-radius:5px 0 0 0;}
+.trWithdraw .RT {border-top:1px solid #646464; border-right:1px solid #646464; border-bottom:1px solid #646464; border-left-width:0; border-radius:0 5px 0 0;}
+.trWithdraw .LB {border-top-width:0; border-right:1px solid #646464; border-bottom:1px solid #646464; border-left:1px solid #646464; border-radius:0 0 0 5px;}
+.trWithdraw .RB {border-top-width:0; border-right:1px solid #646464; border-bottom:1px solid #646464; border-left-width:0; border-radius:0 0 5px 0;}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - êµ¬ë¶„ì„  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+.ConfirmWrap    {width:100%; max-width:600px; margin:50px auto; padding:0;}
+.ConfirmTitle   {width:100%; text-align:center; color:#000000; line-height:25px; font-size:25px; margin:0 0 45px 0;}
+.ConfirmComment {display:block; width:100%; font-size:14px; line-height:14px; margin:0 0 40px 0; color:#999999;}
+.ConfirmInput   {width:100%; margin-bottom:13px;}
+.ConfirmInput:nth-of-type(2) input[type=text] {border:1px solid #424242; background-color:#ffffff; color:#646464;}
+
+a.ConfirmButton {display:block; width:100%; height:56px; line-height:56px; font-size:18px; color:#ffffff; background-color:#000000; text-align:center; border:0; border-radius:5px; margin:0 0 30px 0;}
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - êµ¬ë¶„ì„  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+.FindIdPwWrap {width:100%; margin:50px auto 60px; padding:0;}
+.FindIdPwWrap h1 {display:block; width:680px; height:25px; line-height:25px; font-size:25px; color:#000000; font-weight:normal; text-align:center; margin:0 auto; padding:0;}
+.FindIdPwWrap .FindIdPwForm {width:680px; margin:46px auto 0; padding:0;}
+
+.FindIdPwTab {border:1px solid #424242; border-radius:5px;}
+.FindIdPwTab a {float:left; display:block; width:50%; text-align:center; height:54px; line-height:54px; font-size:17px;}
+.FindIdPwTab a.On  {background-color:#000000; color:#ffffff; font-weight:normal;}
+.FindIdPwTab a.Off {background-color:transparent; color:#424242; font-weight:normal;}
+
+.FindIdPwForm h2 {width:100%; text-align:left; line-height:25px; font-size:14px; color:#9d9d9d; font-weight:normal; margin:0; padding:14px 0 33px;}
+.FindIdPwForm h2.TabIdText {display:block;}
+.FindIdPwForm h2.TabPwText {display:none;}
+
+.FindIdPwForm #FindInput {display:block;}
+.FindIdPwForm #FindIdResult {display:none;}
+.FindIdPwForm #FindPwResult {display:none;}
+
+.trFindType dd {width:*; line-height:27px; text-align:left; font-size:16px; color:#646464; padding:0 0 15px 0;}
+
+#TableCPNUM {display:table;}
+#TableEMAIL {display:none;}
+#TableSIXNUM {display:none;}
+
+a#TabIdSubmit, a#TabPwSubmit,
+a#TabIdLogin {display:block; width:312px; padding:0; text-align:center; margin:30px auto 0; line-height:56px; height:56px; color:#ffffff; font-size:22px; border:0; background-color:#000000; border-radius:5px; font-weight:bold;}
+a#CallSixNum,
+a#CheckSixNum {display:none; width:100%; padding:0; text-align:center; margin:0 auto 0; line-height:56px; height:56px; color:#ffffff; font-size:16px; border:0; background-color:#424242; border-radius:5px;}
+
+.FindIdResultInner {padding:0;}
+.FindIdResultInner p {display:block; color:#646464; margin:0; padding:0 0 30px 0; text-align:center; font-size:17px; line-height:25px;}
+
+
+.overlay.fullscreen    { display:none; }
+.overlay.fullscreen.on { display:block; position:absolute; top:0; left:0; right:0; bottom:0; background-color:rgba(0,0,0,0.4); z-index:9999; }
+.overlay.inner    { display:none; }
+.overlay.inner.on { display:block; position:fixed; top:20%; left:50%; background-color:#ffffff; padding:52px 30px 37px 30px; z-index:10000; }
+.overlay.inner.on span { display:block; }
+.overlay.inner.on span:nth-child(1) { font-size:27px; color:#000000; line-height:29px; text-align:center; }
+.overlay.inner.on span:nth-child(2) { padding:32px 0 38px 0; text-align:center;  }
+.overlay.inner.on span:nth-child(2) img { width:100%; max-width:131px; }
+.overlay.inner.on span:nth-child(3) { text-align:center; font-size:17px; margin:0 0 37px 0; line-height:25px; color:#7e7c7c; }
+.overlay.inner.on span:nth-child(4) { float:left; width:100px; height:50px; margin:0 15px 0 0; }
+.overlay.inner.on span:nth-child(5) { float:left; width:270px; height:50px; }
+.overlay.inner.on:after { display:block; content:" "; clear:both; }
+
+.overlay.inner.on .overlay_close { padding: 0; border: 0; position:absolute; top:20px; right:20px; width: 20px; height: 20px; background: url(/images/ver1/shop/img_overlay_close.gif) no-repeat center; }
+
+.overlay.inner.on .btnAwaken { font-size:16px; color:#000000; font-weight:bold; margin:0; border:1px solid #000000; border-radius:5px; width:100%; height:100%; padding:0; background-color:#ffffff; }
+.overlay.inner.on .btnGoJoin { font-size:16px; color:#ffffff; font-weight:bold; margin:0; border:1px solid #000000; border-radius:5px; width:100%; height:100%; padding:0; background-color:#000000; }
