@@ -49,7 +49,7 @@
                         </div>
                     </div>
                 </section>
-
+				<div class="clear"></div>
                 <section class="item_another">
                     <span class="text">이 상품의 다른 옵션</span>
                     <div class="another">
@@ -72,7 +72,7 @@
                         </ul>
                     </div>
                 </section>
-
+				<div class="clear"></div>
                 <section class="item_content_bar">
                     <div class="tabBar" id="tabBar">
                         <span>상품상세</span>
@@ -80,8 +80,8 @@
                         <span>상품Q&amp;A(2)</span>
                     </div>
                 </section>
-
-                <section class="item_content">
+				<div class="clear"></div>
+                <section class="item_content on">
                     <div class="contentsTopTop">클래식 캔디머신 (베이비핑크)(53008340)</div>
                     <div style="margin: 0 auto; width: 37px; height: 3px; background-color: #000000;"></div>
                     <div class="contentsTopBottom">
