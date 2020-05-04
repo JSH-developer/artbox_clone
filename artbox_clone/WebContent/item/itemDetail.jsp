@@ -74,14 +74,14 @@
                 </section>
 
                 <section class="item_content_bar">
-                    <div class="tabBar" id="tabBar">
-                        <span>상품상세</span>
+                    <div class="tabBar">
+                        <span class="on">상품상세</span>
                         <span>상품후기(2)</span>
                         <span>상품Q&amp;A(2)</span>
                     </div>
                 </section>
 
-                <section class="item_content">
+                <section class="item_content on">
                     <div class="contentsTopTop">클래식 캔디머신 (베이비핑크)(53008340)</div>
                     <div style="margin: 0 auto; width: 37px; height: 3px; background-color: #000000;"></div>
                     <div class="contentsTopBottom">
@@ -108,21 +108,20 @@
         <jsp:include page="../inc/bottom.jsp"></jsp:include>
         <!--  푸터 -->
     </div>
-    <script type="text/javascript">
-    var currentMenu;
-    var menuIcon = document.querySelectorAll('#tabBar span');
+     <script type="text/javascript"> 
+     var currentMenu;
+     var menu = document.querySelectorAll('.tabBar span');
     
+    function onClick(e){
+ 	   if(currentMenu){
+    		currentMenu.classList.remove('on');
+    	};
+    	e.target.classList.add('on');
+    	currentMenu = e.target;
+    };
     
-    for(var i=0 ; i < menuIcon.length ; i++){
-    	menuIcon[i].addEventListener('click',function(){
-    		if(currentMenu){
-        		currentMenu.classList.remove('on');
-        	}
-        	this.classList.add('on');
-        	currentMenu = this;
-    	});
-    }
-    </script>
+    menu.addEventListener('click',onClick);
+     </script> 
 </body>
 
 </html>
