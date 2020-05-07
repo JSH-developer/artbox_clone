@@ -8,6 +8,19 @@
     <title>ARTBOX(포트폴리오)</title>
     <link href="../css/item/itemDetail.css" rel="stylesheet" type="text/css">
     <link href="../css/front.css" rel="stylesheet" type="text/css">
+	<script src="../js/jquery-3.5.0.js"></script>
+	<script type="text/javascript">
+		$(document).on('click','.tr',function(){
+			if ($(this).parent().find(".ps").hasClass("on"))
+			{
+				$(this).parent().find(".ps").removeClass("on");
+			}
+			else
+			{
+				$(this).parent().find(".ps").addClass("on");
+			}
+		})
+	</script>
 </head>
 
 <body>
@@ -81,7 +94,7 @@
                     </div>
                 </section>
 				<div class="clear"></div>
-				<article class="warp_content">
+<!-- 				<article class="warp_content"> -->
                 <section class="item_content">
                     <div class="contentsTopTop">클래식 캔디머신 (베이비핑크)(53008340)</div>
                     <div style="margin: 0 auto; width: 37px; height: 3px; background-color: #000000;"></div>
@@ -107,7 +120,28 @@
 						<span class="td">2019-12-28</span>
 						<span class="td">besi**</span>
 					</div>
-					<div class="ps on">
+					<div class="ps">
+						<span class="ps_score">10</span>
+						<div class="ps_sub1">
+							<span>기능 ★★★★★</span> <span>디자인 ★★★★★</span> <span>가격 ★★★★★</span> <span>품질 ★★★★★</span>
+						</div>
+						<div class="ps_sub2">평소에 캔디머신을 구매할까 하고 생각했었는데, 대부분 컬러가
+									원색만 있어서 좀 망설여졌었어요. 근데 아트박스에서 너무 예쁜 베이비핑크 컬러로 캔디머신이 나왔기에 냉큼
+									구입했습니다. 생각했던 컬러 그대로라 너무 만족합니다ㅎㅎ 크기도 너무 작지 않아서 좋아요. 그리고 위 아래로
+									통이 분리된다는게 최대 장점입니다. 세척하기도 편하고 용이해서 더 좋아요.</div>
+						<div class="ps_sub3">
+							<img src="http://www.poom.co.kr/Upload2/PostScript/201912/1805300328_0_123034_1.jpg">
+						</div>
+					</div>
+				</div>
+				<div class="table">
+					<div class="tr">
+						<span class="td">★★★★★</span>
+						<span class="td type2">평소에 캔디머신을	구매할까하고 생각했었는데, 대부분 컬러가 원색만 있어...</span>
+						<span class="td">2019-12-28</span>
+						<span class="td">besi**</span>
+					</div>
+					<div class="ps">
 						<span class="ps_score">10</span>
 						<div class="ps_sub1">
 							<span>기능 ★★★★★</span> <span>디자인 ★★★★★</span> <span>가격 ★★★★★</span> <span>품질 ★★★★★</span>
@@ -122,17 +156,68 @@
 					</div>
 				</div>
 				<div class="paging">
-					<div>
-					<a href="javascript:;">	<img class="paging_pc" src="../Images/order/btn_board_prev.gif"> </a>
-					<a href="javascript:;" class="btn_pageon">1</a>
-					<a href="javascript:;"> <img class="paging_pc" src="../Images/order/btn_board_next.gif"> </a>
-					</div>
+					<span class="box">
+						<a href="#"> <img class="opacity" src="../Images/order/btn_board_prev.gif"> </a>
+						<a href="#" class="btn_pageon">1</a>
+						<a href="#" >2</a>
+						<a href="#"> <img class="paging_pc" src="../Images/order/btn_board_next.gif"> </a>
+					</span>
 				</div>
 			</section>
             <section class="item_content">
-                    QnA
+            	<input class="btnProductQnA" type="button" value="Q&amp;A작성">
+				<div class="table">
+					<div class="tr">
+						<span class="td">답변완료</span>
+						<span class="td type2">배송 언제 되나요?</span>
+						<span class="td">2020-04-28</span>
+						<span class="td">saemi03**</span>
+					</div>
+					<div class="ps">
+						<div class="qna">
+							<span>Q</span>
+							운송장번호 조회하면 배송이 완료되었다고 하는데..물건이 오지 않았습니다. 아직 택배가 오지 않은 건지, 혹은 오배송인지 걱정이 되네요.
+						</div>
+						<div class="qna">
+							<span>A</span>
+							고객님 안녕하세요.
+							문의하신 내용 관련하여 [1:1 문의/상담]란에 글 남겨주시어 답변으로 자세한 안내를 드렸습니다.
+							안내드린 답변 참조를 부탁드립니다.
+							감사합니다.
+						</div>
+					</div>
+				</div>
+				<div class="table">
+					<div class="tr">
+						<span class="td">답변완료</span>
+						<span class="td type2">상품문의</span>
+						<span class="td">2020-04-21</span>
+						<span class="td">gmark**</span>
+					</div>
+					<div class="ps">
+						<div class="qna">
+							<span>Q</span>
+							안녕하세요. 저번에 구매했다 작동 불량으로 반품하고 재구매입니다. 상태 정상적인 제품으로 부탁드립니다.
+						</div>
+						<div class="qna">
+							<span>A</span>
+							고객님 안녕하세요,
+							상품 출고시 최대한 하자없는 상품으로 출고를 도와드리고는 있으나 수많은 주문량으로 인해 개별 검수 확인은 어려울 수 있는 점 참조 부탁드리며~
+							상품 수령 후 문제가 있는 경우 구매처 혹은 [고객감동센터 1577-9081]로 문의를 부탁드리겠습니다.
+							감사합니다.
+						</div>
+					</div>
+				</div>
+				<div class="paging">
+					<span class="box">
+						<a href="#"> <img class="opacity" src="../Images/order/btn_board_prev.gif"> </a>
+						<a href="#" class="btn_pageon">1</a>
+						<a href="#" >2</a>
+						<a href="#"> <img class="paging_pc" src="../Images/order/btn_board_next.gif"> </a>
+					</span>
+				</div>
             </section>
-            </article>
+<!--             </article> -->
             </div>
 
 
@@ -146,9 +231,9 @@
     <script type="text/javascript">
     var currentMenu;
     var menuIcon = document.querySelector('.tabBar');
-    var warp = document.querySelectorAll('.warp_content .item_content');
-   var arrayIcon = document.querySelectorAll('.tabBar span');
-   var currentWarp;
+    var warp = document.querySelectorAll('.item_content');
+	var arrayIcon = document.querySelectorAll('.tabBar span');
+	var currentWarp;
    
    
     function inactivate(){
@@ -156,23 +241,23 @@
    		currentWarp.classList.remove('on');
     };
     
-   function activate(param){
-   	param.classList.add('on');
-   	currentMenu = param;
-   	for(var i = 0 ; i < arrayIcon.length ; i++){
-   		if(param === arrayIcon[i]){
-   			warp[i].classList.add('on');
-   			currentWarp = warp[i];
-   		}
-   	}
-   }
+	function activate(param){
+		param.classList.add('on');
+		currentMenu = param;
+		for(var i = 0 ; i < arrayIcon.length ; i++){
+			if(param === arrayIcon[i]){
+				warp[i].classList.add('on');
+				currentWarp = warp[i];
+			}
+		}
+	}
     
-   function clickManuHandler(e){
-	   if(currentMenu){
-		   inactivate();   
-   	};
-	   activate(e.target);
-   };
+	function clickManuHandler(e){
+		if(currentMenu){
+			inactivate();   
+		};
+		activate(e.target);
+	};
     
  
     menuIcon.addEventListener('click',clickManuHandler);
