@@ -229,6 +229,48 @@
 			</div>
 		</section>
 		<!-- </article> -->
+		<section class="btnProductQnALayer on">
+			<form action="#" method="post">
+				<input type="hidden" name="ItemIdx" value="1911110584">
+				<span class="overlay_header">상품문의하기<input class="overlay_close" type="button" value=""></span>
+				<span class="input">
+					<span class="tt">아이디</span>
+					<span class="nm">guest</span>
+					<input type="hidden" name="Id" value="guest"></span>
+				<span class="input">
+					<span class="tt">이메일 주소</span>
+					<input type="text" class="Write" name="Email" value="" maxlength="30">
+					<input type="hidden" name="OrderNumber" value="" readonly="">
+				</span>
+				<span class="input">
+					<span class="tt">문의분야</span>
+					<select name="qnaType">
+						<option value="" selected="selected">선택하세요</option>
+						<option value="01">입고</option>
+						<option value="02">재고</option>
+						<option value="03">기타</option>
+					</select>
+				</span>
+				<span class="input">
+					<span class="tt">제목</span>
+					<input type="text" class="Write" name="Title" value="" maxlength="30">
+				</span>
+				<span class="input">
+					<span class="tt">문의내용</span>
+					<textarea name="strContents"></textarea>
+					<span class="etc">*주문/배송/반품 등 일반 문의는 '고객감동센터 &gt; <span>1:1 문의/상담</span>'으로 해주시기 바랍니다.</span>
+				</span>
+				<div class="PrivacyCheck">
+					<b>개인정보 수집 및 이용에 동의합니다. <input type="checkbox" name="privacycheck1"></b>
+					<p>(주)아트박스에서는 고객상담을 목적으로 개인정보(이름, 휴대폰번호, 이메일)를 수집하며, 수집한 개인정보는 전자상거래 등에서의 소비자보호에 관한 법률에 의거 상담 접수일로부터 3년 또는 5년간 보관 후 파기 합니다. 동의 거부 시 상담이 제한되거나 거부될 수 있습니다.</p>
+					<b>제 3자 정보 제공에 동의합니다. <input type="checkbox" name="privacycheck2"></b>
+					<p>(주)아트박스에서 고객상담을 목적으로 (주)웅진에 개인정보(이름, 휴대폰번호, 이메일)를 제공하며, 제공한 개인정보는 전자상거래 등에서의 소비자보호에 관한 법률에 의거 상담 접수일로 부터 3년 또는 5년간 보관 후 파기 합니다. 동의 거부 시 상담이 제한되거나 거부될 수 있습니다.</p>
+				</div>
+				<span class="button">
+					<input class="btnRegProductQna" type="button" value="등록하기">
+				</span>
+			</form>
+		</section>
 	</div>
 	<!-- 메인 콘텐츠  -->
 
