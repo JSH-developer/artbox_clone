@@ -20,6 +20,7 @@ first
  test 중입니다 - yoora
  
  reset 1
+ push1
  
  </div>
  <!-- 메인 콘텐츠  -->
