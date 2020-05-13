@@ -13,7 +13,7 @@ import action.Action;
 import action.CategoryWriteProAction;
 import vo.ActionForward;
 
-@WebServlet("*.bo")
+@WebServlet("*.do")
 public class AdminFrontController extends HttpServlet {
 
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,7 +31,7 @@ public class AdminFrontController extends HttpServlet {
 //			forward.setRedirect(false); 기본값이라서 생략 가능함
 			forward.setPath("/admin/registCategory.jsp");
 			
-		}else if(command.equals("/CategoryWritePro.bo")) {
+		}else if(command.equals("/CategoryWritePro.do")) {
 			//redirect 방식
 			action = new CategoryWriteProAction();
 			try {
