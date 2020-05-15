@@ -17,7 +17,7 @@
   <a href="#">회원관리</a><br>
  <a href="registProduct.jsp">상품관리</a><br>
  <a href="registCategory.jsp">카테고리 관리</a><br>
- <a href="#">옵션 관리</a><br>
+ <a href="registOption.jsp">옵션 관리</a><br>
  
  </center>
  
