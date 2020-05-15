@@ -15,19 +15,56 @@
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 <script>
+
+/* summernote에서 이미지 업로드시 실행할 함수 */
+function sendFile(file, editor) {
+   // 파일 전송을 위한 폼생성
+	data = new FormData();
+    data.append("uploadFile", file);
+    $.ajax({ // ajax를 통해 파일 업로드 처리
+        data : data,
+        type : "POST",
+        url : "summernote_imageUpload.jsp",
+        cache : false,
+        contentType : false,
+        processData : false,
+        success : function(data) { // 처리가 성공할 경우
+           // 에디터에 이미지 출력
+//         	$(editor).summernote('editor.insertImage', data.url);
+        	var image = $('<img>').attr('src', '' + data.url).attr('style',"width:500px; hieght:500px;"); // 에디터에 img 태그로 저장을 하기 위함
+            $('#summernote').summernote("insertNode", image[0]); // summernote 에디터에 img 태그를 보여줌
+        }
+    });
+};
+
 $(document).ready(function() {
-	 jQuery.noConflict();
-	//여기 아래 부분
-	$('#summernote').summernote({
-		  height: 600,                 // 에디터 높이
-		  minHeight: null,             // 최소 높이
-		  maxHeight: null,             // 최대 높이
-		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-		  lang: "ko-KR",					// 한글 설정
-		  placeholder: '상품에 대한 정보를 입력해주세요'	//placeholder 설정
-          
-	});
+	jQuery.noConflict();
+  $('#summernote').summernote({
+      placeholder: '',
+      height: 600,
+      callbacks: { // 콜백을 사용
+          // 이미지를 업로드할 경우 이벤트를 발생
+		    onImageUpload: function(files, editor, welEditable) {
+			    sendFile(files[0], this);
+			}
+  		},
+      lang: 'ko-KR',
+      toolbar: [
+                  // [groupName, [list of button]]
+                  ['Font Style', ['fontname']],
+                  ['style', ['bold', 'italic', 'underline']],
+                  ['font', ['strikethrough']],
+                  ['fontsize', ['fontsize']],
+                  ['color', ['color']],
+                  ['para', ['paragraph']],
+                  ['height', ['height']],
+                  ['Insert', ['picture']],
+                  ['Insert', ['link']],
+                  ['Misc', ['fullscreen']]
+               ]
+  });
 });
+
 </script>
 
 <!-- registProduct 페이지에 대한 전용 css, 딴 css 필요없음!!!!!! -->
@@ -66,7 +103,7 @@ $(document).ready(function() {
 </table>
 </form>
 </center>
-
+<p><% out.print(request.getRealPath("/upload")); %></p>
 
  <!--  푸터 -->
  <jsp:include page="../inc/bottom.jsp"></jsp:include>
