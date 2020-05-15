@@ -44,8 +44,9 @@ $(document).ready(function() {
 <div class="admin_nav_wrap">
 <ul class="admin_nav">
 	<li><a href="adminHome.jsp">관리자 홈</a></li>
-	<li><a href="#">상품목록</a></li>
- 	<li><a href="#">상품등록</a></li>
+	<li><a href="#">상품 목록</a></li>
+ 	<li><a href="#">상품 등록</a></li>
+ 	<li><a href="#">상품 수정</a></li>
 </ul>
 </div>
 <br>
