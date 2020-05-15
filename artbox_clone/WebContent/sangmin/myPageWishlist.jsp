@@ -1,9 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ARTBOX</title>
-<link href="myPage.css" rel="stylesheet">
+<link href="../css/member/myPage.css" rel="stylesheet">
 <script src="../js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){  
@@ -46,10 +48,10 @@ $(document).ready(function(){
 				<ul>
 					<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '등급혜택보기');"><li
 						class="Tbox1"><span class="GName grade5">SILVER</span> <img
-							class="GImg" src="../img/등급.png" /> <span class="GSee grade5">[등급혜택보기]</span>
+							class="GImg" src="../Images/img/등급.png" /> <span class="GSee grade5">[등급혜택보기]</span>
 					</li></a>
 					<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '꿈캔디 내역');"><li
-						class="Tbox2"><img class="CImg" src="../img/포인트.png" /> <span
+						class="Tbox2"><img class="CImg" src="../Images/img/포인트.png" /> <span
 							class="CCandy">0</span></li></a>
 					<li class="Tbox3">
 						<ul>
@@ -71,31 +73,36 @@ $(document).ready(function(){
 		</div>
 		<div class="MenuBar_Box">
 			<ul>
-				<li onclick="location.href='myPageOrders.html'">주문/배송</li>
-				<li onclick="location.href='myPageRe.html'" class="on">취소/반품/교환</li>
-				<li onclick="location.href='myPageWishlist.html'">위시리스트</li>
-				<li onclick="location.href='myPageQ&A.html'">상품Q&A</li>
-				<li onclick="location.href='myPageQuestion.html'">1:1 문의/상담</li>
+				<li onclick="location.href='myPageOrders.jsp'">주문/배송</li>
+				<li onclick="location.href='myPageRe.jsp'">취소/반품/교환</li>
+				<li onclick="location.href='myPageWishlist.jsp'" class="on">위시리스트</li>
+				<li onclick="location.href='myPageQ&A.jsp'">상품Q&A</li>
+				<li onclick="location.href='myPageQuestion.jsp'">1:1 문의/상담</li>
 			</ul>
 		</div>
 
-
 		<div class="sel_box">
-			<select name="Term">
-				<option value="1" selected>최근 1개월</option>
-				<option value="2">최근 2개월</option>
-				<option value="3">최근 3개월</option>
-				<option value="6">최근 6개월</option>
-
-				<option value="0">직접 입력</option>
-
-			</select>
+			<ul>
+				<li>
+					전체선택
+				</li>
+			</ul>
+		</div>
+		<div class = "sel_box" style="float: right;">
+			<ul>
+				<li style="margin-right: 5px;">
+					선택삭제
+				</li>
+				<li>
+					장바구니
+				</li>
+			</ul>
 		</div>
 
 
 		<div class="clear"></div>
 
-		<div class="noData">주문내역이 없습니다.</div>
+		<div class="noData">위시리스트가 없습니다.</div>
 	</div>
 </body>
 </html>

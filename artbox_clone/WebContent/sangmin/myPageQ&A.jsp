@@ -1,9 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ARTBOX</title>
-<link href="myPage.css" rel="stylesheet">
+<link href="../css/member/myPage.css" rel="stylesheet">
 <script src="../js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){  
@@ -46,10 +48,10 @@ $(document).ready(function(){
 				<ul>
 					<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '등급혜택보기');"><li
 						class="Tbox1"><span class="GName grade5">SILVER</span> <img
-							class="GImg" src="../img/등급.png" /> <span class="GSee grade5">[등급혜택보기]</span>
+							class="GImg" src="../Images/img/등급.png" /> <span class="GSee grade5">[등급혜택보기]</span>
 					</li></a>
 					<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '꿈캔디 내역');"><li
-						class="Tbox2"><img class="CImg" src="../img/포인트.png" /> <span
+						class="Tbox2"><img class="CImg" src="../Images/img/포인트.png" /> <span
 							class="CCandy">0</span></li></a>
 					<li class="Tbox3">
 						<ul>
@@ -71,33 +73,32 @@ $(document).ready(function(){
 		</div>
 		<div class="MenuBar_Box">
 			<ul>
-				<li onclick="location.href='myPageOrders.html'">주문/배송</li>
-				<li onclick="location.href='myPageRe.html'">취소/반품/교환</li>
-				<li onclick="location.href='myPageWishlist.html'">위시리스트</li>
-				<li onclick="location.href='myPageQ&A.html'">상품Q&A</li>
-				<li onclick="location.href='myPageQuestion.html'" class="on">1:1 문의/상담</li>
+				<li onclick="location.href='myPageOrders.jsp'">주문/배송</li>
+				<li onclick="location.href='myPageRe.jsp'">취소/반품/교환</li>
+				<li onclick="location.href='myPageWishlist.jsp'">위시리스트</li>
+				<li onclick="location.href='myPageQ&A.jsp'" class="on">상품Q&A</li>
+				<li onclick="location.href='myPageQuestion.jsp'">1:1 문의/상담</li>
 			</ul>
 		</div>
 
 
-		<select class = "question_left_box">
-			<option value="01" onclick="#">상담분류 전체</option>
-			<option value="02" onclick="#">주문/결제</option>
-			<option value="03" onclick="#">배송</option>
-			<option value="03" onclick="#">취소/반품/교환</option>
-			<option value="03" onclick="#">기타</option>
-		</select>
-		<select class = "question_left_box" style="margin-left: 5px;">
-			<option value="01" onclick="#">진행 상태 전체</option>
-			<option value="02" onclick="#">문의접수</option>
-			<option value="03" onclick="#">답변완료</option>
-		</select>
-		<span class = "question_right_box"onclick="">문의하기</span>
+		<div class="footer_box">
+			<ul>
+				<li>- 고객님이 상품에 대해 남긴 질문과 답변을 확인할 수 있습니다.</li><br>
+				<li>- 작성하신 질문에 대한 답변이 완료된 경우에는 수정할 수 없습니다.</li>
+			</ul>
+		</div>
 		
+		<select class = "qna_box">
+			<option value="01" onclick="#">전체Q&A</option>
+			<option value="02" onclick="#">미 답변Q&A</option>
+			<option value="03" onclick="#">답변 완료Q&A</option>
+		</select>
+
 
 		<div class="clear"></div>
 
-		<div class="noData">주문내역이 없습니다.</div>
+		<div class="noData">등록된 내용이 없습니다.</div>
 	</div>
 </body>
 </html>

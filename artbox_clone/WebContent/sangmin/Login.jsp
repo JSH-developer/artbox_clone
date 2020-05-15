@@ -1,16 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ARTBOX</title>
-<link href="Login.css" rel="stylesheet">
+<link href="../css/member/Login.css" rel="stylesheet">
 <script src="../js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
-		$.ajax('LoginAjax.jsp'{
+// 	$(document).ready(function() {
+// 		$.ajax('LoginAjax.jsp'{
 			
-		});
-	});
+// 		});
+// 	});
 </script>
 </head>
 <body>
@@ -18,7 +20,7 @@
 	<div class="topLogin">
 		<h2>로그인</h2>
 	</div>
-	<div>
+	<div class="top_font">
 		아트박스 통합 멤버십 회원은 한 아이디로 모든 쇼핑몰 로그인이 가능합니다.
 	</div>
 	<form action="#" method="post"  class="IdPass">
@@ -42,10 +44,10 @@
 	간편 로그인
 	</div>
 	<div class="img">
-		<a href=""><img alt="네이버" src="../img/naver.png" style="padding-left: 50px;"></a>
-		<a href=""><img alt="카카오" src="../img/kakao.png"></a>
-		<a href=""><img alt="페이스북" src="../img/facebook.png"></a>
-		<a href=""><img alt="구글" src="../img/google.png"></a>
+		<a href=""><img alt="네이버" src="../Images/img/naver.png" style="padding-left: 50px;"></a>
+		<a href=""><img alt="카카오" src="../Images/img/kakao.png"></a>
+		<a href=""><img alt="페이스북" src="../Images/img/facebook.png"></a>
+		<a href=""><img alt="구글" src="../Images/img/google.png"></a>
 	</div>
 	<form action="" method="post">
 		<a href="#" class="nonMemberButton">비회원 주문/배송 조회하기</a>

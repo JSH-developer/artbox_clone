@@ -7,7 +7,7 @@
 @media (min-width:382px) and (max-width:404px) {html{font-size:17px;}}
 @media (min-width:405px) and (max-width:426px) {html{font-size:18px;}}
 @media (min-width:427px) and (max-width:449px) {html{font-size:19px;}}
-@media (min-width:450px) and (max-width:471px) {html{font-size:20px;}}
+@media (min-width:450p0x) and (max-width:471px) {html{font-size:20px;}}
 @media (min-width:472px) and (max-width:494px) {html{font-size:21px;}}
 @media (min-width:495px) and (max-width:516px) {html{font-size:22px;}}
 @media (min-width:517px) and (max-width:539px) {html{font-size:23px;}}
@@ -251,12 +251,21 @@ input[type=button]{cursor:pointer;}
 	
 
  .MenuBar_Box { margin-bottom:1.875rem; }
- .MenuBar_Box li { cursor:pointer; text-align:center; font-size:0.8125rem; color:#999999; background-color:#f4f4f4; border-left:1px solid #000000; border-top:1px solid #000000; border-bottom:0; border-right:0; width:33.3%; height:2.3125rem; line-height:2.3125rem; }
+ .MenuBar_Box li { cursor:pointer; text-align:center; font-size:0.8125rem; color:#999999; background-color:#f4f4f4; border-left:1px solid #000000; border-top:1px solid #000000; border-bottom:0; border-right:0; width:80%; height:2.3125rem; line-height:2.3125rem; margin: 0 115px;}
  .MenuBar_Box li.on { color:#000000; background-color:#ffffff; }
- .MenuBar_Box li:nth-child(1) { border-radius:5px 0 0 0; }
- .MenuBar_Box li:nth-child(3) { border-radius:0 5px 0 0; border-right:1px solid #000000; }
- .MenuBar_Box li:nth-child(4) { border-radius:0 0 0 5px; border-bottom:1px solid #000000; line-height:2.25rem;}
- .MenuBar_Box li:nth-child(5) { border-radius:0; border-right:0; border-bottom:1px solid #000000; line-height:2.25rem;}
- .MenuBar_Box li:nth-child(6) { cursor:default; border-radius:0 0 5px 0; border-right:1px solid #000000; border-bottom:1px solid #000000; }
+ .MenuBar_Box li:nth-child(1) { border-radius:5px 5px 0 0; border-right:  1px solid #000;}
+ .MenuBar_Box li:nth-child(2) { border-right:1px solid #000; border-bottom: 0;}
+ .MenuBar_Box li:nth-child(3) { border-right:1px solid #000; line-height:2.25rem;}
+ .MenuBar_Box li:nth-child(4) { border-right:1px solid #000; line-height:2.25rem;}
+ .MenuBar_Box li:nth-child(5) { border-radius:0 0 5px 5px; border-right:1px solid #000000; border-bottom:1px solid #000000; }
+ 
+ .body_box .question_left_box{margin-left: 115px; }
+ .body_box .question_right_box{margin-right: 125px;}
+ .body_box .footer_box{margin-left: 115px;}
+ .body_box .qna_box{margin-right: 125px;}
+ .body_box .sel_box li:nth-child(1) {margin-left: 115px;}
+ .body_box .sel_box li:nth-child(2),li:nth-child(2) {margin-right: 125px;}
+ .body_box .sel_box select{margin-left: 115px;}
+ 
 }
 	 
