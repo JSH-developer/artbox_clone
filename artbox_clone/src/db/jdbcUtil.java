@@ -10,11 +10,13 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import dao.AdminDAO;
+
 public class jdbcUtil {
 	// DB 관련 기본 기능 (연결, 자원반환, commit, rollback 등)을 담당하는 클래스
 	// 1. DBCP 기능을 활용한 Connection 객체 가져오는 메서드 getConnection()
 	
-	public Connection getConnection() {
+	public static Connection getConnection() {
 		Connection con =null;
 		
 		try {
@@ -37,7 +39,7 @@ public class jdbcUtil {
 	
 	// 메서드 오버로딩을 활용하여 Connection, PreparedStatement, ResultSet 객체 자원 반환 구현
 	
-	public void close(Connection con) {
+	public static void close(Connection con) {
 		try {
 			con.close();
 		} catch (SQLException e) {
@@ -45,7 +47,7 @@ public class jdbcUtil {
 		}
 	}
 	
-	public void close(PreparedStatement pstmt) {
+	public static void close(PreparedStatement pstmt) {
 		try {
 			pstmt.close();
 		} catch (SQLException e) {
@@ -53,7 +55,7 @@ public class jdbcUtil {
 		}
 	}
 	
-	public void close(ResultSet rs) {
+	public static void close(ResultSet rs) {
 		try {
 			rs.close();
 		} catch (SQLException e) {
@@ -62,7 +64,7 @@ public class jdbcUtil {
 	}
 	
 	// Auto Commit 해제로 인해 Commit, Rollback 기능을 수행하는 각각의 메서드 정의
-	public void commit(Connection con) {
+	public static void commit(Connection con) {
 		try {
 			con.commit();
 		} catch (SQLException e) {
@@ -70,7 +72,7 @@ public class jdbcUtil {
 		}
 	}
 
-	public void rollback(Connection con) {
+	public static void rollback(Connection con) {
 		try {
 			con.rollback();
 		} catch (SQLException e) {

@@ -9,8 +9,14 @@ public class CategoryWriteProAction implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		ActionForward forward = null;
+		
+		
+		
+		
+		
+		
+		return forward;
 	}
 
 }
