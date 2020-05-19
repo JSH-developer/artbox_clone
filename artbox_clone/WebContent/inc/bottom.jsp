@@ -21,11 +21,11 @@
 			</li>
 			<li class="Facebook">
 				<a href="https://www.facebook.com/artbox.kr.official/" target="_blank" title="페이스북" onclick="GA_event('FOOT', '최하단 메뉴 PC', '페이스북');">
-				<img src="../Images/common/facebook.png"></a>
+				<img src="${pageContext.request.contextPath}/Images/common/facebook.png"></a>
 			</li>
 			<li class="Instagram">
 				<a href="https://www.instagram.com/artbox_kr_official/" target="_blank" title="인스타그램" onclick="GA_event('FOOT', '최하단 메뉴 PC', '인스타그램');">
-				<img src="../Images/common/instagram.png"></a>
+				<img src="${pageContext.request.contextPath}/Images/common/instagram.png"></a>
 			</li>
 		</ul>
 		<div class="clear"></div>
@@ -43,9 +43,9 @@
 			</li>
 			<li class="TwoButton">
 				<a href="/Home/Cscenter/FaqList.asp" onclick="GA_event('FOOT', '최하단 메뉴 PC', '자주하는 질문');">
-				<img src="../Images/common/footer_btn1.png">자주하는 질문</a>
+				<img src="${pageContext.request.contextPath}/Images/common/footer_btn1.png">자주하는 질문</a>
 				<a href="/Home/Cscenter/Enquiry.asp" onclick="GA_event('FOOT', '최하단 메뉴 PC', '1:1 문의/상담');">
-				<img src="../Images/common/footer_btn2.png">1:1 문의/상담</a>
+				<img src="${pageContext.request.contextPath}/Images/common/footer_btn2.png">1:1 문의/상담</a>
 			</li>
 
 		<li class="Infomation">

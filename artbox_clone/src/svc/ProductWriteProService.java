@@ -14,11 +14,11 @@ public class ProductWriteProService {
 	public boolean registProduct(ProductBean pb) {
 		boolean isRegistSuccess = false;
 		
-		AdminDAO adao = AdminDAO.getInstance();
+		AdminDAO adminDAO = AdminDAO.getInstance();
 		Connection con = getConnection();
-		adao.setConnection(con);
+		adminDAO.setConnection(con);
 		
-		int registCount = adao.regProduct(pb);
+		int registCount = adminDAO.regProduct(pb);
 		
 		if(registCount>0) {
 			commit(con);

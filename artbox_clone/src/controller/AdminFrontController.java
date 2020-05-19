@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.CategoryWriteProAction;
+import action.ProductViewProAction;
 import action.ProductWriteProAction;
 import vo.ActionForward;
 
@@ -36,7 +37,6 @@ public class AdminFrontController extends HttpServlet {
 			forward.setPath("/admin/registCategory.jsp");
 			
 		}else if(command.equals("/CategoryWritePro.admin")) {
-			//redirect 방식
 			action = new CategoryWriteProAction();
 			try {
 				forward = action.execute(request, response);
@@ -48,8 +48,14 @@ public class AdminFrontController extends HttpServlet {
 			forward.setPath("/admin/registProduct.jsp");
 			
 		}else if(command.equals("/ProductWritePro.admin")) {
-			//redirect 방식
 			action = new ProductWriteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/ProductViewForm.admin")) {
+			action = new ProductViewProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
