@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <title>ARTBOX(포트폴리오)</title>
@@ -20,13 +19,19 @@
 				$(this).parent().find(".ps").addClass("on");
 			}
 		})
+		$(document).on('click','.btnProductQnA',function(){
+			$(".fullscreen").addClass("on");
+		})
+		$(document).on('click','.overlay_close',function(){
+			$(".fullscreen").removeClass("on");
+		})
 	</script>
 </head>
 
 <body>
 	<!-- 헤더 -->
 	<jsp:include page="../inc/top.jsp"></jsp:include>
-	<!-- 헤더 -->
+	<!-- /헤더 -->
 
 	<!-- 메인 콘텐츠  -->
 	<div class="wrap">
@@ -127,6 +132,7 @@
 			</div>
 		</section>
 		<section class="item_content">
+			<input class="btnProductReview" type="button" value="후기작성" onclick="location.href='itemReview.jsp'">
 			<div class="table">
 				<div class="tr">
 					<span class="td">★★★★★</span>
@@ -229,18 +235,17 @@
 			</div>
 		</section>
 		<!-- </article> -->
-		<section class="btnProductQnALayer on">
+		<section class="fullscreen">
 			<form action="#" method="post">
-				<input type="hidden" name="ItemIdx" value="1911110584">
+			<div class="qna_overlay">
+				<input type="hidden" name="product_code" value="xxxxxxxx">
 				<span class="overlay_header">상품문의하기<input class="overlay_close" type="button" value=""></span>
 				<span class="input">
 					<span class="tt">아이디</span>
-					<span class="nm">guest</span>
-					<input type="hidden" name="Id" value="guest"></span>
+					&nbsp;&nbsp;&nbsp;guest<input type="hidden" name="Id" value="guest"></span>
 				<span class="input">
 					<span class="tt">이메일 주소</span>
-					<input type="text" class="Write" name="Email" value="" maxlength="30">
-					<input type="hidden" name="OrderNumber" value="" readonly="">
+					<input type="text" name="Email" value="" maxlength="30">
 				</span>
 				<span class="input">
 					<span class="tt">문의분야</span>
@@ -253,12 +258,12 @@
 				</span>
 				<span class="input">
 					<span class="tt">제목</span>
-					<input type="text" class="Write" name="Title" value="" maxlength="30">
+					<input type="text" name="Title" value="" maxlength="30">
 				</span>
 				<span class="input">
 					<span class="tt">문의내용</span>
 					<textarea name="strContents"></textarea>
-					<span class="etc">*주문/배송/반품 등 일반 문의는 '고객감동센터 &gt; <span>1:1 문의/상담</span>'으로 해주시기 바랍니다.</span>
+					<span class="etc">*주문/배송/반품 등 일반 문의는 '고객감동센터 &gt; 1:1 문의/상담'으로 해주시기 바랍니다.</span>
 				</span>
 				<div class="PrivacyCheck">
 					<b>개인정보 수집 및 이용에 동의합니다. <input type="checkbox" name="privacycheck1"></b>
@@ -269,14 +274,16 @@
 				<span class="button">
 					<input class="btnRegProductQna" type="button" value="등록하기">
 				</span>
+				<div class="clear"></div>
+			</div>
 			</form>
 		</section>
 	</div>
-	<!-- 메인 콘텐츠  -->
+	<!-- /메인 콘텐츠  -->
 
 	<!--  푸터 -->
 	<jsp:include page="../inc/bottom.jsp"></jsp:include>
-	<!--  푸터 -->
+	<!--  /푸터 -->
 	<script type="text/javascript">
     var currentMenu;
     var menuIcon = document.querySelector('.tabBar');
