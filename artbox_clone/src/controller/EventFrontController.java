@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import action.CategoryWriteProAction;
 import action.CouponWriteProAction;
+import action.MypageCouponListAction;
 import action.ProductViewProAction;
 import action.ProductWriteProAction;
 import vo.ActionForward;
@@ -39,6 +40,14 @@ public class EventFrontController extends HttpServlet {
 		}else if(command.equals("/CouponWritePro.event")) {
 			System.out.println("/CouponWritePro.event");
 			action = new CouponWriteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/MypageCouponList.event")) {
+			System.out.println("/MypageCouponList.event");
+			action = new MypageCouponListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

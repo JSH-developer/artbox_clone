@@ -3,12 +3,14 @@ package svc;
 import static db.jdbcUtil.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import dao.CouponDAO;
 import vo.CouponBean;
 
 public class CouponService {
 
+	// 쿠폰 등록
 	public boolean registCoupon(CouponBean couponBean) {
 		System.out.println("BoardWriteProService - registArticle()");
 		
@@ -47,6 +49,22 @@ public class CouponService {
 		
 		
 		return isRegistSuccess;
+	}
+
+	// 마이페이지에서 쿠폰 불러오기
+	public int getcouponlist(String id) {
+		int isSuccess = 0;
+		
+		Connection con = getConnection();
+		
+		CouponDAO couponDAO  = CouponDAO.getInstance();
+		
+		couponDAO.setConnection(con);
+		
+		ArrayList<CouponBean> listCount = couponDAO.selectCouponlist(id);
+		
+		
+		return isSuccess;
 	}
 
 	

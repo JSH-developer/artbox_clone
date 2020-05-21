@@ -1,5 +1,6 @@
 package action;
 
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -59,6 +60,13 @@ public class CouponWriteProAction implements Action {
 			
 			
 		}else {
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>"); // 자바스크립트 시작 태그
+			out.println("alert('쿠폰 등록 실패!')"); // 다이얼로그 메세지 출력
+//			out.println("history.back()"); // 이전 페이지로 돌아가기
+			out.println("</script>"); // 자바스크립트 끝 태그
+			
 			forward = new ActionForward();
 			forward.setRedirect(true);
 			forward.setPath("registCouponWrite.event");

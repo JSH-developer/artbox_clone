@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,6 +62,10 @@
 		<span onclick="javascript:location.href='/Home/MyPage/MyPageInsertCoupon.asp';">쿠폰 등록하기</span>
 	</div>
 
+
+
+<%-- <c:set var="num" value="100"></c:set> --%>
+<c:out value="${num}" default="0"></c:out>
 
 
 	<div class="coupon_tab on">온라인 전용 쿠폰 (2장)</div>
