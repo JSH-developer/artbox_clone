@@ -5,22 +5,20 @@
 <head>
 <meta charset="UTF-8">
  <title>ARTBOX(포트폴리오)</title>
-<link href="css/front.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 </head>
 <body>
  <!-- 헤더 -->
     <jsp:include page="/inc/top.jsp"></jsp:include>
  <!-- 헤더 -->
  
- <center>
+ <div class="pageContent">
  <h1> 관리자 페이지</h1>
   <a href="#">회원관리</a><br>
  <a href="ProductWriteForm.admin">상품관리</a><br>
- <a href="registCategory.jsp">카테고리 관리</a><br>
+ <a href="CategoryWriteForm.admin">카테고리 관리</a><br>
  <a href="registOption.jsp">옵션 관리</a><br>
- 
- </center>
- 
+ </div>
  
 <!--  푸터 -->
 	<jsp:include page="/inc/bottom.jsp"></jsp:include>

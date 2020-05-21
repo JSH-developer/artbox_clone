@@ -13,8 +13,8 @@ public class ProductBean {
 	private int product_stock_count;
 	private int product_sale_price;
 	private Timestamp product_regdate;
-	private int product_category_num;
-	private int product_option_num;
+	private String product_category_code;
+	private String product_option_code;
 	
 	public int getProduct_num() {
 		return product_num;
@@ -76,21 +76,17 @@ public class ProductBean {
 	public void setProduct_regdate(Timestamp product_regdate) {
 		this.product_regdate = product_regdate;
 	}
-	public int getProduct_category_num() {
-		return product_category_num;
+	public String getProduct_category_code() {
+		return product_category_code;
 	}
-	public void setProduct_category_num(int product_category_num) {
-		this.product_category_num = product_category_num;
+	public void setProduct_category_code(String product_category_code) {
+		this.product_category_code = product_category_code;
 	}
-	public int getProduct_option_num() {
-		return product_option_num;
+	public String getProduct_option_code() {
+		return product_option_code;
 	}
-	public void setProduct_option_num(int product_option_num) {
-		this.product_option_num = product_option_num;
+	public void setProduct_option_code(String product_option_code) {
+		this.product_option_code = product_option_code;
 	}
-	
-	
-	
-	
 
 }

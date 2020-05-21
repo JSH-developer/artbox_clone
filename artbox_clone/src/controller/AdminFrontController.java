@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.CategoryWriteProAction;
+import action.ProductListProAction;
 import action.ProductViewProAction;
 import action.ProductWriteProAction;
 import vo.ActionForward;
@@ -26,7 +27,7 @@ public class AdminFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		if(command.equals("/Home.admin")) {
+		if(command.equals("/Home.admin")) { // 관리자 페이지 메인화면
 			forward = new ActionForward();
 			forward.setPath("/admin/adminHome.jsp");
 		}else if(command.equals("/CategoryWriteForm.admin")) {
@@ -43,18 +44,25 @@ public class AdminFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/ProductWriteForm.admin")) {
+		}else if(command.equals("/ProductWriteForm.admin")) { // 상품 등록 페이지
 			forward = new ActionForward();
 			forward.setPath("/admin/registProduct.jsp");
 			
-		}else if(command.equals("/ProductWritePro.admin")) {
+		}else if(command.equals("/ProductWritePro.admin")) { // 상품 등록 수행
 			action = new ProductWriteProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/ProductViewForm.admin")) {
+		}else if(command.equals("/ProductList.admin")) { // 상품 리스트 페이지
+			action = new ProductListProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/ProductView.admin")) { // 상품 보기 페이지
 			action = new ProductViewProAction();
 			try {
 				forward = action.execute(request, response);

@@ -11,11 +11,19 @@
 
 <h1>view</h1>
 <%
-	int product_num = Integer.parseInt(request.getParameter("product_num"));
+	
 	ProductBean productBean = (ProductBean)request.getAttribute("productBean");
 %>
-상품 이름 : <%=productBean.getProduct_name() %>
-
+상품 번호 : <%=productBean.getProduct_num() %><br>
+상품 카테고리 : <%=productBean.getProduct_category_code() %><br>
+상품 옵션 : <%=productBean.getProduct_option_code() %><br>
+상품 이름 : <%=productBean.getProduct_name() %><br>
+상품 코드 : <%=productBean.getProduct_code() %><br>
+상품 대표 이미지 : <%=productBean.getProduct_image() %><br>
+상품 상세 : <%=productBean.getProduct_description() %><br>
+상품 가격 : <%=productBean.getProduct_price() %><br>
+상품 세일 가격 : <%=productBean.getProduct_sale_price() %><br>
+상품 재고수량 : <%=productBean.getProduct_stock_count() %><br>
 
 </body>
 </html>

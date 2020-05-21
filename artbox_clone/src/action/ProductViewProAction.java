@@ -19,8 +19,9 @@ public class ProductViewProAction implements Action{
 		ProductViewProService productViewProService = new ProductViewProService();
 		productBean = productViewProService.infoProduct(product_num);
 		request.setAttribute("productBean", productBean);
+		request.setAttribute("product_num", product_num);
 		
-		forward.setPath("/admin/viewProduct.jsp?product_num="+product_num);
+		forward.setPath("/admin/viewProduct.jsp");
 		return forward;		
 	}
 
