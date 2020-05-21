@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ARTBOX(포트폴리오)</title>
-<link href="../css/front.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 <!-- <link href="../css/order/Common.css" rel="stylesheet" type="text/css"> -->
-<link href="../css/order/Order.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="../js/jquery-3.5.0.js"></script>
+<link href="${pageContext.request.contextPath}/css/order/Order.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -79,6 +80,10 @@ function change () {
 </script>
 </head>
 <body>
+
+<%-- String id = ${param.id } --%>
+<% String member_id = "yoora"; %>
+<% int product_num = 1; %>
 <div class="page">
 <!-- 헤더 -->
 <jsp:include page="../inc/top.jsp"></jsp:include>
@@ -89,16 +94,19 @@ function change () {
  <form name="Cart" method="post">
 
 <div class="CartWrap">
-
+<c:set var="cartList" value="${requestScope.cartList }" />
+<c:choose>
+  <c:when test="${empty cartList }">
 <!-- 장바구니가 비었을 때 -->
-<!-- 	<h1>장바구니 터엉~</h1> -->
-<!-- 	<div class="CartEmpty"> -->
-<!-- 		<span class="EmptyImage"><img src="../Images/order/cart_empty_pc.png"></span> -->
-<!-- 		장바구니에 담긴 상품이 없습니다.<br /> -->
-<!-- 		관심있는 상품을 담아보세요. -->
-<!-- 		<a href="../home/home">쇼핑하러 가기</a> -->
-<!-- 	</div> -->
-
+	<h1>장바구니 터엉~</h1>
+	<div class="CartEmpty">
+		<span class="EmptyImage"><img src="../Images/order/cart_empty_pc.png"></span>
+		장바구니에 담긴 상품이 없습니다.<br />
+		관심있는 상품을 담아보세요.
+		<a href="../home/home">쇼핑하러 가기</a>
+	</div>
+  </c:when>
+  <c:otherwise>
 <!-- 장바구니에 물건이 있을 때 -->
 	<h1>장바구니</h1>
 	
@@ -136,7 +144,7 @@ function change () {
 								25,000원 X 1개 = 25,000원
 								</div>
 							</dd>
-							<dd class="tdDelete"><a class="CartButtonX" href="javascript:fnCartOne('QTY','3318798',0,0);"><img src="../Images/order/cart_x.png"></a></dd>
+							<dd class="tdDelete"><a class="CartButtonX" href="javascript:fnCartOne('QTY','3318798',0,0);"><img src="${pageContext.request.contextPath}/Images/order/cart_x.png"></a></dd>
 						</dl>
 					</div>
 					<div class="tableDiv">
@@ -200,8 +208,8 @@ function change () {
 </div>
 
 </form>
- 
- 
+  </c:otherwise>
+</c:choose> 
  
  <!-- 메인 콘텐츠  -->
  

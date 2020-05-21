@@ -10,8 +10,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import dao.AdminDAO;
-
 public class jdbcUtil {
 	// DB 관련 기본 기능 (연결, 자원반환, commit, rollback 등)을 담당하는 클래스
 	// 1. DBCP 기능을 활용한 Connection 객체 가져오는 메서드 getConnection()

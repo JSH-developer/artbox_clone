@@ -5,28 +5,27 @@
 <head>
 <meta charset="UTF-8">
 <title>ARTBOX(포트폴리오)</title>
-<link href="../css/front.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div class="page">
 <!-- 헤더 -->
-<jsp:include page="../inc/top.jsp"></jsp:include>
+<jsp:include page="/inc/top.jsp"></jsp:include>
 <!-- 헤더 -->
 
  <!-- 메인 콘텐츠  -->
  <div class="pageContent">
-first
+
+ <h2><a href="CouponWriteForm.event">쿠폰 등록 페이지</a></h2>
  
- test 중입니다 - yoora
  
  
  </div>
  <!-- 메인 콘텐츠  -->
  
 <!--  푸터 -->
- <jsp:include page="../inc/bottom.jsp"></jsp:include>
+ <jsp:include page="/inc/bottom.jsp"></jsp:include>
 <!--  푸터 -->
 </div>
 </body>
 </html>
-commit test1
