@@ -53,6 +53,13 @@
 <p><% out.print(request.getRealPath("/upload")); %></p>
 <!-- /쿠폰 등록 -->
 
+
+
+
+
+
+
+
 <!-- 쿠폰 리스트 -->
 	<div class="coupon_tab on">온라인 전용 쿠폰 (2장)</div>
 				<div class="coupon_box">
