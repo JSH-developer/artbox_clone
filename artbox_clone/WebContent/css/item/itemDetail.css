@@ -24,18 +24,68 @@ a:link, a:visited, a:active, a:hover {
 .iteminfo {
     min-height: 500px;
 }
-.iteminfo .slideimg{
+.img_left_btn{
+	position: relative;
+	width: 100px;
+	height: 100px;
+	background-color: red;
+	z-index: 99;
+	display: inline-block;
+	right: 515px;
+	top: 250px;
+}
+.img_left_btn::after{
+	content: '';
+	position: absolute;
+	border-right: 5px solid black;
+	border-bottom: 5px solid black;
+	width: 40px;
+	height: 40px;
+	right: 20px;
+	top: 30px;
+	transform: rotate(135deg);
+}
+.img_right_btn::after{
+	content: '';
+	position: absolute;
+	border-right: 5px solid black;
+	border-bottom: 5px solid black;
+	width: 40px;
+	height: 40px;
+	right: 40px;
+	top: 30px;
+	transform: rotate(-45deg);
+}
+.img_right_btn{
+	position: relative;
+	width: 100px;
+	height: 100px;
+	background-color: red;
+	z-index: 99;
+	display: inline-block;
+	right: 250px;
+	top: 250px;
+}
+.iteminfo .slidebar{
 	border-right: 1px solid #e4e4e4;
     width:530px;
+    height:	550px;
     float: left;
+    overflow: hidden;
+    z-index: 0;
 }
-.iteminfo .slideimg ul{
+.iteminfo .slideimg{
+	position:relative;
+	width: 1500px;
+	top: 0;
+	left: 0;
     list-style:none;
     padding: 0;
     margin: 0;
 }
-.iteminfo .slideimg ul img{
-    max-width: 500px;
+.slideimg img{
+    width: 500px;
+    height: 550px;
 }
 .iteminfo .inner{
     width: 630px;

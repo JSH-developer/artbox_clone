@@ -62,10 +62,43 @@
 
 
 	<div class="coupon_tab on">온라인 전용 쿠폰 (2장)</div>
-	<div class="coupon_box">	<div class="detail_tab">보너스 쿠폰 (1장)</div>		<div class="CouponList">			<ul> 				<li> 					<div class="CouponImage">						<img src="http://www.poom.co.kr/Images/Ver2/Mypoom/sale2000.jpg">					</div> 					<div class="CouponName" title="가입회원 2000원 할인 쿠폰">가입회원 2000원 할인 쿠폰</div>						<div class="CouponInfo">							<span>2020-05-14 ~ 2020-06-30</span><span>30,000원 이상 구매 시</span>					</div> 				</li> 			</ul>		</div> 	<div class="detail_tab">무료배송 쿠폰 (1장)</div>		<div class="CouponList">			<ul> 				<li> 					<div class="CouponImage">						<img src="http://www.poom.co.kr/Images/Ver2/Mypoom/sale13.jpg">					</div> 					<div class="CouponName" title="가입회원 무료배송쿠폰">가입회원 무료배송쿠폰</div>						<div class="CouponInfo">							<span>2020-05-14 ~ 2020-06-30</span><span>20,000원 이상 구매 시</span>					</div> 				</li> 			</ul>		</div> </div> 
+				<div class="coupon_box">
+					<div class="detail_tab">보너스 쿠폰 (1장)</div>
+					<div class="CouponList">
+						<ul>
+							<li>
+								<div class="CouponImage">
+									<img
+										src="http://www.poom.co.kr/Images/Ver2/Mypoom/sale2000.jpg">
+								</div>
+								<div class="CouponName" title="가입회원 2000원 할인 쿠폰">가입회원
+									2000원 할인 쿠폰</div>
+								<div class="CouponInfo">
+									<span>2020-05-14 ~ 2020-06-30</span><span>30,000원 이상 구매 시</span>
+								</div>
+							</li>
+						</ul>
+					</div>
+					
+					
+					<div class="detail_tab">무료배송 쿠폰 (1장)</div>
+					<div class="CouponList">
+						<ul>
+							<li>
+								<div class="CouponImage">
+									<img src="http://www.poom.co.kr/Images/Ver2/Mypoom/sale13.jpg">
+								</div>
+								<div class="CouponName" title="가입회원 무료배송쿠폰">가입회원 무료배송쿠폰</div>
+								<div class="CouponInfo">
+									<span>2020-05-14 ~ 2020-06-30</span><span>20,000원 이상 구매 시</span>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
 
 
-	<div class="coupon_tab on">매장 전용 쿠폰 (0장)</div>
+				<div class="coupon_tab on">매장 전용 쿠폰 (0장)</div>
 	
 	<div class="coupon_box nocoupon">보유한 쿠폰이 없습니다.</div>
 	

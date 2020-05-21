@@ -37,10 +37,15 @@
 	<div class="wrap">
 		<section class="iteminfo">
 			<form action="#" method="post">
-				<div class="slideimg">
-					<ul>
-						<li><img src=detail1.jpg></li>
-					</ul>
+			<span class="img_left_btn"></span>
+				<span class="img_right_btn"></span>
+				<div class="slidebar">
+				
+					<div class="slideimg">
+						<img src=detail1.jpg>
+						<img src=detail1.jpg>
+						<img src=detail1.jpg>
+					</div>				
 				</div>
 				<div class="inner">
 					<div class="pdtName">클래식 캔디머신 (베이비핑크)(53008340)</div>
@@ -132,8 +137,9 @@
 			</div>
 		</section>
 		<section class="item_content">
+			<div class="item_review">
 			<input class="btnProductReview" type="button" value="후기작성" onclick="location.href='itemReview.jsp'">
-			<div class="table">
+		<div class="table">
 				<div class="tr">
 					<span class="td">★★★★★</span>
 					<span class="td type2">평소에 캔디머신을 구매할까하고 생각했었는데, 대부분 컬러가 원색만 있어...</span>
@@ -155,28 +161,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="table">
-				<div class="tr">
-					<span class="td">★★★★★</span>
-					<span class="td type2">평소에 캔디머신을 구매할까하고 생각했었는데, 대부분 컬러가 원색만 있어...</span>
-					<span class="td">2019-12-28</span>
-					<span class="td">besi**</span>
-				</div>
-				<div class="ps">
-					<span class="ps_score">10</span>
-					<div class="ps_sub1">
-						<span>기능 ★★★★★</span> <span>디자인 ★★★★★</span> <span>가격 ★★★★★</span> <span>품질 ★★★★★</span>
-					</div>
-					<div class="ps_sub2">평소에 캔디머신을 구매할까 하고 생각했었는데, 대부분 컬러가 원색만
-						있어서 좀 망설여졌었어요. 근데 아트박스에서 너무 예쁜 베이비핑크 컬러로 캔디머신이 나왔기에 냉큼 구입했습니다.
-						생각했던 컬러 그대로라 너무 만족합니다ㅎㅎ 크기도 너무 작지 않아서 좋아요. 그리고 위 아래로 통이 분리된다는게 최대
-						장점입니다. 세척하기도 편하고 용이해서 더 좋아요.
-					</div>
-					<div class="ps_sub3">
-						<img src="http://www.poom.co.kr/Upload2/PostScript/201912/1805300328_0_123034_1.jpg">
-					</div>
-				</div>
-			</div>
+		</div>
+			
 			<div class="paging">
 				<span class="box">
 					<a href="#"> <img class="opacity" src="../Images/order/btn_board_prev.gif"> </a>
@@ -285,18 +271,20 @@
 	<jsp:include page="../inc/bottom.jsp"></jsp:include>
 	<!--  /푸터 -->
 	<script type="text/javascript">
+	
+	//----------------탭바-------------------------
     var currentMenu;
     var menuIcon = document.querySelector('.tabBar');
     var warp = document.querySelectorAll('.item_content');
 	var arrayIcon = document.querySelectorAll('.tabBar span');
 	var currentWarp;
    
-   
+   // .on 제거 
     function inactivate(){
    		currentMenu.classList.remove('on');
    		currentWarp.classList.remove('on');
     };
-    
+    // .on 추가 
 	function activate(param){
 		param.classList.add('on');
 		currentMenu = param;
@@ -309,17 +297,21 @@
 	}
     
 	function clickManuHandler(e){
-		if(currentMenu){
+		if(currentMenu){ //기존 .on 제거 
 			inactivate();   
 		};
-		activate(e.target);
+		activate(e.target); //해당 클릭 태그 .on 추
 	};
     
- 
     menuIcon.addEventListener('click',clickManuHandler);
     
-    
+    //메뉴버튼 초기화 
     activate(arrayIcon[0]);
+    
+    //---------------이미지 슬라이더----------------------------
+    
+   	
+    
     
     </script>
 </body>

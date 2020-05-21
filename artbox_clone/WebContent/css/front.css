@@ -4,9 +4,9 @@
 
 /* img {border:none;} */
 
-/* a, input, textarea, select {outline:none; -webkit-appearance: none; -moz-appearance: none; border-radius:0;} */
+/*  a, input, textarea, select {outline:none; -webkit-appearance: none; -moz-appearance: none; border-radius:0;} */ 
 
-/* a:link, a:visited, a:active, a:hover { text-decoration:none; color:#808080; } */
+a:link, a:visited, a:active, a:hover { text-decoration:none; color:#808080; }
 /* a:hover                              { } */
 /* a.privacy {font-weight:bold;color:#3a4b59;} */
 
@@ -26,7 +26,7 @@ BODY {
 .pageHeader{
 	
 	width: 100%;
-    margin: 50px auto 50px;
+    margin: 50px auto 0;
 	display: block;
     border-bottom: 1px solid #e4e4e4;
 	}
@@ -44,7 +44,7 @@ BODY {
 
 	
 	width: 1200px;
-    margin: 30px auto 30px;
+    margin: 0 auto 30px;
     padding: 0;
 	
 	}
@@ -65,13 +65,34 @@ display:block; height:57px; width:1200px; margin:0 auto; position:relative;
 #top_menu li{float: left;margin: 0 5px;}
 
 #top_menu .CategoryMiddle a{display: block; height: 20px;
-padding: 10px; text-decoration: none;color: black;}
+padding: 10px; text-decoration: none;color: black;
+outline:none; -webkit-appearance: none; -moz-appearance: none; border-radius:0;}
 
 #top_menu .Cart{float: right;}
 #top_menu .MyPage{float: right;width: 40px;height: 40px;}
-#top_menu .Search{float: right;}
 
-#top_menu input {border:none;border-bottom:1px solid gray;padding: 1px 0px; }
+#top_menu li.Search {
+    float: right;
+/*     width: 185px; */
+    height: 40px;
+    border-bottom: 2px solid #787878;
+}
+
+#top_menu #kwd {border:none;border-bottom:1px solid gray;
+font-family: 'Spoqa Han Sans', 'Malgun Gothic', Dotum, Gulim, Tahoma, Helvetica, AppleGothic, Helvetica, Sans-serif;
+    color: #808080;
+    line-height: 100%;
+        display: inline-block;
+    background-color: #ffffff;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    width: 145px;
+    height: 35px;
+    line-height: 35px;
+    vertical-align: top;
+    font-size: 16px;
+    color: #000000;}
 
 nav#top_menu a:hover{
 	background-repeat: repeat-x;
@@ -142,21 +163,37 @@ padding: 0;}
 
 
 
-/* 컨테이너 */
-.bestcontainer {
-	
-  width: 1200px;
-  display: grid;
- grid-template-rows: repeat(2, 250px);
-  grid-template-columns: repeat(5, 240px);
-  margin: 30px auto;
-  
-padding: 0;
-}
+/* best item */
+.BestItemWrap {width:1200px; margin:100px auto 0; padding:0; text-align:left;}
+a.BestItemTitle {text-align:left; display:inline-block; color:#000000; line-height:30px; font-size:30px; font-family:'Saira Condensed'; font-weight:bold; margin:0;}
+a.BestItemTitle span {display:inline-block; width:18px; height:21px; background-size:18px 21px; background-image:url(/Images/Ver1/Common/gogo_pc.png); vertical-align:top; margin:4px 0 5px 7px;}
 
-.best_content{
-	 width: 240px;
-}	
+.BestItemList {display:block; margin:0; width:100%;}
+.BestItemList ul {height:660px; width:auto;}
+.BestItemList li {width:200px; height:310px; margin:20px 15px 0;padding:0; list-style:none;float:left;}
+.BestItemList li a {display:block; position:relative; width:210px; height:auto; text-align:center;}
+.BestItemList li img.ItemImage {width:210px; height:210px; border-radius:50%;}
+.BestItemList li span.ImageNumber     {display:block; position:absolute; z-index:2; top:0; left:0; width:48px; height:48px; border-radius:50%; background-color:#8f8f8f; color:#ffffff; font-size:26px; line-height:48px; text-align:center; font-family:'Saira Condensed'}
+.BestItemList li span.ImageNumber.num1 {background-color:#c80203;}
+.BestItemList li span.ImageBackGround {display:block; position:absolute; z-index:1; top:0; left:0; width:210px; height:210px; border-radius:50%; background:#000000; opacity:0.03; filter:alpha(opacity=3); -ms-filter:alpha(opacity=3); }
+.BestItemList li span.ItemName {display:block; width:210px; margin:10px 0 0 0; text-align:center; font-size:16px; line-height:18px; color:#000000; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+.BestItemList li span.ItemPrice {display:block; width:210px; margin:7px 0 5px 0; text-align:center; font-size:16px; line-height:16px; color:#000000; font-weight:bold;}
+.BestItemList li span.ItemPrice.red {color:#f20001;}
+
+.BestItemList_M {display:none; margin:0.625rem 0 0 0; width:100%; }
+.BestItemList_M ul {width:auto; margin:0 0;}
+.BestItemList_M li {width:10.5625rem; height:14.5rem; margin:0;}
+.BestItemList_M li a {display:block; position:relative; width:10rem; height:auto; text-align:center; margin:0 0 0 0.5625rem;}
+.BestItemList_M li img.ItemImage {width:10rem; height:10rem; border-radius:50%;}
+.BestItemList_M li span.ImageNumber     {display:block; position:absolute; z-index:2; top:0; left:0; width:2rem; height:2rem; border-radius:50%; background-color:#8f8f8f; color:#ffffff; font-size:1.25rem; line-height:2rem; text-align:center; font-family:'Saira Condensed'}
+.BestItemList_M li span.ImageNumber.num1 {background-color:#c80203;}
+.BestItemList_M li span.ImageBackGround {display:block; position:absolute; z-index:1; top:0; left:0; width:10rem; height:10rem; border-radius:50%; background:#000000; opacity:0.03; filter:alpha(opacity=3); -ms-filter:alpha(opacity=3); }
+.BestItemList_M li span.ItemName {display:block; width:10rem; margin:0.5rem 0 0 0; text-align:center; font-size:0.8rem; line-height:0.8rem; color:#000000; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+.BestItemList_M li span.ItemPrice {display:block; width:10rem; margin:0.35rem 0 0.35rem 0; text-align:center; font-size:0.8rem; line-height:0.8rem; color:#000000; font-weight:bold;}
+.BestItemList_M li span.ItemPrice.red {color:#f20001;}
+
+
+/* NewArrival */
 	
 .NewArrivalWrap a {text-decoration: none;}	
 .NewArrivalWrap {width:1200px; margin:50px auto 0; padding:0; text-align:left;min-height: 400px;}
@@ -216,11 +253,3 @@ a.NewArrivalTitle span {display:inline-block; width:18px; height:21px; backgroun
 .EventWrap_M #EventRollingSlide_M li {padding:0; border-radius:5px;}
 .EventWrap_M #EventRollingSlide_M li a.SlideLink {display:block; width:100%; min-width:10rem; height:auto; max-height:7.375rem; max-width:22.5rem; margin:0 auto;}
 .EventWrap_M #EventRollingSlide_M li a.SlideLink img {width:100%; height:100%; border-radius:5px;}
-
-	
-	
-	
-	
-	
-	
-	

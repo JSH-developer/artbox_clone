@@ -3,3 +3,5 @@
 .classpath
 .tern-project
 .settings
+/META-INF/
+/WEB-INF/
