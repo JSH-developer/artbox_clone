@@ -11,57 +11,41 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.CategoryWriteProAction;
+import action.CouponWriteProAction;
 import action.ProductViewProAction;
 import action.ProductWriteProAction;
 import vo.ActionForward;
 
-@WebServlet("*.admin")
-public class AdminFrontController extends HttpServlet {
+@WebServlet("*.event")
+public class EventFrontController extends HttpServlet {
 
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
 		String command = request.getServletPath();
 		
 		Action action = null;
 		ActionForward forward = null;
 		
-		if(command.equals("/Home.admin")) {
+		if(command.equals("/CouponWriteForm.event")){
+			System.out.println("/CouponWriteForm.event");
+//			view로 이동할것임
+			// 글쓰기 페이지 요청은 비즈니스 로직이 없는 View 페이지(jsp)로 바로 연결 수행
+			// => ActionForward 객체의 포워딩 방식을 별도로 설정하지 않음(주소변경 x)
 			forward = new ActionForward();
-			forward.setPath("/admin/adminHome.jsp");
-		}else if(command.equals("/CategoryWriteForm.admin")) {
-			// 글쓰기 페이지 요청은 비즈니스 로직이 없는 View 페이지(JSP)로 바로 연결 수행
-			// => ActionForward 객체의 포워딩 방식을 별도로 설정하지 않음 => dispatcher 방식...
-			forward = new ActionForward();
-//			forward.setRedirect(false); 기본값이라서 생략 가능함
-			forward.setPath("/admin/registCategory.jsp");
+//			forward.setRedirect(false); // 포워딩 박식을 Dispatcher 방식으로 설정(기본값 생략 가능)
+			forward.setPath("/event/registCoupon.jsp"); // 이동할 View 페이지 경로 지정
 			
-		}else if(command.equals("/CategoryWritePro.admin")) {
-			action = new CategoryWriteProAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}else if(command.equals("/ProductWriteForm.admin")) {
-			forward = new ActionForward();
-			forward.setPath("/admin/registProduct.jsp");
 			
-		}else if(command.equals("/ProductWritePro.admin")) {
-			action = new ProductWriteProAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}else if(command.equals("/ProductViewForm.admin")) {
-			action = new ProductViewProAction();
+		}else if(command.equals("/CouponWritePro.event")) {
+			System.out.println("/CouponWritePro.event");
+			action = new CouponWriteProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+		
 		
 		
 		// ActionForward 객체 내의 포워딩 방식에 따라 각각의 포워딩 작업 수행

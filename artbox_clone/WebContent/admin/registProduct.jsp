@@ -24,14 +24,14 @@ function sendFile(file, editor) {
     $.ajax({ // ajax를 통해 파일 업로드 처리
         data : data,
         type : "POST",
-        url : "summernote_imageUpload.jsp",
+        url : "admin/summernote_imageUpload.jsp",
         cache : false,
         contentType : false,
         processData : false,
         success : function(data) { // 처리가 성공할 경우
            // 에디터에 이미지 출력
 //         	$(editor).summernote('editor.insertImage', data.url);
-        	var image = $('<img>').attr('src', '' + data.url).attr('style',"width:500px; hieght:500px;"); // 에디터에 img 태그로 저장을 하기 위함
+        	var image = $('<img>').attr('src', '' + data.url.replace('..\\', '')).attr('style',"width:500px; hieght:500px;"); // 에디터에 img 태그로 저장을 하기 위함
             $('#summernote').summernote("insertNode", image[0]); // summernote 에디터에 img 태그를 보여줌
         }
     });
@@ -68,7 +68,7 @@ $(document).ready(function() {
 </script>
 
 <!-- registProduct 페이지에 대한 전용 css, 딴 css 필요없음!!!!!! -->
-<link href="css/admin/registProduct.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/admin/registProduct.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
@@ -100,7 +100,7 @@ $(document).ready(function() {
 	<tr><th>상품상세</th><td style="margin-left:100px"><textarea id="summernote" name="product_description"></textarea></td></tr>
 	<tr><th>재고수량</th><td><input type="number" name="product_stock_count"></td></tr>
 	<tr><th>세일가격</th><td><input type="text" name="product_sale_price"></td></tr>
-	<tr><th>대표 이미지</th><td><input type="file" name="product_image"></td></tr>
+	<tr><th>대표 이미지</th><td><input type="file" name="product_image" accept="image/*"></td></tr>
 	<tr class="btn_tr"><td colspan="2"><input type="submit" value="상품등록"></td></tr>
 </table>
 </form>
@@ -108,7 +108,7 @@ $(document).ready(function() {
 <p><% out.print(request.getRealPath("/upload")); %></p>
 
  <!--  푸터 -->
- <jsp:include page="../inc/bottom.jsp"></jsp:include>
+ <jsp:include page="/inc/bottom.jsp"></jsp:include>
  <!--  푸터 -->
 
 </body>
