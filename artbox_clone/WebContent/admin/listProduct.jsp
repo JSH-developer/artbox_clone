@@ -30,20 +30,39 @@
 
 
 <div class="pageContent">
+
+<div class="admin_nav_wrap">
+<ul class="admin_nav">
+	<li><a href="home.admin">관리자 홈</a></li>
+	<li><a href="ProductList.admin">상품 목록</a></li>
+ 	<li><a href="ProductWriteForm.admin">상품 등록</a></li>
+ 	<li><a href="#">상품 수정</a></li>
+</ul>
+</div>
+<br>
+
 <h1>상품리스트</h1>
+<table border="1">
+<tr><th>번호</th><th>코드</th><th>이름</th><th>카테고리</th><th>옵션</th></tr>
 <%
 
 	for(ProductBean pl : productList){
-		out.print("<a href='ProductView.admin?num="+pl.getProduct_num()+"'>"+pl.getProduct_name()+"</a><br><br>");
+		out.print("<tr>");
+		out.print("<td>"+pl.getProduct_num()+"</td>");
+		out.print("<td>"+pl.getProduct_code()+"</td>");
+		out.print("<td><a href='ProductView.admin?num="+pl.getProduct_num()+"&page="+nowPage+"'>"+pl.getProduct_name()+"</a></td>");
+		out.print("<td>"+pl.getProduct_category_code()+"</td>");
+		out.print("<td>"+pl.getProduct_option_code()+"</td>");		
+		out.print("</tr>");
 	}
 %>
-
+</table>
 
 <section id="pageList">
 		<%if(nowPage<=1){ %>
-		[이전]&nbsp;
+		◁&nbsp;
 		<%}else{ %>
-		<a href="ProductList.admin?page=<%=nowPage-1 %>">[이전]</a>&nbsp;
+		<a href="ProductList.admin?page=<%=nowPage-1 %>">◁</a>&nbsp;
 		<%} %>
 
 		<%for(int a=startPage;a<=endPage;a++){
@@ -56,9 +75,9 @@
 		<%} %>
 
 		<%if(nowPage>=maxPage){ %>
-		[다음]
+		▷
 		<%}else{ %>
-		<a href="ProductList.admin?page=<%=nowPage+1 %>">[다음]</a>
+		<a href="ProductList.admin?page=<%=nowPage+1 %>">▷</a>
 		<%} %>
 	</section>
 

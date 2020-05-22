@@ -27,7 +27,7 @@ public class AdminFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		if(command.equals("/Home.admin")) { // 관리자 페이지 메인화면
+		if(command.equals("/home.admin")) { // 관리자 페이지 메인화면
 			forward = new ActionForward();
 			forward.setPath("/admin/adminHome.jsp");
 		}else if(command.equals("/CategoryWriteForm.admin")) {

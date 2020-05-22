@@ -80,8 +80,8 @@ $(document).ready(function() {
 <center>
 <div class="admin_nav_wrap">
 <ul class="admin_nav">
-	<li><a href="Home.admin">관리자 홈</a></li>
-	<li><a href="#">상품 목록</a></li>
+	<li><a href="home.admin">관리자 홈</a></li>
+	<li><a href="ProductList.admin">상품 목록</a></li>
  	<li><a href="#">상품 등록</a></li>
  	<li><a href="#">상품 수정</a></li>
 </ul>
@@ -100,7 +100,7 @@ $(document).ready(function() {
 	<tr><th>상품상세</th><td style="margin-left:100px"><textarea id="summernote" name="product_description"></textarea></td></tr>
 	<tr><th>재고수량</th><td><input type="number" name="product_stock_count"></td></tr>
 	<tr><th>세일가격</th><td><input type="text" name="product_sale_price"></td></tr>
-	<tr><th>대표 이미지</th><td><input type="file" name="product_image" accept="image/*"></td></tr>
+	<tr><th>대표 이미지</th><td><input type="file" name="product_image[]" accept="image/*" multiple="multiple"></td></tr>
 	<tr class="btn_tr"><td colspan="2"><input type="submit" value="상품등록"></td></tr>
 </table>
 </form>

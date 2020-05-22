@@ -15,7 +15,7 @@ public class ProductWriteProAction implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ActionForward forward = null;
+		ActionForward forward = new ActionForward();;
 		
 		ServletContext context = request.getServletContext();
 		
@@ -45,9 +45,10 @@ public class ProductWriteProAction implements Action{
 		ProductWriteProService productWriteService = new ProductWriteProService();
 		boolean isRegist = productWriteService.registProduct(pb);
 		if(isRegist) {
-			System.out.println("상품 등록 성공!");
+			// dispatch 방식으로 이동
+			forward.setPath("ProductList.admin");
 		}else {
-			forward = new ActionForward();
+			// redirect 방식으로 이동
 			forward.setRedirect(true);
 			forward.setPath("Home.admin");
 			System.out.println("글 등록 실패!");
