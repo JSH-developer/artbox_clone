@@ -96,18 +96,12 @@ if(myCouponList != null ){
 			
 				<td><%=myCouponList.get(i).getCoupon_name()%></td>
 				<td><%=myCouponList.get(i).getCoupon_price()%></td>
-
-				<%-- <td>
-					<%if(couponList.get(i).getBoard_re_lev()!=0){ %> <%for(int a=0;a<=couponList.get(i).getBoard_re_lev()*2;a++){ %>
-					&nbsp; <%} %> ▶ <%}else{ %> ▶ <%} %> <a
-					href="BoardDetail.bo?board_num=<%=couponList.get(i).getBoard_num()%>&page=<%=nowPage%>">
-						<%=couponList.get(i).getBoard_subject()%>
-				</a>
-				</td>
-
-				<td><%=couponList.get(i).getBoard_name() %></td>
-				<td><%=couponList.get(i).getBoard_date() %></td>
-				<td><%=couponList.get(i).getBoard_readcount() %></td> --%>
+				<td><%=myCouponList.get(i).getCoupon_condition() %></td>
+				<td><%=myCouponList.get(i).getCoupon_start() %></td>
+				<td><%=myCouponList.get(i).getCoupon_limit() %></td> 
+				<td><%=myCouponList.get(i).getCoupon_use() %></td> 
+				<td><%=myCouponList.get(i).getCoupon_reason() %></td> 
+				<td><%=myCouponList.get(i).getCoupon_member_id() %></td> 
 			</tr>
 			<%}
 			}%>

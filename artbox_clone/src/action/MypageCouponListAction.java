@@ -23,17 +23,18 @@ public class MypageCouponListAction implements Action {
 		String id = "jini";
 		
 		CouponService couponService = new CouponService();
-		ArrayList<CouponBean> mycouponList= couponService.getmycouponlist();
+		ArrayList<CouponBean> mycouponList= couponService.getmycouponlist(id);
 		
 		
 		
 		if(mycouponList != null) {
 			System.out.println("리스트 갖고오긴 함");
 			
-			request.setAttribute("couponList", mycouponList);
+			request.setAttribute("mycouponList", mycouponList);
 			
 			forward = new ActionForward();
 			forward.setPath("/event/myPageCoupon.jsp");
+			
 		}else {
 			System.out.println("리스트 불러오기 실패");
 		}

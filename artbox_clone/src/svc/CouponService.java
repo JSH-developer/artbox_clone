@@ -52,7 +52,7 @@ public class CouponService {
 	}
 
 	// 마이페이지에서 쿠폰 불러오기
-	public ArrayList getmycouponlist() {
+	public ArrayList getmycouponlist(String id) {
 		int isSuccess = 0;
 		
 		Connection con = getConnection();
@@ -61,7 +61,7 @@ public class CouponService {
 		
 		couponDAO.setConnection(con);
 		
-		ArrayList<CouponBean> mycouponList = couponDAO.selectmyCouponlist();
+		ArrayList<CouponBean> mycouponList = couponDAO.selectmyCouponlist(id);
 		
 		
 		return mycouponList;
