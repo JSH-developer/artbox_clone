@@ -35,16 +35,19 @@
 
 	<!-- 메인 콘텐츠  -->
 	<div class="wrap">
+				
 		<section class="iteminfo">
+		
 			<form action="#" method="post">
-			<span class="img_left_btn"></span>
+				<span class="img_left_btn"></span>
 				<span class="img_right_btn"></span>
+				<span class="img_left_point"></span>
+				<span class="img_right_point"></span>
 				<div class="slidebar">
 				
 					<div class="slideimg">
-						<img src=detail1.jpg>
-						<img src=detail1.jpg>
-						<img src=detail1.jpg>
+						<img src="detail1.jpg">
+						<img src="http://www.poom.co.kr/Upload2/Product/201805/1805300288_detail1.jpg">
 					</div>				
 				</div>
 				<div class="inner">
@@ -90,6 +93,7 @@
 		<div class="clear"></div>
 		<section class="item_another">
 			<span class="text">이 상품의 다른 옵션</span>
+			<div class="another_container">
 			<div class="another">
 				<ul>
 					<li onclick='location.href="#"'>
@@ -108,6 +112,7 @@
 						<span class="itemprice">4,900원</span>
 					</li>
 				</ul>
+			</div>
 			</div>
 		</section>
 		<div class="clear"></div>
@@ -300,18 +305,67 @@
 		if(currentMenu){ //기존 .on 제거 
 			inactivate();   
 		};
-		activate(e.target); //해당 클릭 태그 .on 추
+		activate(e.target); //해당 클릭 태그 .on 추가 
 	};
     
     menuIcon.addEventListener('click',clickManuHandler);
     
     //메뉴버튼 초기화 
     activate(arrayIcon[0]);
+  //----------------탭바-------------------------
+    
     
     //---------------이미지 슬라이더----------------------------
+    console.log(window.getComputedStyle(document.querySelector(".slideimg")).width);
+    console.log(window.getComputedStyle(document.querySelector(".slideimg")).height);
+    var slider = document.querySelector(".slideimg");
+    var left_btn = document.querySelector(".img_left_btn");
+    var right_btn = document.querySelector(".img_right_btn");
+    var img_count = 0;
+    var left_point = document.querySelector(".img_left_point");
+    var right_point = document.querySelector(".img_right_point");
     
+    function side_right(){
+    	console.log(img_count);
+    	left_point.style.opacity="0.3";
+    	right_point.style.opacity="1.0";
+    	
+    	right_point.style.right="400px";
+    	left_point.style.right="420px";
+    	if(img_count<1){
+    		img_count++;
+    		slider.style.top = "-552px";
+    	}
+    	if(img_count===1){
+    		right_btn.style.display="none";
+    	}else{
+    		left_btn.style.display="inline-block";
+    	}
+    };
+    
+    right_btn.addEventListener("click",side_right);
    	
+    function slide_left(){
+    	console.log(img_count);
+    	left_point.style.opacity="1.0";
+    	right_point.style.opacity="0.3";
+    	
+    	right_point.style.right="500px";
+    	left_point.style.right="520px";
+    	if(img_count>0){
+    		img_count--;
+    		slider.style.top = "0px";
+    	}
+    	if(img_count===0){
+    		right_btn.style.display="inline-block";
+    	}else{
+    		left_btn.style.display="none";
+    	}
+    };
     
+    left_btn.addEventListener("click",slide_left);
+    
+  //---------------이미지 슬라이더----------------------------
     
     </script>
 </body>
