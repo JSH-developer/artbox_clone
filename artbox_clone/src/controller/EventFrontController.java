@@ -45,6 +45,7 @@ public class EventFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+// 마이페이지 
 		}else if(command.equals("/MypageCouponList.event")) {
 			System.out.println("/MypageCouponList.event");
 			action = new MypageCouponListAction();

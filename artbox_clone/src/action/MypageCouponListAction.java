@@ -1,11 +1,14 @@
 package action;
 
+import java.util.ArrayList;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import svc.CouponService;
 import vo.ActionForward;
+import vo.CouponBean;
 
 public class MypageCouponListAction implements Action {
 
@@ -20,18 +23,23 @@ public class MypageCouponListAction implements Action {
 		String id = "jini";
 		
 		CouponService couponService = new CouponService();
-		int isSuccess = couponService.getcouponlist(id);
+		ArrayList<CouponBean> mycouponList= couponService.getmycouponlist();
 		
-		if(isSuccess>0) {
+		
+		
+		if(mycouponList != null) {
+			System.out.println("리스트 갖고오긴 함");
 			
+			request.setAttribute("couponList", mycouponList);
 			
-			
+			forward = new ActionForward();
+			forward.setPath("/event/myPageCoupon.jsp");
 		}else {
-			
+			System.out.println("리스트 불러오기 실패");
 		}
+	
 		
-		
-		return null;
+		return forward;
 	}
 
 }

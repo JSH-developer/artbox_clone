@@ -81,7 +81,8 @@ public class CouponDAO {
 		return insertCount;
 	}
 
-	public ArrayList<CouponBean> selectCouponlist(String id) {
+	// 쿠폰 리스트 불러오기
+	public ArrayList<CouponBean> selectmyCouponlist() {
 		
 		ArrayList<CouponBean> couponList =  new ArrayList<CouponBean>();
 		
@@ -89,24 +90,25 @@ public class CouponDAO {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT * FROM coupon WHERE member_id=?";
+			String sql = "SELECT * FROM coupon";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id);
+//			pstmt.setString(1, id);
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				CouponBean couponBean = new CouponBean();
-				couponBean.setCoupon_name(rs.getString("coupon_name"));
+				couponBean.setCoupon_name(rs.getString("coup_name"));
+				couponBean.setCoupon_price(rs.getInt("coup_price"));
 				
-				
+				couponList.add(couponBean);
 			}
 			
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		}catch (SQLException e) {
+			System.out.println("CouponDAO- selectCouponlist()실패!"+e.getMessage());
+		} finally {
+			close(pstmt);
+			close(rs);
 		}
 		
 		

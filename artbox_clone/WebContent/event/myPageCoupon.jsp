@@ -1,15 +1,25 @@
+<%@page import="vo.CouponBean"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%
+ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute("mycouponList");
+%>
+
+<%-- ${CouponBean.couponList} --%>
+
+<%-- <c:out value="${CouponBean.couponList}" default="hi" /> --%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ARTBOX(포트폴리오)</title>
-<link href="../css/front.css" rel="stylesheet" type="text/css">
-<link href="myPage.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/event/myPage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div class="page">
@@ -67,6 +77,42 @@
 <%-- <c:set var="num" value="100"></c:set> --%>
 <c:out value="${num}" default="0"></c:out>
 
+	<section id="listForm">
+		<table>
+			<%
+if(myCouponList != null ){
+%>
+
+			<tr id="tr_top">
+				<td>번호</td>
+				<td>제목</td>
+				<td>작성자</td>
+				<td>날짜</td>
+				<td>조회수</td>
+			</tr>
+
+			<% for(int i=0;i<myCouponList.size();i++){ %>
+			<tr>
+			
+				<td><%=myCouponList.get(i).getCoupon_name()%></td>
+				<td><%=myCouponList.get(i).getCoupon_price()%></td>
+
+				<%-- <td>
+					<%if(couponList.get(i).getBoard_re_lev()!=0){ %> <%for(int a=0;a<=couponList.get(i).getBoard_re_lev()*2;a++){ %>
+					&nbsp; <%} %> ▶ <%}else{ %> ▶ <%} %> <a
+					href="BoardDetail.bo?board_num=<%=couponList.get(i).getBoard_num()%>&page=<%=nowPage%>">
+						<%=couponList.get(i).getBoard_subject()%>
+				</a>
+				</td>
+
+				<td><%=couponList.get(i).getBoard_name() %></td>
+				<td><%=couponList.get(i).getBoard_date() %></td>
+				<td><%=couponList.get(i).getBoard_readcount() %></td> --%>
+			</tr>
+			<%}
+			}%>
+		</table>
+</section>
 
 	<div class="coupon_tab on">온라인 전용 쿠폰 (2장)</div>
 				<div class="coupon_box">

@@ -1,5 +1,14 @@
+<%@page import="vo.CouponBean"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%
+ArrayList<CouponBean> couponList= (ArrayList<CouponBean>)request.getAttribute("couponList");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,6 +63,48 @@
 <!-- /쿠폰 등록 -->
 
 
+	<section id="listForm">
+			<table>
+				<%
+					if (couponList != null) {
+				%>
+
+				<tr id="tr_top">
+					<td>번호</td>
+					<td>제목</td>
+					<td>작성자</td>
+					<td>날짜</td>
+					<td>조회수</td>
+				</tr>
+
+				<%
+					for (int i = 0; i < couponList.size(); i++) {
+				%>
+				<tr>
+
+					<td><%=couponList.get(i).getCoupon_name()%></td>
+					<td><%=couponList.get(i).getCoupon_price()%></td>
+
+					<%-- <td>
+					<%if(couponList.get(i).getBoard_re_lev()!=0){ %> <%for(int a=0;a<=couponList.get(i).getBoard_re_lev()*2;a++){ %>
+					&nbsp; <%} %> ▶ <%}else{ %> ▶ <%} %> <a
+					href="BoardDetail.bo?board_num=<%=couponList.get(i).getBoard_num()%>&page=<%=nowPage%>">
+						<%=couponList.get(i).getBoard_subject()%>
+				</a>
+				</td>
+
+				<td><%=couponList.get(i).getBoard_name() %></td>
+				<td><%=couponList.get(i).getBoard_date() %></td>
+				<td><%=couponList.get(i).getBoard_readcount() %></td> --%>
+				</tr>
+				<%
+					}
+					}else{ %>
+						<h2>불러올 리스트가 없습니다</h2>
+					<% }
+				%>
+			</table>
+		</section>
 
 
 
