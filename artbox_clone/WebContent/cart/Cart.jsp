@@ -143,8 +143,8 @@ $(document).ready(function(){
  <form name="Cart" method="post">
 <div class="CartWrap">
 <c:choose>
-<!-- 장바구니가 비었을 때 -->
   <c:when test="${empty cartList }">
+<!-- 장바구니가 비었을 때 -->
 	<h1>장바구니 터엉~</h1>
 	<div class="CartEmpty">
 		<span class="EmptyImage"><img src="${pageContext.request.contextPath}/Images/order/cart_empty_pc.png"></span>
@@ -154,8 +154,8 @@ $(document).ready(function(){
 	</div>
   </c:when>
 
-<!-- 장바구니에 물건이 있을 때 -->
   <c:otherwise>
+<!-- 장바구니에 물건이 있을 때 -->
 	<h1>장바구니</h1>
 	
 	<div class="CartCount">총 <b>${fn:length(cartList) }</b>개의 상품이 담겼어요!</div>
@@ -164,7 +164,7 @@ $(document).ready(function(){
 	<div class="CartList">
 	
 <c:forEach var="cartList" items="${cartList }" varStatus="status">
-<c:set var="price" value="${itemsList[status.index].product_price }"/>
+	<c:set var="price" value="${itemsList[status.index].product_price }"/>
 		<div class="tableDiv CartRow">
 			<dl class="trCart ${cartList.cart_num }" >
 				<dt class="tdCheck">
@@ -239,13 +239,12 @@ $(document).ready(function(){
 		</div>
 		<div class="clear"></div>
 	</div>
+  </c:otherwise>
+</c:choose> 
 
 </div>
 
 </form>
-  </c:otherwise>
-</c:choose> 
-
  <!-- 메인 콘텐츠  -->
  
 <!--  푸터 -->
