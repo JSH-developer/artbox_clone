@@ -11,7 +11,6 @@
 <meta charset="UTF-8">
 <title>ARTBOX(포트폴리오)</title>
 <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
-<!-- <link href="../css/order/Common.css" rel="stylesheet" type="text/css"> -->
 <link href="${pageContext.request.contextPath}/css/order/Order.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 
@@ -47,7 +46,6 @@ $(document).ready(function(){
 		}
 	}
 	
-	
 	fnCartArray = function(actiontype){ // 선택삭제
 		var count = 0;
 
@@ -69,9 +67,6 @@ $(document).ready(function(){
 		}
 
 	}
-	
-	
-	
 	
 	
 	fnCartOne = function(actiontype,cartidx,qty,optionidx){
@@ -113,11 +108,8 @@ $(document).ready(function(){
 	
 	fnCartCalculate = function(){
 		var TotalPriceSum = 0; //총 상품금액
-// 		var TotalPriceMemberLevelDiscount = 0; //회원등급 할인금액
 		var TotalPriceDelivery = 0; //총 배송비
 		var TotalPriceAmount = 0; //총 합계금액
-// 		var TotalPriceAmountTemp = 0; //총 상품금액(등급할인 적용 후)
-// 		var MemLevelIdx = parseInt(document.Cart.MemLevelIdx.value,10);
 
 		$("input[name=CartIdx]").each(function(){ //금액 계산
 			if ($(this).prop("checked")) {
@@ -125,21 +117,10 @@ $(document).ready(function(){
 				TotalPriceDelivery = TotalPriceSum>30000?0:2500;
 			}
 		});
-
-// 		switch(MemLevelIdx){
-// 			case 1: PoomTermsPrice=0; break;
-// 			case 2: PoomTermsPrice=10000; break;
-// 			case 3: PoomTermsPrice=20000; break;
-// 			default: PoomTermsPrice=30000;
-// 		}
-
-// 		TotalPriceDelivery = result;
 		
 		TotalPriceAmount = TotalPriceSum + TotalPriceDelivery;
-// 		TotalPriceMemberLevelDiscount = TotalPriceSum-TotalPriceAmountTemp;
 
 		$("#TotalPriceSum").text(comma(TotalPriceSum)); // 값변경
-// 		$("#TotalPriceMemberLevelDiscount").text(setComma(TotalPriceMemberLevelDiscount));
 		$("#TotalPriceDelivery").text(comma(TotalPriceDelivery));
 		$("#TotalPriceAmount").text(comma(TotalPriceAmount));
 
@@ -196,17 +177,6 @@ for(int i = 0; i < cartList.size(); i++) {
 			<dl class="trCart <%=cartBean.getCart_num() %>" >
 				<dt class="tdCheck">
 					<input type="checkbox" name="CartIdx" id="Item<%=cartBean.getCart_num() %>" value="<%=cartBean.getCart_num() %>" realitemprice="<%=productBean.getProduct_sale_price() %>" itemprice="<%=productBean.getProduct_price() %>" itemquantity="<%=cartBean.getCart_quantity() %>" >
-<!-- 					<input type="hidden" name="jsItemName" id="jsItemName3318798" value="핑크 비숑 13인치 노트북파우치 (37002786)"> -->
-
-<%-- 					<input type="hidden" name="cartidx" value="<%=cartBean.getCart_num() %>">	 --%>
-<!-- 					<input type="hidden" name="GAitemnamekor" value="핑크 비숑 13인치 노트북파우치 (37002786)">	 -->
-<!-- 					<input type="hidden" name="GAbrandnmkor" value="아트박스">	 -->
-<!-- 					<input type="hidden" name="GAcatename" value="디지털>컴퓨터/노트북주변기기>노트북/태블릿 파우치">	 -->
-<!-- 					<input type="hidden" name="GAitemprice" value="25000">	 -->
-<!--  					<input type="hidden" name="GAqty" value="1">	 -->
-<!-- 					<input type="hidden" name="GAitemcouponname" value="">	 -->
-<!-- 					<input type="hidden" name="GAoptionmixname" value="">	 -->
-<!-- 					<input type="hidden" name="GAdiscountrate" value="0">	 -->
 				</dt>
 				<dt class="tdImage"><a href="productDetail.cart?product_num=<%=cartBean.getCart_product_num()%>"><img src="cart/<%=productBean.getProduct_image() %>"></a></dt>
 				<dt class="tdInner">
@@ -235,9 +205,6 @@ for(int i = 0; i < cartList.size(); i++) {
 						<ul class="option">
 						
 							<li class="OptionIdx"><input type="hidden" name="OptionIdx" id="OptionIdx<%=cartBean.getCart_product_num() %>" value="<%=cartBean.getCart_product_num() %>"></li>
-						
-<%-- 							<li class="Qty"><p><a href="javascript:void(0);" onclick="del();">-</a><input type=hidden name="sell_price" value="<%=productBean.getProduct_price() %>"><input type="tel" name="Qty" id="Qty<%=cartBean.getCart_num() %>" value="<%=cartBean.getCart_quantity() %>" onchange="change();" readonly="readonly" ><a href="javascript:void(0);" onclick="add();">+</a></p></li> --%>
-<!-- 							<li class="Btn"><a class="CartButton m0" href="javascript:void(0);" onclick="init();">변경완료</a></li> -->
 							<li class="Qty"><p><a href="javascript:fnSetQty('<%=cartBean.getCart_num() %>',-1);">-</a><input type="tel" name="Qty" id="Qty<%=cartBean.getCart_num() %>" value="<%=cartBean.getCart_quantity() %>" readonly="readonly" /><a href="javascript:fnSetQty('<%=cartBean.getCart_num() %>',1);">+</a></p></li>
 							<li class="Btn"><a class="CartButton m0" href="javascript:fnCartOne('QTY','<%=cartBean.getCart_num() %>',document.getElementById('Qty<%=cartBean.getCart_num() %>').value,document.getElementById('OptionIdx<%=cartBean.getCart_product_num() %>').value);">변경완료</a></li>
 						</ul>
