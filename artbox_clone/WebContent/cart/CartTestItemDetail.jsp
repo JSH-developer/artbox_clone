@@ -49,7 +49,7 @@
 	<div class="wrap">
 		<section class="iteminfo">
 			<form action="" method="post" name="gfr">
-			<input type="hidden" name="num" value=1>
+			<input type="hidden" name="num" value=2>
 				<div class="slideimg">
 					<ul>
 						<li><img src=detail1.jpg></li>
@@ -80,7 +80,7 @@
 						<span class="ipt_layer">
 							<input type="button" class="btnStockQty Minus" value="-">
 							<input type="button" class="btnStockQty Plus" value="+">
-							<input type="tel" name="stockqty" value="2" maxlength="3">
+							<input type="tel" name="stockqty" value="1" maxlength="3">
 						</span>
 					</div>
 					<div class="pdtInfototal">

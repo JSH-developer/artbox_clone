@@ -75,7 +75,7 @@ public class CartDAO {
 	}
 	
 	// 장바구니 목록
-	public Vector selectCartList(String member_id) {
+	public List selectCartList(String member_id) {
 		// member_id 에 해당하는 장바구니 목록 전체 조회
 		
 		PreparedStatement pstmt = null;
@@ -83,7 +83,7 @@ public class CartDAO {
 		PreparedStatement pstmt2 = null;
 		ResultSet rs2 = null;
 		
-		Vector vector = new Vector();
+		List list = new ArrayList();
 		List cartList = new ArrayList();
 		List itemsList = new ArrayList();
 		
@@ -117,20 +117,20 @@ public class CartDAO {
 					itemsList.add(productBean);
 				}
 			}
-			// vector 첫번째 칸 cartList 저장
-			vector.add(cartList);
-			// vector 두번째 칸 itemsList 저장
-			vector.add(itemsList);
+			// list 첫번째 칸 cartList 저장
+			list.add(cartList);
+			// list 두번째 칸 itemsList 저장
+			list.add(itemsList);
 		} catch (SQLException e) {
 //			e.printStackTrace();
 			System.out.println("CartDAO - selectCartList() 실패! : " + e.getMessage());
 		} finally {
 			close(rs);
 			close(pstmt);
-			close(rs2);
-			close(pstmt2);
+//			close(rs2);
+//			close(pstmt2);
 		}
-		return vector;
+		return list;
 	}
 
 	// 장바구니에 담겨있는 상품일 경우, 수량 추가

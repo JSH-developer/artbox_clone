@@ -33,18 +33,24 @@ public class CartListAction implements Action {
 		// cartListService 인스턴스 생성 후 getCartList() 메서드 호출하여 장바구니 목록 가져오기
 		// => 파라미터 : id , 리턴타입 : Vector
 		CartListService cartListService = new CartListService();
-		Vector vector = cartListService.getCartList(id);
+		List list = cartListService.getCartList(id);
+		if(list == null) {
+			forward = new ActionForward();
+			forward.setPath("/cart/Cart.jsp");
+		} else {
+			// 첫번째 vector 칸의 값인 cartList 저장
+			List cartList = (List)list.get(0);
+			// 두번째 vector 칸의 값인 itemsList 저장
+			List itemsList = (List)list.get(1);
+			
+			forward = new ActionForward();
+			// request 에 cartList / itemsList 담기
+			request.setAttribute("cartList", cartList);
+			request.setAttribute("itemsList", itemsList);
+			forward.setPath("/cart/Cart.jsp");
+			
+		}
 		
-		// 첫번째 vector 칸의 값인 cartList 저장
-		List cartList = (List)vector.get(0);
-		// 두번째 vector 칸의 값인 itemsList 저장
-		List itemsList = (List)vector.get(1);
-		
-		forward = new ActionForward();
-		// request 에 cartList / itemsList 담기
-		request.setAttribute("cartList", cartList);
-		request.setAttribute("itemsList", itemsList);
-		forward.setPath("/cart/Cart.jsp");
 		
 		return forward;
 	}

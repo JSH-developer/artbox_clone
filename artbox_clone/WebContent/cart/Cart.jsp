@@ -5,6 +5,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -139,81 +141,71 @@ $(document).ready(function(){
 
  <!-- 메인 콘텐츠  -->
  <form name="Cart" method="post">
-<%
-List cartList = (List)request.getAttribute("cartList");
-List itemsList = (List)request.getAttribute("itemsList");
-DecimalFormat comma = new DecimalFormat("###,###");
-%>
 <div class="CartWrap">
-<%-- <c:set var="cartList" value="${requestScope.cartList }" /> --%>
 <c:choose>
-  <c:when test="${empty cartList }">
 <!-- 장바구니가 비었을 때 -->
+  <c:when test="${empty cartList }">
 	<h1>장바구니 터엉~</h1>
 	<div class="CartEmpty">
 		<span class="EmptyImage"><img src="${pageContext.request.contextPath}/Images/order/cart_empty_pc.png"></span>
 		장바구니에 담긴 상품이 없습니다.<br />
 		관심있는 상품을 담아보세요.
-		<a href="/cart/login.cart">쇼핑하러 가기</a>
+		<a href="/artbox_clone/login.cart">쇼핑하러 가기</a>
 	</div>
   </c:when>
-  <c:otherwise>
+
 <!-- 장바구니에 물건이 있을 때 -->
+  <c:otherwise>
 	<h1>장바구니</h1>
 	
-	<div class="CartCount">총 <b><%=cartList.size() %></b>개의 상품이 담겼어요!</div>
+	<div class="CartCount">총 <b>${fn:length(cartList) }</b>개의 상품이 담겼어요!</div>
 	<a class="CartButton" href="javascript:fnCheckAll();">전체선택</a>
 <!-- 	<input type="hidden" name="MemLevelIdx" value="5"> 멤버등급 -->
 	<div class="CartList">
 	
-
-<%
-for(int i = 0; i < cartList.size(); i++) {
-	CartBean cartBean = (CartBean)cartList.get(i);
-	ProductBean productBean = (ProductBean)itemsList.get(i);
-	int price = productBean.getProduct_price();
-%>
+<c:forEach var="cartList" items="${cartList }" varStatus="status">
+<c:set var="price" value="${itemsList[status.index].product_price }"/>
 		<div class="tableDiv CartRow">
-			<dl class="trCart <%=cartBean.getCart_num() %>" >
+			<dl class="trCart ${cartList.cart_num }" >
 				<dt class="tdCheck">
-					<input type="checkbox" name="CartIdx" id="Item<%=cartBean.getCart_num() %>" value="<%=cartBean.getCart_num() %>" realitemprice="<%=productBean.getProduct_sale_price() %>" itemprice="<%=productBean.getProduct_price() %>" itemquantity="<%=cartBean.getCart_quantity() %>" >
+					<input type="checkbox" name="CartIdx" id="Item${cartList.cart_num }" value="${cartList.cart_num }" realitemprice="${itemsList[status.index].product_sale_price}" itemprice="${itemsList[status.index].product_price}" itemquantity="${cartList.cart_quantity }" >
 				</dt>
-				<dt class="tdImage"><a href="productDetail.cart?product_num=<%=cartBean.getCart_product_num()%>"><img src="cart/<%=productBean.getProduct_image() %>"></a></dt>
+				<dt class="tdImage"><a href="productDetail.cart?product_num=${cartList.cart_product_num }"><img src="cart/${itemsList[status.index].product_image }"></a></dt>
 				<dt class="tdInner">
 					<div class="tableDiv">
 						<dl class="trInfo">
 							<dd>
-								<div class="CartListItemName"><%=productBean.getProduct_name() %> (<%=productBean.getProduct_code() %>)
+								<div class="CartListItemName">${itemsList[status.index].product_name } (${itemsList[status.index].product_code })
 								</div>
 								<div class="CartListPrice">
-								<%=comma.format(price) %>원 X <%=cartBean.getCart_quantity() %>개 = <%=comma.format(price*cartBean.getCart_quantity()) %>원
+								<fmt:formatNumber value="${price }" pattern="#,###"/> 원 X ${cartList.cart_quantity }개 = <fmt:formatNumber value="${price*cartList.cart_quantity}" pattern="#,###"/>원
 								</div>
 							</dd>
-							<dd class="tdDelete"><a class="CartButtonX" href="javascript:fnCartOne('QTY','<%=cartBean.getCart_num() %>',0,0);"><img src="${pageContext.request.contextPath}/Images/order/cart_x.png"></a></dd>
+							<dd class="tdDelete"><a class="CartButtonX" href="javascript:fnCartOne('QTY','${cartList.cart_num }',0,0);"><img src="${pageContext.request.contextPath}/Images/order/cart_x.png"></a></dd>
 						</dl>
 					</div>
 					<div class="tableDiv">
 						<dl class="trInfo">
 							
-							<dd><a class="CartButton" href="javascript:fnChangeOption('<%=cartBean.getCart_num() %>');">옵션변경</a></dd>
+							<dd><a class="CartButton" href="javascript:fnChangeOption('${cartList.cart_num }');">옵션변경</a></dd>
 							
-							<dd class="tdBtn1"><a class="CartButton" href="javascript:fnCartOne('WISH','<%=cartBean.getCart_num() %>',0,0);">위시리스트</a></dd>
-							<dd class="tdBtn2"><a class="CartButtonDark" href="javascript:fnCartOne('BUY','<%=cartBean.getCart_num() %>',0,0);">바로주문</a></dd>
+							<dd class="tdBtn1"><a class="CartButton" href="javascript:fnCartOne('WISH','${cartList.cart_num }',0,0);">위시리스트</a></dd>
+							<dd class="tdBtn2"><a class="CartButtonDark" href="javascript:fnCartOne('BUY','${cartList.cart_num }',0,0);">바로주문</a></dd>
 						</dl>
 					</div>
-					<div class="ItemListChangeOption" id="ItemListChangeOption<%=cartBean.getCart_num() %>">
+					<div class="ItemListChangeOption" id="ItemListChangeOption${cartList.cart_num }">
 						<ul class="option">
 						
-							<li class="OptionIdx"><input type="hidden" name="OptionIdx" id="OptionIdx<%=cartBean.getCart_product_num() %>" value="<%=cartBean.getCart_product_num() %>"></li>
-							<li class="Qty"><p><a href="javascript:fnSetQty('<%=cartBean.getCart_num() %>',-1);">-</a><input type="tel" name="Qty" id="Qty<%=cartBean.getCart_num() %>" value="<%=cartBean.getCart_quantity() %>" readonly="readonly" /><a href="javascript:fnSetQty('<%=cartBean.getCart_num() %>',1);">+</a></p></li>
-							<li class="Btn"><a class="CartButton m0" href="javascript:fnCartOne('QTY','<%=cartBean.getCart_num() %>',document.getElementById('Qty<%=cartBean.getCart_num() %>').value,document.getElementById('OptionIdx<%=cartBean.getCart_product_num() %>').value);">변경완료</a></li>
+							<li class="OptionIdx"><input type="hidden" name="OptionIdx" id="OptionIdx${cartList.cart_product_num }" value="${cartList.cart_product_num }"></li>
+							<li class="Qty"><p><a href="javascript:fnSetQty('${cartList.cart_num }',-1);">-</a><input type="tel" name="Qty" id="Qty${cartList.cart_num }" value="${cartList.cart_quantity }" readonly="readonly" /><a href="javascript:fnSetQty('${cartList.cart_num }',1);">+</a></p></li>
+							<li class="Btn"><a class="CartButton m0" href="javascript:fnCartOne('QTY','${cartList.cart_num }',document.getElementById('Qty${cartList.cart_num }').value,document.getElementById('OptionIdx${cartList.cart_product_num }').value);">변경완료</a></li>
 						</ul>
 						<div class="clear"></div>
 					</div>
 				</dt>
 			</dl>
 		</div>
-<%}%>
+</c:forEach>
 	</div>
 	<a class="CartButton" href="javascript:fnCheckAll();">전체선택</a><a class="CartButton" href="javascript:fnCartArray('ARRAYDEL');">선택삭제</a><a class="CartButton" href="javascript:GA_event('장바구니', '하단', '위시리스트'); fnCartArray('ARRAYWISH');">위시리스트</a>
 	<div class="CartPrice">
