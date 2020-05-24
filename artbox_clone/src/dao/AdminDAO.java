@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import vo.CategoryBean;
 import vo.ProductBean;
 
 import static db.jdbcUtil.*;
@@ -38,18 +39,20 @@ public class AdminDAO {
 		int insertCount = 0;
 		
 		try {
-			String sql="INSERT INTO product VALUES(null,?,?,?,?,?,?,?,?,null,?,?)";
+			String sql="INSERT INTO product VALUES(null,?,?,?,?,?,?,?,?,?,?,null,?,?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, productBean.getProduct_code());
 			pstmt.setString(2, productBean.getProduct_name());
 			pstmt.setString(3, productBean.getProduct_image());
-			pstmt.setString(4, productBean.getProduct_description());
-			pstmt.setInt(5, productBean.getProduct_price());
-			pstmt.setString(6, productBean.getProduct_brand());
-			pstmt.setInt(7, productBean.getProduct_stock_count());
-			pstmt.setInt(8, productBean.getProduct_sale_price());
-			pstmt.setString(9, "FS01"); //카테고리 임시 삽입
-			pstmt.setString(10, "123"); //옵션 임시 삽입
+			pstmt.setString(4, productBean.getProduct_image2());
+			pstmt.setString(5, productBean.getProduct_description());
+			pstmt.setInt(6, productBean.getProduct_price());
+			pstmt.setString(7, productBean.getProduct_brand());
+			pstmt.setInt(8, productBean.getProduct_stock_count());
+			pstmt.setInt(9, productBean.getProduct_sale_price());
+			pstmt.setString(10, productBean.getProduct_keywords());
+			pstmt.setString(11, "FS01"); //카테고리 임시 삽입
+			pstmt.setString(12, "123"); //옵션 임시 삽입
 			
 			insertCount = pstmt.executeUpdate();
 			
@@ -80,11 +83,13 @@ public class AdminDAO {
 				productBean.setProduct_code(rs.getString("code"));
 				productBean.setProduct_name(rs.getString("name"));
 				productBean.setProduct_image(rs.getString("image"));
+				productBean.setProduct_image2(rs.getString("image2"));
 				productBean.setProduct_description(rs.getString("description"));
 				productBean.setProduct_price(rs.getInt("price"));
 				productBean.setProduct_brand(rs.getString("brand"));
 				productBean.setProduct_stock_count(rs.getInt("stock_count"));
 				productBean.setProduct_sale_price(rs.getInt("sale_price"));
+				productBean.setProduct_keywords(rs.getString("keywords"));
 				productBean.setProduct_regdate(rs.getTimestamp("regdate"));
 				productBean.setProduct_category_code(rs.getString("category_code"));
 				productBean.setProduct_option_code(rs.getString("option_code"));
@@ -126,6 +131,7 @@ public class AdminDAO {
 				productBean.setProduct_brand(rs.getString("brand"));
 				productBean.setProduct_stock_count(rs.getInt("stock_count"));
 				productBean.setProduct_sale_price(rs.getInt("sale_price"));
+				productBean.setProduct_keywords(rs.getString("keywords"));
 				productBean.setProduct_regdate(rs.getTimestamp("regdate"));
 				productBean.setProduct_category_code(rs.getString("category_code"));
 				productBean.setProduct_option_code(rs.getString("option_code"));
@@ -163,6 +169,62 @@ public class AdminDAO {
 		}
 		
 		return listCount;
+	}
+	
+	// 카테고리 등록
+	public int regCategory(CategoryBean categoryBean) {
+		int insertCount = 0;
+		
+		try {
+			//
+			String sql="INSERT INTO category VALUES (null, (SELECT code FROM ( SELECT concat(?, LPAD(IFNULL(COUNT(num)+1,0),'2','0')) 'code' FROM category WHERE category_sup=? ) as ctemp), ?, ?)"; 
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, categoryBean.getCategory_sup());
+			pstmt.setString(2, categoryBean.getCategory_sup());
+			pstmt.setString(3, categoryBean.getCategory_sup());
+			pstmt.setString(4, categoryBean.getCategory_sub());
+			
+			insertCount = pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return insertCount;
+		
+	}
+	
+	// 카테고리 리스트를 출력하기 위한 함수
+	public ArrayList<CategoryBean> toListCategory() {
+		ArrayList<CategoryBean> categoryList = new ArrayList<CategoryBean>();
+		
+		
+		try {
+			String sql="SELECT * FROM category ORDER BY category_sup DESC";
+			pstmt=con.prepareStatement(sql);
+			
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				CategoryBean categoryBean = new CategoryBean();
+				categoryBean.setCategory_num(rs.getInt("num"));
+				categoryBean.setCategory_code(rs.getString("category_code"));
+				categoryBean.setCategory_sup(rs.getString("category_sup"));
+				categoryBean.setCategory_sub(rs.getString("category_sub"));
+				categoryList.add(categoryBean);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return categoryList;
 	}
 
 }

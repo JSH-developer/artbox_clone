@@ -7,7 +7,7 @@ import vo.ProductBean;
 
 import static db.jdbcUtil.*;
 
-public class ProductViewProService {
+public class ProductViewService {
 	
 	
 	public ProductBean infoProduct(int product_num) {

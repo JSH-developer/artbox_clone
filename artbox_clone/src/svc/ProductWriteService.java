@@ -7,7 +7,7 @@ import vo.ProductBean;
 
 import static db.jdbcUtil.*;
 
-public class ProductWriteProService {
+public class ProductWriteService {
 	
 	
 	

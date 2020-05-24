@@ -7,11 +7,13 @@ public class ProductBean {
 	private String product_code;
 	private String product_name;
 	private String product_image;
+	private String product_image2;
 	private String product_description;
 	private int product_price;
 	private String product_brand;
 	private int product_stock_count;
 	private int product_sale_price;
+	private String product_keywords;
 	private Timestamp product_regdate;
 	private String product_category_code;
 	private String product_option_code;
@@ -39,6 +41,12 @@ public class ProductBean {
 	}
 	public void setProduct_image(String product_image) {
 		this.product_image = product_image;
+	}
+	public String getProduct_image2() {
+		return product_image2;
+	}
+	public void setProduct_image2(String product_image2) {
+		this.product_image2 = product_image2;
 	}
 	public String getProduct_description() {
 		return product_description;
@@ -69,6 +77,12 @@ public class ProductBean {
 	}
 	public void setProduct_sale_price(int product_sale_price) {
 		this.product_sale_price = product_sale_price;
+	}
+	public String getProduct_keywords() {
+		return product_keywords;
+	}
+	public void setProduct_keywords(String product_keywords) {
+		this.product_keywords = product_keywords;
 	}
 	public Timestamp getProduct_regdate() {
 		return product_regdate;

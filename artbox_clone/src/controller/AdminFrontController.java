@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.CategoryListProAction;
 import action.CategoryWriteProAction;
 import action.ProductListProAction;
 import action.ProductViewProAction;
@@ -36,9 +37,15 @@ public class AdminFrontController extends HttpServlet {
 			forward = new ActionForward();
 //			forward.setRedirect(false); 기본값이라서 생략 가능함
 			forward.setPath("/admin/registCategory.jsp");
-			
 		}else if(command.equals("/CategoryWritePro.admin")) {
 			action = new CategoryWriteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/CategoryList.admin")) {
+			action = new CategoryListProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

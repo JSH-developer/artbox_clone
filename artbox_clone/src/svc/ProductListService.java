@@ -19,6 +19,12 @@ public class ProductListService {
 		adminDAO.setConnection(con);
 		listCount = adminDAO.productCount();
 		
+		if(listCount>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
 		close(con);
 		
 		return listCount;
@@ -33,6 +39,12 @@ public class ProductListService {
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
 		productList=adminDAO.toListProduct(page, limit);
+		
+		if(!productList.isEmpty()) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
 		
 		close(con);
 		

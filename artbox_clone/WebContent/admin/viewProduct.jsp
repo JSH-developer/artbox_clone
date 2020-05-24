@@ -20,10 +20,12 @@
 상품 이름 : <%=productBean.getProduct_name() %><br>
 상품 코드 : <%=productBean.getProduct_code() %><br>
 상품 대표 이미지 : <%=productBean.getProduct_image() %><br>
+상품 대표 이미지2 : <%=productBean.getProduct_image2() %><br>
 상품 상세 : <%=productBean.getProduct_description() %><br>
 상품 가격 : <%=productBean.getProduct_price() %><br>
 상품 세일 가격 : <%=productBean.getProduct_sale_price() %><br>
 상품 재고수량 : <%=productBean.getProduct_stock_count() %><br>
+상품 키워드 : <%=productBean.getProduct_keywords() %><br>
 
 </body>
 </html>

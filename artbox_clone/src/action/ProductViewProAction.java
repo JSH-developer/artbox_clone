@@ -3,7 +3,7 @@ package action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import svc.ProductViewProService;
+import svc.ProductViewService;
 import vo.ActionForward;
 import vo.ProductBean;
 
@@ -16,8 +16,8 @@ public class ProductViewProAction implements Action{
 		
 		int product_num = Integer.parseInt(request.getParameter("num"));
 		
-		ProductViewProService productViewProService = new ProductViewProService();
-		productBean = productViewProService.infoProduct(product_num);
+		ProductViewService productViewService = new ProductViewService();
+		productBean = productViewService.infoProduct(product_num);
 		request.setAttribute("productBean", productBean);
 		request.setAttribute("product_num", product_num);
 		

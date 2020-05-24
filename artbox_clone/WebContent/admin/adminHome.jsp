@@ -16,7 +16,7 @@
  <h1> 관리자 페이지</h1>
   <a href="#">회원관리</a><br>
  <a href="ProductList.admin">상품관리</a><br>
- <a href="CategoryWriteForm.admin">카테고리 관리</a><br>
+ <a href="CategoryList.admin">카테고리 관리</a><br>
  <a href="registOption.jsp">옵션 관리</a><br>
  </div>
  
