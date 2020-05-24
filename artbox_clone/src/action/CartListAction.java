@@ -7,49 +7,43 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.CartDAO;
 import svc.CartListService;
 import vo.ActionForward;
 
-// 사용자로부터 전달되는 데이터를 가져와서 DB 작업을 위한 준비 수행하는 Action 클래스
-// DB 작업 후 결과를 전달받아 사용자에게 보여질 정보를 준비하는 클래스
+// 장바구니 목록을 보여주는 CartListAction 클래스 정의
 public class CartListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("CartListAction");
 		
-		//세션 가져오기
+		// 세션값 가져오기
 		HttpSession session = request.getSession();
-		String id = (String)session.getAttribute("member_id");
-		//세션값 없으면  ./MemberLogin.me
+		String id = (String)session.getAttribute("id");
 		ActionForward forward = null;
 		
-		// +
+		// 세션값 없으면 로그인페이지로 돌아가기
+		if(id == null){
+			forward = new ActionForward();
+			forward.setRedirect(true);
+			forward.setPath("/cart/login.cart");
+			return forward;
+		}
+		
+		// cartListService 인스턴스 생성 후 getCartList() 메서드 호출하여 장바구니 목록 가져오기
+		// => 파라미터 : id , 리턴타입 : Vector
 		CartListService cartListService = new CartListService();
+		Vector vector = cartListService.getCartList(id);
 		
-		Vector cartList = cartListService.getCartList(id);
-		// +
+		// 첫번째 vector 칸의 값인 cartList 저장
+		List cartList = (List)vector.get(0);
+		// 두번째 vector 칸의 값인 itemsList 저장
+		List itemsList = (List)vector.get(1);
 		
-//		if(id==null){
-//			forward.setRedirect(true);
-//			forward.setPath("main.jsp");
-//			return forward;
-//		}
-		//BasketDAO 객체 생성 basketdao
-//		CartDAO cartDAO = new CartDAO();
-		//Vector vector= 메서드호출  getBasketList(String id)
-		//  => Vector vector=new Vector();
-//		Vector vector = cartDAO.selectCartList(id);
-		//List basketList = vector 첫번째데이터
-//		List cartList = (List)vector.get(0);
-		//List goodsList = vector 두번째데이터
-//		List itemsList = (List)vector.get(1);
-		// 저장 basketList goodsList
-//		request.setAttribute("cartList", cartList);
-//		request.setAttribute("itemsList", itemsList);
 		forward = new ActionForward();
+		// request 에 cartList / itemsList 담기
 		request.setAttribute("cartList", cartList);
+		request.setAttribute("itemsList", itemsList);
 		forward.setPath("/cart/Cart.jsp");
 		
 		return forward;
