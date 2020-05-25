@@ -45,7 +45,7 @@ ArrayList<CouponBean> couponList= (ArrayList<CouponBean>)request.getAttribute("c
 <!-- 쿠폰 등록 -->
 <h1>쿠폰 등록</h1>
 <!-- 나중에 admin으로 바꿔야하는 부분 -->
-<form action="CouponWritePro.event" method="post" enctype="multipart/form-data">
+<form action="CouponWritePro.event" method="post" >
 <table class="reg_tab">
 	<tr><th>상품옵션</th><td><select name="product_option_num"><option>1</option></select></td></tr>
 	<tr><th>쿠폰이름</th><td><input type="text" name="coupon_name"></td></tr>
@@ -55,7 +55,7 @@ ArrayList<CouponBean> couponList= (ArrayList<CouponBean>)request.getAttribute("c
 	<tr><th>유효기간</th><td><input type="date" name="coupon_limit"></td></tr>
 	<tr><th>사유</th><td><input type="text" name="coupon_reason"></td></tr>
 	<tr><th>사용자</th><td><input type="text" value="user" name="coupon_member_id"></td></tr>
-	<tr><th>쿠폰이미지</th><td><input type="file" name="coupon_img" accept="image/*"></td></tr>
+	<tr><th>쿠폰종류(카테고리)</th><td><input type="text" name="coupon_category"></td></tr>
 	<tr class="btn_tr"><td colspan="2"><input type="submit" value="쿠폰등록"></td></tr>
 </table>
 </form>

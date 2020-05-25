@@ -49,7 +49,7 @@ public class CouponDAO {
 		System.out.println(couponBean.getCoupon_limit());
 		System.out.println( couponBean.getCoupon_reason());
 		System.out.println(couponBean.getCoupon_member_id());
-		System.out.println(couponBean.getCoupon_img());
+		System.out.println(couponBean.getCoupon_category());
 		
 		
 		try {
@@ -66,7 +66,7 @@ public class CouponDAO {
 			pstmt.setInt(6, 0); // 사용여부
 			pstmt.setString(7, couponBean.getCoupon_reason());
 			pstmt.setString(8, couponBean.getCoupon_member_id());
-			pstmt.setString(9, couponBean.getCoupon_img());
+			pstmt.setString(9, couponBean.getCoupon_category());
 			
 			System.out.println("쿠폰이름: "+couponBean.getCoupon_name());
 			insertCount = pstmt.executeUpdate();
@@ -105,6 +105,7 @@ public class CouponDAO {
 				couponBean.setCoupon_limit(rs.getString("coup_limit"));
 				couponBean.setCoupon_use(rs.getInt("coup_use"));
 				couponBean.setCoupon_reason(rs.getString("coup_reason"));
+				couponBean.setCoupon_category(rs.getString("category"));
 				couponBean.setCoupon_member_id(rs.getString("member_id"));
 				
 				

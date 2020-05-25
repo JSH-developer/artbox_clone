@@ -15,11 +15,17 @@ public class CouponBean {
 	private int coupon_use;
 	private String coupon_reason;
 	private String coupon_member_id;
-	private String coupon_img;
+	private String coupon_category;
 	
 	
 
 
+	public String getCoupon_category() {
+		return coupon_category;
+	}
+	public void setCoupon_category(String coupon_category) {
+		this.coupon_category = coupon_category;
+	}
 	public String getCoupon_start() {
 		return coupon_start;
 	}
@@ -71,11 +77,6 @@ public class CouponBean {
 	public void setCoupon_member_id(String coupon_member_id) {
 		this.coupon_member_id = coupon_member_id;
 	}
-	public String getCoupon_img() {
-		return coupon_img;
-	}
-	public void setCoupon_img(String coupon_img) {
-		this.coupon_img = coupon_img;
-	}
+
 
 }
