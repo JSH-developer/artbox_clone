@@ -15,7 +15,7 @@ public class ItemDetailService {
 		// 공통작업-1. static import 로 지정된 메서드 호출
 		Connection con = getConnection();
 		// 공통작업-2. DB 작업을 위한 ItemDAO 객체 생성 => 싱글톤 패턴으로 생성된 객체 가져오기
-		ItemDAO itemDAO = ItemDAO.getInstance();
+		itemDAO itemDAO = ItemDAO.getInstance();
 		// 공통작업-3. ItemDAO 객체에 Connection 객체 전달
 		itemDAO.setConnection(con);
 		// 4. 게시물 상세 내용 조회
