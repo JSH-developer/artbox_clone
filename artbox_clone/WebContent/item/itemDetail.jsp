@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>ARTBOX(포트폴리오)</title>
-    <link href="../css/item/itemDetail.css" rel="stylesheet" type="text/css">
-    <link href="../css/front.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/css/item/itemDetail.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 	<script src="../js/jquery-3.5.0.js"></script>
 	<script type="text/javascript">
 		$(document).on('click','.tr',function(){
