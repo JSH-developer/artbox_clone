@@ -7,7 +7,7 @@
     <title>ARTBOX(포트폴리오)</title>
     <link href="${pageContext.request.contextPath}/css/item/itemDetail.css" rel="stylesheet" type="text/css">
     <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
-	<script src="../js/jquery-3.5.0.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 	<script type="text/javascript">
 		$(document).on('click','.tr',function(){
 			if ($(this).parent().find(".ps").hasClass("on"))
@@ -38,16 +38,15 @@
 				
 		<section class="iteminfo">
 		
-			<form action="#" method="post">
+<!-- 			<form action="#" method="post"> -->
 				<span class="img_left_btn"></span>
 				<span class="img_right_btn"></span>
 				<span class="img_left_point"></span>
 				<span class="img_right_point"></span>
 				<div class="slidebar">
-				
 					<div class="slideimg">
-						<img src="detail1.jpg">
 						<img src="http://www.poom.co.kr/Upload2/Product/201805/1805300288_detail1.jpg">
+						<img src="http://www.poom.co.kr/Upload2/Product/201805/1805300305_detail1.jpg">
 					</div>				
 				</div>
 				<div class="inner">
@@ -88,7 +87,7 @@
 						<span class="btnOverlay btnShare" data="btnShare"></span>
 					</div>
 				</div>
-			</form>
+<!-- 			</form> -->
 		</section>
 		<div class="clear"></div>
 		<section class="item_another">
