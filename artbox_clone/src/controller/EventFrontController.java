@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.CategoryWriteProAction;
+import action.CouponOrderPayFormAction;
 import action.CouponWriteProAction;
 import action.MypageCouponListAction;
 import action.ProductViewProAction;
@@ -49,6 +50,14 @@ public class EventFrontController extends HttpServlet {
 		}else if(command.equals("/MypageCouponList.event")) {
 			System.out.println("/MypageCouponList.event");
 			action = new MypageCouponListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/OrderPayForm.event")) {
+			System.out.println("/OrderPayForm.event");
+			action = new CouponOrderPayFormAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

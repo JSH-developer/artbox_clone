@@ -102,6 +102,7 @@ if(myCouponList != null ){
 				<td><%=myCouponList.get(i).getCoupon_use() %></td> 
 				<td><%=myCouponList.get(i).getCoupon_reason() %></td> 
 				<td><%=myCouponList.get(i).getCoupon_member_id() %></td> 
+				<td><%=myCouponList.get(i).getCoupon_category() %></td> 
 			</tr>
 			<%}
 			}%>
@@ -109,21 +110,28 @@ if(myCouponList != null ){
 </section>
 
 	<div class="coupon_tab on">온라인 전용 쿠폰 (2장)</div>
+	
+
+		
 				<div class="coupon_box">
 					<div class="detail_tab">보너스 쿠폰 (1장)</div>
 					<div class="CouponList">
 						<ul>
+							<% for(int i=0;i<myCouponList.size();i++){ 	
+							String Coupon = myCouponList.get(i).getCoupon_category();
+							if(("bonus").equals(Coupon)){%>
 							<li>
 								<div class="CouponImage">
 									<img
 										src="http://www.poom.co.kr/Images/Ver2/Mypoom/sale2000.jpg">
 								</div>
-								<div class="CouponName" title="가입회원 2000원 할인 쿠폰">가입회원
-									2000원 할인 쿠폰</div>
+									<div class="CouponName" title=<%=myCouponList.get(i).getCoupon_name() %>><%=myCouponList.get(i).getCoupon_name() %></div>
 								<div class="CouponInfo">
-									<span>2020-05-14 ~ 2020-06-30</span><span>30,000원 이상 구매 시</span>
+									<span><%=myCouponList.get(i).getCoupon_start() %> ~ <%=myCouponList.get(i).getCoupon_limit() %></span>
+									<span><%=myCouponList.get(i).getCoupon_reason() %></span>
 								</div>
 							</li>
+						<%} }%>
 						</ul>
 					</div>
 					
@@ -131,19 +139,23 @@ if(myCouponList != null ){
 					<div class="detail_tab">무료배송 쿠폰 (1장)</div>
 					<div class="CouponList">
 						<ul>
+					<% for(int i=0;i<myCouponList.size();i++){ 	
+					String Coupon = myCouponList.get(i).getCoupon_category();
+						if(("freeshipping").equals(Coupon)){%>
 							<li>
 								<div class="CouponImage">
 									<img src="http://www.poom.co.kr/Images/Ver2/Mypoom/sale13.jpg">
 								</div>
-								<div class="CouponName" title="가입회원 무료배송쿠폰">가입회원 무료배송쿠폰</div>
+								<div class="CouponName" title="가입회원 무료배송쿠폰"><%=myCouponList.get(i).getCoupon_name() %></div>
 								<div class="CouponInfo">
-									<span>2020-05-14 ~ 2020-06-30</span><span>20,000원 이상 구매 시</span>
+									<span><%=myCouponList.get(i).getCoupon_start() %> ~ <%=myCouponList.get(i).getCoupon_limit() %></span>
+									<span><%=myCouponList.get(i).getCoupon_reason() %></span>
 								</div>
 							</li>
+							<%}} %>
 						</ul>
 					</div>
 				</div>
-
 
 				<div class="coupon_tab on">매장 전용 쿠폰 (0장)</div>
 	
