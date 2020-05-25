@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +26,17 @@
 		$(document).on('click','.overlay_close',function(){
 			$(".fullscreen").removeClass("on");
 		})
+		
+		function cartCheck() { // 장바구니 이동
+			var result = confirm("선택하신 상품이 장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?");
+			if (result){ //확인
+				document.gfr.action = "addCart.cart";
+				document.gfr.submit();
+			} else { //취소
+				document.gfr.action = "addCart.cart";
+			}
+		}
+
 	</script>
 </head>
 
@@ -35,19 +47,13 @@
 
 	<!-- 메인 콘텐츠  -->
 	<div class="wrap">
-				
 		<section class="iteminfo">
-		
-<!-- 			<form action="#" method="post"> -->
-				<span class="img_left_btn"></span>
-				<span class="img_right_btn"></span>
-				<span class="img_left_point"></span>
-				<span class="img_right_point"></span>
-				<div class="slidebar">
-					<div class="slideimg">
-						<img src="http://www.poom.co.kr/Upload2/Product/201805/1805300288_detail1.jpg">
-						<img src="http://www.poom.co.kr/Upload2/Product/201805/1805300305_detail1.jpg">
-					</div>				
+			<form action="" method="post" name="gfr">
+			<input type="hidden" name="num" value=2>
+				<div class="slideimg">
+					<ul>
+						<li><img src=detail1.jpg></li>
+					</ul>
 				</div>
 				<div class="inner">
 					<div class="pdtName">클래식 캔디머신 (베이비핑크)(53008340)</div>
@@ -81,18 +87,17 @@
 						총 합계금액<b>5,800 원</b>
 					</div>
 					<div class="pdtBtnList">
-					<span class="btnCart"><input type="button" value="장바구니 담기"></span>
+					<span class="btnCart"><input type="button" value="장바구니 담기" onclick="cartCheck()"></span>
 						<span class="btnOrder"><input type="button" value="바로 구매하기"></span>
 						<span class="btnWish off"></span>
 						<span class="btnOverlay btnShare" data="btnShare"></span>
 					</div>
 				</div>
-<!-- 			</form> -->
+			</form>
 		</section>
 		<div class="clear"></div>
 		<section class="item_another">
 			<span class="text">이 상품의 다른 옵션</span>
-			<div class="another_container">
 			<div class="another">
 				<ul>
 					<li onclick='location.href="#"'>
@@ -111,7 +116,6 @@
 						<span class="itemprice">4,900원</span>
 					</li>
 				</ul>
-			</div>
 			</div>
 		</section>
 		<div class="clear"></div>
@@ -141,9 +145,8 @@
 			</div>
 		</section>
 		<section class="item_content">
-			<div class="item_review">
 			<input class="btnProductReview" type="button" value="후기작성" onclick="location.href='itemReview.jsp'">
-		<div class="table">
+			<div class="table">
 				<div class="tr">
 					<span class="td">★★★★★</span>
 					<span class="td type2">평소에 캔디머신을 구매할까하고 생각했었는데, 대부분 컬러가 원색만 있어...</span>
@@ -165,8 +168,28 @@
 					</div>
 				</div>
 			</div>
-		</div>
-			
+			<div class="table">
+				<div class="tr">
+					<span class="td">★★★★★</span>
+					<span class="td type2">평소에 캔디머신을 구매할까하고 생각했었는데, 대부분 컬러가 원색만 있어...</span>
+					<span class="td">2019-12-28</span>
+					<span class="td">besi**</span>
+				</div>
+				<div class="ps">
+					<span class="ps_score">10</span>
+					<div class="ps_sub1">
+						<span>기능 ★★★★★</span> <span>디자인 ★★★★★</span> <span>가격 ★★★★★</span> <span>품질 ★★★★★</span>
+					</div>
+					<div class="ps_sub2">평소에 캔디머신을 구매할까 하고 생각했었는데, 대부분 컬러가 원색만
+						있어서 좀 망설여졌었어요. 근데 아트박스에서 너무 예쁜 베이비핑크 컬러로 캔디머신이 나왔기에 냉큼 구입했습니다.
+						생각했던 컬러 그대로라 너무 만족합니다ㅎㅎ 크기도 너무 작지 않아서 좋아요. 그리고 위 아래로 통이 분리된다는게 최대
+						장점입니다. 세척하기도 편하고 용이해서 더 좋아요.
+					</div>
+					<div class="ps_sub3">
+						<img src="http://www.poom.co.kr/Upload2/PostScript/201912/1805300328_0_123034_1.jpg">
+					</div>
+				</div>
+			</div>
 			<div class="paging">
 				<span class="box">
 					<a href="#"> <img class="opacity" src="../Images/order/btn_board_prev.gif"> </a>
@@ -275,20 +298,18 @@
 	<jsp:include page="../inc/bottom.jsp"></jsp:include>
 	<!--  /푸터 -->
 	<script type="text/javascript">
-	
-	//----------------탭바-------------------------
     var currentMenu;
     var menuIcon = document.querySelector('.tabBar');
     var warp = document.querySelectorAll('.item_content');
 	var arrayIcon = document.querySelectorAll('.tabBar span');
 	var currentWarp;
    
-   // .on 제거 
+   
     function inactivate(){
    		currentMenu.classList.remove('on');
    		currentWarp.classList.remove('on');
     };
-    // .on 추가 
+    
 	function activate(param){
 		param.classList.add('on');
 		currentMenu = param;
@@ -301,70 +322,17 @@
 	}
     
 	function clickManuHandler(e){
-		if(currentMenu){ //기존 .on 제거 
+		if(currentMenu){
 			inactivate();   
 		};
-		activate(e.target); //해당 클릭 태그 .on 추가 
+		activate(e.target);
 	};
     
+ 
     menuIcon.addEventListener('click',clickManuHandler);
     
-    //메뉴버튼 초기화 
+    
     activate(arrayIcon[0]);
-  //----------------탭바-------------------------
-    
-    
-    //---------------이미지 슬라이더----------------------------
-    console.log(window.getComputedStyle(document.querySelector(".slideimg")).width);
-    console.log(window.getComputedStyle(document.querySelector(".slideimg")).height);
-    var slider = document.querySelector(".slideimg");
-    var left_btn = document.querySelector(".img_left_btn");
-    var right_btn = document.querySelector(".img_right_btn");
-    var img_count = 0;
-    var left_point = document.querySelector(".img_left_point");
-    var right_point = document.querySelector(".img_right_point");
-    
-    function side_right(){
-    	console.log(img_count);
-    	left_point.style.opacity="0.3";
-    	right_point.style.opacity="1.0";
-    	
-    	right_point.style.right="400px";
-    	left_point.style.right="420px";
-    	if(img_count<1){
-    		img_count++;
-    		slider.style.top = "-552px";
-    	}
-    	if(img_count===1){
-    		right_btn.style.display="none";
-    	}else{
-    		left_btn.style.display="inline-block";
-    	}
-    };
-    
-    right_btn.addEventListener("click",side_right);
-   	
-    function slide_left(){
-    	console.log(img_count);
-    	left_point.style.opacity="1.0";
-    	right_point.style.opacity="0.3";
-    	
-    	right_point.style.right="500px";
-    	left_point.style.right="520px";
-    	if(img_count>0){
-    		img_count--;
-    		slider.style.top = "0px";
-    	}
-    	if(img_count===0){
-    		right_btn.style.display="inline-block";
-    	}else{
-    		left_btn.style.display="none";
-    	}
-    };
-    
-    left_btn.addEventListener("click",slide_left);
-    
-  //---------------이미지 슬라이더----------------------------
     
     </script>
 </body>

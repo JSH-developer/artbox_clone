@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+div, p, span, input, select, textarea, a, ul, li, dd, dt, dl {
+    box-sizing: border-box !important;
+    -webkit-box-sizing: border-box !important;
+    -moz-box-sizing: border-box !important;
+}
+body, th, td, p, input, button, textarea, select, div, xmp {
+    font-family: 'Spoqa Han Sans', 'Malgun Gothic', Dotum, Gulim, Tahoma, Helvetica, AppleGothic, Helvetica, Sans-serif;
+    color: #808080;
+    line-height: 100%;
+}
+ul, ol, dl {padding: 0; margin: 0;}
+a {text-decoration:none}
+.clear{clear: both;}
+
+.reviewWrap {width: 1200px; margin: 50px auto 0 auto; padding: 0;}
+
+.reviewTitle{text-align: center; color: #000000; font-size: 25px; margin: 0 0 30px 0;}
+
+.reviewInfo{margin: 0 0 50px 0;}
+.reviewInfo span{display: block; font-size: 14px; line-height: 20px; color: #646464;}
+.reviewInfo span:last-child {padding: 16px 0 0 0; color: #9d9d9d;}
+
+.reviewTab {height:62px; line-height:62px; text-align:center; border:1px solid #000000; border-radius:5px;}
+.reviewTab a {float:left; display:inline-block; width:50%; color:#000000; height:61px; font-size:20px; border-radius:4px;}
+.reviewTab a.on { background-color:#000000; color:#ffffff;  }
+
+.ReviewNone {text-align:center; padding:70px 0 70px 0; color:#9d9d9d; font-size:18px;}
+
+.reviewWriteList {padding:12px;}
+.reviewWriteList span.candy {display:block; font-size:16px; line-height:55px; color:#9d9d9d; padding:0 0 0 14px;}
+
+.ItemList li {list-style:none;position:relative; width:20%; text-align:center; padding:14px 14px 0 14px;float: left;}
+.ItemList li:last-child {width: 100%; text-align: center; padding: 0;}
+.ItemList img {width:100%;}
+.ItemList span {display:block; text-align:center; }
+.ItemList span.itemname {font-size:16px; color:#000000; padding:10px 10px 0 10px; height:26px; line-height:16px; width:100%; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+.ItemList span.itemamt  {font-size:16px; color:#000000; font-weight:bold;}
+.ItemList span.discount {color:#f00000;}
+.ItemList span.deadline {font-size:14px; color:646464;}
+.ItemList a.btnWrite {display:block; font-size:16px; color:#ffffff; width:140px; height:36px; line-height:36px; text-align:center; background-color:#424242; border-radius:5px; margin:10px auto;}
+
+.ItemList .itemprice { display:inline-block; }
+.ItemList .itemprice.sale_Y { color:#e71e22; }
+.ItemList .discountrate { display:inline-block; color:#e71e22; }
+
+.paging {padding:60px 0; text-align: center;}
+.paging .box{display: inline-block; height: 35px;}
+.paging .box a {line-height: 35px; font-size: 15px; padding: 0 15px 0 15px;float: left;}
+.paging .box .btn_pageon {color: #df2e38; font-size: 16px;}
+.paging .box .opacity {opacity: 0.3;}

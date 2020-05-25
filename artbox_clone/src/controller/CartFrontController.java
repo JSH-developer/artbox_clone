@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.CartAddAction;
+import action.CartDeleteOneAction;
 import action.CartListAction;
+import action.CartQuantityUpdateAction;
+import action.CartTestLoginAction;
 import vo.ActionForward;
 
 @WebServlet("*.cart")
@@ -25,22 +28,42 @@ public class CartFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		if(command.equals("/productDetail.cart")) {
+		if(command.equals("/login.cart")) {
 			forward = new ActionForward();
-			forward.setPath("/item/itemDetail.jsp");
+			forward.setPath("/cart/CartTestLogin.jsp");
+		} else if(command.equals("/LoginAction.cart")) {
+			action = new CartTestLoginAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(command.equals("/productDetail.cart")) {
+			forward = new ActionForward();
+			forward.setPath("/cart/CartTestItemDetail.jsp");
 		} else if(command.equals("/addCart.cart")) {
-			// BoardWriteProAction 클래스 인스턴스 생성 => Action 타입으로 업캐스팅
 			action = new CartAddAction();
-			// 공통 메서드인 execute() 메서드를 호출하여 request, response 객체 전달
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} else if(command.equals("/listCart.cart")) {
-			// BoardWriteProAction 클래스 인스턴스 생성 => Action 타입으로 업캐스팅
 			action = new CartListAction();
-			// 공통 메서드인 execute() 메서드를 호출하여 request, response 객체 전달
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(command.equals("/updateQuantity.cart")) {
+			action = new CartQuantityUpdateAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(command.equals("/deleteOne.cart")) {
+			action = new CartDeleteOneAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -61,7 +84,6 @@ public class CartFrontController extends HttpServlet {
 		}
 	}
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request, response);
 	}

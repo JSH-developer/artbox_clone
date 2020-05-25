@@ -1,6 +1,7 @@
 package svc;
 
 import java.sql.Connection;
+import java.util.List;
 import java.util.Vector;
 
 import dao.CartDAO;
@@ -9,10 +10,8 @@ import static db.jdbcUtil.*;
 
 public class CartListService {
 	
-	public Vector getCartList(String member_id) {
+	public List getCartList(String member_id) {
 		System.out.println("CartListService - getCartList()");
-		
-		Vector cartList = null;
 		
 		// DB 작업을 위한 준비 => Connection 객체, DAO 객체, DAO 객체의 메서드 호출
 		// 1. DB 작업에 필요한 Connection 객체 가져오기
@@ -27,12 +26,13 @@ public class CartListService {
 		// 4. cartDAO 클래스의 selectCartList() 메서드를 호출하여
 		//    파라미터 : member_id
 		//    리턴타입 : Vector
-		cartList = cartDAO.selectCartList(member_id);
+		List list = cartDAO.selectCartList(member_id);
 		
 		// 5. Connection 객체 반환
 		close(con);
 		
-		return cartList;
+		// 6. 작업 결과 리턴
+		return list;
 	}
 
 }
