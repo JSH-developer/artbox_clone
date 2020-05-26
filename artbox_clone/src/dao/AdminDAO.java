@@ -228,6 +228,7 @@ public class AdminDAO {
 		return categoryList;
 	}
 
+	// 옵션을 등록하기 위한 함수
 	public int regOption(OptionBean optionBean) {
 		int insertCount=0;
 		
@@ -249,6 +250,7 @@ public class AdminDAO {
 		return insertCount;
 	}
 
+	// 옵션코드를 만들기 위한 함수
 	public String toMakeOptionCode(String product_index) {
 		String result ="";
 		
@@ -270,6 +272,35 @@ public class AdminDAO {
 		}
 		
 		return result;
+	}
+	
+	// 옵션 리스트를 출력하기 위한 함수
+	public ArrayList<OptionBean> toListOption() {
+		ArrayList<OptionBean> optionList = new ArrayList<OptionBean>();
+		
+		try {
+			String sql="SELECT * FROM product_option ORDER BY option_code DESC";
+			pstmt=con.prepareStatement(sql);
+			
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				OptionBean optionBean = new OptionBean();
+				optionBean.setOption_num(rs.getInt("num"));
+				optionBean.setOption_code(rs.getString("option_code"));
+				optionBean.setOption_name(rs.getString("option_name"));
+				optionBean.setAdd_price(rs.getInt("add_price"));
+				optionList.add(optionBean);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return optionList;
 	}
 
 }

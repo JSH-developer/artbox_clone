@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import action.CategoryListProAction;
 import action.CategoryWriteProAction;
+import action.OptionListProAction;
 import action.OptionWriteProAction;
 import action.ProductListProAction;
 import action.ProductViewProAction;
@@ -88,7 +89,17 @@ public class AdminFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("/OptionList.admin")) { // 옵션 리스트 페이지
+			action = new OptionListProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+		
+		
+		
 		
 		
 		// ActionForward 객체 내의 포워딩 방식에 따라 각각의 포워딩 작업 수행

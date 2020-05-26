@@ -25,8 +25,7 @@
 <div class="admin_nav_wrap">
 <ul class="admin_nav">
 	<li><a href="home.admin">관리자 홈</a></li>
-	<li><a href="#">옵션 목록</a></li>
- 	<li><a href="#">옵션 수정</a></li>
+	<li><a href="OptionList.admin">옵션 목록</a></li>
 </ul>
 </div>
 <br>

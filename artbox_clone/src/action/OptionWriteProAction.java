@@ -24,7 +24,7 @@ public class OptionWriteProAction implements Action {
 		boolean isRegist = optionWriteService.registOption(optionBean);
 		
 		if(isRegist) {
-			forward.setPath("/home.admin");
+			forward.setPath("/OptionList.admin");
 		}else {
 			forward.setRedirect(true);
 			forward.setPath("./home.admin");
