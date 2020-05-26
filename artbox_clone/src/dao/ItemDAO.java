@@ -37,6 +37,7 @@ public class ItemDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
+		
 		// 게시물 번호(board_num)에 해당하는 게시물 상세 내용 조회 후 BoardBean 객체에 저장
 		try {
 			String sql = "SELECT * FROM product WHERE num=?";
