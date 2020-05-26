@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vo.CategoryBean;
+import vo.OptionBean;
 import vo.ProductBean;
 
 import static db.jdbcUtil.*;
@@ -225,6 +226,50 @@ public class AdminDAO {
 		}
 		
 		return categoryList;
+	}
+
+	public int regOption(OptionBean optionBean) {
+		int insertCount=0;
+		
+		try {
+			String sql = "INSERT INTO product_option VALUES(null,?,?,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, optionBean.getOption_code());
+			pstmt.setString(2, optionBean.getOption_name());
+			pstmt.setInt(3, optionBean.getAdd_price());
+			
+			insertCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return insertCount;
+	}
+
+	public String toMakeOptionCode(String product_index) {
+		String result ="";
+		
+		try {
+			String sql = "SELECT LPAD(MAX(num)+1,2,'0') 'product_num' FROM product_option";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = product_index + rs.getString("product_num");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

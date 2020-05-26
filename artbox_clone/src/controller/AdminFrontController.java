@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import action.CategoryListProAction;
 import action.CategoryWriteProAction;
+import action.OptionWriteProAction;
 import action.ProductListProAction;
 import action.ProductViewProAction;
 import action.ProductWriteProAction;
@@ -71,6 +72,17 @@ public class AdminFrontController extends HttpServlet {
 			}
 		}else if(command.equals("/ProductView.admin")) { // 상품 보기 페이지
 			action = new ProductViewProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/OptionWriteForm.admin")) { // 옵션 등록 페이지
+			forward = new ActionForward();
+			forward.setPath("/admin/registOption.jsp");
+			
+		}else if(command.equals("/OptionWritePro.admin")) { // 옵션 등록 하기
+			action = new OptionWriteProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
