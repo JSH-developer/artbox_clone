@@ -18,7 +18,6 @@ public class ItemDetailService {
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		// 공통작업-3. ItemDAO 객체에 Connection 객체 전달
 		itemDAO.setConnection(con);
-		// 4. 게시물 상세 내용 조회
 		article = itemDAO.selectArticle(product_num);
 		// 공통작업-5. Connection 객체 반환
 		close(con);
