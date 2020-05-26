@@ -18,7 +18,8 @@
 
  <h2><a href="CouponWriteForm.event">쿠폰 등록 페이지</a></h2>
  <h2><a href="MypageCouponList.event">마이페이지 - 쿠폰</a></h2>
- <h2><a href="OrderPayForm.event">구매페이지 - 쿠폰</a></h2>
+<!--  <h2><a href="OrderPayForm.event">구매페이지 - 쿠폰</a></h2> -->
+  <h2><a href="OrderPayForm.event">구매페이지 - 쿠폰테스트</a></h2>
  
  </div>
  <!-- 메인 콘텐츠  -->

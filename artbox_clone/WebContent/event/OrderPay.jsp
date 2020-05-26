@@ -1,13 +1,18 @@
+<%@page import="vo.CouponBean"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute("mycouponList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ARTBOX(포트폴리오)</title>
-<link href="../css/front.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 <!-- <link href="../css/order/Common.css" rel="stylesheet" type="text/css"> -->
-<link href="../css/order/Order.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/order/Order.css" rel="stylesheet" type="text/css">
 <!-- <link href="../css/order/PopZipCode.css" rel="stylesheet" type="text/css"> -->
 
 <!-- <script type="text/javascript" src="../js/PopZipCodeJson.js"></script> -->
@@ -1677,26 +1682,30 @@ function execDaumPostCode() { // 우편번호
 
 	<div class="SectionDiscount" id="SectionDiscount">
 		<div class="OrderInfoTitle">
-			<h2>쿠폰/할인/꿈캔디 정보<a class="Open" id="OrderDiscountInfoArrow" href="javascript:fnOrderInfoTitle('OrderDiscountInfo','i_TotalDiscountPriceInfo','i_TotalDiscountPriceInfo_summary');"></a><div class="clear"></div></h2>
+			<h2>쿠폰/할인/꿈캔디 정보<a class="Open" id="OrderDiscountInfoArrow" 
+			href="javascript:fnOrderInfoTitle('OrderDiscountInfo','i_TotalDiscountPriceInfo','i_TotalDiscountPriceInfo_summary');"></a>
+			<div class="clear"></div></h2>
 		</div>
-		<div id="OrderDiscountInfoSummary" class="OrderInfoSummary">
+		<div id="OrderDiscountInfoSummary" class="OrderInfoSummary"> <!-- 접혔을때 할인금액 -->
 			<div class="gap20px"></div>
 			<div class="tableDiv">
 				<dl class="trOrder">
 					<dt>할인금액</dt>
 					<dd>
-						<input type="text" id="i_TotalDiscountPriceInfo_summary" name="TotalDiscountPriceInfo_summary" maxlength="16" value="- 0 원" class="readonly" readonly="readonly" />
+						<input type="text" id="i_TotalDiscountPriceInfo_summary" name="TotalDiscountPriceInfo_summary" 
+						maxlength="16" value="- 0 원" class="readonly" readonly="readonly" />
 					</dd>
 				</dl>
 			</div>
 		</div>
-		<div id="OrderDiscountInfo">
-			<div class="gap20px"></div>
+		<div id="OrderDiscountInfo"> 
+			<div class="gap20px"></div>  <!-- 펼혔을때 할인금액 -->
 			<div class="tableDiv">
 				<dl class="trOrder">
 					<dt>할인금액</dt>
 					<dd>
-						<input type="text" id="i_TotalDiscountPriceInfo" name="TotalDiscountPriceInfo" value="- 0 원" class="readonly" readonly="readonly" />
+						<input type="text" id="i_TotalDiscountPriceInfo" name="TotalDiscountPriceInfo" value="- 0 원" 
+						class="readonly" readonly="readonly" />
 						<p class="null"></p>
 					</dd>
 				</dl>
@@ -1707,9 +1716,11 @@ function execDaumPostCode() { // 우편번호
 					<dd>
 						<input type="radio" id="CouponTypeNull" name="CouponType" value="Null" checked="checked" /> 선택안함
 						&nbsp;&nbsp;<span class="MobileBr"><p class="null"></p></span>
-						<input type="radio" id="CouponTypeBonus" name="CouponType" value="Bonus" /> 보너스쿠폰 (<span id="BonusCouponTotCnt">0</span>장)
+						<input type="radio" id="CouponTypeBonus" name="CouponType" value="Bonus" /> 
+						보너스쿠폰 (<span id="BonusCouponTotCnt">0</span>장)
 						&nbsp;&nbsp;<span class="MobileBr"><p class="null"></p></span>
-						<input type="radio" id="CouponTypeGoods" name="CouponType" value="Goods" /> 상품쿠폰 (<span id="GoodsCouponTotCnt">0</span>장)
+						<input type="radio" id="CouponTypeGoods" name="CouponType" value="Goods" /> 
+						상품쿠폰 (<span id="GoodsCouponTotCnt">0</span>장)
 					</dd>
 				</dl>
 			</div>
@@ -1721,8 +1732,19 @@ function execDaumPostCode() { // 우편번호
 							<option value="" selected="selected">사용안함</option>
 						</select>
 						
-						<select name="BonusCouponIdx" id="CouponIdxSelect_Bonus" disabled="disabled" class="none">
+			<!-- 			<select name="BonusCouponIdx" id="CouponIdxSelect_Bonus" disabled="disabled" class="none">
 							<option value="" alt="0" selected="selected">해당 쿠폰이 없습니다.</option>
+						</select> -->
+						
+						<select name="BonusCouponIdx" id="CouponIdxSelect_Bonus" onchange="fnCouponSelect(this);" class="" 
+						style="display: block;">
+						
+							<option value="" alt="0" selected="selected">선택</option>
+							
+							<option value="53146604" alt="5000">생일축하쿠폰</option>
+						
+							<option value="53146338" alt="2000">가입회원 2000원 할인 쿠폰</option>
+						
 						</select>
 						
 						<input type="hidden" id="NotCoupon" value="N" />
