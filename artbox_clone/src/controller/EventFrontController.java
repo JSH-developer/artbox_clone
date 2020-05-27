@@ -10,12 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import action.CategoryWriteProAction;
 import action.CouponOrderPayFormAction;
 import action.CouponWriteProAction;
 import action.MypageCouponListAction;
-import action.ProductViewProAction;
-import action.ProductWriteProAction;
+import action.TestSelectAction;
 import vo.ActionForward;
 
 @WebServlet("*.event")
@@ -63,7 +61,23 @@ public class EventFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("/testSelect.event")) {
+		System.out.println("/testSelect.event");
+		action = new TestSelectAction();
+		try {
+			forward = action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+	}else if(command.equals("/testSelectmain.event")) {
+		System.out.println("/testSelectmain.event");
+		
+		forward = new ActionForward();
+//		forward.setRedirect(false); // 포워딩 박식을 Dispatcher 방식으로 설정(기본값 생략 가능)
+		forward.setPath("/event/PayCoupon.jsp"); // 이동할 View 페이지 경로 지정
+		
+	
+	}
 		
 		
 		

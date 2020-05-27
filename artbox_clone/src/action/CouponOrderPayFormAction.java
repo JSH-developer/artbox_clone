@@ -27,13 +27,14 @@ public class CouponOrderPayFormAction implements Action {
 		
 		
 		
+		
 		if(mycouponList != null) {
-			System.out.println("리스트 갖고오긴 함");
+			System.out.println(id+"님 쿠폰 리스트 갖고옴");
 			
 			request.setAttribute("mycouponList", mycouponList);
 			
 			forward = new ActionForward();
-			forward.setPath("/event/PayCoupon.jsp");
+			forward.setPath("/event/OrderPay.jsp");
 			
 		}else {
 			System.out.println("리스트 불러오기 실패");

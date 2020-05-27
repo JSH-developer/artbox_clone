@@ -2,6 +2,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+        <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
 ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute("mycouponList");
 %>
@@ -16,12 +18,40 @@ ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute(
 <!-- <link href="../css/order/PopZipCode.css" rel="stylesheet" type="text/css"> -->
 
 <!-- <script type="text/javascript" src="../js/PopZipCodeJson.js"></script> -->
-<script type="text/javascript" src="../js/jquery-3.5.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	function setComma(number) //asp의 formatnumber 사용법 -> var xxx = setComma(parseInt(변수));
+	{
+		var minusYN = "N";
+		if (parseInt(number,10)<0)
+		{
+			minusYN = "Y";
+			number = parseInt(number,10)*-1;
+		}
+
+		var nArr = String(number).split("").join(",").split("");
+		for (var i=nArr.length-1, j=1; i>=0; i--, j++)
+		{
+			 if( j%6 != 0 && j%2 == 0)
+			 {
+				 nArr[i] = "";
+			 }
+		}
+		if (minusYN=="Y")
+		{
+			return "-"+nArr.join("");
+		}
+		else
+		{
+			return nArr.join("");
+		}
+	}
+	
 
 	$("input[type=tel]").keyup(function(e){
 		if (!Check_Number(e.currentTarget.value)) {
@@ -427,6 +457,7 @@ $(document).ready(function(){
 		}
 	}
 
+	// 쿠폰 선택한거 여기로 옴
 	fnCouponSelect = function(obj){
 
 		var DcNumber = $(obj).find(":selected").attr("alt");
@@ -1714,13 +1745,14 @@ function execDaumPostCode() { // 우편번호
 				<dl class="trOrderRadio">
 					<dt>쿠폰</dt>
 					<dd>
+						<% int bonusCouponCount = 0; int freeCouponCount=0; %>
 						<input type="radio" id="CouponTypeNull" name="CouponType" value="Null" checked="checked" /> 선택안함
 						&nbsp;&nbsp;<span class="MobileBr"><p class="null"></p></span>
 						<input type="radio" id="CouponTypeBonus" name="CouponType" value="Bonus" /> 
-						보너스쿠폰 (<span id="BonusCouponTotCnt">0</span>장)
+						보너스쿠폰 (<span id="BonusCouponTotCnt"><%=bonusCouponCount %></span>장)
 						&nbsp;&nbsp;<span class="MobileBr"><p class="null"></p></span>
 						<input type="radio" id="CouponTypeGoods" name="CouponType" value="Goods" /> 
-						상품쿠폰 (<span id="GoodsCouponTotCnt">0</span>장)
+						상품쿠폰 (<span id="GoodsCouponTotCnt"><%=freeCouponCount %></span>장)
 					</dd>
 				</dl>
 			</div>
@@ -1737,14 +1769,28 @@ function execDaumPostCode() { // 우편번호
 						</select> -->
 						
 						<select name="BonusCouponIdx" id="CouponIdxSelect_Bonus" onchange="fnCouponSelect(this);" class="" 
-						style="display: block;">
-						
-							<option value="" alt="0" selected="selected">선택</option>
+						style="display: none;">
+
+<%-- 										<c:set var="couponList" value="couponList" /> --%>
+
+										<c:choose>
+											<c:when test="${couponList.category eq 'bonuscoupon'}">
+       									 <c:out value= "${fn:length(myCouponList)}" />
+    										</c:when>
+										</c:choose>
+
+										<option value="" alt="0" selected="selected">선택</option>
+						<% for(int i=0;i<myCouponList.size();i++){ 	
+							String Coupon = myCouponList.get(i).getCoupon_category();
+							if(("bonuscoupon").equals(Coupon)){
+								bonusCouponCount+=1;
+							%>
 							
-							<option value="53146604" alt="5000">생일축하쿠폰</option>
+							<option value="53146604" alt=<%=myCouponList.get(i).getCoupon_price() %>>
+							<%=myCouponList.get(i).getCoupon_name()%>
 						
-							<option value="53146338" alt="2000">가입회원 2000원 할인 쿠폰</option>
-						
+<!-- 							<option value="53146338" alt="2000">가입회원 2000원 할인 쿠폰</option> -->
+						<%}} %>
 						</select>
 						
 						<input type="hidden" id="NotCoupon" value="N" />
@@ -1790,6 +1836,8 @@ function execDaumPostCode() { // 우편번호
 			</div>
 		</div>
 	</div>
+	
+	<script> </script>
 
 	<div class="clear"></div>
 	<div class="SectionMidLine"></div>
