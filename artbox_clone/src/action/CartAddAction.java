@@ -32,6 +32,7 @@ public class CartAddAction implements Action {
 			forward.setPath("/cart/login.cart");
 			return forward;
 		}
+		String result = request.getParameter("result");
 		
 		// 장바구니 추가를 위해 입력받은 데이터를 저장할 CartBean 객체 생성
 		// => request 객체로부터 입력받은 데이터를 가져와서 CartBean 객체에 저장
@@ -59,13 +60,19 @@ public class CartAddAction implements Action {
 			out.println("</script>"); // 자바스크립트 끝 태그
 		} else {
 			System.out.println("장바구니 등록 성공!");
-			// 현재 페이지에서 listCart.cart 서블릿 주소를 요청하여 Redirect 방식으로 포워딩
-			// 1. ActionForward 객체 생성
-			forward = new ActionForward();
-			// 2. 포워딩 방식 지정 => Redirect 방식이므로 파라미터에 true 전달(필수)
-			forward.setRedirect(true);
-			// 3. 포워딩 할 주소 지정 => 서블릿 주소 listCart.cart 요청
-			forward.setPath("listCart.cart");
+			if(result.equals("true")) {
+				// 현재 페이지에서 listCart.cart 서블릿 주소를 요청하여 Redirect 방식으로 포워딩
+				// 1. ActionForward 객체 생성
+				forward = new ActionForward();
+				// 2. 포워딩 방식 지정 => Redirect 방식이므로 파라미터에 true 전달(필수)
+				forward.setRedirect(true);
+				// 3. 포워딩 할 주소 지정 => 서블릿 주소 listCart.cart 요청
+				forward.setPath("listCart.cart");
+			} else {
+				forward = new ActionForward();
+				forward.setRedirect(true);
+				forward.setPath("productDetail.cart");
+			}
 		}
 		
 		// 4. ActionForward 객체 리턴

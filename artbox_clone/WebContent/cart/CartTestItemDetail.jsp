@@ -27,14 +27,11 @@
 			$(".fullscreen").removeClass("on");
 		})
 		
-		function cartCheck() { // 장바구니 이동
+		function cartCheck() { // 확인/취소 선택 시 장바구니 상품 담음
 			var result = confirm("선택하신 상품이 장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?");
-			if (result){ //확인
-				document.gfr.action = "addCart.cart";
-				document.gfr.submit();
-			} else { //취소
-				document.gfr.action = "addCart.cart";
-			}
+			// result(확인/취소) 값을 넘겨줘서 Action 클래스에서 장바구니 페이지로 이동할지 안할지 판별
+			document.gfr.action = "addCart.cart?result=" + result;
+			document.gfr.submit();
 		}
 
 	</script>
@@ -49,7 +46,7 @@
 	<div class="wrap">
 		<section class="iteminfo">
 			<form action="" method="post" name="gfr">
-			<input type="hidden" name="num" value=2>
+			<input type="hidden" name="num" value=3>
 				<div class="slideimg">
 					<ul>
 						<li><img src=detail1.jpg></li>

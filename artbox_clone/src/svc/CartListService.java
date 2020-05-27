@@ -2,7 +2,6 @@ package svc;
 
 import java.sql.Connection;
 import java.util.List;
-import java.util.Vector;
 
 import dao.CartDAO;
 
