@@ -75,8 +75,8 @@ input.readonly[type=text] {background-color:#ffffff; border:1px solid #646464; c
 .textarea {padding:15px 22px; background-color:#f3f3f3; border-radius:5px;}
 .textarea textarea {width:100%; padding:0; margin:0; line-height:25px; height:112px; color:#777777; font-size:15px; border:0; background-color:#f3f3f3; }
 
-.CartWrap {width:1000px; margin:50px auto 50px; padding:0;}
-.CartWrap h1 {display:block; width:1000px; height:25px; line-height:25px; font-size:25px; color:#000000; font-weight:normal; text-align:center; margin:0 auto; padding:0;}
+.CartWrap {width:1200px; margin:50px auto 50px; padding:0;}
+.CartWrap h1 {display:block; width:1200px; height:25px; line-height:25px; font-size:25px; color:#000000; font-weight:normal; text-align:center; margin:0 auto; padding:0;}
 .CartWrap select {display:block; border:1px solid #424242; color:#424242; width:250px; margin:0 10px 0 0; height:35px; padding:0 12px; font-size:15px; background-color:#ffffff; background-image:url(../../Images/order/select_bg.png); background-repeat:no-repeat; background-size:36px 9px; background-position:center right; border-radius:5px;}
 
 .CartEmpty {width:100%; text-align:center; line-height:24px; font-size:17px; color:#646464;}
@@ -143,8 +143,8 @@ a.CartButtonX    {display:inline-block; width:30px; height:30px; background-size
 
 
 
-.OrderWrap {width:1000px; margin:50px auto 50px; padding:0;}
-.OrderWrap h1 {display:block; width:1000px; height:25px; line-height:25px; font-size:25px; color:#000000; font-weight:normal; text-align:center; margin:0 auto; padding:0;}
+.OrderWrap {width:1200px; margin:50px auto 50px; padding:0;}
+.OrderWrap h1 {display:block; width:1200px; height:25px; line-height:25px; font-size:25px; color:#000000; font-weight:normal; text-align:center; margin:0 auto; padding:0;}
 .OrderWrap h1 img {width:14px; height:24px; vertical-align:top; margin:2px 7px 0 0;}
 .OrderWrap select {display:block; border:1px solid #838383; width:100%; margin:0; height:56px; padding:0 15px; font-size:15px; background-color:#ffffff; background-image:url(../../Images/order/select_bg.png); background-repeat:no-repeat; background-size:36px 9px; background-position:center right; border-radius:5px;}
 
@@ -159,19 +159,19 @@ a.CartButtonX    {display:inline-block; width:30px; height:30px; background-size
 
 
 .SectionItemList {margin:40px 0 30px 0;}
-.SectionMember   {float:left; width:500px; border-right:1px solid #e4e4e4; padding:0 30px 0 0;}
-.SectionDiscount {float:left; width:500px; padding:0 0 0 30px;}
+.SectionMember   {float:left; width:600px; padding:0 30px 0 0;}
+.SectionDiscount {float:left; width:600px; border-left:1px solid #e4e4e4; padding:0 0 0 30px;}
 .SectionMidLine  {display:block; height:60px; border-bottom:1px solid #e4e4e4;}
-.SectionPayType  {float:left; width:500px; border-right:1px solid #ffffff; padding:30px 30px 0 0;} 
-.SectionPrice    {float:left; width:500px; padding:30px 0 0 30px;}
+.SectionPayType  {float:left; width:600px; padding:30px 30px 0 0;} 
+.SectionPrice    {float:left; width:600px; border-left:1px solid #e4e4e4; padding:250px 0 0 30px;}
 
 .OrderInfoTitle {border-top:1px solid #e4e4e4; border-bottom:1px solid #e4e4e4; margin:0 0 0 0; padding:14px 0;}
 .OrderInfoTitle h2 {display:block; padding:0; margin:0; font-size:19px; line-height:19px; color:#000000; font-weight:normal;}
-.OrderInfoTitle h2 a {display:block; float:right; width:15px; height:19px; background-repeat:no-repeat; background-position:center; background-size:18px 10px;}
+.OrderInfoTitle h2 a {display:block; float:right; width:18px; height:19px; background-repeat:no-repeat; background-position:center; background-size:18px 10px;}
 .OrderInfoTitle h2 a.Open  {background-image:url(../../Images/order/pc_arrow_up.png);}
 .OrderInfoTitle h2 a.Close {background-image:url(../../Images/order/pc_arrow_down.png);}
-.OrderInfoTitle h2 small {display:inline-block; color:#9e9e9e; font-size:17px; line-height:17px; width:800px; margin:0 0 0 56px; text-overflow:ellipsis; white-space:nowrap; word-wrap:normal; overflow:hidden;}
-.OrderInfoTitle.NoBorder {border-top-width:0; border-bottom-width:0;}
+.OrderInfoTitle h2 small {display:inline-block; color:#9e9e9e; font-size:17px; line-height:17px; width:800px; margin:0 0 0 40px; text-overflow:ellipsis; white-space:nowrap; word-wrap:normal; overflow:hidden;}
+.OrderInfoTitle.NoBorder {border-top:1px solid #e4e4e4; padding:50px 0 14px 0; border-bottom-width:0;}
 
 .OrderInfoSummary {display:none;}
 
@@ -179,12 +179,12 @@ a.CartButtonX    {display:inline-block; width:30px; height:30px; background-size
 
 .trOrderItem dt {vertical-align:middle;}
 .trOrderItem dt.tdImage {width:167px;}
-.trOrderItem dt.tdImage span {display:block; width:120px; height:140px; margin:8px 0;}
-.trOrderItem dt.tdImage span img {width:120px; height:140px;}
-.trOrderItem dt.tdImage a {display:block; width:120px; height:140px; margin:8px 0;}
-.trOrderItem dt.tdImage a img {width:120px; height:140px;}
+.trOrderItem dt.tdImage span {display:block; width:140px; height:140px; margin:8px 0;}
+.trOrderItem dt.tdImage span img {width:140px; height:140px;}
+.trOrderItem dt.tdImage a {display:block; width:140px; height:140px; margin:8px 0;}
+.trOrderItem dt.tdImage a img {width:140px; height:140px;}
 .trOrderItem dt.tdInner {width:*; padding:8px 0;}
-.trOrderItem dt.tdPrice {width:180px; text-align:right; font-size:20px; color:#000000; line-height:34px;}
+.trOrderItem dt.tdPrice {width:200px; text-align:right; font-size:20px; color:#000000; line-height:34px;}
 .trOrderItem dt.tdPrice img {vertical-align:top; width:auto; height:20px; margin:8px 2px 6px 2px;}
 
 div.gap20px {height:20px;}
@@ -195,30 +195,30 @@ span.MobileBr {display:none;}
 .ItemCouponStamp { margin:0 !important; }
 .ItemCouponText { margin-left:8px; color:#ff6c00; font-size:20px; }
 
-.trOrderRadio dt {width:100px; line-height:27px; text-align:left; font-size:16px; color:#646464; padding:0 0 10px 0;}
+.trOrderRadio dt {width:130px; line-height:27px; text-align:left; font-size:16px; color:#646464; padding:0 0 10px 0;}
 .trOrderRadio dd {width:*; line-height:27px; text-align:left; font-size:16px; color:#646464; padding:0 0 10px 0;}
 
-.trOrder dt {width:100px; line-height:56px; text-align:left; font-size:16px; color:#646464;}
+.trOrder dt {width:120px; line-height:56px; text-align:left; font-size:16px; color:#646464;}
 .trOrder dd {width:*;}
 
 .trOrder dd.blank  {width:18px; text-align:center; font-size:15px; color:#646464; line-height:56px;}
 
 .trOrder dd.refund  {width:*; }
-.trOrder dd.quota {width:130px; line-height:56px;}
+.trOrder dd.quota {width:150px; line-height:56px;}
 .trOrder dd.quota a {display:block; width:90%; margin:0 0 0 10%; height:56px; line-height:56px; background-color:#424242; text-align:center; color:#ffffff; font-size:16px; border-radius:5px;}
 .trOrder dd.zipcode  {width:143px; line-height:56px;}
 .trOrder dd.refund a,
 .trOrder dd.zipcode a {display:block; width:100%; height:56px; line-height:56px; background-color:#424242; text-align:center; color:#ffffff; font-size:16px; border-radius:5px;}
 .trOrder dd.twoBtn   {width:49%;}
 .trOrder dd.okcomment {line-height:27px; color:#9d9d9d; font-size:17px;}
-.trOrder dd.findpw {width:160px;}
+.trOrder dd.findpw {width:180px;}
 
 
-.trOrder dt.mileage {width:220px;}
+.trOrder dt.mileage {width:240px;}
 .trOrder dt.twoLine {line-height:18px; padding:10px 0;}
 
 
-.trOrder a.PwdModify {display:block; width:144px; padding:0; text-align:center; margin:0; line-height:56px; height:56px; color:#ffffff; font-size:15px; border:0; background-color:#424242; border-radius:5px;}
+.trOrder a.PwdModify {display:block; width:164px; padding:0; text-align:center; margin:0; line-height:56px; height:56px; color:#ffffff; font-size:15px; border:0; background-color:#424242; border-radius:5px;}
 .trOrder a.btnCancel {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:54px; height:56px; color:#000000; font-size:21px; border:1px solid #646464; background-color:#ffffff; border-radius:5px;}
 .trOrder a.btnModify {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:56px; height:56px; color:#ffffff; font-size:21px; border:0; background-color:#000000; border-radius:5px; font-weight:bold; }
 
@@ -236,9 +236,9 @@ span.MobileBr {display:none;}
 .ModifyShipAddr {display:block; color:#646464; line-height:27px; font-size:14px; text-align:left;}
 .DeliverySelect {display:none; color:#646464; line-height:27px; font-size:14px; text-align:left;}
 .ModifyShipAddr,
-.DeliverySelect input {margin-left:100px;}
+.DeliverySelect input {margin-left:120px;}
 
-#CouponIdxSelect_Goods {padding:12px 22px; font-size:15px; color:#646464; line-height:30px; border:1px solid #646464; border-radius:5px;}
+#CouponIdxSelect_Goods {padding:15px 22px; font-size:15px; color:#646464; line-height:30px; border:1px solid #646464; border-radius:5px;}
 #CouponIdxSelect_Goods .dcnumber {color:#ef0100;}
 
 .PayTypeRadio {float:left; width:50%; line-height:27px; text-align:left; font-size:16px; color:#646464; margin:0 0 15px 0;}

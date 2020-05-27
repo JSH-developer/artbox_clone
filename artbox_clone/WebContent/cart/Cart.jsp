@@ -48,22 +48,28 @@ $(document).ready(function(){
 		}
 	}
 	
-	fnCartArray = function(actiontype){ // 선택삭제
+	fnCartArray = function(actiontype){
 		var count = 0;
 
 		$("input[name=CartIdx]").each(function(){
 			if ($(this).prop("checked")){
 				count = count + 1;
 				var cartidx = $(this).parent().find("[name=CartIdx]").val();
+				var cartArr = $("input[name=CartIdx]").get();
+// 				var cartArr = new Array();
+// 				cartidx = cartidx + "," + $(this).val()
+				alert(actiontype+"\n"+cartidx+"\n"+cartArr);
 
-				if (actiontype == "ARRAYDEL") {
+				if (actiontype == "ARRAYDEL") { // 선택삭제
 					location.href = "deleteOne.cart?cartidx="+cartidx;
 					alert('삭제되었습니다.');
+				} else if (actiontype == "ARRAYBUY") { // 선택주문
+					location.href = "orderAll.order?cartidx="+cartidx;
 				}
 			}
 		});
 		
-		if (count<1) { // 체크된 상품 없이 선택 삭제 클릭시
+		if (count<1) { // 체크된 상품 없이 버튼 클릭시
 			alert("선택된 상품이 없습니다.");
 			return;
 		}
@@ -75,7 +81,7 @@ $(document).ready(function(){
 // 		alert(actiontype+"\n"+cartidx+"\n"+qty+"\n"+optionidx);
 		
 		if (actiontype == "BUY") { // 바로주문하기 버튼 클릭시
-			
+			location.href = "orderOne.order?cartidx=" + cartidx  + "&optionidx=" + optionidx;
 		} else if (actiontype == "QTY" && optionidx == 0) { // X(특정 상품 삭제) 버튼 클릭시
 			location.href = "deleteOne.cart?cartidx=" + cartidx;
 			alert('삭제되었습니다.');
@@ -96,13 +102,13 @@ $(document).ready(function(){
 		$("#Qty"+cartidx).val(qty);
 	}
 	
-	// 콤마찍기
+	// 숫자 3자리 수마다 콤마찍기
 	function comma(str) {
 	    str = String(str);
 	    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
 	}
 	 
-	// 콤마풀기
+	// 콤마풀기(혹시 모를 계산을 위해)
 	function uncomma(str) {
 	    str = String(str);
 	    return str.replace(/[^\d]+/g, '');
@@ -190,7 +196,7 @@ $(document).ready(function(){
 							<dd><a class="CartButton" href="javascript:fnChangeOption('${cartList.cart_num }');">옵션변경</a></dd>
 							
 							<dd class="tdBtn1"><a class="CartButton" href="javascript:fnCartOne('WISH','${cartList.cart_num }',0,0);">위시리스트</a></dd>
-							<dd class="tdBtn2"><a class="CartButtonDark" href="javascript:fnCartOne('BUY','${cartList.cart_num }',0,0);">바로주문</a></dd>
+							<dd class="tdBtn2"><a class="CartButtonDark" href="javascript:fnCartOne('BUY','${cartList.cart_num }',0,${cartList.cart_product_num });">바로주문</a></dd>
 						</dl>
 					</div>
 					<div class="ItemListChangeOption" id="ItemListChangeOption${cartList.cart_num }">
@@ -231,7 +237,7 @@ $(document).ready(function(){
 		<div class="clear"></div>
 	</div>
 	<div class="CartBottom">
-		<div class="CartBuyButton"><a href="OrderPay.jsp">주문하기</a></div>
+		<div class="CartBuyButton"><a href="javascript:fnCartArray('ARRAYBUY');">주문하기</a></div>
 		<div class="CartComment">
 			장바구니에 담긴 상품은 30일 이후 자동으로 위시리스트로 이동됩니다.<br>
 			단, 판매가 종료된 상품은 장바구니에서 삭제될 수 있습니다.<br>
