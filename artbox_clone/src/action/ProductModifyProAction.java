@@ -13,7 +13,7 @@ import svc.ProductWriteService;
 import vo.ActionForward;
 import vo.ProductBean;
 
-public class ProductWriteProAction implements Action{
+public class ProductModifyProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -35,12 +35,14 @@ public class ProductWriteProAction implements Action{
 		
 		ProductWriteService productWriteService = new ProductWriteService();
 		ProductBean productBean = new ProductBean();
-		
+		productBean.setProduct_num(Integer.parseInt(multi.getParameter("product_num")));
 		productBean.setProduct_code(multi.getParameter("product_category_code") + multi.getParameter("product_option_code") + productWriteService.countProduct()); // 상품코드 = 카테고리 + 옵션 + 상품인덱스
 		productBean.setProduct_name(multi.getParameter("product_name"));
-		Enumeration images = multi.getFileNames();
-		productBean.setProduct_image2(multi.getFilesystemName((String) images.nextElement()));
-		productBean.setProduct_image( multi.getFilesystemName((String) images.nextElement()) );
+//		Enumeration images = multi.getFileNames();
+//		productBean.setProduct_image2(multi.getFilesystemName((String) images.nextElement()));
+//		productBean.setProduct_image( multi.getFilesystemName((String) images.nextElement()) );
+		productBean.setProduct_image( multi.getParameter("product_image") );
+		productBean.setProduct_image2( multi.getParameter("product_image2") );
 		productBean.setProduct_description(multi.getParameter("product_description"));
 		productBean.setProduct_price(Integer.parseInt(multi.getParameter("product_price")));
 		productBean.setProduct_brand(multi.getParameter("product_brand"));
@@ -51,11 +53,11 @@ public class ProductWriteProAction implements Action{
 		productBean.setProduct_option_code(multi.getParameter("product_option_code"));
 		
 		
-		boolean isRegist = productWriteService.registProduct(productBean);
+		boolean isUpdate = productWriteService.registProduct(productBean);
 		
-		if(isRegist) {
+		if(isUpdate) {
 			// dispatch 방식으로 이동
-			forward.setPath("ProductList.admin");
+			forward.setPath("ProductView.admin?num="+request.getParameter("product_num")+"&page="+request.getParameter("page"));
 		}else {
 			// redirect 방식으로 이동
 			forward.setRedirect(true);

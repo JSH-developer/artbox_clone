@@ -1,9 +1,16 @@
+<%@page import="vo.PageInfo"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="vo.OptionBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-ArrayList<OptionBean> optionList = (ArrayList<OptionBean>)request.getAttribute("optionList");
+	ArrayList<OptionBean> optionList = (ArrayList<OptionBean>)request.getAttribute("optionList");
+	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
+	int listCount=pageInfo.getListCount();
+	int nowPage=pageInfo.getPage();
+	int maxPage=pageInfo.getMaxPage();
+	int startPage=pageInfo.getStartPage();
+	int endPage=pageInfo.getEndPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -29,7 +36,7 @@ ArrayList<OptionBean> optionList = (ArrayList<OptionBean>)request.getAttribute("
 </ul>
 </div>
 
-<h1>카테고리 리스트</h1>
+<h1>옵션 리스트</h1>
 <table border="1">
 <tr><th>코드</th><th>옵션이름</th><th>추가가격</th></tr>
 <%
@@ -43,6 +50,29 @@ ArrayList<OptionBean> optionList = (ArrayList<OptionBean>)request.getAttribute("
 	}
 %>
 </table>
+
+<section id="pageList">
+		<%if(nowPage<=1){ %>
+		◁&nbsp;
+		<%}else{ %>
+		<a href="OptionList.admin?page=<%=nowPage-1 %>">◁</a>&nbsp;
+		<%} %>
+
+		<%for(int a=startPage;a<=endPage;a++){
+				if(a==nowPage){%>
+		[<%=a %>]
+		<%}else{ %>
+		<a href="OptionList.admin?page=<%=a %>">[<%=a %>]
+		</a>&nbsp;
+		<%} %>
+		<%} %>
+
+		<%if(nowPage>=maxPage){ %>
+		▷
+		<%}else{ %>
+		<a href="OptionList.admin?page=<%=nowPage+1 %>">▷</a>
+		<%} %>
+	</section>
 
 </div>
 

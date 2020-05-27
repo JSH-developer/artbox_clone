@@ -1,9 +1,16 @@
+<%@page import="vo.PageInfo"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="vo.CategoryBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	ArrayList<CategoryBean> categoryList = (ArrayList<CategoryBean>)request.getAttribute("categoryList");
+	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
+	int listCount=pageInfo.getListCount();
+	int nowPage=pageInfo.getPage();
+	int maxPage=pageInfo.getMaxPage();
+	int startPage=pageInfo.getStartPage();
+	int endPage=pageInfo.getEndPage();
 
 %>
 <!DOCTYPE html>
@@ -45,6 +52,32 @@
 	}
 %>
 </table>
+
+<section id="pageList">
+		<%if(nowPage<=1){ %>
+		◁&nbsp;
+		<%}else{ %>
+		<a href="CategoryList.admin?page=<%=nowPage-1 %>">◁</a>&nbsp;
+		<%} %>
+
+		<%for(int a=startPage;a<=endPage;a++){
+				if(a==nowPage){%>
+		[<%=a %>]
+		<%}else{ %>
+		<a href="CategoryList.admin?page=<%=a %>">[<%=a %>]
+		</a>&nbsp;
+		<%} %>
+		<%} %>
+
+		<%if(nowPage>=maxPage){ %>
+		▷
+		<%}else{ %>
+		<a href="CategoryList.admin?page=<%=nowPage+1 %>">▷</a>
+		<%} %>
+	</section>
+
+
+
 
 </div>
 

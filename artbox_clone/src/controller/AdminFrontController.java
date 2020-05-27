@@ -15,8 +15,11 @@ import action.CategoryWriteProAction;
 import action.OptionListProAction;
 import action.OptionWriteProAction;
 import action.ProductListProAction;
+import action.ProductModifyFormAction;
+import action.ProductModifyProAction;
 import action.ProductViewProAction;
 import action.ProductWriteProAction;
+import svc.ProductWriteService;
 import vo.ActionForward;
 
 @WebServlet("*.admin")
@@ -29,6 +32,8 @@ public class AdminFrontController extends HttpServlet {
 		
 		Action action = null;
 		ActionForward forward = null;
+		
+		ProductWriteService productWriteService = new ProductWriteService(); 
 		
 		if(command.equals("/home.admin")) { // 관리자 페이지 메인화면
 			forward = new ActionForward();
@@ -55,6 +60,12 @@ public class AdminFrontController extends HttpServlet {
 			}
 		}else if(command.equals("/ProductWriteForm.admin")) { // 상품 등록 페이지
 			forward = new ActionForward();
+			
+			String categorySelectList = productWriteService.categorySelectList();
+			request.setAttribute("categorySelectList", categorySelectList);
+			String optionSelectList = productWriteService.optionSelectList();
+			request.setAttribute("optionSelectList", optionSelectList);
+			
 			forward.setPath("/admin/registProduct.jsp");
 			
 		}else if(command.equals("/ProductWritePro.admin")) { // 상품 등록 수행
@@ -73,6 +84,26 @@ public class AdminFrontController extends HttpServlet {
 			}
 		}else if(command.equals("/ProductView.admin")) { // 상품 보기 페이지
 			action = new ProductViewProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/ProductModifyForm.admin")) { // 상품 수정 페이지 보기
+			action = new ProductModifyFormAction();
+			
+			String categorySelectList = productWriteService.categorySelectList();
+			request.setAttribute("categorySelectList", categorySelectList);
+			String optionSelectList = productWriteService.optionSelectList();
+			request.setAttribute("optionSelectList", optionSelectList);
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/ProductModifyPro.admin")) { // 상품 수정 페이지 수행
+			action = new ProductModifyProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

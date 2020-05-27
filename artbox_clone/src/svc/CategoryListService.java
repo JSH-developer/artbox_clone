@@ -13,14 +13,34 @@ import vo.CategoryBean;
 
 public class CategoryListService {
 	
-	public ArrayList<CategoryBean> getCateogryList(){
+	public int getListCount() {
+		int listCount=0;
+		
+		Connection con = getConnection();
+		
+		AdminDAO adminDAO = AdminDAO.getInstance();
+		adminDAO.setConnection(con);
+		listCount = adminDAO.categoryCount();
+		
+		if(listCount>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return listCount;
+	}
+	
+	public ArrayList<CategoryBean> getCateogryList(int page, int limit){
 		ArrayList<CategoryBean> categoryList = new ArrayList<CategoryBean>();
 		
 		Connection con = getConnection();
 		
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
-		categoryList=adminDAO.toListCategory();
+		categoryList=adminDAO.toListCategory(page, limit);
 		
 		if(!categoryList.isEmpty()) {
 			commit(con);

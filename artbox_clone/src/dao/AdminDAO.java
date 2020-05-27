@@ -52,8 +52,8 @@ public class AdminDAO {
 			pstmt.setInt(8, productBean.getProduct_stock_count());
 			pstmt.setInt(9, productBean.getProduct_sale_price());
 			pstmt.setString(10, productBean.getProduct_keywords());
-			pstmt.setString(11, "FS01"); //카테고리 임시 삽입
-			pstmt.setString(12, "123"); //옵션 임시 삽입
+			pstmt.setString(11, productBean.getProduct_category_code());
+			pstmt.setString(12, productBean.getProduct_option_code());
 			
 			insertCount = pstmt.executeUpdate();
 			
@@ -199,13 +199,16 @@ public class AdminDAO {
 	}
 	
 	// 카테고리 리스트를 출력하기 위한 함수
-	public ArrayList<CategoryBean> toListCategory() {
+	public ArrayList<CategoryBean> toListCategory(int page, int limit) {
 		ArrayList<CategoryBean> categoryList = new ArrayList<CategoryBean>();
 		
+		int startRow = (page-1)*limit;
 		
 		try {
-			String sql="SELECT * FROM category ORDER BY category_sup DESC";
+			String sql="SELECT * FROM category ORDER BY category_sup DESC limit ?,?";
 			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, limit);
 			
 			rs= pstmt.executeQuery();
 			
@@ -226,6 +229,29 @@ public class AdminDAO {
 		}
 		
 		return categoryList;
+	}
+	
+	// 카테고리 갯수 세기
+	public int categoryCount() {
+		int listCount = 0;
+		
+		try {
+			String sql ="SELECT COUNT(num) FROM category";
+			pstmt=con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
 	}
 
 	// 옵션을 등록하기 위한 함수
@@ -275,12 +301,16 @@ public class AdminDAO {
 	}
 	
 	// 옵션 리스트를 출력하기 위한 함수
-	public ArrayList<OptionBean> toListOption() {
+	public ArrayList<OptionBean> toListOption(int page, int limit) {
 		ArrayList<OptionBean> optionList = new ArrayList<OptionBean>();
 		
+		int startRow = (page-1)*limit;
+		
 		try {
-			String sql="SELECT * FROM product_option ORDER BY option_code DESC";
+			String sql="SELECT * FROM product_option ORDER BY option_code DESC limit ?,?";
 			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, limit);
 			
 			rs= pstmt.executeQuery();
 			
@@ -301,6 +331,108 @@ public class AdminDAO {
 		}
 		
 		return optionList;
+	}
+	
+	// 옵션 갯수 세기
+	public int optionCount() {
+		int listCount = 0;
+		
+		try {
+			String sql ="SELECT COUNT(num) FROM product_option";
+			pstmt=con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+	// 상품등록 페이지에서 카테고리의 리스트를 출력하기 위한 함수
+	public String toMakeCategorySelect() {
+		String result ="";
+		
+		try {
+			String sql="SELECT * FROM category ORDER BY category_sup DESC";
+			pstmt=con.prepareStatement(sql);
+			
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				result += "<option value=\"" + rs.getString("category_code") + "\"> " + rs.getString("category_sup") + " > " + rs.getString("category_sub") + " </option>";
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	// 상품등록 페이지에서 옵션의 리스트를 출력하기 위한 함수
+	public String toMakeOptionSelect() {
+		String result ="";
+		
+		try {
+			String sql="SELECT * FROM product_option ORDER BY option_code DESC";
+			pstmt=con.prepareStatement(sql);
+			
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				result += "<option value=\"" + rs.getString("option_code") + "\"> " + rs.getString("option_name") + "(+" + rs.getString("add_price") + ") </option>";
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int modifyProduct(ProductBean productBean) {
+		int updateCount = 0;
+		
+		try {
+			String sql="UPDATE product SET code=?, name=?, image=?, image2=?, description=?, price=?, brand=?, stock_count=?, sale_price=?, keywords=?, category_code=?, option_code=? WHERE num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, productBean.getProduct_code());
+			pstmt.setString(2, productBean.getProduct_name());
+			pstmt.setString(3, productBean.getProduct_image());
+			pstmt.setString(4, productBean.getProduct_image2());
+			pstmt.setString(5, productBean.getProduct_description());
+			pstmt.setInt(6, productBean.getProduct_price());
+			pstmt.setString(7, productBean.getProduct_brand());
+			pstmt.setInt(8, productBean.getProduct_stock_count());
+			pstmt.setInt(9, productBean.getProduct_sale_price());
+			pstmt.setString(10, productBean.getProduct_keywords());
+			pstmt.setString(11, productBean.getProduct_category_code());
+			pstmt.setString(12, productBean.getProduct_option_code());
+			pstmt.setInt(13, productBean.getProduct_num());
+			
+			updateCount = pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return updateCount;
 	}
 
 }
