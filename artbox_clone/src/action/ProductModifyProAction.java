@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import svc.ProductModifyService;
 import svc.ProductWriteService;
 import vo.ActionForward;
 import vo.ProductBean;
@@ -34,8 +35,9 @@ public class ProductModifyProAction implements Action {
 				new DefaultFileRenamePolicy()); // 파일명 중복 시 중복 파일명을 처리할 객체
 		
 		ProductWriteService productWriteService = new ProductWriteService();
+		ProductModifyService productModifyService = new ProductModifyService();
 		ProductBean productBean = new ProductBean();
-		productBean.setProduct_num(Integer.parseInt(multi.getParameter("product_num")));
+		productBean.setProduct_num(Integer.parseInt(multi.getParameter("num")));
 		productBean.setProduct_code(multi.getParameter("product_category_code") + multi.getParameter("product_option_code") + productWriteService.countProduct()); // 상품코드 = 카테고리 + 옵션 + 상품인덱스
 		productBean.setProduct_name(multi.getParameter("product_name"));
 //		Enumeration images = multi.getFileNames();
@@ -53,11 +55,11 @@ public class ProductModifyProAction implements Action {
 		productBean.setProduct_option_code(multi.getParameter("product_option_code"));
 		
 		
-		boolean isUpdate = productWriteService.registProduct(productBean);
+		boolean isUpdate = productModifyService.modifyProduct(productBean);
 		
 		if(isUpdate) {
 			// dispatch 방식으로 이동
-			forward.setPath("ProductView.admin?num="+request.getParameter("product_num")+"&page="+request.getParameter("page"));
+			forward.setPath("ProductView.admin?num="+Integer.parseInt(multi.getParameter("num"))+"&page="+multi.getParameter("page"));
 		}else {
 			// redirect 방식으로 이동
 			forward.setRedirect(true);

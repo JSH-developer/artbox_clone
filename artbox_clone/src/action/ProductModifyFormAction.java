@@ -13,10 +13,10 @@ public class ProductModifyFormAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		
-		int product_num = Integer.parseInt(request.getParameter("product_num"));
+		int num = Integer.parseInt(request.getParameter("num"));
 		
 		ProductViewService productViewService = new ProductViewService();
-		ProductBean productBean = productViewService.infoProduct(product_num);
+		ProductBean productBean = productViewService.infoProduct(num);
 		
 		if(productBean != null) {
 			forward = new ActionForward();

@@ -102,7 +102,7 @@ $(document).ready(function() {
 
 <h1>상품등록</h1>
 <form action="ProductModifyPro.admin" method="post" enctype="multipart/form-data">
-	<input type="hidden" name="product_num" value="<%=request.getParameter("product_num")%>">
+	<input type="hidden" name="num" value="<%=request.getParameter("num")%>">
 	<input type="hidden" name="page" value="<%=request.getParameter("page")%>">
 <table class="reg_tab">
 	<tr><th>상품카테고리</th><td><select id="category_code" name="product_category_code"><%=categorySelectList %></select></td></tr>

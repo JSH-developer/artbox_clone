@@ -38,7 +38,7 @@ int nowPage = Integer.parseInt(request.getParameter("page"));
 상품 키워드 : <%=productBean.getProduct_keywords() %><br>
 <br><br>
 <button onclick="location.href='ProductList.admin?page=<%=nowPage%>'">목록가기</button>
-<button onclick="location.href='ProductModifyForm.admin?product_num=<%=productBean.getProduct_num() %>&page=<%=nowPage%>'">수정하기</button>
+<button onclick="location.href='ProductModifyForm.admin?num=<%=productBean.getProduct_num() %>&page=<%=nowPage%>'">수정하기</button>
 <button onclick="location.href='ProductList.admin?page=<%=nowPage%>'">삭제하기</button>
 
 </div>
