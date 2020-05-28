@@ -1,6 +1,9 @@
 package svc;
 
-import static db.jdbcUtil.*;
+import static db.jdbcUtil.close;
+import static db.jdbcUtil.commit;
+import static db.jdbcUtil.getConnection;
+import static db.jdbcUtil.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -64,7 +67,31 @@ public class CouponService {
 		ArrayList<CouponBean> mycouponList = couponDAO.selectmyCouponlist(id);
 		
 		
+		
 		return mycouponList;
+	}
+
+	// 쿠폰 발급 받기
+	public Boolean couponIssued(String id,String CouponName) {
+		Boolean isSuccess = false;
+		
+		Connection con = getConnection();
+		
+		CouponDAO couponDAO = CouponDAO.getInstance();	
+		couponDAO.setConnection(con);
+		
+		int issuedSucc = couponDAO.issuedCoupon(id,CouponName);
+		
+		if(issuedSucc>0) {
+			commit(con);
+			isSuccess = true;
+		}else {
+			rollback(con);
+		}
+		
+		
+		
+		return isSuccess;
 	}
 
 	

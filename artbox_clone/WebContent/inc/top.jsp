@@ -26,7 +26,7 @@
 			<li class="CategoryMiddle"><a href="#" onclick="GA_event('HEAD', '최상단 메뉴', '리빙/데코');">리빙/데코</a></li>
 			<li class="CategoryMiddle"><a href="#" onclick="GA_event('HEAD', '최상단 메뉴', '디지털/가전');">디지털/가전</a></li>
 			<li class="CategoryMiddle"><a href="#" onclick="GA_event('HEAD', '최상단 메뉴', '여행');">베스트</a></li>
-			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/event/eventMain.jsp" onclick="GA_event('HEAD', '최상단 메뉴', '뷰티');">이벤트</a></li>
+			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/event/EventMain.jsp" onclick="GA_event('HEAD', '최상단 메뉴', '뷰티');">이벤트</a></li>
 			<li class="Cart">
 				<a href="${pageContext.request.contextPath}/cart/Cart.jsp" title="장바구니" onclick="GA_event('HEAD', '최상단 메뉴 PC', '장바구니');">
 						

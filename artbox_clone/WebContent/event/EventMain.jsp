@@ -45,7 +45,7 @@
 <%for(int i =0;i<9;i++){ %>
 
 <div class="event_content" onclick="location.href='#'">
-<img src="../Images/event/18206_1.jpg" width="358px" height="250px">
+<img src="../Images/event/18206_1.jpg" width="358px" height="250px" onclick="location.href='EventContent.event'">
 
 <div>
 <span>20주년 기념 대축제&#10094;이심전심&#10095;</span>

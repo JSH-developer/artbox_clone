@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.CouponIssuedAction;
 import action.CouponOrderPayFormAction;
 import action.CouponWriteProAction;
 import action.MypageCouponListAction;
-import action.TestSelectAction;
 import vo.ActionForward;
 
 @WebServlet("*.event")
@@ -25,7 +25,8 @@ public class EventFrontController extends HttpServlet {
 		
 		Action action = null;
 		ActionForward forward = null;
-		
+	
+	// 쿠폰 등록 입력
 		if(command.equals("/CouponWriteForm.event")){
 			System.out.println("/CouponWriteForm.event");
 //			view로 이동할것임
@@ -35,7 +36,7 @@ public class EventFrontController extends HttpServlet {
 //			forward.setRedirect(false); // 포워딩 박식을 Dispatcher 방식으로 설정(기본값 생략 가능)
 			forward.setPath("/event/registCoupon.jsp"); // 이동할 View 페이지 경로 지정
 			
-			
+	// 쿠폰 등록
 		}else if(command.equals("/CouponWritePro.event")) {
 			System.out.println("/CouponWritePro.event");
 			action = new CouponWriteProAction();
@@ -53,6 +54,7 @@ public class EventFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+	// 주문에서 쿠폰 적용
 		}else if(command.equals("/OrderPayForm.event")) {
 			System.out.println("/OrderPayForm.event");
 			action = new CouponOrderPayFormAction();
@@ -61,22 +63,23 @@ public class EventFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/testSelect.event")) {
-		System.out.println("/testSelect.event");
-		action = new TestSelectAction();
-		try {
-			forward = action.execute(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}else if(command.equals("/testSelectmain.event")) {
+		// 쿠폰 적용 테스트
+		}else if(command.equals("/testSelectmain.event")) {
 		System.out.println("/testSelectmain.event");
 		
 		forward = new ActionForward();
 //		forward.setRedirect(false); // 포워딩 박식을 Dispatcher 방식으로 설정(기본값 생략 가능)
 		forward.setPath("/event/PayCoupon.jsp"); // 이동할 View 페이지 경로 지정
 		
-	
+	// 쿠폰 발급
+	}else if(command.equals("/CouponIssued.event")) {
+		System.out.println("/CouponIssued.event");
+		action = new CouponIssuedAction();
+		try {
+			forward = action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 		
 		

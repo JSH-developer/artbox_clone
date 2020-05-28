@@ -110,6 +110,8 @@ public class CouponDAO {
 				
 				
 				couponList.add(couponBean);
+				
+			
 			}
 			
 		}catch (SQLException e) {
@@ -121,6 +123,48 @@ public class CouponDAO {
 		
 		
 		return couponList;
+	}
+
+	public int issuedCoupon(String id, String couponName) {
+		int isSuccess = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			System.out.println(couponName);
+			String sql = "SELECT * FROM coupon WHERE coup_name=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, couponName);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				sql = "INSERT INTO coupon VALUES(null,?,?,?,?,?,?,?,?,?)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, couponName);
+				pstmt.setInt(2,rs.getInt("coup_price"));
+				pstmt.setString(3, rs.getString("condition"));
+				pstmt.setString(4,rs.getString("coup_start"));
+				pstmt.setString(5,rs.getString("coup_limit"));
+				pstmt.setInt(6, 0); // 사용여부
+				pstmt.setString(7, rs.getString("coup_reason"));
+				pstmt.setString(8, id);
+				pstmt.setString(9, rs.getString("category"));
+				System.out.println(sql);
+				
+				
+				isSuccess = pstmt.executeUpdate();
+			}
+			
+		}catch (SQLException e) {
+			System.out.println("CouponDAO- issuedCoupon()실패!"+e.getMessage());
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return isSuccess;
 	}
 
 	
