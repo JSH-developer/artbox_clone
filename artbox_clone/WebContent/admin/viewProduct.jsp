@@ -11,6 +11,18 @@ int nowPage = Integer.parseInt(request.getParameter("page"));
 <head>
 <meta charset="UTF-8">
 <title>ARTBOX(포트폴리오)</title>
+
+<script>
+function deleteProduct(){
+	var del = confirm('삭제 하시겠습니까?');
+	if(del){
+		location.href = "ProductDeletePro.admin?num=<%=productBean.getProduct_num() %>&page=<%=nowPage%>";
+	}
+	
+}
+
+</script>
+
 <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -39,7 +51,7 @@ int nowPage = Integer.parseInt(request.getParameter("page"));
 <br><br>
 <button onclick="location.href='ProductList.admin?page=<%=nowPage%>'">목록가기</button>
 <button onclick="location.href='ProductModifyForm.admin?num=<%=productBean.getProduct_num() %>&page=<%=nowPage%>'">수정하기</button>
-<button onclick="location.href='ProductList.admin?page=<%=nowPage%>'">삭제하기</button>
+<button onclick="deleteProduct()">삭제하기</button>
 
 </div>
 

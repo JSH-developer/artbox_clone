@@ -14,11 +14,13 @@ import action.CategoryListProAction;
 import action.CategoryWriteProAction;
 import action.OptionListProAction;
 import action.OptionWriteProAction;
+import action.ProductDeleteProAction;
 import action.ProductListProAction;
 import action.ProductModifyFormAction;
 import action.ProductModifyProAction;
 import action.ProductViewProAction;
 import action.ProductWriteProAction;
+import svc.OptionWriteService;
 import svc.ProductWriteService;
 import vo.ActionForward;
 
@@ -33,7 +35,8 @@ public class AdminFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		ProductWriteService productWriteService = new ProductWriteService(); 
+		ProductWriteService productWriteService = new ProductWriteService();
+		OptionWriteService optionWriteService = new OptionWriteService();
 		
 		if(command.equals("/home.admin")) { // 관리자 페이지 메인화면
 			forward = new ActionForward();
@@ -109,7 +112,16 @@ public class AdminFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("/ProductDeletePro.admin")) { // 상품 삭제 수행
+			action = new ProductDeleteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}else if(command.equals("/OptionWriteForm.admin")) { // 옵션 등록 페이지
+			String productSelectList = optionWriteService.productSelectList();
+			request.setAttribute("productSelectList", productSelectList);
 			forward = new ActionForward();
 			forward.setPath("/admin/registOption.jsp");
 			
@@ -144,8 +156,6 @@ public class AdminFrontController extends HttpServlet {
 			}
 			
 		}
-		
-		
 		
 	}	
 	

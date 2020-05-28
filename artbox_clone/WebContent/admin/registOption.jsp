@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String productSelectList = (String)request.getAttribute("productSelectList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +36,7 @@
 <h1>옵션 등록</h1>
 <form action="OptionWritePro.admin" method="post">
 <table class="reg_tab">
-	<tr><th>상품 검색</th><td><select name="product_index" id="prod_list"><option value="">상품을 선택해주세요</option><option value="01">상어인형(01)</option><option value="02">오리인형(02)</option></select></td></tr>
+	<tr><th>상품 검색</th><td><select name="product_index" id="prod_list"><option value="">상품을 선택해주세요</option><%=productSelectList %></select></td></tr>
 	<tr><th>옵션 이름</th><td><input name="option_name" type="text" placeholder="옵션명을 입력해주세요" style="padding-left:5px "></td></tr>
 	<tr><th>추가 가격</th><td><input name="add_price" type="text" placeholder="금액을 입력해주세요" style="padding-left:5px "></td></tr>
 	<tr class="btn_tr"><td colspan="2"><input type="submit" value="옵션 등록"></td></tr>

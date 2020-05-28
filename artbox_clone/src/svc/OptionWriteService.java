@@ -9,6 +9,28 @@ import static db.jdbcUtil.*;
 
 public class OptionWriteService {
 	
+	public String productSelectList() {
+		String result="";
+		
+		Connection con = getConnection();
+		AdminDAO adminDAO = AdminDAO.getInstance();
+		adminDAO.setConnection(con);
+		
+		result = adminDAO.toMakeProductSelect();
+		
+		if(result.length()>0) {
+			commit(con);
+			
+		}else {
+			rollback(con);
+		}
+		
+		
+		close(con);
+		
+		return result;
+	}
+	
 	public String makeOptionCode(String product_index) {
 		String result="";
 		

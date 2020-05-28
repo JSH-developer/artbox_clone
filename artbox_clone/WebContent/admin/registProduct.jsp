@@ -10,6 +10,35 @@ String optionSelectList = (String)request.getAttribute("optionSelectList");
 <meta charset="UTF-8">
 <title>ARTBOX(포트폴리오)</title>
 
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#product_category_code option").each(function() {
+		var text = $(this).text();
+		
+		if(text.indexOf('DT') != -1) {
+			$(this).html(text.replace('DT', '인형/토이'));
+		}else if(text.indexOf('FA') != -1) {
+			$(this).html(text.replace('FA', '문구'));	
+		}else if(text.indexOf('FS') != -1){
+			$(this).html(text.replace('FS', '패션'));
+		}else if(text.indexOf('KB') != -1){
+			$(this).html(text.replace('KB', '주방/욕실'));
+		}else if(text.indexOf('LD') != -1){
+			$(this).html(text.replace('LD', '리빙/데코'));
+		}else if(text.indexOf('DI') != -1){
+			$(this).html(text.replace('DI', '디지털/가전'));
+		}else if(text.indexOf('TR') != -1){
+			$(this).html(text.replace('TR', '여행'));
+		}else if(text.indexOf('BE') != -1){
+			$(this).html(text.replace('BE', '뷰티'));	
+		}
+		
+		});
+	
+})
+</script>
+
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
@@ -93,8 +122,8 @@ $(document).ready(function() {
 <h1>상품등록</h1>
 <form action="ProductWritePro.admin" method="post" enctype="multipart/form-data">
 <table class="reg_tab">
-	<tr><th>상품카테고리</th><td><select name="product_category_code"><%=categorySelectList %></select></td></tr>
-	<tr><th>상품옵션</th><td><select name="product_option_code"><%=optionSelectList %></select></td></tr>
+	<tr><th>상품카테고리</th><td><select id="product_category_code" name="product_category_code"><%=categorySelectList %></select></td></tr>
+	<tr><th>상품옵션</th><td><select id="product_option_code" name="product_option_code"><%=optionSelectList %></select></td></tr>
 	<tr><th>상품명</th><td><input type="text" name="product_name"></td></tr>
 	<tr><th>브랜드</th><td><input type="text" name="product_brand"></td></tr>
 	<tr><th>상품가격</th><td><input type="text" name="product_price"></td></tr>

@@ -403,7 +403,32 @@ public class AdminDAO {
 		
 		return result;
 	}
+	
+	// 옵션등록 페이지에서 상품의 리스트를 출력하기 위한 함수
+	public String toMakeProductSelect() {
+		String result ="";
+		
+		try {
+			String sql="SELECT LPAD(num,'2','0') 'num2', name, code FROM product";
+			pstmt=con.prepareStatement(sql);
+			
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				result += "<option value=\"" + rs.getString("num2") + "\"> " + rs.getString("name") + "(" + rs.getString("code") + ") </option>";
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
+	//  상품 수정 기능 수행
 	public int modifyProduct(ProductBean productBean) {
 		int updateCount = 0;
 		
@@ -433,6 +458,25 @@ public class AdminDAO {
 		}
 		
 		return updateCount;
+	}
+
+	// 상품 삭제 기능 수행
+	public int deleteProduct(int num) {
+		int deleteCount = 0;
+		
+		try {
+			String sql="DELETE FROM product WHERE num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			deleteCount = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return deleteCount;
 	}
 
 }
