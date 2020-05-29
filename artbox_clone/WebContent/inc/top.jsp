@@ -19,7 +19,7 @@
  <div class="pageNavigationBar" id="topBar">
 		<nav id="top_menu">
 		<ul>
-			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/item/itemList.jsp" onclick="GA_event('HEAD', '최상단 메뉴', '인형/토이');">인형/토이</a></li>
+			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major='DT'" onclick="GA_event('HEAD', '최상단 메뉴', '인형/토이');">인형/토이</a></li>
 			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/item/itemDetail.jsp" onclick="GA_event('HEAD', '최상단 메뉴', '문구');">문구</a></li>
 			<li class="CategoryMiddle"><a href="#" onclick="GA_event('HEAD', '최상단 메뉴', '패션');">패션</a></li>
 			<li class="CategoryMiddle"><a href="#" onclick="GA_event('HEAD', '최상단 메뉴', '주방/욕실');">주방/욕실</a></li>
