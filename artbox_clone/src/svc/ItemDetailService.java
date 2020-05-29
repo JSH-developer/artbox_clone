@@ -5,12 +5,12 @@ import static db.jdbcUtil.*;
 import java.sql.Connection;
 
 import dao.ItemDAO;
-import vo.ProductBean;
+import vo.ItemBean;
 
 public class ItemDetailService {
 
-	public ProductBean getArticle(int product_num) {
-		ProductBean article = null;
+	public ItemBean getArticle(int product_num) {
+		ItemBean article = null;
 		
 		// 공통작업-1. static import 로 지정된 메서드 호출
 		Connection con = getConnection();
@@ -18,6 +18,7 @@ public class ItemDetailService {
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		// 공통작업-3. ItemDAO 객체에 Connection 객체 전달
 		itemDAO.setConnection(con);
+		// 4. 게시물 상세 내용 조회
 		article = itemDAO.selectArticle(product_num);
 		// 공통작업-5. Connection 객체 반환
 		close(con);

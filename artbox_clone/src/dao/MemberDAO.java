@@ -1,0 +1,115 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import static db.jdbcUtil.*;
+
+import vo.MemberBean;
+
+public class MemberDAO {
+
+	private static MemberDAO dao;
+	
+	private Connection con;
+	
+	private MemberDAO() {}
+	
+	public static MemberDAO getInstance() {
+		if(dao==null) {
+			dao = new MemberDAO();
+		}
+		return dao;
+	}
+	
+	public void setConnection(Connection con) {
+		this.con = con;
+	}
+	
+	public int JoinInsert(MemberBean bb) {
+		PreparedStatement pstmt = null;
+		int insertCount = 0;
+		try {
+			String sql = "insert into member values(null,?,?,?,?,?,?,?,?,?,0,?,?,1,now())";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, bb.getId());
+			pstmt.setString(2, bb.getPw());
+			pstmt.setString(3, bb.getName());
+			pstmt.setString(4, bb.getPostcode());
+			pstmt.setString(5, bb.getAddr_basic());
+			pstmt.setString(6, bb.getAddr_detail());
+			pstmt.setString(7, bb.getEmail());
+			pstmt.setString(8, bb.getPhone());
+			pstmt.setString(9, bb.getGender());
+			pstmt.setString(10, bb.getBirth());
+			pstmt.setString(11, "bronz");
+			
+			insertCount = pstmt.executeUpdate();
+			
+			
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("MemberDAO - JoinInsert() 실패 : "+e.getMessage());
+		} finally {
+			close(pstmt);
+		}
+		return insertCount;
+		
+		
+	}
+	
+	public boolean idcheck(String id) {
+		boolean idcheck = false;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select * from member where id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+//				System.out.println("rs 아이디 : "+rs.getString("id"));
+//				System.out.println("DAO id : "+id);
+					idcheck =  true;
+			}
+		} catch (SQLException e) {
+			System.out.println("DAO - idcheck 실패!"+e.getMessage());
+		} finally {
+			close(pstmt);
+		}
+		return idcheck;
+	}
+
+	public boolean LoginSuccess(String id, String pw) {
+		boolean LoginSuccess = false;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select pw from member where id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("LoginSuccess 실패 - "+e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return LoginSuccess;
+		
+		
+	}
+	
+	
+}
