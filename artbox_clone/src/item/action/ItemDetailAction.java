@@ -16,7 +16,7 @@ public class ItemDetailAction implements Action {
 		ProductBean productBean = null;
 		//파라미터로 전달된 게시물 넘버값 
 		int product_num = Integer.parseInt(request.getParameter("num"));
-
+		
 		//admin의 svc.ProductViewService 객체 재활용 
 		ProductViewService pvs = new ProductViewService();
 		productBean = pvs.infoProduct(product_num);

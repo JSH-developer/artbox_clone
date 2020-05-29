@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -100,7 +101,7 @@
 	</script>
 </head>
 	<!-- 헤더 -->
-	<jsp:include page="../inc/top.jsp"></jsp:include>
+	<jsp:include page="${pageContext.request.contextPath}/inc/top.jsp"></jsp:include>
 	<!-- /헤더 -->
 
 	<!-- 메인 콘텐츠  -->
@@ -112,8 +113,7 @@
 					<div class="mainslide swiper-container">
 						<ul class="swiper-wrapper">
 							<li class="swiper-slide"><img src="${pageContext.request.contextPath}/upload/${productBean.product_image}"></li>
-							<li class="swiper-slide"><img src="http://www.poom.co.kr/Upload2/Product/201805/1805300305_detail1.jpg"></li>
-							<li class="swiper-slide"><img src="http://www.poom.co.kr/Upload2/Product/201805/1805300332_detail1.jpg"></li>
+							<li class="swiper-slide"><img src="${pageContext.request.contextPath}/upload/${productBean.product_image2}"></li>
 						</ul>
 						<div class="swiper-pagination"></div>
 					</div>
@@ -371,7 +371,7 @@
 	<!-- /메인 콘텐츠  -->
 
 	<!--  푸터 -->
-	<jsp:include page="../inc/bottom.jsp"></jsp:include>
+	<jsp:include page="${pageContext.request.contextPath}/inc/bottom.jsp"></jsp:include>
 	<!--  /푸터 -->
 	<script type="text/javascript">
 	
