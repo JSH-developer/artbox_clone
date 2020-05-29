@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import action.CouponOrderPayFormAction;
 import action.CouponWriteProAction;
+import action.EventWriteProAction;
 import action.MypageCouponListAction;
 import action.TestSelectAction;
 import vo.ActionForward;
@@ -33,7 +34,7 @@ public class EventFrontController extends HttpServlet {
 			// => ActionForward 객체의 포워딩 방식을 별도로 설정하지 않음(주소변경 x)
 			forward = new ActionForward();
 //			forward.setRedirect(false); // 포워딩 박식을 Dispatcher 방식으로 설정(기본값 생략 가능)
-			forward.setPath("/event/registCoupon.jsp"); // 이동할 View 페이지 경로 지정
+			forward.setPath("/event/CouponWriteForm.jsp"); // 이동할 View 페이지 경로 지정
 			
 			
 		}else if(command.equals("/CouponWritePro.event")) {
@@ -77,7 +78,24 @@ public class EventFrontController extends HttpServlet {
 		forward.setPath("/event/PayCoupon.jsp"); // 이동할 View 페이지 경로 지정
 		
 	
+	}else if(command.equals("/EventWriteForm.event")){
+		System.out.println("/EventWriteForm.event");
+		
+		forward = new ActionForward();
+		forward.setPath("/event/registEvent.jsp"); // 이동할 View 페이지 경로 지정
+		
+		
+	}else if(command.equals("/EventWritePro.event")) {
+		System.out.println("/EventWritePro.event");
+		action = new EventWriteProAction();
+		try {
+			forward = action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+		
+		
 		
 		
 		
