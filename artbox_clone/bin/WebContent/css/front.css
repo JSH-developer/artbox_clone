@@ -1,0 +1,255 @@
+@charset "UTF-8";
+
+/* th, td, p, input, button, textarea, select, div, xmp {font-family:'Spoqa Han Sans', 'Malgun Gothic', Dotum, Gulim, Tahoma, Helvetica, AppleGothic, Helvetica, Sans-serif; color:#808080; line-height:100%;} */
+
+/* img {border:none;} */
+
+/*  a, input, textarea, select {outline:none; -webkit-appearance: none; -moz-appearance: none; border-radius:0;} */ 
+
+a:link, a:visited, a:active, a:hover { text-decoration:none; color:#808080; }
+/* a:hover                              { } */
+/* a.privacy {font-weight:bold;color:#3a4b59;} */
+
+
+BODY {
+	margin: 20px 0px 20px 0px;
+	background-color: white;
+/* 	font-family: arial; */
+	font-size: 12pt;
+	display: block;
+	position: relative;
+	width: 100%;
+	}
+	
+
+	
+.pageHeader{
+	
+	width: 100%;
+    margin: 50px auto 0;
+	display: block;
+    border-bottom: 1px solid #e4e4e4;
+	}
+.logo{
+	min-height: 120px;
+	
+}
+
+.pageNavigationBar{
+
+/* 	min-height: 57px; */
+	}
+	
+.pageContent{
+
+	
+	width: 1200px;
+    margin: 0 auto 30px;
+    padding: 0;
+	
+	}
+	
+
+	
+	
+
+
+
+#top_menu ul{list-style:none;
+font-family: verdana,Geneba,sans-serif;
+font-size: 13px;font-weight: 100;
+display:block; height:57px; width:1200px; margin:0 auto; position:relative;
+    padding-inline-start: 0;
+ }
+
+#top_menu li{float: left;margin: 0 5px;}
+
+#top_menu .CategoryMiddle a{display: block; height: 20px;
+padding: 10px; text-decoration: none;color: black;
+outline:none; -webkit-appearance: none; -moz-appearance: none; border-radius:0;}
+
+#top_menu .Cart{float: right;}
+#top_menu .MyPage{float: right;width: 40px;height: 40px;}
+
+#top_menu li.Search {
+    float: right;
+/*     width: 185px; */
+    height: 40px;
+    border-bottom: 2px solid #787878;
+}
+
+#top_menu #kwd {border:none;border-bottom:1px solid gray;
+font-family: 'Spoqa Han Sans', 'Malgun Gothic', Dotum, Gulim, Tahoma, Helvetica, AppleGothic, Helvetica, Sans-serif;
+    color: #808080;
+    line-height: 100%;
+        display: inline-block;
+    background-color: #ffffff;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    width: 145px;
+    height: 35px;
+    line-height: 35px;
+    vertical-align: top;
+    font-size: 16px;
+    color: #000000;}
+
+nav#top_menu a:hover{
+	background-repeat: repeat-x;
+/* 	background-position: bottom; */
+	}
+.fixed {
+	position: fixed;
+	top: 0px;
+}
+	
+/* footer */
+
+.pageFooter{    display: block;
+    border-top: 1px solid #e4e4e4;height: 250px;
+    padding: 23px 0 42px;}
+    
+    
+.FooterMenu ul{list-style:none;
+font-family: verdana,Geneba,sans-serif;
+font-size: 13px;font-weight: 100;color: black;
+display:block; height:57px; width:1200px; margin:0 auto; position:relative;
+}
+
+.FooterMenu li{float: left;margin: 0 5px;}
+
+.FooterMenu .FooterLink a{display: block; height: 20px;
+padding: 10px; text-decoration: none;color: #7d7d7d;}
+
+.FooterMenu .FamilySite{float: right;}
+.FooterMenu .Facebook{float: right;width: 40px;height: 40px;}
+.FooterMenu .Instagram{float: right;}
+
+
+
+
+/* .pageFooter .FooterInfo {padding-top:39px;} */
+.pageFooter .FooterInfo ul {width:1200px; margin:0 auto;list-style:none;}
+.pageFooter .FooterInfo ul li { float: left;   }
+.pageFooter .FooterInfo li.CallCenter {width:330px; font-size:13px; line-height:13px;}
+.pageFooter .FooterInfo li.CallCenter b.string {display:block; font-weight:normal; font-size:20px; line-height:20px; color:#000000; 
+padding-bottom:5px;}
+.pageFooter .FooterInfo li.CallCenter b.number {display:block; font-family:'Saira Condensed'; font-size:30px; line-height:30px; 
+color:#000000; padding-bottom:10px;}
+.pageFooter .FooterInfo li.CallCenter small {display:block; font-size:12px; color:#3a4b59; line-height:12px; padding-top:10px;}
+
+.pageFooter .FooterInfo li.TwoButton {width:290px;display:inline-block;}
+.pageFooter .FooterInfo li.TwoButton a {display:inline-block; width:115px; height:115px; border:3px solid #cecece;
+ margin:0 7px 0 0; font-size:13px; line-height:13px; text-align:center; border-radius:8px;
+  text-decoration: none;}
+.pageFooter .FooterInfo li.TwoButton img {display:block; margin:20px auto 5px; width:50px; height:50px;}
+
+.pageFooter .FooterInfo li.Information {width:580px; font-size:12px; line-height:20px;display:inline-block;
+font-family: 'Spoqa Han Sans', 'Malgun Gothic', Dotum, Gulim, Tahoma, Helvetica, AppleGothic, Helvetica, Sans-serif;color: #808080;}
+.pageFooter .FooterInfo li.Information big {font-size:16px;}
+.pageFooter a, .FooterInfo{color:#808080;}
+
+.pageFooter .FooterInfo li.Information a.BizInfo {display:block; width:100px; height:24px; line-height:22px; border:1px solid #787878; 
+border-radius:3px; text-align:center; margin:5px 0;  text-decoration: none;color:#808080; }
+
+
+/* ----------------------------HOME--------------------------- */
+/* home/ main ad1 */
+.Ad1{ height: 200px; margin: 20px auto;
+width: 1200px;
+padding: 0;}
+.Ad1left{ width: 590px;float: left;}
+.Ad1right{ width: 590px;float: right;}
+
+
+
+/* best item */
+.BestItemWrap {width:1200px; margin:100px auto 0; padding:0; text-align:left;}
+a.BestItemTitle {text-align:left; display:inline-block; color:#000000; line-height:30px; font-size:30px; font-family:'Saira Condensed'; font-weight:bold; margin:0;}
+a.BestItemTitle span {display:inline-block; width:18px; height:21px; background-size:18px 21px; background-image:url(/Images/Ver1/Common/gogo_pc.png); vertical-align:top; margin:4px 0 5px 7px;}
+
+.BestItemList {display:block; margin:0; width:100%;}
+.BestItemList ul {height:660px; width:auto;}
+.BestItemList li {width:200px; height:310px; margin:20px 15px 0;padding:0; list-style:none;float:left;}
+.BestItemList li a {display:block; position:relative; width:210px; height:auto; text-align:center;}
+.BestItemList li img.ItemImage {width:210px; height:210px; border-radius:50%;}
+.BestItemList li span.ImageNumber     {display:block; position:absolute; z-index:2; top:0; left:0; width:48px; height:48px; border-radius:50%; background-color:#8f8f8f; color:#ffffff; font-size:26px; line-height:48px; text-align:center; font-family:'Saira Condensed'}
+.BestItemList li span.ImageNumber.num1 {background-color:#c80203;}
+.BestItemList li span.ImageBackGround {display:block; position:absolute; z-index:1; top:0; left:0; width:210px; height:210px; border-radius:50%; background:#000000; opacity:0.03; filter:alpha(opacity=3); -ms-filter:alpha(opacity=3); }
+.BestItemList li span.ItemName {display:block; width:210px; margin:10px 0 0 0; text-align:center; font-size:16px; line-height:18px; color:#000000; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+.BestItemList li span.ItemPrice {display:block; width:210px; margin:7px 0 5px 0; text-align:center; font-size:16px; line-height:16px; color:#000000; font-weight:bold;}
+.BestItemList li span.ItemPrice.red {color:#f20001;}
+
+.BestItemList_M {display:none; margin:0.625rem 0 0 0; width:100%; }
+.BestItemList_M ul {width:auto; margin:0 0;}
+.BestItemList_M li {width:10.5625rem; height:14.5rem; margin:0;}
+.BestItemList_M li a {display:block; position:relative; width:10rem; height:auto; text-align:center; margin:0 0 0 0.5625rem;}
+.BestItemList_M li img.ItemImage {width:10rem; height:10rem; border-radius:50%;}
+.BestItemList_M li span.ImageNumber     {display:block; position:absolute; z-index:2; top:0; left:0; width:2rem; height:2rem; border-radius:50%; background-color:#8f8f8f; color:#ffffff; font-size:1.25rem; line-height:2rem; text-align:center; font-family:'Saira Condensed'}
+.BestItemList_M li span.ImageNumber.num1 {background-color:#c80203;}
+.BestItemList_M li span.ImageBackGround {display:block; position:absolute; z-index:1; top:0; left:0; width:10rem; height:10rem; border-radius:50%; background:#000000; opacity:0.03; filter:alpha(opacity=3); -ms-filter:alpha(opacity=3); }
+.BestItemList_M li span.ItemName {display:block; width:10rem; margin:0.5rem 0 0 0; text-align:center; font-size:0.8rem; line-height:0.8rem; color:#000000; text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+.BestItemList_M li span.ItemPrice {display:block; width:10rem; margin:0.35rem 0 0.35rem 0; text-align:center; font-size:0.8rem; line-height:0.8rem; color:#000000; font-weight:bold;}
+.BestItemList_M li span.ItemPrice.red {color:#f20001;}
+
+
+/* NewArrival */
+	
+.NewArrivalWrap a {text-decoration: none;}	
+.NewArrivalWrap {width:1200px; margin:50px auto 0; padding:0; text-align:left;min-height: 400px;}
+a.NewArrivalTitle {text-align:left; display:inline-block; color:#000000; line-height:30px; font-size:30px; font-family:'Saira Condensed'; font-weight:bold; margin:0;}
+a.NewArrivalTitle span {display:inline-block; width:18px; height:21px; background-size:18px 21px; background-image:url(/Images/Ver1/Common/gogo_pc.png); vertical-align:top; margin:4px 0 5px 7px;}
+
+.NewArrivalList {padding:12px 0 0 0;}
+.NewArrivalList a.NewArrival1,
+.NewArrivalList a.NewArrival2,
+.NewArrivalList a.NewArrival3 {display:block; text-align:left; float:left; width:355px; height:300px; background-size:355px 300px; background-repeat:no-repeat; background-position:bottom right; border-radius:5px; font-size:18px; line-height:18px; color:#000000; padding:32px 0 0 32px; margin:0 15px 0 0;}
+.NewArrivalList a.NewArrival3 {margin:0 0 0 0;}
+.NewArrivalList a.NewArrival3_M {display:none; text-align:left; width:100%; height:8rem; background-size:20.6rem 8rem; background-repeat:no-repeat; background-position:bottom right; border-radius:5px; font-size:0.8rem; line-height:0.8rem; color:#000000; padding:2.95rem 0 0 1rem; margin:0.5rem 0 0 0;}
+.NewArrivalList a.NewArrival1 b,
+.NewArrivalList a.NewArrival2 b,
+.NewArrivalList a.NewArrival3 b, 
+.NewArrivalList a.NewArrival3_M b {display:block; text-align:left; font-size:28px; line-height:28px; margin:0 0 15px 0;}
+
+	
+	
+/* event */
+
+.InstagramEventWrap {width:1200px; margin:70px auto 0;height: 600px;}
+
+.InstagramList {float:left; width:812px; height:550px;}
+.InstagramList ul {width:812px; padding-inline-start: 0;}
+.InstagramList li {float:left;width:250px; height:250px; margin:10px 10px 0 0;list-style: none;}
+.InstagramList li.num1,g
+.InstagramList li.num2,
+.InstagramList li.num3,
+.InstagramList li.num4,
+.InstagramList li.num5,
+.InstagramList li.num6 {display:block;}
+.InstagramList li a {width:250px; height:250px;}
+.InstagramList li div {width:100%; height:100%; background-position:center; background-size:auto 100%; background-repeat:no-repeat; }
+.InstagramList li a img {width:250px; height:250px;}
+
+.InstagramEventTitle {color:#000000; height:30px; line-height:30px; font-size:30px; font-family:'Saira Condensed'; font-weight:bold; margin:0;}
+.InstagramEventTitle a {font-weight:normal; font-size:20px; color:#aeaeae;}
+
+.EventWrap {display:block; float:left; width:388px; height:550px;}
+.EventWrapBack {background-color:#f5f5f5; width:388px; height:510px; margin-top:10px; padding:60px 0 0 0;}
+.EventWrapBack #EventRollingSlide {width:240px; height:380px; background-color:#ffffff; margin:0 auto; padding:7px;}
+.EventWrapBack #EventRollingSlide ul {}
+.EventWrapBack #EventRollingSlide li {padding:0;}
+.EventWrapBack #EventRollingSlide li a.SlideLink {display:block; width:226px; height:293px; margin:0;}
+.EventWrapBack #EventRollingSlide li a.SlideLink img {width:226px; height:293px;}
+.EventWrapBack #EventRollingSlide li p {margin:0; padding:13px 0 0 0; font-size:15px; line-height:22px; color:#000000; text-align:center;}
+
+.EventWrapBack .EventRollingSlideArrow {width:388; margin:0 auto; position:relative; }
+.EventWrapBack .EventRollingSlideArrow a.EventRollingSlidePrev {top:-240px; left:16px; display:block; position:absolute; z-index:15; width:40px; height:77px; background-size:40px 77px; background-image:url(/Images/Ver1/Common/slide_arrow_left.png);}
+.EventWrapBack .EventRollingSlideArrow a.EventRollingSlideNext {top:-240px; right:16px; display:block; position:absolute; z-index:15; width:40px; height:77px; background-size:40px 77px; background-image:url(/Images/Ver1/Common/slide_arrow_right.png);}
+
+
+.EventWrap_M {display:none; margin:2rem 0 0 0;}
+.EventWrap_M #EventRollingSlide_M {margin:0.4rem 0 0 0;}
+.EventWrap_M #EventRollingSlide_M ul {}
+.EventWrap_M #EventRollingSlide_M li {padding:0; border-radius:5px;}
+.EventWrap_M #EventRollingSlide_M li a.SlideLink {display:block; width:100%; min-width:10rem; height:auto; max-height:7.375rem; max-width:22.5rem; margin:0 auto;}
+.EventWrap_M #EventRollingSlide_M li a.SlideLink img {width:100%; height:100%; border-radius:5px;}

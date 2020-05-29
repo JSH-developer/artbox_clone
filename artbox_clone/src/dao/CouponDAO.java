@@ -2,7 +2,9 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import static db.jdbcUtil.*;
 
@@ -47,7 +49,7 @@ public class CouponDAO {
 		System.out.println(couponBean.getCoupon_limit());
 		System.out.println( couponBean.getCoupon_reason());
 		System.out.println(couponBean.getCoupon_member_id());
-		System.out.println(couponBean.getCoupon_img());
+		System.out.println(couponBean.getCoupon_category());
 		
 		
 		try {
@@ -64,7 +66,7 @@ public class CouponDAO {
 			pstmt.setInt(6, 0); // 사용여부
 			pstmt.setString(7, couponBean.getCoupon_reason());
 			pstmt.setString(8, couponBean.getCoupon_member_id());
-			pstmt.setString(9, couponBean.getCoupon_img());
+			pstmt.setString(9, couponBean.getCoupon_category());
 			
 			System.out.println("쿠폰이름: "+couponBean.getCoupon_name());
 			insertCount = pstmt.executeUpdate();
@@ -77,6 +79,48 @@ public class CouponDAO {
 		}
 		
 		return insertCount;
+	}
+
+	// 쿠폰 리스트 불러오기
+	public ArrayList<CouponBean> selectmyCouponlist(String id) {
+		
+		ArrayList<CouponBean> couponList =  new ArrayList<CouponBean>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT * FROM coupon WHERE member_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				CouponBean couponBean = new CouponBean();
+				couponBean.setCoupon_name(rs.getString("coup_name"));
+				couponBean.setCoupon_price(rs.getInt("coup_price"));
+				couponBean.setCoupon_condition(rs.getString("condition"));
+				couponBean.setCoupon_start(rs.getString("coup_start"));
+				couponBean.setCoupon_limit(rs.getString("coup_limit"));
+				couponBean.setCoupon_use(rs.getInt("coup_use"));
+				couponBean.setCoupon_reason(rs.getString("coup_reason"));
+				couponBean.setCoupon_category(rs.getString("category"));
+				couponBean.setCoupon_member_id(rs.getString("member_id"));
+				
+				
+				couponList.add(couponBean);
+			}
+			
+		}catch (SQLException e) {
+			System.out.println("CouponDAO- selectCouponlist()실패!"+e.getMessage());
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		
+		return couponList;
 	}
 
 	

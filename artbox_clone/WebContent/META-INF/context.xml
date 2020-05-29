@@ -8,9 +8,9 @@
 		type = "javax.sql.DataSource"	
 		username="root"
 		password="1234"
-		driverClassName="com.mysql.jdbc.Driver"
+		driverClassName="com.mysql.cj.jdbc.Driver"
 		factory = "org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
-		url = "jdbc:mysql://localhost:3306/artbox_clone"
+		url = "jdbc:mysql://localhost:3306/artbox_clone?serverTimezone=UTC"
 		maxIdle = "100"
 	/>
 </Context>
