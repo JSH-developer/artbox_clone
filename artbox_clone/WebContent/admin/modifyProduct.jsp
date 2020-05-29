@@ -1,41 +1,22 @@
+<%@page import="vo.ProductBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 String categorySelectList = (String)request.getAttribute("categorySelectList");
 String optionSelectList = (String)request.getAttribute("optionSelectList");
+ProductBean productBean = (ProductBean)request.getAttribute("productBean");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ARTBOX(포트폴리오)</title>
-
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#product_category_code option").each(function() {
-		var text = $(this).text();
-		
-		if(text.indexOf('DT') != -1) {
-			$(this).html(text.replace('DT', '인형/토이'));
-		}else if(text.indexOf('FA') != -1) {
-			$(this).html(text.replace('FA', '문구'));	
-		}else if(text.indexOf('FS') != -1){
-			$(this).html(text.replace('FS', '패션'));
-		}else if(text.indexOf('KB') != -1){
-			$(this).html(text.replace('KB', '주방/욕실'));
-		}else if(text.indexOf('LD') != -1){
-			$(this).html(text.replace('LD', '리빙/데코'));
-		}else if(text.indexOf('DI') != -1){
-			$(this).html(text.replace('DI', '디지털/가전'));
-		}else if(text.indexOf('TR') != -1){
-			$(this).html(text.replace('TR', '여행'));
-		}else if(text.indexOf('BE') != -1){
-			$(this).html(text.replace('BE', '뷰티'));	
-		}
-		
-		});
-	
+	$("#category_code").val('<%=productBean.getProduct_category_code()%>').attr("selected","selected");
+	$("#option_code").val('<%=productBean.getProduct_option_code()%>').attr("selected","selected");
+
 })
 </script>
 
@@ -120,24 +101,26 @@ $(document).ready(function() {
 <br>
 
 <h1>상품등록</h1>
-<form action="ProductWritePro.admin" method="post" enctype="multipart/form-data">
+<form action="ProductModifyPro.admin" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="num" value="<%=request.getParameter("num")%>">
+	<input type="hidden" name="page" value="<%=request.getParameter("page")%>">
 <table class="reg_tab">
-	<tr><th>상품카테고리</th><td><select id="product_category_code" name="product_category_code"><%=categorySelectList %></select></td></tr>
-	<tr><th>상품옵션</th><td><select id="product_option_code" name="product_option_code"><%=optionSelectList %></select></td></tr>
-	<tr><th>상품명</th><td><input type="text" name="product_name"></td></tr>
-	<tr><th>브랜드</th><td><input type="text" name="product_brand"></td></tr>
-	<tr><th>상품가격</th><td><input type="text" name="product_price"></td></tr>
-	<tr><th>상품상세</th><td style="margin-left:100px"><textarea id="summernote" name="product_description"></textarea></td></tr>
-	<tr><th>재고수량</th><td><input type="number" name="product_stock_count"></td></tr>
-	<tr><th>세일가격</th><td><input type="text" name="product_sale_price"></td></tr>
-	<tr><th>대표 이미지</th><td><input type="file" name="product_image" accept="image/*" multiple="multiple"></td></tr>
-	<tr><th>대표 이미지2</th><td><input type="file" name="product_image2" accept="image/*"></td></tr>
-	<tr><th>키워드 입력</th><td><input type="text" name="product_keywords" placeholder=" ex) #키워드1 #키워드2"></td></tr>
-	<tr class="btn_tr"><td colspan="2"><input type="submit" value="상품등록"></td></tr>
+	<tr><th>상품카테고리</th><td><select id="category_code" name="product_category_code"><%=categorySelectList %></select></td></tr>
+	<tr><th>상품옵션</th><td><select id="option_code" name="product_option_code"><%=optionSelectList %></select></td></tr>
+	<tr><th>상품명</th><td><input type="text" name="product_name" value="<%=productBean.getProduct_name()%>"></td></tr>
+	<tr><th>브랜드</th><td><input type="text" name="product_brand" value="<%=productBean.getProduct_brand()%>"></td></tr>
+	<tr><th>상품가격</th><td><input type="text" name="product_price" value="<%=productBean.getProduct_price()%>"></td></tr>
+	<tr><th>상품상세</th><td style="margin-left:100px"><textarea id="summernote" name="product_description"><%=productBean.getProduct_description()%></textarea></td></tr>
+	<tr><th>재고수량</th><td><input type="number" name="product_stock_count" value="<%=productBean.getProduct_stock_count()%>"></td></tr>
+	<tr><th>세일가격</th><td><input type="text" name="product_sale_price" value="<%=productBean.getProduct_sale_price()%>"></td></tr>
+	<tr><!--<th>대표 이미지</th>--><td colspan="2"><input type="hidden" name="product_image" accept="image/*" value="<%=productBean.getProduct_image()%>"></td></tr>
+	<tr><td colspan="2"> 대표이미지는 아직 변경할 수 없어요 ㅠ </td></tr>
+	<tr><!--<th>대표 이미지2</th>--><td colspan="2"><input type="hidden" name="product_image2" accept="image/*" value="<%=productBean.getProduct_image2()%>"></td></tr>
+	<tr><th>키워드 입력</th><td><input type="text" name="product_keywords" placeholder=" ex) #키워드1 #키워드2" value="<%=productBean.getProduct_keywords()%>"></td></tr>
+	<tr class="btn_tr"><td colspan="2"><input type="submit" value="상품수정"></td></tr>
 </table>
 </form>
 </div>
-<p><% out.print(request.getRealPath("/upload")); %></p>
 
  <!--  푸터 -->
  <jsp:include page="/inc/bottom.jsp"></jsp:include>

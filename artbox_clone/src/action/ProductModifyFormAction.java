@@ -7,22 +7,26 @@ import svc.ProductViewService;
 import vo.ActionForward;
 import vo.ProductBean;
 
-public class ProductViewProAction implements Action{
+public class ProductModifyFormAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ActionForward forward = new ActionForward();
-		ProductBean productBean = null;
+		ActionForward forward = null;
 		
-		int product_num = Integer.parseInt(request.getParameter("num"));
+		int num = Integer.parseInt(request.getParameter("num"));
 		
 		ProductViewService productViewService = new ProductViewService();
-		productBean = productViewService.infoProduct(product_num);
-		request.setAttribute("productBean", productBean);
-		request.setAttribute("product_num", product_num);
+		ProductBean productBean = productViewService.infoProduct(num);
 		
-		forward.setPath("/admin/viewProduct.jsp");
-		return forward;		
+		if(productBean != null) {
+			forward = new ActionForward();
+			forward.setPath("/admin/modifyProduct.jsp");
+			
+		}
+		
+		request.setAttribute("productBean", productBean);
+		
+		return forward;
 	}
 
 }
