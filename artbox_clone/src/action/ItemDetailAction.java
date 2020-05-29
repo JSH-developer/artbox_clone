@@ -14,8 +14,9 @@ public class ItemDetailAction implements Action {
 		ActionForward forward = null;
 		ProductBean productBean = null;
 
-		int product_num = Integer.parseInt(request.getParameter("num"));
-
+//		int product_num = Integer.parseInt(request.getParameter("num"));
+		int product_num = 2;
+		
 		ProductViewService pvs = new ProductViewService();
 		productBean = pvs.infoProduct(product_num);
 		request.setAttribute("productBean", productBean);

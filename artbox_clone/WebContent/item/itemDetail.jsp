@@ -111,7 +111,7 @@
 				<div class="img-info">
 					<div class="mainslide swiper-container">
 						<ul class="swiper-wrapper">
-							<li class="swiper-slide"><img src="http://www.poom.co.kr/Upload2/Product/201805/1805300288_detail1.jpg"></li>
+							<li class="swiper-slide"><img src="${pageContext.request.contextPath}/upload/${productBean.product_image}"></li>
 							<li class="swiper-slide"><img src="http://www.poom.co.kr/Upload2/Product/201805/1805300305_detail1.jpg"></li>
 							<li class="swiper-slide"><img src="http://www.poom.co.kr/Upload2/Product/201805/1805300332_detail1.jpg"></li>
 						</ul>
@@ -129,14 +129,14 @@
 					</script>
 				</div>
 				<div class="text-info">
-					<div class="pdt-name">클래식 캔디머신 (베이비핑크)(53008340)</div>
+					<div class="pdt-name">${productBean.product_name }</div>
 					<div class="pdt-category"><a href="#">인형/토이</a> > <a href="#">FUN/TOY</a></div>
-					<div class="pdt-right pdt-price">${price}원</div>
+					<div class="pdt-right pdt-price">${productBean.product_price}원</div>
 					<div class="pdt-right pdt-delivery">2,500원
 						<input type="button" class="btn-delivery modal" value="배송비 안내">
 					</div>
-					<div class="pdt-right pdt-candy">58개</div>
-					<div class="pdt-right pdt-code">1805300328</div>
+					<div class="pdt-right pdt-candy">${productBean.product_price / 100}개</div>
+					<div class="pdt-right pdt-code">${productBean.product_code}</div>
 					<div class="pdt-right pdt-ok">1% 적립</div>
 					<div class="pdt-right pdt-count">
 						<span class="ipt_layer">
@@ -315,7 +315,7 @@
 		<!-- </article> -->
 		<section class="full-screen">
 			<div class="qna-overlay">
-			<form action="#" method="post">
+			<form action="itemQuestion.item" method="post">
 				<input type="hidden" name="product_code" value="xxxxxxxx">
 				<div class="overlay-header">상품문의하기<input class="overlay-close" type="button" value=""></div>
 				<span class="input">
