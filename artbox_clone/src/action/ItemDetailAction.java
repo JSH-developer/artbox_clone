@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import svc.ProductViewService;
 import vo.ActionForward;
-import vo.ItemBean;
+import vo.ProductBean;
 
 public class ItemDetailAction implements Action {
 
@@ -13,19 +13,11 @@ public class ItemDetailAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		ProductBean productBean = null;
-		
-		// 파라미터로 전달된 게시물 번호(product_num) 가져오기
-//		int product_num = Integer.parseInt(request.getParameter("product_num"));
 
 		int product_num = Integer.parseInt(request.getParameter("num"));
 
-
-
 		ProductViewService pvs = new ProductViewService();
 		productBean = pvs.infoProduct(product_num);
-
-		
-
 		request.setAttribute("productBean", productBean);
 		
 		// board 폴더 내의 qna_board_view.jsp 페이지로 포워딩
