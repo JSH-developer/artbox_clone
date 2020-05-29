@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import action.CategoryLinkAction;
-import action.ItemDetailAction;
+import item.action.CategoryLinkAction;
+import item.action.ItemDetailAction;
 import vo.ActionForward;
 
 

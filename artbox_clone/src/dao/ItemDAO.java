@@ -1,19 +1,22 @@
 package dao;
 
-import static db.jdbcUtil.*;
+import static db.jdbcUtil.close;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-import vo.ItemBean;
+import vo.ProductBean;
 
 public class ItemDAO {
 	
 	private ItemDAO() {}
 	
 	private static ItemDAO instance;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
 	
 	public static ItemDAO getInstance() {
 		// ItemDAO 객체가 없을 경우에만 생성
@@ -29,48 +32,81 @@ public class ItemDAO {
 		this.con = con;
 	}
 	
-//----------------------------------------------------------------------------------------------
-	
-	public ItemBean selectArticle(int product_num) {
-		ItemBean article = null;
-		
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		// 게시물 번호(board_num)에 해당하는 게시물 상세 내용 조회 후 BoardBean 객체에 저장
+
+	public ArrayList<ProductBean> selectMajorLink(String majorCategory) {
+		String sql = "select * from product where category_code like '?%'";
+		ProductBean productBean = null;
+		ArrayList<ProductBean> listProduct = new ArrayList<ProductBean>();
 		try {
-			String sql = "SELECT * FROM product WHERE num=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, product_num);
+			pstmt.setString(1, majorCategory);
 			rs = pstmt.executeQuery();
-			
-			// 게시물이 존재할 경우 BoardBean 객체에 모든 데이터 저장
-			if(rs.next()) {
-				article = new ItemBean();
-				article.setProduct_num(rs.getInt("num"));
-				article.setProduct_code(rs.getString("code"));
-				article.setProduct_name(rs.getString("name"));
-				article.setProduct_image(rs.getString("image"));
-				article.setProduct_description(rs.getString("description"));
-				article.setProduct_price(rs.getInt("board_price"));
-				article.setProduct_brand(rs.getString("board_brand"));
-				article.setProduct_stock_count(rs.getInt("board_stock_count"));
-				article.setProduct_sale_price(rs.getInt("board_sale_price"));
-				article.setProduct_regdate(rs.getTimestamp("board_regdate"));
-				article.setProduct_category_code(rs.getString("board_category_code"));
-				article.setProduct_option_code(rs.getString("board_option_code"));
-				System.out.println(article.getProduct_name());
-				System.out.println("저장됨");
+			while(rs.next()) {
+				productBean = new ProductBean();
+				productBean.setProduct_num(rs.getInt("num"));
+				productBean.setProduct_code(rs.getString("code"));
+				productBean.setProduct_name(rs.getString("name"));
+				productBean.setProduct_image(rs.getString("image"));
+				productBean.setProduct_image2(rs.getString("image2"));
+				productBean.setProduct_description(rs.getString("description"));
+				productBean.setProduct_price(rs.getInt("price"));
+				productBean.setProduct_brand(rs.getString("brand"));
+				productBean.setProduct_stock_count(rs.getInt("stock_count"));
+				productBean.setProduct_sale_price(rs.getInt("sale_price"));
+				productBean.setProduct_keywords(rs.getString("keywords"));
+				productBean.setProduct_regdate(rs.getTimestamp("regdate"));
+				productBean.setProduct_category_code(rs.getString("category_code"));
+				productBean.setProduct_option_code(rs.getString("option_code"));
+				listProduct.add(productBean);
 			}
-			
 		} catch (SQLException e) {
-			System.out.println("ItemDAO - selectArticle() 실패 : " + e.getMessage());
-		} finally {
+			e.printStackTrace();
+		}finally {
 			close(rs);
 			close(pstmt);
+			close(con);
 		}
+		return 	listProduct;
 		
-		return article;
+	}	
+	
+	
+	
+	public ArrayList<ProductBean> selectMinorLink(String minorCategory) {
+		String sql = "select * from product where category_code=?";
+		ProductBean productBean = null;
+		ArrayList<ProductBean> listProduct = new ArrayList<ProductBean>();
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, minorCategory);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				productBean = new ProductBean();
+				productBean.setProduct_num(rs.getInt("num"));
+				productBean.setProduct_code(rs.getString("code"));
+				productBean.setProduct_name(rs.getString("name"));
+				productBean.setProduct_image(rs.getString("image"));
+				productBean.setProduct_image2(rs.getString("image2"));
+				productBean.setProduct_description(rs.getString("description"));
+				productBean.setProduct_price(rs.getInt("price"));
+				productBean.setProduct_brand(rs.getString("brand"));
+				productBean.setProduct_stock_count(rs.getInt("stock_count"));
+				productBean.setProduct_sale_price(rs.getInt("sale_price"));
+				productBean.setProduct_keywords(rs.getString("keywords"));
+				productBean.setProduct_regdate(rs.getTimestamp("regdate"));
+				productBean.setProduct_category_code(rs.getString("category_code"));
+				productBean.setProduct_option_code(rs.getString("option_code"));
+				listProduct.add(productBean);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+			close(con);
+		}
+		return 	listProduct;
+		
 	}	
 
 }

@@ -40,7 +40,10 @@ public class AdminDAO {
 		int insertCount = 0;
 		
 		try {
-			String sql="INSERT INTO product VALUES(null,?,?,?,?,?,?,?,?,?,?,null,?,?)";
+			String sql="INSERT INTO product("
+					+ "code,name,image,image2,description,price,brand,stock_count,"
+					+ "sale_price,keywords,category_code,option_code) "
+					+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, productBean.getProduct_code());
 			pstmt.setString(2, productBean.getProduct_name());
