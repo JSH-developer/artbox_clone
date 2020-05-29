@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import vo.ProductBean;
+import vo.ItemBean;
 
 public class ItemDAO {
 	
@@ -31,8 +31,8 @@ public class ItemDAO {
 	
 //----------------------------------------------------------------------------------------------
 	
-	public ProductBean selectArticle(int product_num) {
-		ProductBean article = null;
+	public ItemBean selectArticle(int product_num) {
+		ItemBean article = null;
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -46,7 +46,7 @@ public class ItemDAO {
 			
 			// 게시물이 존재할 경우 BoardBean 객체에 모든 데이터 저장
 			if(rs.next()) {
-				article = new ProductBean();
+				article = new ItemBean();
 				article.setProduct_num(rs.getInt("num"));
 				article.setProduct_code(rs.getString("code"));
 				article.setProduct_name(rs.getString("name"));
@@ -57,8 +57,10 @@ public class ItemDAO {
 				article.setProduct_stock_count(rs.getInt("board_stock_count"));
 				article.setProduct_sale_price(rs.getInt("board_sale_price"));
 				article.setProduct_regdate(rs.getTimestamp("board_regdate"));
-//				article.setProduct_category_num(rs.getInt("board_category_code"));
-//				article.setProduct_option_num(rs.getInt("board_option_code"));
+				article.setProduct_category_code(rs.getString("board_category_code"));
+				article.setProduct_option_code(rs.getString("board_option_code"));
+				System.out.println(article.getProduct_name());
+				System.out.println("저장됨");
 			}
 			
 		} catch (SQLException e) {

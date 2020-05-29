@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import svc.ItemDetailService;
 import vo.ActionForward;
-import vo.ProductBean;
+import vo.ItemBean;
 
 public class ItemDetailAction implements Action {
 
@@ -15,10 +15,10 @@ public class ItemDetailAction implements Action {
 		
 		// 파라미터로 전달된 게시물 번호(product_num) 가져오기
 //		int product_num = Integer.parseInt(request.getParameter("product_num"));
-		int product_num = 1;
+		int product_num = 2;
 		// ItemDetailService 인스턴스 생성 후 getArticle() 메서드 호출하여 상세내용 가져오기
 		ItemDetailService itemDetailService = new ItemDetailService();
-		ProductBean article = itemDetailService.getArticle(product_num);
+		ItemBean article = itemDetailService.getArticle(product_num);
 		
 		// request 객체에 BoardBean 객체 저장
 		request.setAttribute("article", article);
