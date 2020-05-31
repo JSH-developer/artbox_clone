@@ -10,7 +10,7 @@
   <div class="logo">
  
  <p style="text-align: center;margin-top: 50px;">
-    <a href="${pageContext.request.contextPath}/home/home.jsp"><img  alt="logo" src="${pageContext.request.contextPath}/Images/common/logo.png"></a>
+    <a href="Home.home"><img  alt="logo" src="${pageContext.request.contextPath}/Images/common/logo.png"></a>
 </p>
 
 </div>
@@ -26,7 +26,7 @@
 			<li class="CategoryMiddle"><a href="#" onclick="GA_event('HEAD', '최상단 메뉴', '리빙/데코');">리빙/데코</a></li>
 			<li class="CategoryMiddle"><a href="#" onclick="GA_event('HEAD', '최상단 메뉴', '디지털/가전');">디지털/가전</a></li>
 			<li class="CategoryMiddle"><a href="#" onclick="GA_event('HEAD', '최상단 메뉴', '여행');">베스트</a></li>
-			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/event/EventMain.jsp" onclick="GA_event('HEAD', '최상단 메뉴', '뷰티');">이벤트</a></li>
+			<li class="CategoryMiddle"><a href="EventList.event" onclick="GA_event('HEAD', '최상단 메뉴', '뷰티');">이벤트</a></li>
 			<li class="Cart">
 				<a href="${pageContext.request.contextPath}/cart/Cart.jsp" title="장바구니" onclick="GA_event('HEAD', '최상단 메뉴 PC', '장바구니');">
 						

@@ -13,6 +13,9 @@ import action.Action;
 import action.CouponIssuedAction;
 import action.CouponOrderPayFormAction;
 import action.CouponWriteProAction;
+import action.EventDetailAction;
+import action.EventListAction;
+import action.EventWriteProAction;
 import action.MypageCouponListAction;
 import vo.ActionForward;
 
@@ -36,7 +39,7 @@ public class EventFrontController extends HttpServlet {
 //			forward.setRedirect(false); // 포워딩 박식을 Dispatcher 방식으로 설정(기본값 생략 가능)
 			forward.setPath("/event/registCoupon.jsp"); // 이동할 View 페이지 경로 지정
 			
-	// 쿠폰 등록
+	// 쿠폰 등록 Pro
 		}else if(command.equals("/CouponWritePro.event")) {
 			System.out.println("/CouponWritePro.event");
 			action = new CouponWriteProAction();
@@ -71,7 +74,7 @@ public class EventFrontController extends HttpServlet {
 //		forward.setRedirect(false); // 포워딩 박식을 Dispatcher 방식으로 설정(기본값 생략 가능)
 		forward.setPath("/event/PayCoupon.jsp"); // 이동할 View 페이지 경로 지정
 		
-	// 쿠폰 발급
+	// 버튼누르면 쿠폰 발급
 	}else if(command.equals("/CouponIssued.event")) {
 		System.out.println("/CouponIssued.event");
 		action = new CouponIssuedAction();
@@ -80,7 +83,46 @@ public class EventFrontController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		// 이벤트 등록
+	}else if(command.equals("/EventWriteForm.event")){
+		System.out.println("/EventWriteForm.event");
+		
+		forward = new ActionForward();
+		forward.setPath("/event/registEvent.jsp"); // 이동할 View 페이지 경로 지정
+		
+		// 이벤트 등록 Pro
+	}else if(command.equals("/EventWritePro.event")) {
+		System.out.println("/EventWritePro.event");
+		action = new EventWriteProAction();
+		try {
+			forward = action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// 이벤트 메인
+	}else if(command.equals("/EventList.event")) {
+		System.out.println("/EventList.event");
+		action = new EventListAction();
+		try {
+			forward = action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// 이벤트 컨텐츠
+	}else if(command.equals("/EventDetail.event")) {
+		System.out.println("/EventDetail.event");
+		action = new EventDetailAction();
+		try {
+			forward = action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+		
+		
+		
+		
+		
 		
 		
 		
