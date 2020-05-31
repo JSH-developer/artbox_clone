@@ -20,6 +20,7 @@ ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute(
 <title>ARTBOX(포트폴리오)</title>
 <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/event/myPage.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 <div class="page">
@@ -35,7 +36,9 @@ ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute(
 	
 	<div class="top_box">
 		<div class="whoes">
-			<span>조해진</span> 님이 지금 사용하실 수 있는 쿠폰
+		<%String id = "jini"; %>
+		<input type="hidden" id="loginid">
+			<span><%=id %></span> 님이 지금 사용하실 수 있는 쿠폰
 		</div>
 		<div class="three_box">
 			
@@ -69,13 +72,16 @@ ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute(
 	</div>
 	<div class="enroll_coupon_tab">
 		<span>이벤트 쿠폰</span><span>* 오프라인 매장이나 제휴사 이벤트를 통해 발급받으신 쿠폰번호를 등록하시면 쿠폰이 발급됩니다.</span>
-		<span onclick="javascript:location.href='/Home/MyPage/MyPageInsertCoupon.asp';">쿠폰 등록하기</span>
+		<span id="couponissue" onclick="location.href='CouponIssued.event?getid=<%=id%>'">쿠폰 등록하기</span>
 	</div>
 
+<div>
+<input type="button" value="가입 쿠폰 freeshipping" onclick="location.href='CouponIssued.event?getid=<%=id%>&couponname=5월쿠폰bonus'">
+<input type="button" value="웰컴 배송비무료쿠폰" onclick="location.href='CouponIssued.event?getid=<%=id%>'">
+<input type="button" value="웰컴 10%할인쿠폰" onclick="location.href='CouponIssued.event?getid=<%=id%>'">
 
+</div>
 
-<%-- <c:set var="num" value="100"></c:set> --%>
-<c:out value="${num}" default="0"></c:out>
 
 	<section id="listForm">
 		<table>
@@ -108,18 +114,32 @@ if(myCouponList != null ){
 			}%>
 		</table>
 </section>
+	<%
+				int bonusCouponCount = 0; int freeCouponCount=0;
+			
+	for (int i = 0; i < myCouponList.size(); i++) {
+		String Coupon = myCouponList.get(i).getCoupon_category();
+		if (("bonuscoupon").equals(Coupon)) {
+			bonusCouponCount++;
+		}
+		if (("freecoupon").equals(Coupon)) {
+			freeCouponCount++;
+		}
+		
+	}
+%>
 
-	<div class="coupon_tab on">온라인 전용 쿠폰 (2장)</div>
+
+				<div class="coupon_tab on">온라인 전용 쿠폰 (2장)</div>
 	
-
 		
 				<div class="coupon_box">
-					<div class="detail_tab">보너스 쿠폰 (1장)</div>
+					<div class="detail_tab">보너스 쿠폰 (<%=bonusCouponCount %>장)</div>
 					<div class="CouponList">
 						<ul>
 							<% for(int i=0;i<myCouponList.size();i++){ 	
 							String Coupon = myCouponList.get(i).getCoupon_category();
-							if(("bonus").equals(Coupon)){%>
+							if(("bonuscoupon").equals(Coupon)){  %>
 							<li>
 								<div class="CouponImage">
 									<img
@@ -136,12 +156,12 @@ if(myCouponList != null ){
 					</div>
 					
 					
-					<div class="detail_tab">무료배송 쿠폰 (1장)</div>
+					<div class="detail_tab">무료배송 쿠폰 (<%=freeCouponCount %>장)</div>
 					<div class="CouponList">
 						<ul>
 					<% for(int i=0;i<myCouponList.size();i++){ 	
 					String Coupon = myCouponList.get(i).getCoupon_category();
-						if(("freeshipping").equals(Coupon)){%>
+						if(("freecoupon").equals(Coupon)){%>
 							<li>
 								<div class="CouponImage">
 									<img src="http://www.poom.co.kr/Images/Ver2/Mypoom/sale13.jpg">
@@ -161,6 +181,12 @@ if(myCouponList != null ){
 	
 	<div class="coupon_box nocoupon">보유한 쿠폰이 없습니다.</div>
 	
+<!-- 	<script type="text/javascript"> -->
+// function couponcount{
+// // 	$('#bonusCouponCount').val()== 
+// 	document.getElementById("bonusCouponCount").value =document.getElementById("newbonusCouponCount").value;
+// }
+<!-- </script> -->
 
 
 	<div class="bMargin"></div>

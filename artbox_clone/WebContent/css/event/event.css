@@ -33,7 +33,7 @@ font-size: 15px;}
 .eventContainer {
   width: 1200px;
   display: grid;
-  grid-template-rows: repeat(3, 320px);
+  grid-template-rows: repeat(3, 400px);
   grid-template-columns: repeat(3, 400px);
   align-content: <align-content>;
   margin: 40px 0 0 0;
