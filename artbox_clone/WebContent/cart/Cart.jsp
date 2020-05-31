@@ -1,7 +1,3 @@
-<%@page import="java.text.DecimalFormat"%>
-<%@page import="vo.ProductBean"%>
-<%@page import="java.util.List"%>
-<%@page import="vo.CartBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -50,19 +46,21 @@ $(document).ready(function(){
 	
 	fnCartArray = function(actiontype){
 		var count = 0;
+		var arrCartidx = 0;
 
 		$("input[name=CartIdx]").each(function(){
 			if ($(this).prop("checked")){
 				count = count + 1;
+				arrCartidx = arrCartidx + "," + $(this).val();
 				var cartidx = $(this).parent().find("[name=CartIdx]").val();
-				var cartArr = $("input[name=CartIdx]").get();
+// 				var cartArr = $("input[name=CartIdx]").get();
 // 				var cartArr = new Array();
 // 				cartidx = cartidx + "," + $(this).val()
-				alert(actiontype+"\n"+cartidx+"\n"+cartArr);
+				alert(actiontype+"\n"+cartidx+"\n"+arrCartidx);
 
 				if (actiontype == "ARRAYDEL") { // 선택삭제
-					location.href = "deleteOne.cart?cartidx="+cartidx;
-					alert('삭제되었습니다.');
+// 					location.href = "deleteOne.cart?cartidx="+cartidx;
+// 					alert('삭제되었습니다.');
 				} else if (actiontype == "ARRAYBUY") { // 선택주문
 					location.href = "orderAll.order?cartidx="+cartidx;
 				}
@@ -122,7 +120,7 @@ $(document).ready(function(){
 		$("input[name=CartIdx]").each(function(){ //금액 계산
 			if ($(this).prop("checked")) {
 				TotalPriceSum = TotalPriceSum + parseInt($(this).attr("itemprice"),10) * parseInt($(this).attr("itemquantity"),10);
-				TotalPriceDelivery = TotalPriceSum>30000?0:2500;
+				TotalPriceDelivery = TotalPriceSum>=30000?0:2500;
 			}
 		});
 		
@@ -133,10 +131,38 @@ $(document).ready(function(){
 		$("#TotalPriceAmount").text(comma(TotalPriceAmount));
 
 	}
+	
+		$(".btn-cartDelete").click(function(){
+			var checkArr = new Array();
+
+			$("input[name='CartIdx']:checked").each(function(){
+				checkArr.push($(this).attr("data-cartNum"));
+			});
+
+			alert('삭제되었습니다.');
+
+			location.href = "deleteOne.cart?arrCart=" + checkArr;
+		});
+
+		$(".btn-cart").click(function(){
+			var checkArr = new Array();
+
+			$("input[name='CartIdx']:checked").each(function(){
+				checkArr.push($(this).attr("data-cartNum"));
+			});
+
+			location.href = "orderOne.order?arrCart="+checkArr;
+		});
+	
+	
 
 	fnCartCalculate();
 });
 </script>
+<style type="text/css">
+.btn-cart {background-color:black; border: 1px solid #424242; color: white; font-size: 22px; font-weight: bold; padding: 15px 80px; border-radius: 5px;}
+.btn-cartDelete {border: 1px solid #424242; background-color:white;  margin:0 7px 0 0; color: #424242; font-size: 15px; padding: 8.5px 25px 8.8px 25px; border-radius: 5px;}
+</style>
 </head>
 <body>
 
@@ -174,7 +200,7 @@ $(document).ready(function(){
 		<div class="tableDiv CartRow">
 			<dl class="trCart ${cartList.cart_num }" >
 				<dt class="tdCheck">
-					<input type="checkbox" name="CartIdx" id="Item${cartList.cart_num }" value="${cartList.cart_num }" realitemprice="${itemsList[status.index].product_sale_price}" itemprice="${itemsList[status.index].product_price}" itemquantity="${cartList.cart_quantity }" >
+					<input type="checkbox" name="CartIdx" id="Item${cartList.cart_num }" value="${cartList.cart_num }" data-cartNum="${cartList.cart_num }" realitemprice="${itemsList[status.index].product_sale_price}" itemprice="${itemsList[status.index].product_price}" itemquantity="${cartList.cart_quantity }" >
 				</dt>
 				<dt class="tdImage"><a href="productDetail.cart?product_num=${cartList.cart_product_num }"><img src="cart/${itemsList[status.index].product_image }"></a></dt>
 				<dt class="tdInner">
@@ -213,7 +239,10 @@ $(document).ready(function(){
 		</div>
 </c:forEach>
 	</div>
-	<a class="CartButton" href="javascript:fnCheckAll();">전체선택</a><a class="CartButton" href="javascript:fnCartArray('ARRAYDEL');">선택삭제</a><a class="CartButton" href="javascript:GA_event('장바구니', '하단', '위시리스트'); fnCartArray('ARRAYWISH');">위시리스트</a>
+	<a class="CartButton" href="javascript:fnCheckAll();">전체선택</a>
+	<a class="CartButton" href="javascript:fnCartArray('ARRAYDEL');">선택삭제</a>
+	<input type="button" value="삭제버튼" class="btn-cartDelete">
+	<a class="CartButton" href="javascript:GA_event('장바구니', '하단', '위시리스트'); fnCartArray('ARRAYWISH');">위시리스트</a>
 	<div class="CartPrice">
 		<div class="PriceDetail">
 			<div class="tableDiv">
@@ -237,7 +266,8 @@ $(document).ready(function(){
 		<div class="clear"></div>
 	</div>
 	<div class="CartBottom">
-		<div class="CartBuyButton"><a href="javascript:fnCartArray('ARRAYBUY');">주문하기</a></div>
+		<div class="CartBuyButton"><input type="button" value="주문버튼" class="btn-cart"></div>
+<!-- 		<a href="javascript:fnCartArray('ARRAYBUY');">주문하기</a> -->
 		<div class="CartComment">
 			장바구니에 담긴 상품은 30일 이후 자동으로 위시리스트로 이동됩니다.<br>
 			단, 판매가 종료된 상품은 장바구니에서 삭제될 수 있습니다.<br>

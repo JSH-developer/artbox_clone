@@ -1,6 +1,7 @@
 package action;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,12 +17,18 @@ public class CartDeleteOneAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("CartDeleteOneAction");
 		ActionForward forward = null;
-		int cartidx = Integer.parseInt(request.getParameter("cartidx"));
+	
 		
+		String arrCart = request.getParameter("arrCart");
+		System.out.println("가져온값" + arrCart);
+//			System.out.println("확인");
 		// CartDeleteOneService 인스턴스 생성 후 deleteCart() 메서드 호출하여 장바구니 삭제하기
 		// => 파라미터 : 장바구니 인덱스번호(cartidx), 리턴타입 : boolean(isDeleteSuccess)
-		boolean isDeleteSuccess = CartDeleteOneService.deleteCart(cartidx);
+//		for(String i : arrCart) {
+//			int cart_num = Integer.parseInt(i);
+//		}
 		
+		boolean isDeleteSuccess = CartDeleteOneService.deleteCart(arrCart);
 		// 삭제 결과에 따른 처리
 		// => isDeleteSuccess 가 false 일 경우
 		//    자바스크립트 사용하여 "삭제 실패!" 출력 후 이전페이지로 이동
