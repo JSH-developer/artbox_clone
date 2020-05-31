@@ -20,6 +20,30 @@ public class OrderOneListAction implements Action {
 		String id = (String)session.getAttribute("id");
 		ActionForward forward = null;
 		
+		String arrCart = request.getParameter("arrCart");
+		System.out.println("가져온값" + arrCart);
+		
+		// 세션값 없으면 로그인페이지로 돌아가기
+		if(id == null){
+			forward = new ActionForward();
+			forward.setRedirect(true);
+			forward.setPath("/artbox_clone/login.cart");
+			return forward;
+		}
+		
+		// cartListService 인스턴스 생성 후 getCartList() 메서드 호출하여 장바구니 목록 가져오기
+		// => 파라미터 : id , 리턴타입 : Vector
+		OrderOneListService orderOneListService = new OrderOneListService();
+		List orderList = orderOneListService.getOrderOneList(id, arrCart);
+		
+		System.out.println("이건 사이즈" +orderList.size());
+		forward = new ActionForward();
+		// request 에 cartList / itemsList 담기
+		request.setAttribute("orderListOne", orderList.get(0));
+		request.setAttribute("orderList", orderList);
+		forward.setPath("/cart/OrderPay.jsp");
+		
+/*		
 		String product_num = request.getParameter("optionidx");
 		
 		// 세션값 없으면 로그인페이지로 돌아가기
@@ -44,6 +68,7 @@ public class OrderOneListAction implements Action {
 		request.setAttribute("cartList", cartList);
 		request.setAttribute("memberList", memberList);
 		forward.setPath("/cart/OrderPay.jsp");
+*/
 		
 		return forward;
 	}
