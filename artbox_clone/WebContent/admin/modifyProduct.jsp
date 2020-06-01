@@ -15,7 +15,20 @@ ProductBean productBean = (ProductBean)request.getAttribute("productBean");
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#category_code").val('<%=productBean.getProduct_category_code()%>').attr("selected","selected");
-	$("#option_code").val('<%=productBean.getProduct_option_code()%>').attr("selected","selected");
+	
+	var optCode= "<%=productBean.getProduct_option_code()%>"
+	
+	if(optCode.substring(3) == "00" ){
+		$("#option_code").attr("disabled","disabled");
+	}else{
+		$("#option_code").val('<%=productBean.getProduct_option_code()%>').attr("selected","selected");
+		$("select[name='product_option_code'] option[value='00']").remove();
+	}
+	
+	$("#modfSubmit").click(function(){
+		$("#option_code").removeAttr("disabled")
+	})
+	
 
 })
 </script>
@@ -106,7 +119,8 @@ $(document).ready(function() {
 	<input type="hidden" name="page" value="<%=request.getParameter("page")%>">
 <table class="reg_tab">
 	<tr><th>상품카테고리</th><td><select id="category_code" name="product_category_code"><%=categorySelectList %></select></td></tr>
-	<tr><th>상품옵션</th><td><select id="option_code" name="product_option_code"><%=optionSelectList %></select></td></tr>
+	<tr><th>상품옵션</th><td><select id="option_code" name="product_option_code"><option value="00">기본옵션(+0)</option><%=optionSelectList %></select></td></tr>
+	<input type="hidden" name="product_option_code_origin" value=<%=productBean.getProduct_option_code() %>>
 	<tr><th>상품명</th><td><input type="text" name="product_name" value="<%=productBean.getProduct_name()%>"></td></tr>
 	<tr><th>브랜드</th><td><input type="text" name="product_brand" value="<%=productBean.getProduct_brand()%>"></td></tr>
 	<tr><th>상품가격</th><td><input type="text" name="product_price" value="<%=productBean.getProduct_price()%>"></td></tr>
@@ -117,7 +131,7 @@ $(document).ready(function() {
 	<tr><td colspan="2"> 대표이미지는 아직 변경할 수 없어요 ㅠ </td></tr>
 	<tr><!--<th>대표 이미지2</th>--><td colspan="2"><input type="hidden" name="product_image2" accept="image/*" value="<%=productBean.getProduct_image2()%>"></td></tr>
 	<tr><th>키워드 입력</th><td><input type="text" name="product_keywords" placeholder=" ex) #키워드1 #키워드2" value="<%=productBean.getProduct_keywords()%>"></td></tr>
-	<tr class="btn_tr"><td colspan="2"><input type="submit" value="상품수정"></td></tr>
+	<tr class="btn_tr"><td colspan="2"><input id="modfSubmit" type="submit" value="상품수정"></td></tr>
 </table>
 </form>
 </div>
