@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vo.EventBean;
+import vo.ProductBean;
 
 public class EventDAO {
 	// 1.
@@ -36,6 +37,7 @@ public class EventDAO {
 		
 	}
 
+	// 이벤트 등록
 	public int registEvent(EventBean eventBean) {
 		
 		int insertCount = 0;
@@ -75,6 +77,7 @@ public class EventDAO {
 		return insertCount;
 	}
 	
+	// 이벤트 갯수
 	public int selectListCount() {
 		int listCount = 0;
 		
@@ -101,6 +104,7 @@ public class EventDAO {
 		return listCount;
 	}
 
+	// 이벤트 리스트
 	public ArrayList<EventBean> selectArticleList(int page, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -142,6 +146,83 @@ public class EventDAO {
 		}
 		
 		return articleList;
+	}
+
+	// 클릭한 이벤트 카테고리에 저장된 상품 갯수
+	public int selectEventItemListCount(String condition) {
+		System.out.println("selectEventItemListCount condition : "+condition);
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT COUNT(num) FROM product WHERE category_code like '?%'";
+			pstmt= con.prepareStatement(sql);
+			pstmt.setString(1, condition);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				System.out.println(rs.getInt(1));
+				listCount = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("EventDAO- selectEventItemListCount()실패!"+e.getMessage());
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return listCount;
+	}
+
+	public ArrayList<ProductBean> selectEventItemList(int page, int limit, String condition) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int startRow = (page -1)*limit;
+		
+		ArrayList<ProductBean> listProduct = new ArrayList<ProductBean>();
+		
+		
+		try {
+			String sql = "SELECT * FROM product WHERE category_code like '?%' LIMIT ?,?";
+			ProductBean productBean = null;
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, condition);
+			pstmt.setInt(2, page);
+			pstmt.setInt(3, limit);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				productBean = new ProductBean();
+				productBean.setProduct_num(rs.getInt("num"));
+				productBean.setProduct_code(rs.getString("code"));
+				productBean.setProduct_name(rs.getString("name"));
+				productBean.setProduct_image(rs.getString("image"));
+				productBean.setProduct_image2(rs.getString("image2"));
+				productBean.setProduct_description(rs.getString("description"));
+				productBean.setProduct_price(rs.getInt("price"));
+				productBean.setProduct_brand(rs.getString("brand"));
+				productBean.setProduct_stock_count(rs.getInt("stock_count"));
+				productBean.setProduct_sale_price(rs.getInt("sale_price"));
+				productBean.setProduct_keywords(rs.getString("keywords"));
+				productBean.setProduct_regdate(rs.getTimestamp("regdate"));
+				productBean.setProduct_category_code(rs.getString("category_code"));
+				productBean.setProduct_option_code(rs.getString("option_code"));
+				listProduct.add(productBean);
+			}
+		} catch (SQLException e) {
+			System.out.println("EventDAO- selectEventItemList()실패!"+e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listProduct;
 	}
 
 	

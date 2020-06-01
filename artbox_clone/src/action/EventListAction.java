@@ -28,6 +28,7 @@ public class EventListAction implements Action {
 		EventService eventService = new EventService();
 		
 		int listCount = eventService.getListCount();
+		System.out.println("listCount"+listCount);
 		
 		ArrayList<EventBean> articleList = eventService.getArticleList(page,limit);
 		
