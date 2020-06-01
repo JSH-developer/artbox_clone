@@ -1,12 +1,13 @@
 
+<%@page import="vo.ProductBean"%>
 <%@page import="vo.PageInfo"%>
 <%@page import="vo.EventBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%
-	ArrayList<EventBean> articleList=(ArrayList<EventBean>)request.getAttribute("articleList");
+ <%
+	ArrayList<ProductBean> eventList=(ArrayList<ProductBean>)request.getAttribute("articleList");
     PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 	int listCount=pageInfo.getListCount();
 	int nowPage=pageInfo.getPage();
@@ -56,21 +57,41 @@
 
 <!-- Grid -->
  <div class="eventContainer">
+ <table style="width: 1200px;">
+<tr>
+<th rowspan="4">이미지</th>
+<th>지각자</th>
+<td>&nbsp&nbsp&nbsp&nbsp</td>
+</tr>
+<tr>
+<th>결석자</th>
+<td>&nbsp&nbsp&nbsp&nbsp</td>
+</tr>
+<tr>
+<th>조퇴자</th>
+<td>&nbsp&nbsp&nbsp&nbsp</td>
+</tr>
+<tr>
+<th>그밖의</th>
+<td>&nbsp&nbsp&nbsp&nbsp</td>
+</tr>
+</table>
+ 
+ 
 
 
 		<%
-		if(articleList != null && listCount > 0){
-		for(int i=0;i<articleList.size();i++){
+		if(eventList != null && listCount > 0){
+		for(int i=0;i<eventList.size();i++){
 		%>
 
-		<div class="event_content" 
-		onclick="location.href='EventDetail.event?board_num=<%=articleList.get(i).getEvent_num() %>&page=<%=nowPage%>&condition=<%=articleList.get(i).getCondition()%>'">
+		<div class="event_content" onclick="location.href='EventDetail.event?board_num=<%=eventList.get(i).getProduct_name() %>&page=<%=nowPage%>'">
 			<div>
-				<p style="text-align : center;margin:0;"><%=articleList.get(i).getEvent_titie()%></p><br>
-				<p style="color:red;font-size: 18px;text-align : center; margin:0;"><%=articleList.get(i).getDiscount()%>%</p>
-				<img src="${pageContext.request.contextPath}/Images/event/<%=articleList.get(i).getEvent_img() %>" width="358px"
+				<img src="${pageContext.request.contextPath}/Images/event/<%=eventList.get(i).getProduct_image() %>" width="358px"
 				height="250px">
-				<p style="color: grey;"><%=articleList.get(i).getEvent_start() %>~<%=articleList.get(i).getEvent_limit() %></p>
+				<p style="text-align : center;margin:0;"><%=eventList.get(i).getProduct_name()%></p><br>
+				<p style="color:red;font-size: 18px;text-align : center; margin:0;"><%=eventList.get(i).getProduct_category_code()%>%</p>
+				<p style="color: grey;"><%=eventList.get(i).getProduct_price() %> </p>
 			</div>
 
 		</div>
@@ -81,14 +102,14 @@
 		<%if(nowPage<=1){ %>
 		[이전]&nbsp;
 		<%}else{ %>
-		<a href="EventList.event?page=<%=nowPage-1 %>">[이전]</a>&nbsp;
+		<a href="EventDetail.event?page=<%=nowPage-1 %>">[이전]</a>&nbsp;
 		<%} %>
 
 		<%for(int a=startPage;a<=endPage;a++){
 				if(a==nowPage){%>
 		[<%=a %>]
 		<%}else{ %>
-		<a href="EventList.event?page=<%=a %>">[<%=a %>]
+		<a href="EventDetail.event?page=<%=a %>">[<%=a %>]
 		</a>&nbsp;
 		<%} %>
 		<%} %>
@@ -96,7 +117,7 @@
 		<%if(nowPage>=maxPage){ %>
 		[다음]
 		<%}else{ %>
-		<a href="EventList.event?page=<%=nowPage+1 %>">[다음]</a>
+		<a href="EventDetail.event?page=<%=nowPage+1 %>">[다음]</a>
 		<%} %>
 	</section>
 	<%
@@ -107,7 +128,7 @@
 	<section id="emptyArea">등록된 글이 없습니다.</section>
 	<%
 	}
-%>
+%> 
 </div>
  <!-- Grid -->
  
