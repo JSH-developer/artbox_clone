@@ -245,7 +245,7 @@ public class AdminDAO {
 		int startRow = (page-1)*limit;
 		
 		try {
-			String sql="SELECT * FROM category ORDER BY category_sup DESC limit ?,?";
+			String sql="SELECT * FROM category ORDER BY category_code DESC limit ?,?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, limit);
@@ -403,7 +403,7 @@ public class AdminDAO {
 		String result ="";
 		
 		try {
-			String sql="SELECT * FROM category ORDER BY category_sup DESC";
+			String sql="SELECT * FROM category ORDER BY category_code DESC";
 			pstmt=con.prepareStatement(sql);
 			
 			rs= pstmt.executeQuery();
