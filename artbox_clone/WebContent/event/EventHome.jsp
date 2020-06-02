@@ -62,6 +62,7 @@
 		<%
 		if(articleList != null && listCount > 0){
 		for(int i=0;i<articleList.size();i++){
+			System.out.println("getnum : "+articleList.get(i).getEvent_num());
 		%>
 
 		<div class="event_content" 

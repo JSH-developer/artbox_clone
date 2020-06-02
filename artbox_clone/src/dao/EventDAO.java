@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.sun.scenario.effect.impl.prism.PrTexture;
+
 import vo.EventBean;
 import vo.ProductBean;
 
@@ -118,7 +120,7 @@ public class EventDAO {
 			// 게시물 갯수 조회할 SQL 구문 작성
 			// => 정렬 : board_re_ref 기준 내림차순, board_re_seq 기준 오름차순
 			// => limit : 시작 행 번호부터 지정된 게시물 갯수 만큼 제한
-	String sql = "SELECT * FROM event_board LIMIT ?,?";
+	String sql = "SELECT * FROM event_board LIMIT ?,? ORDER BY num desc";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, limit);
@@ -127,6 +129,7 @@ public class EventDAO {
 			
 			while(rs.next()) {
 				EventBean rowData = new EventBean();
+				rowData.setEvent_num(rs.getInt("num"));
 				rowData.setEvent_titie(rs.getString("event_title"));
 				rowData.setEvent_content(rs.getString("event_content"));
 				rowData.setEvent_time(rs.getTimestamp("event_time"));
@@ -138,7 +141,6 @@ public class EventDAO {
 			
 				articleList.add(rowData);
 				
-				System.out.println(rs.getString("event_title"));
 			}
 		} catch (SQLException e) {
 			System.out.println("EventDAO- selectArticleList()실패!"+e.getMessage());
@@ -149,10 +151,50 @@ public class EventDAO {
 		
 		return articleList;
 	}
+	
+	// 클릭한 이벤트
+		public EventBean selectEventArticle(int eBoard_Num) {
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			EventBean eventArticle =  null;
+			
+			try {
+				String sql = "SELECT * FROM event_board WHERE num=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, eBoard_Num);
+				rs= pstmt.executeQuery();
+				
+				if(rs.next()) {
+					eventArticle = new EventBean();
+					eventArticle.setEvent_titie(rs.getString("event_title"));
+					eventArticle.setEvent_content(rs.getString("event_content"));
+					eventArticle.setEvent_time(rs.getTimestamp("event_time"));
+					eventArticle.setCondition(rs.getString("condition"));
+					eventArticle.setDiscount(rs.getInt("discount_per"));
+					eventArticle.setEvent_start(rs.getString("event_start"));
+					eventArticle.setEvent_limit(rs.getString("event_limit"));
+					eventArticle.setEvent_img(rs.getString("event_img"));
+					
+					System.out.println(rs.getString("event_img"));
+				}
+				
+			} catch (SQLException e) {
+				System.out.println("EventDAO- selectEventArticle()실패!"+e.getMessage());
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			
+			
+			
+			return eventArticle;
+		}
 
 	// 클릭한 이벤트 카테고리에 저장된 상품 갯수
 	public int selectEventItemListCount(String condition) {
-		System.out.println("selectEventItemListCount condition : "+condition);
 		int listCount = 0;
 		
 		PreparedStatement pstmt = null;
@@ -180,6 +222,7 @@ public class EventDAO {
 		return listCount;
 	}
 
+	// 클릭한 이벤트의 상품 리스트
 	public ArrayList<ProductBean> selectEventItemList(int page, int limit, String condition) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -194,7 +237,7 @@ public class EventDAO {
 			ProductBean productBean = null;
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, condition);
-			pstmt.setInt(2, page);
+			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, limit);
 			
 			rs = pstmt.executeQuery();
@@ -226,6 +269,8 @@ public class EventDAO {
 		
 		return listProduct;
 	}
+
+	
 
 	
 	

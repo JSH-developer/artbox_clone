@@ -24,13 +24,24 @@ public class EventDetailAction implements Action {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 		
+		// 이벤트 조건, 이벤트 글num 불러오기
 		String condition = request.getParameter("condition");
 		
+		int eBoard_Num = Integer.parseInt(request.getParameter("board_num"));
+		
+		System.out.println(Integer.parseInt(request.getParameter("board_num")));
+		
+		// EventService 객체 호출
 		EventService eventService = new EventService();
 		
 		int listCount = eventService.selectEventItemListCount(condition);
 		
-		ArrayList<ProductBean> articleList = eventService.getEventItemList(page,limit,condition);
+		// 클릭한 이벤트 저장
+		EventBean eventArticle = eventService.getEventArticle(eBoard_Num);
+		
+		// 이벤트 조건에 맞는 상품 불러오기
+		ArrayList<ProductBean> itemList = eventService.getEventItemList(page,limit,condition);
+		
 		
 		// 페이징 처리를 위해 페이지 수 계산
 		// 1. 최대 페이지 번호 계산: 전체 게시물 수 / limit 결과를 반올림 처리 위해 0.95
@@ -50,7 +61,8 @@ public class EventDetailAction implements Action {
 			
 		// request 객체에 PageInfo 객체와 ArrayList 객체 저장
 		request.setAttribute("pageInfo", pageInfo);
-		request.setAttribute("articleList", articleList);
+		request.setAttribute("itemList", itemList);
+		request.setAttribute("eventArticle", eventArticle);
 		
 		forward = new ActionForward();
 		forward.setPath("/event/EventDetail.jsp");

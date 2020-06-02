@@ -67,6 +67,21 @@ public class EventService {
 		return articleList;
 	}
 	
+	// 클릭한 이벤트
+		public EventBean getEventArticle(int eBoard_Num) {
+			System.out.println("EventService - getEventArticle : "+eBoard_Num);
+			
+			Connection con = getConnection();
+			EventDAO eventDAO = EventDAO.getInstance();
+			eventDAO.setConnection(con);
+			
+			EventBean article = eventDAO.selectEventArticle(eBoard_Num);
+			
+			close(con);
+			
+			return article;
+		}
+	
 	
 	// 클릭한 이벤트 카테고리 상품 카운트
 	public int selectEventItemListCount(String condition) {
@@ -98,6 +113,8 @@ public class EventService {
 		
 		return articleList;
 	}
+
+	
 	
 	
 	
