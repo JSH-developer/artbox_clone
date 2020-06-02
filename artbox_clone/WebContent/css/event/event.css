@@ -10,7 +10,7 @@ font-family: verdana,Geneba,sans-serif;
 font-size: 13px;font-weight: 100;
 }
 
-#event_main li{float: left;margin: 0 100px;
+#event_main li{float: left;margin: 0 20px;
 }
 
 #event_main .eventMiddle a{display: block; 

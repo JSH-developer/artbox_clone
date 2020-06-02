@@ -120,7 +120,7 @@ public class EventDAO {
 			// => limit : 시작 행 번호부터 지정된 게시물 갯수 만큼 제한
 	String sql = "SELECT * FROM event_board LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, page);
+			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, limit);
 			
 			rs = pstmt.executeQuery();
@@ -137,6 +137,8 @@ public class EventDAO {
 				rowData.setEvent_img(rs.getString("event_img"));
 			
 				articleList.add(rowData);
+				
+				System.out.println(rs.getString("event_title"));
 			}
 		} catch (SQLException e) {
 			System.out.println("EventDAO- selectArticleList()실패!"+e.getMessage());
@@ -157,7 +159,7 @@ public class EventDAO {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT COUNT(num) FROM product WHERE category_code like '?%'";
+			String sql = "SELECT COUNT(num) FROM product WHERE category_code like ?";
 			pstmt= con.prepareStatement(sql);
 			pstmt.setString(1, condition);
 			rs = pstmt.executeQuery();
@@ -188,7 +190,7 @@ public class EventDAO {
 		
 		
 		try {
-			String sql = "SELECT * FROM product WHERE category_code like '?%' LIMIT ?,?";
+			String sql = "SELECT * FROM product WHERE category_code like ? LIMIT ?,?";
 			ProductBean productBean = null;
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, condition);

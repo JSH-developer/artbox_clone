@@ -7,7 +7,7 @@
     pageEncoding="UTF-8"%>
     
  <%
-	ArrayList<ProductBean> eventList=(ArrayList<ProductBean>)request.getAttribute("articleList");
+	ArrayList<ProductBean> itemList=(ArrayList<ProductBean>)request.getAttribute("articleList");
     PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 	int listCount=pageInfo.getListCount();
 	int nowPage=pageInfo.getPage();
@@ -39,6 +39,7 @@
 			<li class="eventMiddle"><a href="${pageContext.request.contextPath}/event/basic.jsp" onclick="GA_event('HEAD', '최상단 메뉴', '인형/토이');">기획전</a></li>
 			<li class="eventMiddle"><a href="/Home/Shop/Category.asp?cdl=500&amp;cdm=256" onclick="GA_event('HEAD', '최상단 메뉴', '문구');">쿠폰존</a></li>
 			<li class="eventMiddle"><a href="${pageContext.request.contextPath}/event/basic.jsp" onclick="GA_event('HEAD', '최상단 메뉴', '패션');">타임이벤트</a></li>
+			<li class="eventMiddle"><a href="EventWriteForm.event" onclick="GA_event('HEAD', '최상단 메뉴', '패션');">이벤트 등록</a></li>
 		</ul>
 </div>
 
@@ -56,8 +57,9 @@
 <!-- </div> -->
 
 <!-- Grid -->
- <div class="eventContainer">
- <table style="width: 1200px;">
+
+ <div>
+ <table style="width: 1200px;height: auto;">
 <tr>
 <th rowspan="4">이미지</th>
 <th>지각자</th>
@@ -77,21 +79,23 @@
 </tr>
 </table>
  
- 
+ </div>
+ <div class="eventContainer">
+
 
 
 		<%
-		if(eventList != null && listCount > 0){
-		for(int i=0;i<eventList.size();i++){
+		if(itemList != null && listCount > 0){
+		for(int i=0;i<itemList.size();i++){
 		%>
 
-		<div class="event_content" onclick="location.href='EventDetail.event?board_num=<%=eventList.get(i).getProduct_name() %>&page=<%=nowPage%>'">
+		<div class="event_content" onclick="location.href='EventDetail.event?board_num=<%=itemList.get(i).getProduct_name() %>&page=<%=nowPage%>'">
 			<div>
-				<img src="${pageContext.request.contextPath}/Images/event/<%=eventList.get(i).getProduct_image() %>" width="358px"
+				<img src="${pageContext.request.contextPath}/Images/event/<%=itemList.get(i).getProduct_image() %>" width="358px"
 				height="250px">
-				<p style="text-align : center;margin:0;"><%=eventList.get(i).getProduct_name()%></p><br>
-				<p style="color:red;font-size: 18px;text-align : center; margin:0;"><%=eventList.get(i).getProduct_category_code()%>%</p>
-				<p style="color: grey;"><%=eventList.get(i).getProduct_price() %> </p>
+				<p style="text-align : center;margin:0;"><%=itemList.get(i).getProduct_name()%></p><br>
+				<p style="color:red;font-size: 18px;text-align : center; margin:0;"><%=itemList.get(i).getProduct_category_code()%>%</p>
+				<p style="color: grey;"><%=itemList.get(i).getProduct_price() %> </p>
 			</div>
 
 		</div>
