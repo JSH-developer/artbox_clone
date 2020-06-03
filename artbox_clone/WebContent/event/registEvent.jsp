@@ -81,9 +81,9 @@ $(document).ready(function() {
 <div class="admin_nav_wrap">
 <ul class="admin_nav">
 	<li><a href="Home.admin">관리자 홈</a></li>
-	<li><a href="#">상품 목록</a></li>
- 	<li><a href="#">상품 등록</a></li>
- 	<li><a href="#">상품 수정</a></li>
+	<li><a href="#">이벤트 목록</a></li>
+ 	<li><a href="#">이벤트 등록</a></li>
+ 	<li><a href="#">이벤트 수정</a></li>
 </ul>
 </div>
 <br>

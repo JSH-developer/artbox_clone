@@ -47,7 +47,6 @@ ArrayList<CouponBean> couponList= (ArrayList<CouponBean>)request.getAttribute("c
 <!-- 나중에 admin으로 바꿔야하는 부분 -->
 <form action="CouponWritePro.event" method="post" >
 <table class="reg_tab">
-	<tr><th>상품옵션</th><td><select name="product_option_num"><option>1</option></select></td></tr>
 	<tr><th>쿠폰이름</th><td><input type="text" name="coupon_name"></td></tr>
 	<tr><th>할인가격</th><td><input type="text" name="coupon_price"></td></tr>
 	<tr><th>조건</th><td><input type="text" name="coupon_condition"></td></tr>
@@ -62,7 +61,7 @@ ArrayList<CouponBean> couponList= (ArrayList<CouponBean>)request.getAttribute("c
 <p><% out.print(request.getRealPath("/upload")); %></p>
 <!-- /쿠폰 등록 -->
 
-
+<!-- 쿠폰 리스트 -->
 	<section id="listForm">
 			<table>
 				<%
@@ -105,7 +104,7 @@ ArrayList<CouponBean> couponList= (ArrayList<CouponBean>)request.getAttribute("c
 				%>
 			</table>
 		</section>
-
+<!-- /쿠폰 리스트 -->
 
 
 
@@ -131,7 +130,7 @@ ArrayList<CouponBean> couponList= (ArrayList<CouponBean>)request.getAttribute("c
 						</ul>
 					</div>
 					
-				</div>
+	</div>
 <!-- /쿠폰 리스트 -->
 
 </div>

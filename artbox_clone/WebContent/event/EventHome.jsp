@@ -1,4 +1,6 @@
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="vo.PageInfo"%>
 <%@page import="vo.EventBean"%>
 <%@page import="java.util.ArrayList"%>
@@ -21,6 +23,13 @@
 <title>ARTBOX(포트폴리오)</title>
 <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/css/event/event.css" rel="stylesheet" type="text/css">
+<style>
+p{
+text-align : center;
+margin:0;
+font-size: 18px;}
+
+</style>
 </head>
 <body>
 <div class="page">
@@ -61,21 +70,35 @@
 
 		<%
 		if(articleList != null && listCount > 0){
+			// 오늘 날짜 구함
+			Date nowDate = new Date();
+			SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+			int nowwDate = Integer.parseInt(sf.format(nowDate));
+			
 		for(int i=0;i<articleList.size();i++){
+			// 저장된 이벤트 날짜 구해서 - 빼고 계산
+			String startdate = articleList.get(i).getEvent_start().replaceAll("-","");
+			String limitdate = articleList.get(i).getEvent_limit().replaceAll("-","");
+			int startdate1 = Integer.parseInt(startdate);
+			int limitdate1 = Integer.parseInt(limitdate);
+			// 오늘 날짜와 이벤트 날짜 비교해서 이벤트 띄우기
+			if( startdate1 <= nowwDate && limitdate1 >= nowwDate){
 		%>
-
+		
 		<div class="event_content" 
 		onclick="location.href='EventDetail.event?board_num=<%=articleList.get(i).getEvent_num() %>&page=<%=nowPage%>&condition=<%=articleList.get(i).getCondition()%>'">
-			<div>
-				<p style="text-align : center;margin:0;"><%=articleList.get(i).getEvent_titie()%></p><br>
-				<p style="color:red;font-size: 18px;text-align : center; margin:0;"><%=articleList.get(i).getDiscount()%>%</p>
-				<img src="${pageContext.request.contextPath}/Images/event/<%=articleList.get(i).getEvent_img() %>" width="358px"
-				height="250px">
-				<p style="color: grey;"><%=articleList.get(i).getEvent_start() %>~<%=articleList.get(i).getEvent_limit() %></p>
+			<div style="margin: 0 auto;">
+				
+				<p><img src="${pageContext.request.contextPath}/Images/event/<%=articleList.get(i).getEvent_img() %>" width="360px" height="250px"></p>
+				<p><span style="font-weight: bold;color: #262729; "><%=articleList.get(i).getEvent_titie()%></span>
+				<span style="color:red;">[<%=articleList.get(i).getDiscount()%>%]</span></p>
+				<p style="color: grey;font-size: 14px;"><%=articleList.get(i).getEvent_start() %>~<%=articleList.get(i).getEvent_limit() %></p>
 			</div>
 
 		</div>
-		<%} %>
+		
+		
+		<%}} %>
 	</div>
 
 				<section id="pageList">

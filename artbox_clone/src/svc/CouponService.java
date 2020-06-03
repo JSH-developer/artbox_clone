@@ -9,7 +9,9 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import dao.CouponDAO;
+import dao.EventDAO;
 import vo.CouponBean;
+import vo.EventBean;
 
 public class CouponService {
 
@@ -92,6 +94,22 @@ public class CouponService {
 		
 		
 		return isSuccess;
+	}
+	
+	
+	// 모든 리스트 다 불러오기 
+	public ArrayList<CouponBean> getCouponAllList() {
+		ArrayList<CouponBean> couponList = null;
+		
+		Connection con = getConnection();
+		CouponDAO couponDAO = CouponDAO.getInstance();	
+		couponDAO.setConnection(con);
+		
+		couponList = couponDAO.selectEventItemList();
+		
+		close(con);
+		
+		return couponList;
 	}
 
 	

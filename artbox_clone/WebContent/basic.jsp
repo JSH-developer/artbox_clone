@@ -35,6 +35,10 @@
 				<h2>
 				<a href="EventList.event">이벤트 리스트 페이지</a>
 			</h2>
+				<h2>
+				<a href="ProductWriteForm.admin">상품 등록 페이지</a>
+			</h2>
+			
 
  
  </div>

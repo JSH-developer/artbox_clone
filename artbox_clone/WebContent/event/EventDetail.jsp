@@ -7,7 +7,8 @@
     pageEncoding="UTF-8"%>
     
  <%
-	ArrayList<ProductBean> itemList=(ArrayList<ProductBean>)request.getAttribute("articleList");
+	ArrayList<ProductBean> itemList=(ArrayList<ProductBean>)request.getAttribute("itemList");
+ 	EventBean eventArticle=(EventBean)request.getAttribute("eventArticle");
     PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 	int listCount=pageInfo.getListCount();
 	int nowPage=pageInfo.getPage();
@@ -22,6 +23,17 @@
 <title>ARTBOX(포트폴리오)</title>
 <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/css/event/event.css" rel="stylesheet" type="text/css">
+<style>
+span{
+font-weight: bold;
+text-align : center;
+}
+
+p{
+text-align : center;margin:0;
+font-size: 20px;}
+
+</style>
 </head>
 <body>
 <div class="page">
@@ -61,24 +73,27 @@
  <div>
  <table style="width: 1200px;height: auto;">
 <tr>
-<th rowspan="4">이미지</th>
-<th>지각자</th>
-<td>&nbsp&nbsp&nbsp&nbsp</td>
+<th rowspan="4">
+ <img src="${pageContext.request.contextPath}/Images/event/<%=eventArticle.getEvent_img() %>" width="500px" height="250px"> 
+				</th>
+<th>타이틀</th>
+<td><%= eventArticle.getEvent_titie()%></td>
 </tr>
 <tr>
-<th>결석자</th>
-<td>&nbsp&nbsp&nbsp&nbsp</td>
+<th>조건</th>
+<td><%= eventArticle.getCondition()%></td>
 </tr>
 <tr>
-<th>조퇴자</th>
-<td>&nbsp&nbsp&nbsp&nbsp</td>
+<th>할인율</th>
+<td><%= eventArticle.getDiscount()%>%</td>
 </tr>
 <tr>
-<th>그밖의</th>
-<td>&nbsp&nbsp&nbsp&nbsp</td>
+<th>기간</th>
+<td><%= eventArticle.getEvent_start()%>~<%= eventArticle.getEvent_limit()%></td>
 </tr>
 </table>
- 
+ <a href="EventModifyForm.event?board_num=<%=eventArticle.getEvent_num() %>">수정</a>
+<% System.out.println("EventDetail - eventNum"+eventArticle.getEvent_num()); %>
  </div>
  <div class="eventContainer">
 
@@ -87,15 +102,21 @@
 		<%
 		if(itemList != null && listCount > 0){
 		for(int i=0;i<itemList.size();i++){
-		%>
-
-		<div class="event_content" onclick="location.href='EventDetail.event?board_num=<%=itemList.get(i).getProduct_name() %>&page=<%=nowPage%>'">
+			int discount = eventArticle.getDiscount();
+			int realprice = itemList.get(i).getProduct_price();
+			int saleprice = realprice - ((realprice * discount) /100);
+			%>
+			
+		<div class="event_content" onclick="location.href='EventDetail.event?board_num=<%=itemList.get(i).getProduct_num() %>&page=<%=nowPage%>'">
 			<div>
 				<img src="${pageContext.request.contextPath}/Images/event/<%=itemList.get(i).getProduct_image() %>" width="358px"
 				height="250px">
-				<p style="text-align : center;margin:0;"><%=itemList.get(i).getProduct_name()%></p><br>
-				<p style="color:red;font-size: 18px;text-align : center; margin:0;"><%=itemList.get(i).getProduct_category_code()%>%</p>
-				<p style="color: grey;"><%=itemList.get(i).getProduct_price() %> </p>
+				<p><%=itemList.get(i).getProduct_name()%></p>
+				<p style="color:red;"><%=itemList.get(i).getProduct_category_code()%></p>
+				<p><span style="text-decoration: line-through;color: grey;"><%=realprice %>원</span>&nbsp;
+				<span style="color: black;"><%=saleprice %>원</span>&nbsp;
+				<span style="color:red;">[<%=discount %>%]</span></p>
+				
 			</div>
 
 		</div>
