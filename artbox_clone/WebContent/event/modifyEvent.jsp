@@ -88,8 +88,8 @@ $(document).ready(function() {
 </div>
 <br>
 
-<h1>이벤트 수정</h1>
-<form action="EventWritePro.event" method="post" enctype="multipart/form-data">
+<h1>이벤트 등록</h1>
+<form action="EventModifyPro.event" method="post" enctype="multipart/form-data">
 <table class="reg_tab">
 	<tr><th>이벤트 제목</th><td><input type="text" name="event_title"></td></tr>
 	<tr><th>이벤트 내용</th><td style="margin-left:100px"><textarea id="summernote" name="event_content"></textarea></td></tr>

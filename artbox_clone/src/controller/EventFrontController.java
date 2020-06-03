@@ -15,6 +15,8 @@ import action.CouponOrderPayFormAction;
 import action.CouponWriteProAction;
 import action.EventDetailAction;
 import action.EventListAction;
+import action.EventModifyFormAction;
+import action.EventModifyProAction;
 import action.EventWriteProAction;
 import action.MypageCouponListAction;
 import vo.ActionForward;
@@ -89,11 +91,26 @@ public class EventFrontController extends HttpServlet {
 		
 		forward = new ActionForward();
 		forward.setPath("/event/registEvent.jsp"); // 이동할 View 페이지 경로 지정
-		
-		// 이벤트 등록 Pro
+		// 이벤드 등록 pro
 	}else if(command.equals("/EventWritePro.event")) {
-		System.out.println("/EventWritePro.event");
-		action = new EventWriteProAction();
+			System.out.println("/EventWritePro.event");
+			action = new EventWriteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		// 이벤트 수정
+	}else if(command.equals("/EventModifyForm.event")){
+		System.out.println("/EventModifyForm.event");
+		
+		forward = new EventModifyFormAction();
+		forward.setPath("/event/modifyEvent.jsp"); // 이동할 View 페이지 경로 지정
+		
+		// 이벤트 수정 Pro
+	}else if(command.equals("/EventModifyPro.event")) {
+		System.out.println("/EventModifyPro.event");
+		action = new EventModifyProAction();
 		try {
 			forward = action.execute(request, response);
 		} catch (Exception e) {

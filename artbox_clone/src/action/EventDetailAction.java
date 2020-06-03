@@ -24,12 +24,13 @@ public class EventDetailAction implements Action {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 		
+		// 조건 불러오기
 		String condition = request.getParameter("condition");
-		
+		// 이벤트 선언
 		EventService eventService = new EventService();
-		
+		// 조건에 맞는 이벤트 상품 카운트
 		int listCount = eventService.selectEventItemListCount(condition);
-		
+		// 조건에 맞는 이벤트 상품 리스트 불러오기
 		ArrayList<ProductBean> articleList = eventService.getEventItemList(page,limit,condition);
 		
 		// 페이징 처리를 위해 페이지 수 계산
