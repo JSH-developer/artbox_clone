@@ -100,6 +100,7 @@ public class CouponDAO {
 			
 			while(rs.next()) {
 				CouponBean couponBean = new CouponBean();
+				couponBean.setCoupon_num(rs.getInt("num"));
 				couponBean.setCoupon_name(rs.getString("coup_name"));
 				couponBean.setCoupon_price(rs.getInt("coup_price"));
 				couponBean.setCoupon_condition(rs.getString("coup_condition"));
@@ -107,7 +108,7 @@ public class CouponDAO {
 				couponBean.setCoupon_limit(rs.getString("coup_limit"));
 				couponBean.setCoupon_use(rs.getInt("coup_use"));
 				couponBean.setCoupon_reason(rs.getString("coup_reason"));
-				couponBean.setCoupon_category(rs.getString("category"));
+				couponBean.setCoupon_category(rs.getString("coup_category"));
 				couponBean.setCoupon_member_id(rs.getString("member_id"));
 				
 				
@@ -127,24 +128,24 @@ public class CouponDAO {
 		return couponList;
 	}
 
-	public int issuedCoupon(String id, String couponName) {
+	// 버튼클릭해서 쿠폰 발급받기
+	public int issuedCoupon(String id, int couponNum) {
 		int isSuccess = 0;
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			System.out.println(couponName);
-			String sql = "SELECT * FROM couponlist WHERE coup_name=?";
+			String sql = "SELECT * FROM couponlist WHERE num=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, couponName);
+			pstmt.setInt(1, couponNum);
 			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
 				sql = "INSERT INTO coupon VALUES(null,?,?,?,?,?,?,?,?,?)";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, couponName);
+				pstmt.setString(1,rs.getString("coup_name"));
 				pstmt.setInt(2,rs.getInt("coup_price"));
 				pstmt.setString(3, rs.getString("coup_condition"));
 				pstmt.setString(4,rs.getString("coup_start"));
@@ -152,7 +153,7 @@ public class CouponDAO {
 				pstmt.setInt(6, 0); // 사용여부
 				pstmt.setString(7, rs.getString("coup_reason"));
 				pstmt.setString(8, id);
-				pstmt.setString(9, rs.getString("category"));
+				pstmt.setString(9, rs.getString("coup_category"));
 				System.out.println(sql);
 				
 				
@@ -178,19 +179,20 @@ public class CouponDAO {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT * FROM coupon";
+			String sql = "SELECT * FROM couponlist";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				CouponBean couponBean = new CouponBean();
+				couponBean.setCoupon_num(rs.getInt("num"));
 				couponBean.setCoupon_name(rs.getString("coup_name"));
 				couponBean.setCoupon_price(rs.getInt("coup_price"));
 				couponBean.setCoupon_condition(rs.getString("coup_condition"));
 				couponBean.setCoupon_start(rs.getString("coup_start"));
 				couponBean.setCoupon_limit(rs.getString("coup_limit"));
 				couponBean.setCoupon_reason(rs.getString("coup_reason"));
-				couponBean.setCoupon_category(rs.getString("category"));
+				couponBean.setCoupon_category(rs.getString("coup_category"));
 				
 				couponList.add(couponBean);
 				
@@ -198,7 +200,7 @@ public class CouponDAO {
 			
 			
 		}catch (SQLException e) {
-			System.out.println("CouponDAO- issuedCoupon()실패!"+e.getMessage());
+			System.out.println("CouponDAO- selectEventItemList()실패!"+e.getMessage());
 		} finally {
 			close(pstmt);
 			close(rs);

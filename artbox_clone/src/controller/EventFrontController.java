@@ -19,6 +19,7 @@ import action.EventListAction;
 import action.EventModifyFormAction;
 import action.EventModifyProAction;
 import action.EventWriteProAction;
+import action.EventproductviewAction;
 import action.MypageCouponListAction;
 import vo.ActionForward;
 
@@ -142,6 +143,14 @@ public class EventFrontController extends HttpServlet {
 		}else if(command.equals("/EventDetail.event")) { // 이벤트 컨텐츠
 			System.out.println("/EventDetail.event");
 			action = new EventDetailAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/Eventproductview.event")) { // 이벤트 관련 상품
+			System.out.println("/Eventproductview.event");
+			action = new EventproductviewAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

@@ -107,7 +107,7 @@ font-size: 20px;}
 			int saleprice = realprice - ((realprice * discount) /100);
 			%>
 			
-		<div class="event_content" onclick="location.href='EventDetail.event?board_num=<%=itemList.get(i).getProduct_num() %>&page=<%=nowPage%>'">
+		<div class="event_content" onclick="location.href='Eventproductview.event?board_num=<%=itemList.get(i).getProduct_num() %>&page=<%=nowPage%>'">
 			<div>
 				<img src="${pageContext.request.contextPath}/Images/event/<%=itemList.get(i).getProduct_image() %>" width="358px"
 				height="250px">

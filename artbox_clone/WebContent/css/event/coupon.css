@@ -42,5 +42,13 @@ a.privacy {/*font-weight:bold;*/color:#3a4b59;}
 	top: 0px;
 }
 	
+#listForm table {
+    width: 100%;
+    border: 1px solid #444444;
+     border-collapse: collapse;
+  }
+#listForm th, #listForm td {
+    border: 1px solid #444444;
+  }
 
 
