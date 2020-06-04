@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@page import="java.util.ArrayList"%>
+<%@page import="vo.ProductBean"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ARTBOX(포트폴리오)</title>
-<link href="../css/item/itemList.css" rel="stylesheet" type="text/css">
-<link href="../css/front.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/item/itemList.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div class="page">
@@ -63,23 +66,24 @@
 
         <div class="item_list">
             <ul class="ul_list">
+            	<c:forEach var="item" items="${productBean }">
                 <li>
                     <span class="item">
-                        <a href="">
+                        <a href="${pageContext.request.contextPath}/itemDetail.item?num=${item.product_num }">
                             <div class="shopping_basket">
                                 <div class="shopping_basket_icon">
                                     <i class="far fa-heart"></i>
                                     <i class="fas fa-shopping-cart"></i>
                                     <i class="far fa-comment-dots"></i>
                                 </div>
-                                <img src="detail1.jpg" class="item_img">
+                                <img src="${pageContext.request.contextPath}${item.product_image}" class="item_img">
                             </div>
                             <p>
-                                상품제모오오오옥
+                               ${item.product_name }
                             </p>
                         </a>
                         <span>
-                            상품가격 원
+                            ${item.product_price }
                         </span>
                         <span>
                             &nbsp;
@@ -87,6 +91,7 @@
                         </span>
                     </span>
                 </li>
+            </c:forEach>
             </ul>
         </div>
 

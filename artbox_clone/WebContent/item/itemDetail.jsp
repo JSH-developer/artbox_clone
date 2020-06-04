@@ -101,7 +101,7 @@
 	</script>
 </head>
 	<!-- 헤더 -->
-	<jsp:include page="${pageContext.request.contextPath}/inc/top.jsp"></jsp:include>
+	<jsp:include page="../inc/top.jsp"></jsp:include>
 	<!-- /헤더 -->
 
 	<!-- 메인 콘텐츠  -->
@@ -371,7 +371,7 @@
 	<!-- /메인 콘텐츠  -->
 
 	<!--  푸터 -->
-	<jsp:include page="${pageContext.request.contextPath}/inc/bottom.jsp"></jsp:include>
+	<jsp:include page="../inc/bottom.jsp"></jsp:include>
 	<!--  /푸터 -->
 	<script type="text/javascript">
 	

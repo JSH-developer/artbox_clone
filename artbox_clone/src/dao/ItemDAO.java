@@ -35,12 +35,12 @@ public class ItemDAO {
 	
 
 	public ArrayList<ProductBean> selectMajorLink(String majorCategory) {
-		String sql = "select * from product where category_code like '?%'";
+		String sql = "select * from product where category_code like '"+majorCategory+"%'";
 		ProductBean productBean = null;
 		ArrayList<ProductBean> listProduct = new ArrayList<ProductBean>();
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, majorCategory);
+//			pstmt.setString(1, majorCategory);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				productBean = new ProductBean();
@@ -67,6 +67,7 @@ public class ItemDAO {
 			close(pstmt);
 			close(con);
 		}
+		System.out.println(listProduct);
 		return 	listProduct;
 		
 	}	
@@ -108,6 +109,54 @@ public class ItemDAO {
 		}
 		return 	listProduct;
 		
+	}
+
+
+	public int getMajorCount(String majorCategory) {
+		int count = 0;
+		String sql = "select count(num) from product where category_code=?";
+		System.out.println(con);
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, majorCategory);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				count = rs.getInt("count(num)");
+			}
+				
+			}catch(SQLException e){
+				e.printStackTrace();
+			}finally {
+//				close(rs);
+//				close(pstmt);
+//				close(con);
+			}
+		
+		return count;
+	}
+
+
+	public int getMinorCount(String minorCategory) {
+		int count = 0;
+		String sql = "select count(num) from product where category_code like '?%'";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, minorCategory);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				count = rs.getInt("num");
+			}
+				
+			}catch(SQLException e){
+				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
+				close(con);
+			}
+		
+		return count;
 	}	
 
 }
