@@ -2,6 +2,8 @@ package vo;
 
 public class QuestionBean {
 	private int question_num;
+	private String question_email;
+	private String question_field;
 	private String question_title;
 	private String question_content;
 	private String question_answer;
@@ -13,6 +15,18 @@ public class QuestionBean {
 	}
 	public void setQuestion_num(int question_num) {
 		this.question_num = question_num;
+	}
+	public String getQuestion_email() {
+		return question_email;
+	}
+	public void setQuestion_email(String question_email) {
+		this.question_email = question_email;
+	}
+	public String getQuestion_field() {
+		return question_field;
+	}
+	public void setQuestion_field(String question_field) {
+		this.question_field = question_field;
 	}
 	public String getQuestion_title() {
 		return question_title;

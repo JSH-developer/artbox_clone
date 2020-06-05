@@ -12,7 +12,7 @@
 	<link href="${pageContext.request.contextPath}/css/item/swiper.min.css" rel="stylesheet" type="text/css">
 	<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
-	<c:set var="price" value="8500"/>
+	
 	<script type="text/javascript">
 	// 후기,qna 테이블 클릭시 토글 오픈
 	$(document).on('click','.tr',function(){
@@ -74,7 +74,7 @@
 		fnCheckPriseSum();
 	});
 	function fnCheckPriseSum(){
-		var returnValue = parseInt(${price},10)* parseInt($("[name=stockqty]").val(),10);
+		var returnValue = parseInt(${productBean.product_price},10)* parseInt($("[name=stockqty]").val(),10);
 		$(".pdt-totalprice").html(commas(returnValue) + " 원");
 	}
 	function commas(x) {
@@ -98,6 +98,10 @@
 			}
 		}
 	});
+	function qnacheck() {
+		alert("서브밋");
+		return true;
+	}
 	</script>
 </head>
 	<!-- 헤더 -->
@@ -131,11 +135,11 @@
 				<div class="text-info">
 					<div class="pdt-name">${productBean.product_name }</div>
 					<div class="pdt-category"><a href="#">인형/토이</a> > <a href="#">FUN/TOY</a></div>
-					<div class="pdt-right pdt-price">${productBean.product_price}원</div>
+					<div class="pdt-right pdt-price"><fmt:formatNumber value="${productBean.product_price}" type="number" />원</div>
 					<div class="pdt-right pdt-delivery">2,500원
 						<input type="button" class="btn-delivery modal" value="배송비 안내">
 					</div>
-					<div class="pdt-right pdt-candy">${productBean.product_price / 100}개</div>
+					<div class="pdt-right pdt-candy"><fmt:formatNumber value="${productBean.product_price / 100}" type="number" />개</div>
 					<div class="pdt-right pdt-code">${productBean.product_code}</div>
 					<div class="pdt-right pdt-ok">1% 적립</div>
 					<div class="pdt-right pdt-count">
@@ -145,7 +149,7 @@
 							<input type="tel" name="stockqty" value="1" maxlength="3">
 						</span>
 					</div>
-					<div class="pdt-right pdt-totalprice"><c:out value="${price}" />원</div>
+					<div class="pdt-right pdt-totalprice"><fmt:formatNumber value="${productBean.product_price}" type="number" />원</div>
 					<div class="pdt-btnlist">
 						<span class="btnCart"><input type="button" value="장바구니 담기"></span>
 						<span class="btnOrder"><input type="button" value="바로 구매하기"></span>
@@ -211,21 +215,22 @@
 		<div class="clear"></div>
 		<!-- <article class="warp_content"> -->
 		<section class="item_content">
-			<div class="contentsTopTop">클래식 캔디머신 (베이비핑크)(53008340)</div>
-			<div style="margin: 0 auto; width: 37px; height: 3px; background-color: #000000;"></div>
-			<div class="contentsTopBottom">
-				사탕이나 초코볼 등을 가득 담아놓고 뽑아 먹는 재미가 쏠쏠한 베이비 캔디머신입니다.<br>
-				연인, 친구, 가족 등 사랑하는 사람들에게 사탕, 초코볼, 젤리 등 달콤함을 가득 담아 선물해보세요!<br>
-			</div>
+<!-- 			<div class="contentsTopTop">클래식 캔디머신 (베이비핑크)(53008340)</div> -->
+<!-- 			<div style="margin: 0 auto; width: 37px; height: 3px; background-color: #000000;"></div> -->
+<!-- 			<div class="contentsTopBottom"> -->
+<!-- 				사탕이나 초코볼 등을 가득 담아놓고 뽑아 먹는 재미가 쏠쏠한 베이비 캔디머신입니다.<br> -->
+<!-- 				연인, 친구, 가족 등 사랑하는 사람들에게 사탕, 초코볼, 젤리 등 달콤함을 가득 담아 선물해보세요!<br> -->
+<!-- 			</div> -->
 			<div class="content">
-				<img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503601355265.jpg">
-				<img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503602276476.jpg">
-				<img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503600209719.jpg">
-				<img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503599165375.jpg">
-				<img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503597933043.jpg">
-				<img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503595754264.jpg">
-				<img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503596887597.jpg">
-				<span>Copyright ⓒ ARTBOX ALL rights reserved.</span>
+<!-- 				<img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503601355265.jpg"> -->
+<!-- 				<img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503602276476.jpg"> -->
+<!-- 				<img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503600209719.jpg"> -->
+<!-- 				<img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503599165375.jpg"> -->
+<!-- 				<img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503597933043.jpg"> -->
+<!-- 				<img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503595754264.jpg"> -->
+<!-- 				<img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503596887597.jpg"> -->
+				${productBean.product_description}
+				<span class="copyright">Copyright ⓒ ARTBOX ALL rights reserved.</span>
 			</div>
 		</section>
 		<section class="item_content">
@@ -314,33 +319,41 @@
 		</section>
 		<!-- </article> -->
 		<section class="full-screen">
+<%-- 			<c:choose> --%>
+<%-- 				<c:when test="${empty sessionScope.id }"> --%>
+<%-- 					<c:set var="id" value="아이디없음"/> --%>
+<%-- 				</c:when> --%>
+<%-- 				<c:otherwise> --%>
+<%-- 					<c:set var="id" value="${sessionScope.id }"/> --%>
+<%-- 				</c:otherwise> --%>
+<%-- 			</c:choose> --%>
 			<div class="qna-overlay">
-			<form action="itemQuestion.item" method="post">
-				<input type="hidden" name="product_code" value="xxxxxxxx">
+			<form action="questionWrite.item" method="post" onsubmit="return qnacheck()">
+				<input type="hidden" name="product_num" value="${productBean.product_num}">
 				<div class="overlay-header">상품문의하기<input class="overlay-close" type="button" value=""></div>
 				<span class="input">
-					<span class="tt">아이디</span>
-					&nbsp;&nbsp;&nbsp;guest<input type="hidden" name="Id" value="guest"></span>
+					<span class="tt">아이디</span>&nbsp;&nbsp;&nbsp;${sessionScope.id }
+					<input type="hidden" name="id" value="${sessionScope.id }"></span>
 				<span class="input">
 					<span class="tt">이메일 주소</span>
-					<input type="text" name="Email" value="" maxlength="30">
+					<input type="text" name="email" value="" maxlength="30">
 				</span>
 				<span class="input">
 					<span class="tt">문의분야</span>
-					<select name="qnaType">
+					<select name="fild">
 						<option value="" selected="selected">선택하세요</option>
-						<option value="01">입고</option>
-						<option value="02">재고</option>
-						<option value="03">기타</option>
+						<option value="입고">입고</option>
+						<option value="재고">재고</option>
+						<option value="기타">기타</option>
 					</select>
 				</span>
 				<span class="input">
 					<span class="tt">제목</span>
-					<input type="text" name="Title" value="" maxlength="30">
+					<input type="text" name="title" value="" maxlength="30">
 				</span>
 				<span class="input">
 					<span class="tt">문의내용</span>
-					<textarea name="strContents"></textarea>
+					<textarea name="content"></textarea>
 					<span class="etc">*주문/배송/반품 등 일반 문의는 '고객감동센터 &gt; 1:1 문의/상담'으로 해주시기 바랍니다.</span>
 				</span>
 				<div class="PrivacyCheck">
@@ -350,7 +363,7 @@
 					<p>(주)아트박스에서 고객상담을 목적으로 (주)웅진에 개인정보(이름, 휴대폰번호, 이메일)를 제공하며, 제공한 개인정보는 전자상거래 등에서의 소비자보호에 관한 법률에 의거 상담 접수일로 부터 3년 또는 5년간 보관 후 파기 합니다. 동의 거부 시 상담이 제한되거나 거부될 수 있습니다.</p>
 				</div>
 				<span class="button">
-					<input class="btnRegProductQna" type="button" value="등록하기">
+					<input class="btnRegProductQna" type="submit" value="등록하기">
 				</span>
 				<div class="clear"></div>
 			</form>

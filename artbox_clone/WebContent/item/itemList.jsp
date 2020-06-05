@@ -69,7 +69,7 @@
             	<c:forEach var="item" items="${productBean }">
                 <li>
                     <span class="item">
-                        <a href="${pageContext.request.contextPath}/itemDetail.item?num=${item.product_num }">
+                        <a href="${pageContext.request.contextPath}/itemDetail.item?product_num=${item.product_num }">
                             <div class="shopping_basket">
                                 <div class="shopping_basket_icon">
                                     <i class="far fa-heart"></i>
