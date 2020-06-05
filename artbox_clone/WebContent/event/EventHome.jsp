@@ -88,7 +88,7 @@ font-size: 18px;}
 		<div class="event_content" 
 		onclick="location.href='EventDetail.event?board_num=<%=articleList.get(i).getEvent_num() %>&page=<%=nowPage%>&condition=<%=articleList.get(i).getCondition()%>'">
 			<div style="margin: 0 auto;">
-				
+				 
 				<p><img src="${pageContext.request.contextPath}/Images/event/<%=articleList.get(i).getEvent_img() %>" width="360px" height="250px"></p>
 				<p><span style="font-weight: bold;color: #262729; "><%=articleList.get(i).getEvent_titie()%></span>
 				<span style="color:red;">[<%=articleList.get(i).getDiscount()%>%]</span></p>
@@ -98,7 +98,13 @@ font-size: 18px;}
 		</div>
 		
 		
+		<%}else{
+			// 종료된 이벤트 내용 %>
+			
 		<%}} %>
+		
+		
+		
 	</div>
 
 				<section id="pageList">

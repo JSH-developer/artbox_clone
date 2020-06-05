@@ -6,9 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
-import com.sun.scenario.effect.impl.prism.PrTexture;
+import java.util.Date;
 
 import vo.EventBean;
 import vo.ProductBean;
@@ -39,19 +39,16 @@ public class EventDAO {
 		
 	}
 
-	// 이벤트 등록
+	// 이벤트 등록 / 상품 할인 수정
 	public int registEvent(EventBean eventBean) {
 		
 		int insertCount = 0;
+		int updateCount = 0;
 		
 		PreparedStatement pstmt = null;
 		
-		System.out.println( eventBean.getEvent_titie());
-		System.out.println(eventBean.getEvent_content());
-		System.out.println(eventBean.getEvent_time());
 
 		try {
-			System.out.println("insertArticle- try ");
 			
 			String sql = "INSERT INTO event_board VALUES(null,?,?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
@@ -67,7 +64,18 @@ public class EventDAO {
 			
 			insertCount = pstmt.executeUpdate();
 			
+			if(eventBean.getDiscount()!=0) {
+			sql = "UPDATE product SET sale_price=? WHERE category_code=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, eventBean.getDiscount());
+			pstmt.setString(2, eventBean.getCondition());
 			
+			updateCount = pstmt.executeUpdate();
+			if(updateCount>0) {
+				System.out.println("상품 할인 적용 성공");
+			}
+			
+			}
 		} catch (SQLException e) {
 			System.out.println("EventDAO- registEvent()실패!"+e.getMessage());
 		} finally {
@@ -110,6 +118,7 @@ public class EventDAO {
 	public ArrayList<EventBean> selectArticleList(int page, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		int updateCount = 0;
 		
 		int startRow = (page -1)*limit;
 		
@@ -140,6 +149,24 @@ public class EventDAO {
 				rowData.setEvent_img(rs.getString("event_img"));
 			
 				articleList.add(rowData);
+				
+				Date nowDate = new Date();
+				SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+				String limitdate = rs.getString("event_limit").replaceAll("-","");
+				int limitdate1 = Integer.parseInt(limitdate);
+				int nowwDate = Integer.parseInt(sf.format(nowDate));
+				
+				if(nowwDate>limitdate1 ) {
+					sql = "UPDATE product SET sale_price=0 WHERE category_code=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, rs.getString("event_condition"));
+					
+					updateCount = pstmt.executeUpdate();
+					
+					if(updateCount>0) {
+						System.out.println("상품 할인 내리기 성공");
+					}
+				}
 				
 			}
 		} catch (SQLException e) {
