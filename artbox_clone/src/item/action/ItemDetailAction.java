@@ -2,6 +2,7 @@ package item.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import svc.ProductViewService;
@@ -16,7 +17,11 @@ public class ItemDetailAction implements Action {
 		ProductBean productBean = null;
 		//파라미터로 전달된 게시물 넘버값 
 		int product_num = Integer.parseInt(request.getParameter("num"));
-		
+		//로그인 안했으면 id값 guest
+		HttpSession session = request.getSession();
+		if(session.getAttribute("id") == null) {
+			session.setAttribute("id", "guest");
+		}
 		//admin의 svc.ProductViewService 객체 재활용 
 		ProductViewService pvs = new ProductViewService();
 		productBean = pvs.infoProduct(product_num);
