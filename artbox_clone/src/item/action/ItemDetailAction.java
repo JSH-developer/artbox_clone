@@ -16,7 +16,7 @@ public class ItemDetailAction implements Action {
 		ActionForward forward = null;
 		ProductBean productBean = null;
 		//파라미터로 전달된 게시물 넘버값 
-		int product_num = Integer.parseInt(request.getParameter("num"));
+		int product_num = Integer.parseInt(request.getParameter("product_num"));
 		//로그인 안했으면 id값 guest
 		HttpSession session = request.getSession();
 		if(session.getAttribute("id") == null) {
