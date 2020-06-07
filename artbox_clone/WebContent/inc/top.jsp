@@ -19,12 +19,14 @@
  <div class="pageNavigationBar" id="topBar">
 		<nav id="top_menu">
 		<ul>
-			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major='DT'" onclick="GA_event('HEAD', '최상단 메뉴', '인형/토이');">인형/토이</a></li>
-			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/item/itemDetail.jsp" onclick="GA_event('HEAD', '최상단 메뉴', '문구');">문구</a></li>
-			<li class="CategoryMiddle"><a href="#" onclick="GA_event('HEAD', '최상단 메뉴', '패션');">패션</a></li>
-			<li class="CategoryMiddle"><a href="#" onclick="GA_event('HEAD', '최상단 메뉴', '주방/욕실');">주방/욕실</a></li>
-			<li class="CategoryMiddle"><a href="#" onclick="GA_event('HEAD', '최상단 메뉴', '리빙/데코');">리빙/데코</a></li>
-			<li class="CategoryMiddle"><a href="#" onclick="GA_event('HEAD', '최상단 메뉴', '디지털/가전');">디지털/가전</a></li>
+			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=DT" onclick="GA_event('HEAD', '최상단 메뉴', '인형/토이');">인형/토이</a></li>
+			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=FA" onclick="GA_event('HEAD', '최상단 메뉴', '문구');">문구</a></li>
+			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=FS" onclick="GA_event('HEAD', '최상단 메뉴', '패션');">패션</a></li>
+			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=KB" onclick="GA_event('HEAD', '최상단 메뉴', '주방/욕실');">주방/욕실</a></li>
+			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=LD" onclick="GA_event('HEAD', '최상단 메뉴', '리빙/데코');">리빙/데코</a></li>
+			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=DI" onclick="GA_event('HEAD', '최상단 메뉴', '디지털/가전');">디지털/가전</a></li>
+			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=TR" onclick="GA_event('HEAD', '최상단 메뉴', '여행');">여행</a></li>
+			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=BE" onclick="GA_event('HEAD', '최상단 메뉴', '뷰티');">뷰티</a></li>
 			<li class="CategoryMiddle"><a href="index.event" onclick="GA_event('HEAD', '최상단 메뉴', '여행');">베스트</a></li>
 			<li class="CategoryMiddle"><a href="EventList.event" onclick="GA_event('HEAD', '최상단 메뉴', '뷰티');">이벤트</a></li>
 			<li class="Cart">

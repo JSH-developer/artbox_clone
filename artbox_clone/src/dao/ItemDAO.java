@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vo.ProductBean;
+import vo.QuestionBean;
 
 public class ItemDAO {
 	
@@ -35,12 +36,12 @@ public class ItemDAO {
 	
 
 	public ArrayList<ProductBean> selectMajorLink(String majorCategory) {
-		String sql = "select * from product where category_code like '?%'";
+		String sql = "select * from product where category_code like '"+majorCategory+"%'";
 		ProductBean productBean = null;
 		ArrayList<ProductBean> listProduct = new ArrayList<ProductBean>();
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, majorCategory);
+//			pstmt.setString(1, majorCategory);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				productBean = new ProductBean();
@@ -67,6 +68,7 @@ public class ItemDAO {
 			close(pstmt);
 			close(con);
 		}
+		System.out.println(listProduct);
 		return 	listProduct;
 		
 	}	
@@ -108,6 +110,96 @@ public class ItemDAO {
 		}
 		return 	listProduct;
 		
+	}
+
+
+	public int getMajorCount(String majorCategory) {
+		int count = 0;
+		String sql = "select count(num) from product where category_code=?";
+		System.out.println(con);
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, majorCategory);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				count = rs.getInt("count(num)");
+			}
+				
+			}catch(SQLException e){
+				e.printStackTrace();
+			}finally {
+//				close(rs);
+//				close(pstmt);
+//				close(con);
+			}
+		
+		return count;
+	}
+
+
+	public int getMinorCount(String minorCategory) {
+		int count = 0;
+		String sql = "select count(num) from product where category_code like '?%'";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, minorCategory);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				count = rs.getInt("num");
+			}
+				
+			}catch(SQLException e){
+				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
+				close(con);
+			}
+		
+		return count;
+	}	
+	
+	public int insertQuestion(QuestionBean questionBean) {
+		int insertCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			int num = 1;
+			
+			String sql = "SELECT MAX(num) FROM question";
+			
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				num = rs.getInt(1) + 1;
+			} 
+			
+			sql = "INSERT INTO question(num,email,field,title,content,member_id,product_num) VALUES (?,?,?,?,?,?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num); // 계산된 새 글 번호 사용
+			pstmt.setString(2, questionBean.getQuestion_email());
+			pstmt.setString(3, questionBean.getQuestion_field());
+			pstmt.setString(4, questionBean.getQuestion_title());
+			pstmt.setString(5, questionBean.getQuestion_content());
+			pstmt.setString(6, questionBean.getQuestion_member_id());
+			pstmt.setInt(7, questionBean.getQuestion_product_num());
+			
+			// INSERT 구문 실행 후 리턴되는 결과값을 insertCount 변수에 저장
+			insertCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - insertQuestion() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return insertCount;
 	}	
 
 }
