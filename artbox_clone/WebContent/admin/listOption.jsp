@@ -32,7 +32,7 @@
 <div class="admin_nav_wrap">
 <ul class="admin_nav">
 	<li><a href="home.admin">관리자 홈</a></li>
-	<li><a href="OptionWriteForm.admin">옵션 등록</a></li>
+	<li><a href="ProductList.admin">상품 목록</a></li>
 </ul>
 </div>
 
@@ -50,7 +50,7 @@
 	}
 %>
 </table>
-
+<a href="OptionWriteForm.admin"><button>옵션 등록</button></a>
 <section id="pageList">
 		<%if(nowPage<=1){ %>
 		◁&nbsp;

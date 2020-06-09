@@ -33,7 +33,7 @@
 <div class="admin_nav_wrap">
 <ul class="admin_nav">
 	<li><a href="home.admin">관리자 홈</a></li>
-	<li><a href="CategoryWriteForm.admin">카테고리 등록</a></li>
+	<li><a href="ProductList.admin">상품 목록</a></li>
 </ul>
 </div>
 
@@ -52,6 +52,7 @@
 	}
 %>
 </table>
+<a href="CategoryWriteForm.admin"><button>카테고리 등록</button></a>
 
 <section id="pageList">
 		<%if(nowPage<=1){ %>

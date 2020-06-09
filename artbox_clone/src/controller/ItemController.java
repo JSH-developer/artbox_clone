@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import action.CategoryLinkAction;
-import action.ItemDetailAction;
+import item.action.CategoryLinkAction;
+import item.action.ItemDetailAction;
+import item.action.QuestionWriteAction;
 import vo.ActionForward;
 
 
@@ -37,6 +38,13 @@ public class ItemController extends HttpServlet {
 			}
 		}else if(command.equals("/itemDetail.item")) {
 			action = new ItemDetailAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/questionWrite.item")) {
+			action = new QuestionWriteAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

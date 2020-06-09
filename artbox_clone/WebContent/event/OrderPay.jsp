@@ -1,22 +1,57 @@
+<%@page import="vo.CouponBean"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+        <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%
+ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute("mycouponList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ARTBOX(포트폴리오)</title>
-<link href="../css/front.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 <!-- <link href="../css/order/Common.css" rel="stylesheet" type="text/css"> -->
-<link href="../css/order/Order.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/order/Order.css" rel="stylesheet" type="text/css">
 <!-- <link href="../css/order/PopZipCode.css" rel="stylesheet" type="text/css"> -->
 
 <!-- <script type="text/javascript" src="../js/PopZipCodeJson.js"></script> -->
-<script type="text/javascript" src="../js/jquery-3.5.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	function setComma(number) //asp의 formatnumber 사용법 -> var xxx = setComma(parseInt(변수));
+	{
+		var minusYN = "N";
+		if (parseInt(number,10)<0)
+		{
+			minusYN = "Y";
+			number = parseInt(number,10)*-1;
+		}
+
+		var nArr = String(number).split("").join(",").split("");
+		for (var i=nArr.length-1, j=1; i>=0; i--, j++)
+		{
+			 if( j%6 != 0 && j%2 == 0)
+			 {
+				 nArr[i] = "";
+			 }
+		}
+		if (minusYN=="Y")
+		{
+			return "-"+nArr.join("");
+		}
+		else
+		{
+			return nArr.join("");
+		}
+	}
+	
 
 	$("input[type=tel]").keyup(function(e){
 		if (!Check_Number(e.currentTarget.value)) {
@@ -422,6 +457,7 @@ $(document).ready(function(){
 		}
 	}
 
+	// 쿠폰 선택한거 여기로 옴
 	fnCouponSelect = function(obj){
 
 		var DcNumber = $(obj).find(":selected").attr("alt");
@@ -1677,26 +1713,30 @@ function execDaumPostCode() { // 우편번호
 
 	<div class="SectionDiscount" id="SectionDiscount">
 		<div class="OrderInfoTitle">
-			<h2>쿠폰/할인/꿈캔디 정보<a class="Open" id="OrderDiscountInfoArrow" href="javascript:fnOrderInfoTitle('OrderDiscountInfo','i_TotalDiscountPriceInfo','i_TotalDiscountPriceInfo_summary');"></a><div class="clear"></div></h2>
+			<h2>쿠폰/할인/꿈캔디 정보<a class="Open" id="OrderDiscountInfoArrow" 
+			href="javascript:fnOrderInfoTitle('OrderDiscountInfo','i_TotalDiscountPriceInfo','i_TotalDiscountPriceInfo_summary');"></a>
+			<div class="clear"></div></h2>
 		</div>
-		<div id="OrderDiscountInfoSummary" class="OrderInfoSummary">
+		<div id="OrderDiscountInfoSummary" class="OrderInfoSummary"> <!-- 접혔을때 할인금액 -->
 			<div class="gap20px"></div>
 			<div class="tableDiv">
 				<dl class="trOrder">
 					<dt>할인금액</dt>
 					<dd>
-						<input type="text" id="i_TotalDiscountPriceInfo_summary" name="TotalDiscountPriceInfo_summary" maxlength="16" value="- 0 원" class="readonly" readonly="readonly" />
+						<input type="text" id="i_TotalDiscountPriceInfo_summary" name="TotalDiscountPriceInfo_summary" 
+						maxlength="16" value="- 0 원" class="readonly" readonly="readonly" />
 					</dd>
 				</dl>
 			</div>
 		</div>
-		<div id="OrderDiscountInfo">
-			<div class="gap20px"></div>
+		<div id="OrderDiscountInfo"> 
+			<div class="gap20px"></div>  <!-- 펼혔을때 할인금액 -->
 			<div class="tableDiv">
 				<dl class="trOrder">
 					<dt>할인금액</dt>
 					<dd>
-						<input type="text" id="i_TotalDiscountPriceInfo" name="TotalDiscountPriceInfo" value="- 0 원" class="readonly" readonly="readonly" />
+						<input type="text" id="i_TotalDiscountPriceInfo" name="TotalDiscountPriceInfo" value="- 0 원" 
+						class="readonly" readonly="readonly" />
 						<p class="null"></p>
 					</dd>
 				</dl>
@@ -1705,11 +1745,14 @@ function execDaumPostCode() { // 우편번호
 				<dl class="trOrderRadio">
 					<dt>쿠폰</dt>
 					<dd>
+						<% int bonusCouponCount = 0; int freeCouponCount=0; %>
 						<input type="radio" id="CouponTypeNull" name="CouponType" value="Null" checked="checked" /> 선택안함
 						&nbsp;&nbsp;<span class="MobileBr"><p class="null"></p></span>
-						<input type="radio" id="CouponTypeBonus" name="CouponType" value="Bonus" /> 보너스쿠폰 (<span id="BonusCouponTotCnt">0</span>장)
+						<input type="radio" id="CouponTypeBonus" name="CouponType" value="Bonus" /> 
+						보너스쿠폰 (<span id="BonusCouponTotCnt"><%=bonusCouponCount %></span>장)
 						&nbsp;&nbsp;<span class="MobileBr"><p class="null"></p></span>
-						<input type="radio" id="CouponTypeGoods" name="CouponType" value="Goods" /> 상품쿠폰 (<span id="GoodsCouponTotCnt">0</span>장)
+						<input type="radio" id="CouponTypeGoods" name="CouponType" value="Goods" /> 
+						상품쿠폰 (<span id="GoodsCouponTotCnt"><%=freeCouponCount %></span>장)
 					</dd>
 				</dl>
 			</div>
@@ -1721,8 +1764,33 @@ function execDaumPostCode() { // 우편번호
 							<option value="" selected="selected">사용안함</option>
 						</select>
 						
-						<select name="BonusCouponIdx" id="CouponIdxSelect_Bonus" disabled="disabled" class="none">
+			<!-- 			<select name="BonusCouponIdx" id="CouponIdxSelect_Bonus" disabled="disabled" class="none">
 							<option value="" alt="0" selected="selected">해당 쿠폰이 없습니다.</option>
+						</select> -->
+						
+						<select name="BonusCouponIdx" id="CouponIdxSelect_Bonus" onchange="fnCouponSelect(this);" class="" 
+						style="display: none;">
+
+<%-- 										<c:set var="couponList" value="couponList" /> --%>
+
+										<c:choose>
+											<c:when test="${couponList.category eq 'bonuscoupon'}">
+       									 <c:out value= "${fn:length(myCouponList)}" />
+    										</c:when>
+										</c:choose>
+
+										<option value="" alt="0" selected="selected">선택</option>
+						<% for(int i=0;i<myCouponList.size();i++){ 	
+							String Coupon = myCouponList.get(i).getCoupon_category();
+							if(("bonuscoupon").equals(Coupon)){
+								bonusCouponCount+=1;
+							%>
+							
+							<option value="53146604" alt=<%=myCouponList.get(i).getCoupon_price() %>>
+							<%=myCouponList.get(i).getCoupon_name()%>
+						
+<!-- 							<option value="53146338" alt="2000">가입회원 2000원 할인 쿠폰</option> -->
+						<%}} %>
 						</select>
 						
 						<input type="hidden" id="NotCoupon" value="N" />
@@ -1768,6 +1836,8 @@ function execDaumPostCode() { // 우편번호
 			</div>
 		</div>
 	</div>
+	
+	<script> </script>
 
 	<div class="clear"></div>
 	<div class="SectionMidLine"></div>

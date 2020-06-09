@@ -40,7 +40,24 @@ public class AdminDAO {
 		int insertCount = 0;
 		
 		try {
-			String sql="INSERT INTO product VALUES(null,?,?,?,?,?,?,?,?,?,?,null,?,?)";
+			// 끝에 두글자가 00이면 옵션테이블에 옵션코드 넣기
+			// 외래키에 의한 참조무결성 때문에... 
+			String sql = "";
+			
+			if(productBean.getProduct_option_code().substring(3).equals("00")) {
+				sql = "INSERT INTO product_option VALUES(null,?,?,0)";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, productBean.getProduct_option_code());
+				pstmt.setString(2, productBean.getProduct_option_code().substring(0,3)+"의 기본옵션" );
+				
+				pstmt.executeUpdate();
+			}
+			
+			
+			sql="INSERT INTO product("
+					+ "code,name,image,image2,description,price,brand,stock_count,"
+					+ "sale_price,keywords,category_code,option_code) "
+					+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, productBean.getProduct_code());
 			pstmt.setString(2, productBean.getProduct_name());
@@ -172,6 +189,29 @@ public class AdminDAO {
 		return listCount;
 	}
 	
+	// 상품 갯수 세기 - 옵션 코드 부여용
+	public String productCount2() {
+		String listCount = "";
+		
+		try {
+			String sql ="SELECT LPAD(COUNT(num)+1,3,'0') FROM product";
+			pstmt=con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getString(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
 	// 카테고리 등록
 	public int regCategory(CategoryBean categoryBean) {
 		int insertCount = 0;
@@ -205,7 +245,7 @@ public class AdminDAO {
 		int startRow = (page-1)*limit;
 		
 		try {
-			String sql="SELECT * FROM category ORDER BY category_sup DESC limit ?,?";
+			String sql="SELECT * FROM category ORDER BY category_code DESC limit ?,?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, limit);
@@ -281,12 +321,14 @@ public class AdminDAO {
 		String result ="";
 		
 		try {
-			String sql = "SELECT LPAD(MAX(num)+1,2,'0') 'product_num' FROM product_option";
+			String sql = "SELECT LPAD(COUNT(num),2,'0') 'option_num' FROM product_option WHERE option_code LIKE ?";
 			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, product_index+"__");
+			
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {
-				result = product_index + rs.getString("product_num");
+				result = product_index + rs.getString("option_num");
 			}
 			
 			
@@ -361,7 +403,7 @@ public class AdminDAO {
 		String result ="";
 		
 		try {
-			String sql="SELECT * FROM category ORDER BY category_sup DESC";
+			String sql="SELECT * FROM category ORDER BY category_code DESC";
 			pstmt=con.prepareStatement(sql);
 			
 			rs= pstmt.executeQuery();
@@ -385,7 +427,7 @@ public class AdminDAO {
 		String result ="";
 		
 		try {
-			String sql="SELECT * FROM product_option ORDER BY option_code DESC";
+			String sql="SELECT * FROM product_option WHERE option_code NOT LIKE '%00' ORDER BY option_code DESC ";
 			pstmt=con.prepareStatement(sql);
 			
 			rs= pstmt.executeQuery();
@@ -409,7 +451,7 @@ public class AdminDAO {
 		String result ="";
 		
 		try {
-			String sql="SELECT LPAD(num,'2','0') 'num2', name, code FROM product";
+			String sql="SELECT LEFT(option_code,3) 'num2', name, code FROM product WHERE code LIKE '%00'";
 			pstmt=con.prepareStatement(sql);
 			
 			rs= pstmt.executeQuery();

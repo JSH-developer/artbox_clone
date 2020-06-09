@@ -7,6 +7,7 @@
 </head>
 <body>
 <h1>login</h1>
+<!-- http://localhost:8080/artbox_clone/login.cart -->
 
 <form action="LoginAction.cart" method="post" name="fr">
 	아이디 :	<input type="text" name="id"><br>

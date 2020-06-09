@@ -46,7 +46,6 @@ $(document).ready(function(){
 // 	    alert(msg);
 // 	});
 	
-
 	$("input[type=tel]").keyup(function(e){
 		if (!Check_Number(e.currentTarget.value)) {
 			alert("숫자값만 입력가능합니다.");
@@ -686,11 +685,11 @@ function execDaumPostCode() { // 우편번호
 			<h2>주문상품 정보
 			<small>
 			<c:choose>
-    <c:when test="${fn:length(productList) == 1}">
-        ${productList[0].product_name } (${productList[0].product_code })
+    <c:when test="${fn:length(orderList) == 1}">
+        ${orderListOne[0].itemName } (${orderListOne[0].itemCode })
     </c:when>
     <c:otherwise>
-         ${productList[0].product_name } (${productList[0].product_code }) 외 ${fn:length(productList)-1}개
+         ${orderListOne[0].itemName } (${orderListOne[0].itemCode }) 외 ${fn:length(orderList)-1}개
     </c:otherwise>
 			</c:choose>
 				
@@ -701,20 +700,20 @@ function execDaumPostCode() { // 우편번호
 			<input type="hidden" id="MemAlwaysRate" value="0" />
 			<input type="hidden" id="MemMileageSaveRate" value="1" />
 		
-<c:forEach var="productList" items="${productList }" varStatus="status">
-	<c:set var="price" value="${productList.product_price }"/>
+<c:forEach var="orderList" items="${orderList }" varStatus="status">
+	<c:set var="price" value="${orderList[0].itemprice }"/>
 			<div class="tableDiv">
 				<dl class="trOrderItem 2002200265">
-					<dt class="tdImage"><a href="productDetail.cart?product_num=${productList.product_num }"><img src="cart/${productList.product_image }"/></a></dt>
+					<dt class="tdImage"><a href="productDetail.cart?product_num=${orderList[0].itemNum }"><img src="cart/${orderList[0].itemImage }"/></a></dt>
 					<dt class="tdInner">
-						<div class="CartListItemName">${productList.product_name } (${productList.product_code })
+						<div class="CartListItemName">${orderList[0].itemName } (${orderList[0].itemCode })
 						</div>
 						<div class="CartListPrice">
-						 / <fmt:formatNumber value="${price }" pattern="#,###"/>원 X ${cartList[status.index].cart_quantity }개
+						 / <fmt:formatNumber value="${price }" pattern="#,###"/>원 X ${orderList[0].quantity }개
 						</div>
 					</dt>
 					<dt class="tdPrice">
-						<fmt:formatNumber value="${price*cartList[status.index].cart_quantity }" pattern="#,###"/>원
+						<fmt:formatNumber value="${price*orderList[0].quantity }" pattern="#,###"/>원
 					</dt>
 				</dl>
 			</div>
@@ -759,14 +758,14 @@ function execDaumPostCode() { // 우편번호
 				<dl class="trOrder">
 					<dt>이름</dt>
 					<dd>
-						<input type="text" id="i_memname" name="memname" maxlength="16" value="${memberList[0].name }" />
+						<input type="text" id="i_memname" name="memname" maxlength="16" value="${orderListOne[0].name }" />
 						<p class="null"></p>
 					</dd>
 				</dl>
 				<dl class="trOrder">
 					<dt>이메일</dt>
 					<dd>
-						<input type="text" id="i_mememail" name="mememail" maxlength="50" value="${memberList[0].email }" placeholder="예) example@artbox.co.kr" />
+						<input type="text" id="i_mememail" name="mememail" maxlength="50" value="${orderListOne[0].email }" placeholder="예) example@artbox.co.kr" />
 						<p class="null"></p>
 						<input type="hidden" name="mememail1" />
 						<input type="hidden" name="mememail2" />
@@ -776,7 +775,7 @@ function execDaumPostCode() { // 우편번호
 			<div class="tableDiv">
 				<dl class="trOrder">
 					<dt>휴대전화</dt>
-					<c:set var="phonearr" value="${memberList[0].phone}" />
+					<c:set var="phonearr" value="${orderListOne[0].phone}" />
 					<c:set var="phone" value="${fn:split(phonearr, '-')}" />
 					<dd>
     
@@ -839,7 +838,7 @@ function execDaumPostCode() { // 우편번호
 				<select onchange="fnSelectMyDelivery(this);">
 					<option value="" selected="selected">선택</option>
 					
-					<option value="${memberList[0].name}¶¶${memberList[0].postcode}¶¶${memberList[0].addr_basic}¶¶${memberList[0].addr_detail}¶¶${phone[0] }¶¶${phone[1] }¶¶${phone[2] }¶¶¶¶¶¶">자택</option>
+					<option value="${orderListOne[0].name}¶¶${orderListOne[0].postcode}¶¶${orderListOne[0].addr_basic}¶¶${orderListOne[0].addr_detail}¶¶${phone[0] }¶¶${phone[1] }¶¶${phone[2] }¶¶¶¶¶¶">자택</option>
 					
 				</select>
 				<p class="null"></p>

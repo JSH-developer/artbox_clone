@@ -53,16 +53,16 @@ public class ProductWriteService {
 		return result;
 	}
 	
-	public int countProduct() {
-		int num=1;
+	public String countProduct() {
+		String num="";
 		
 		Connection con = getConnection();
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
 		
-		num += adminDAO.productCount();
+		num += adminDAO.productCount2();
 		
-		if(num>1) {
+		if(num.length()>0) {
 			commit(con);
 			
 		}else {
