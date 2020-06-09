@@ -50,7 +50,7 @@ public class EventDAO {
 
 		try {
 			
-			String sql = "INSERT INTO event_board VALUES(null,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO event_board VALUES(null,?,?,?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, eventBean.getEvent_titie());
 			pstmt.setString(2, eventBean.getEvent_content());
@@ -60,6 +60,7 @@ public class EventDAO {
 			pstmt.setString(6, eventBean.getEvent_start());
 			pstmt.setString(7, eventBean.getEvent_limit());
 			pstmt.setString(8, eventBean.getEvent_img());
+			pstmt.setString(9, eventBean.getEvent_category());
 			
 			
 			insertCount = pstmt.executeUpdate();
@@ -147,6 +148,7 @@ public class EventDAO {
 				rowData.setEvent_start(rs.getString("event_start"));
 				rowData.setEvent_limit(rs.getString("event_limit"));
 				rowData.setEvent_img(rs.getString("event_img"));
+				rowData.setEvent_category(rs.getString("event_category"));
 			
 				articleList.add(rowData);
 				
@@ -204,6 +206,7 @@ public class EventDAO {
 					eventArticle.setEvent_start(rs.getString("event_start"));
 					eventArticle.setEvent_limit(rs.getString("event_limit"));
 					eventArticle.setEvent_img(rs.getString("event_img"));
+					eventArticle.setEvent_category(rs.getString("event_category"));
 					
 					System.out.println(rs.getString("event_img"));
 				}

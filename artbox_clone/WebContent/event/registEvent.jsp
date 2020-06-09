@@ -98,6 +98,7 @@ $(document).ready(function() {
 	<tr><th>이벤트 시작일</th><td><input type="date" name="event_start"></td></tr>
 	<tr><th>이벤트 마감일</th><td><input type="date" name="event_limit"></td></tr>
 	<tr><th>대표 이미지</th><td><input type="file" name="event_img" accept="image/*"></td></tr>
+	<tr><th>이벤트 카테고리</th><td><input type="text" name="event_category"></td></tr>
 	<tr class="btn_tr"><td colspan="2"><input type="submit" value="이벤트 등록"></td></tr>
 </table>
 </form>

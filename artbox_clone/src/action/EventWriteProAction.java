@@ -52,6 +52,7 @@ public class EventWriteProAction implements Action {
 		eventBean.setDiscount(Integer.parseInt(multi.getParameter("event_discount")));
 		eventBean.setEvent_start(multi.getParameter("event_start"));
 		eventBean.setEvent_limit(multi.getParameter("event_limit"));
+		eventBean.setEvent_category(multi.getParameter("event_category"));
 		eventBean.setEvent_img(multi.getOriginalFileName((String)multi.getFileNames().nextElement()));
 		
 		

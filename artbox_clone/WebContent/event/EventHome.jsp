@@ -100,7 +100,14 @@ font-size: 18px;}
 		
 		<%}else{
 			// 종료된 이벤트 내용 %>
-			
+				<div style="margin: 0 auto;">
+				 
+				<p><img src="${pageContext.request.contextPath}/Images/event/<%=articleList.get(i).getEvent_img() %>" width="360px" height="250px"
+				style="color: grey;"></p>
+				<p><span style="font-weight: bold;color: #262729; "><%=articleList.get(i).getEvent_titie()%></span>
+				<span style="color:red;">[<%=articleList.get(i).getDiscount()%>%]</span></p>
+				<p style="color: grey;font-size: 14px;"><%=articleList.get(i).getEvent_start() %>~<%=articleList.get(i).getEvent_limit() %></p>
+			</div>
 		<%}} %>
 		
 		

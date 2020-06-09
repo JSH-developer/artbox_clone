@@ -100,6 +100,7 @@ font-size: 20px;}
 
 
 		<%
+		if(eventArticle.getEvent_category().equals("coup_event") || eventArticle.getEvent_category().equals("sale_event")){
 		if(itemList != null && listCount > 0){
 		for(int i=0;i<itemList.size();i++){
 			int discount = eventArticle.getDiscount();
@@ -107,7 +108,7 @@ font-size: 20px;}
 			int saleprice = realprice - ((realprice * discount) /100);
 			%>
 			
-		<div class="event_content" onclick="location.href='Eventproductview.event?board_num=<%=itemList.get(i).getProduct_num() %>&page=<%=nowPage%>'">
+		<div class="event_content" onclick="location.href='Eventproductview.event?product_num=<%=itemList.get(i).getProduct_num() %>&page=<%=nowPage%>'">
 			<div>
 				<img src="${pageContext.request.contextPath}/Images/event/<%=itemList.get(i).getProduct_image() %>" width="358px"
 				height="250px">
@@ -152,8 +153,9 @@ font-size: 20px;}
 	%>
 	<section id="emptyArea">등록된 글이 없습니다.</section>
 	<%
-	}
-%> 
+	}}else{ // 타임이벤트 들어갈 자리%>
+		
+<%}%> 
 </div>
  <!-- Grid -->
  

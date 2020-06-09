@@ -12,9 +12,9 @@ public class EventBean {
 	private int discount;
 	private String event_start;
 	private String event_limit;
-	private String event_img;
-	
-	
+	private String event_img,event_category;
+
+
 	public EventBean() {}
 
 	public EventBean(int event_num, String event_titie, String event_content, Timestamp event_time, String condition,
@@ -115,6 +115,13 @@ public class EventBean {
 
 	public void setEvent_img(String event_img) {
 		this.event_img = event_img;
+	}
+	public String getEvent_category() {
+		return event_category;
+	}
+
+	public void setEvent_category(String event_category) {
+		this.event_category = event_category;
 	}
 	
 	

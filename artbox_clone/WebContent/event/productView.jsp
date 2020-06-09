@@ -1,9 +1,13 @@
+<%@page import="vo.ProductBean"%>
 <%@page import="vo.CouponBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 ArrayList<CouponBean> couponList= (ArrayList<CouponBean>)request.getAttribute("couponList");
+ProductBean item= (ProductBean)request.getAttribute("productBean");
 %>
 <!DOCTYPE html>
 <html>
@@ -38,7 +42,6 @@ ArrayList<CouponBean> couponList= (ArrayList<CouponBean>)request.getAttribute("c
 		location.href=url;
 		
 	}
-		alert("끝");
 		
 	}
 	
@@ -54,32 +57,53 @@ ArrayList<CouponBean> couponList= (ArrayList<CouponBean>)request.getAttribute("c
  <div class="pageContent">
  <h1>상품 페이지</h1>
 
-	<%int realprice = 3800;
+	<%	
 		String sessionId = (String)session.getAttribute("id");
 		System.out.println("sessionId"+sessionId);
 		String loginId = "jini";	// 로그인한 아이디
-		String nullId = "";
-		String item_category ="DT01";// 불러온 상품의 카테고리  %> 
-		<input type="text" value="<%=realprice%>">
-		<input type="text" value="<%=item_category%>">
-		<input type="hidden" id="loginId" value="<%=sessionId%>">
+		String item_category = item.getProduct_category_code();// 불러온 상품의 카테고리
+			%>
 		
-	<% 
-	if(couponList!=null){
-	for(int i = 0;i<couponList.size();i++){ %>
-		<p> <%=couponList.get(i).getCoupon_condition() %></p>
-
 		
-	<% 
-	String couponName = couponList.get(i).getCoupon_name();
-	int couponNum = couponList.get(i).getCoupon_num();
-	if(item_category.equals(couponList.get(i).getCoupon_condition())){ %>
-		<input type="hidden" id="coupNum" value="<%=couponNum%>">
-	 <input type="button" id="coup_btn" value="<%=couponName%>" onclick= "cpClick();" >
+		<span>카테고리 : <%=item_category%></span>
+		
+		<input type="hidden" id="loginId" value="<%=loginId%>">
 
-	<% }
+	<%
+		if (couponList != null) {
+			for (int i = 0; i < couponList.size(); i++) {
+				int realprice = item.getProduct_price();
+				// saleprice가 있을 시
+			if(item.getProduct_sale_price()!=0){
+				int discount = couponList.get(i).getCoupon_price();
+				
+				int saleprice = realprice - ((realprice * discount) / 100);
+
+				String couponName = couponList.get(i).getCoupon_name();
+				int couponNum = couponList.get(i).getCoupon_num();
+				
+				
+					// 클릭한 상품의 카테고리에 쿠폰이 있을 때 
+					if (item_category.equals(couponList.get(i).getCoupon_condition())) {
+	%>
+
+			<span style="text-decoration: line-through;color:grey;">실가격 : <%=realprice%></span>
+			<span>할인가격 :  <%=saleprice %></span> 
+			<input type="hidden" id="coupNum" value="<%=couponNum%>">
+			<input type="button" id="coup_btn" value="<%=couponName%>" onclick= "cpClick();" >
+
+					<% }else{ // 클릭한 상품의 카테고리에 쿠폰이 없을때 %> 
+	 		<span style="text-decoration: line-through;color:grey;">실가격 : <%=realprice%></span>
+			<span>할인가격 :  <%=saleprice %></span> 
+			<input type="hidden" id="coupNum" value="<%=couponNum%>">
 	 
-	}
+	 
+	<%}
+			}else{// 0일때 %>
+			<span>실가격 : <%=realprice%></span>
+	<%}
+				}
+			
 	}else{ %>
 			일치하는 상품이 없습니다 
 			<%}%>
