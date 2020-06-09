@@ -9,7 +9,9 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import dao.CouponDAO;
+import dao.EventDAO;
 import vo.CouponBean;
+import vo.EventBean;
 
 public class CouponService {
 
@@ -72,7 +74,7 @@ public class CouponService {
 	}
 
 	// 쿠폰 발급 받기
-	public Boolean couponIssued(String id,String CouponName) {
+	public Boolean couponIssued(String id,int CouponNum) {
 		Boolean isSuccess = false;
 		
 		Connection con = getConnection();
@@ -80,7 +82,7 @@ public class CouponService {
 		CouponDAO couponDAO = CouponDAO.getInstance();	
 		couponDAO.setConnection(con);
 		
-		int issuedSucc = couponDAO.issuedCoupon(id,CouponName);
+		int issuedSucc = couponDAO.issuedCoupon(id,CouponNum);
 		
 		if(issuedSucc>0) {
 			commit(con);
@@ -92,6 +94,23 @@ public class CouponService {
 		
 		
 		return isSuccess;
+	}
+	
+	
+	// 모든 리스트 다 불러오기 
+	public ArrayList<CouponBean> getCouponAllList() {
+		System.out.println("couponBean - getCouponAllList");
+		ArrayList<CouponBean> couponList = null;
+		
+		Connection con = getConnection();
+		CouponDAO couponDAO = CouponDAO.getInstance();	
+		couponDAO.setConnection(con);
+		
+		couponList = couponDAO.selectEventItemList();
+		
+		close(con);
+		
+		return couponList;
 	}
 
 	

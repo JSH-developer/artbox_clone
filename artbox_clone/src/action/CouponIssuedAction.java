@@ -17,11 +17,11 @@ public class CouponIssuedAction implements Action {
 		ActionForward forward = null;
 		
 		String getid = request.getParameter("getid");
-		String getCouponName = request.getParameter("couponname");
-		System.out.println(getid+" : "+getCouponName);
+		int getCouponNum = Integer.parseInt(request.getParameter("couponNum"));
+		System.out.println(getid+" : "+getCouponNum);
 		
 		CouponService couponService = new CouponService();
-		Boolean isSuceess = couponService.couponIssued(getid,getCouponName);
+		Boolean isSuceess = couponService.couponIssued(getid,getCouponNum);
 		
 		if(!isSuceess) {
 			response.setContentType("text/html;charset=UTF-8");

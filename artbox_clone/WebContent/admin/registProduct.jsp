@@ -129,7 +129,7 @@ $(document).ready(function() {
 	<tr><th>상품가격</th><td><input type="text" name="product_price"></td></tr>
 	<tr><th>상품상세</th><td style="margin-left:100px"><textarea id="summernote" name="product_description"></textarea></td></tr>
 	<tr><th>재고수량</th><td><input type="number" name="product_stock_count"></td></tr>
-	<tr><th>세일가격</th><td><input type="text" name="product_sale_price"></td></tr>
+	<tr><th>세일가격</th><td><input type="text" name="product_sale_price" value="0"></td></tr>
 	<tr><th>대표 이미지</th><td><input type="file" name="product_image" accept="image/*" multiple="multiple"></td></tr>
 	<tr><th>대표 이미지2</th><td><input type="file" name="product_image2" accept="image/*"></td></tr>
 	<tr><th>키워드 입력</th><td><input type="text" name="product_keywords" placeholder=" ex) #키워드1 #키워드2"></td></tr>

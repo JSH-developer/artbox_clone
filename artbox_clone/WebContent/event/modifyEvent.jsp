@@ -1,5 +1,10 @@
+<%@page import="vo.EventBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" %>
+
+<%EventBean eventArticle=(EventBean)request.getAttribute("eventArticle"); %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,26 +86,28 @@ $(document).ready(function() {
 <div class="admin_nav_wrap">
 <ul class="admin_nav">
 	<li><a href="Home.admin">관리자 홈</a></li>
-	<li><a href="#">이벤트 목록</a></li>
- 	<li><a href="#">이벤트 등록</a></li>
- 	<li><a href="#">이벤트 수정</a></li>
+	<li><a href="#">상품 목록</a></li>
+ 	<li><a href="#">상품 등록</a></li>
+ 	<li><a href="#">상품 수정</a></li>
 </ul>
 </div>
 <br>
 
 <h1>이벤트 수정</h1>
-<form action="EventWritePro.event" method="post" enctype="multipart/form-data">
+<form action="EventModifyPro.event" method="post" enctype="multipart/form-data">
 <table class="reg_tab">
-	<tr><th>이벤트 제목</th><td><input type="text" name="event_title"></td></tr>
-	<tr><th>이벤트 내용</th><td style="margin-left:100px"><textarea id="summernote" name="event_content"></textarea></td></tr>
-	<tr><th>이벤트 할인%</th><td><input type="text" name="event_discount"></td></tr>
-	<tr><th>이벤트 조건</th><td><input type="text" name="event_condition"></td></tr>
-	<tr><th>이벤트 시작일</th><td><input type="date" name="event_start"></td></tr>
-	<tr><th>이벤트 마감일</th><td><input type="date" name="event_limit"></td></tr>
-	<tr><th>대표 이미지</th><td><input type="file" name="event_img" accept="image/*"></td></tr>
-	<tr><th>이벤트 카테고리</th><td><input type="text" name="event_category"></td></tr>
+	<tr><th>이벤트 제목</th><td><input type="text" name="event_title" value="<%=eventArticle.getEvent_titie() %>"></td></tr>
+	<tr><th>이벤트 내용</th><td style="margin-left:100px"><textarea id="summernote" name="event_content" value="<%=eventArticle.getEvent_content() %>"></textarea></td></tr>
+	<tr><th>이벤트 할인%</th><td><input type="text" name="event_discount" value="<%=eventArticle.getDiscount() %>"></td></tr>
+	<tr><th>이벤트 조건</th><td><input type="text" name="event_condition" value="<%=eventArticle.getCondition() %>"></td></tr>
+	<tr><th>이벤트 시작일</th><td><input type="date" name="event_start" value="<%=eventArticle.getEvent_start() %>"></td></tr>
+	<tr><th>이벤트 마감일</th><td><input type="date" name="event_limit" value="<%=eventArticle.getEvent_limit() %>"></td></tr>
+	<tr><th>대표 이미지</th><td><input type="file" name="event_img" accept="image/*" value="<%=eventArticle.getEvent_img() %>"></td></tr>
+	
 	<tr class="btn_tr"><td colspan="2"><input type="submit" value="이벤트 등록"></td></tr>
 </table>
+<input type="hidden" name="event_num" value="<%=eventArticle.getEvent_num() %>">
+<% System.out.println(eventArticle.getEvent_num()); %>
 </form>
 </div>
 <p><% out.print(request.getRealPath("/upload")); %></p>

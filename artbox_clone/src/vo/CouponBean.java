@@ -1,9 +1,8 @@
 package vo;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 public class CouponBean {
+	
+	private int coupon_num;
 	
 	private String coupon_name;
 	private int coupon_price;
@@ -18,8 +17,12 @@ public class CouponBean {
 	private String coupon_category;
 	
 	
-
-
+	public int getCoupon_num() {
+		return coupon_num;
+	}
+	public void setCoupon_num(int coupon_num) {
+		this.coupon_num = coupon_num;
+	}
 	public String getCoupon_category() {
 		return coupon_category;
 	}

@@ -1,6 +1,8 @@
 package svc;
 
 import vo.EventBean;
+import vo.ProductBean;
+
 import static db.jdbcUtil.*;
 
 import java.sql.Connection;
@@ -11,6 +13,7 @@ import dao.EventDAO;
 
 public class EventService {
 
+	// 이벤트 등록
 	public boolean registEvent(EventBean eventBean) {
 		boolean writeSuccess = false;
 
@@ -38,10 +41,10 @@ public class EventService {
 		int listCount = 0;
 		
 		Connection con = getConnection();
-		EventDAO boardDAO = EventDAO.getInstance();
-		boardDAO.setConnection(con);
+		EventDAO eventDAO = EventDAO.getInstance();
+		eventDAO.setConnection(con);
 		
-		listCount = boardDAO.selectListCount(); // create함
+		listCount = eventDAO.selectListCount(); // create함
 		
 		close(con);
 		
@@ -63,5 +66,81 @@ public class EventService {
 		
 		return articleList;
 	}
+	
+	// 클릭한 이벤트
+		public EventBean getEventArticle(int eBoard_Num) {
+			System.out.println("EventService - getEventArticle : "+eBoard_Num);
+			
+			Connection con = getConnection();
+			EventDAO eventDAO = EventDAO.getInstance();
+			eventDAO.setConnection(con);
+			
+			EventBean article = eventDAO.selectEventArticle(eBoard_Num);
+			
+			close(con);
+			
+			return article;
+		}
+	
+	
+	// 클릭한 이벤트 카테고리 상품 카운트
+	public int selectEventItemListCount(String condition) {
+		System.out.println("EventService - getEventViewListCount"+condition);
+		int listCount = 0;
+		
+		Connection con = getConnection();
+		EventDAO eventDAO = EventDAO.getInstance();
+		eventDAO.setConnection(con);
+		
+		listCount = eventDAO.selectEventItemListCount(condition); // create함
+		
+		close(con);
+		
+		return listCount;
+	}
+
+	// 클릭한 이벤트 카테고리 상품
+	public ArrayList<ProductBean> getEventItemList(int page, int limit,String condition) {
+		ArrayList<ProductBean> articleList = null;
+		
+		Connection con = getConnection();
+		EventDAO eventDAO = EventDAO.getInstance();
+		eventDAO.setConnection(con);
+		
+		articleList = eventDAO.selectEventItemList(page,limit,condition);
+		
+		close(con);
+		
+		return articleList;
+	}
+
+	// 이벤트 수정
+	public boolean updateEvent(EventBean eventBean) {
+		boolean modifySuccess = false;
+
+		Connection con = getConnection();
+		
+		EventDAO eventDAO = EventDAO.getInstance();
+		eventDAO.setConnection(con);
+		
+		int isSuccess = eventDAO.modifyEvent(eventBean);
+		
+		if(isSuccess>0) {
+			modifySuccess = true;
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		
+		return modifySuccess;
+	}
+
+
+
+	
+	
+	
+	
 
 }

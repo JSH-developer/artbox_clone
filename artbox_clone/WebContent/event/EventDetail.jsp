@@ -1,14 +1,14 @@
 
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.util.Date"%>
+<%@page import="vo.ProductBean"%>
 <%@page import="vo.PageInfo"%>
 <%@page import="vo.EventBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%
-	ArrayList<EventBean> articleList=(ArrayList<EventBean>)request.getAttribute("articleList");
+ <%
+	ArrayList<ProductBean> itemList=(ArrayList<ProductBean>)request.getAttribute("itemList");
+ 	EventBean eventArticle=(EventBean)request.getAttribute("eventArticle");
     PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 	int listCount=pageInfo.getListCount();
 	int nowPage=pageInfo.getPage();
@@ -24,10 +24,14 @@
 <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/css/event/event.css" rel="stylesheet" type="text/css">
 <style>
-p{
+span{
+font-weight: bold;
 text-align : center;
-margin:0;
-font-size: 18px;}
+}
+
+p{
+text-align : center;margin:0;
+font-size: 20px;}
 
 </style>
 </head>
@@ -44,7 +48,7 @@ font-size: 18px;}
 
 <div id="event_main">
 		<ul>
-			<li class="eventMiddle"><a href="EventList.event" onclick="GA_event('HEAD', '최상단 메뉴', '인형/토이');">기획전</a></li>
+			<li class="eventMiddle"><a href="${pageContext.request.contextPath}/event/basic.jsp" onclick="GA_event('HEAD', '최상단 메뉴', '인형/토이');">기획전</a></li>
 			<li class="eventMiddle"><a href="/Home/Shop/Category.asp?cdl=500&amp;cdm=256" onclick="GA_event('HEAD', '최상단 메뉴', '문구');">쿠폰존</a></li>
 			<li class="eventMiddle"><a href="${pageContext.request.contextPath}/event/basic.jsp" onclick="GA_event('HEAD', '최상단 메뉴', '패션');">타임이벤트</a></li>
 			<li class="eventMiddle"><a href="EventWriteForm.event" onclick="GA_event('HEAD', '최상단 메뉴', '패션');">이벤트 등록</a></li>
@@ -65,67 +69,73 @@ font-size: 18px;}
 <!-- </div> -->
 
 <!-- Grid -->
+
+ <div>
+ <table style="width: 1200px;height: auto;">
+<tr>
+<th rowspan="4">
+ <img src="${pageContext.request.contextPath}/Images/event/<%=eventArticle.getEvent_img() %>" width="500px" height="250px"> 
+				</th>
+<th>타이틀</th>
+<td><%= eventArticle.getEvent_titie()%></td>
+</tr>
+<tr>
+<th>조건</th>
+<td><%= eventArticle.getCondition()%></td>
+</tr>
+<tr>
+<th>할인율</th>
+<td><%= eventArticle.getDiscount()%>%</td>
+</tr>
+<tr>
+<th>기간</th>
+<td><%= eventArticle.getEvent_start()%>~<%= eventArticle.getEvent_limit()%></td>
+</tr>
+</table>
+ <a href="EventModifyForm.event?board_num=<%=eventArticle.getEvent_num() %>">수정</a>
+<% System.out.println("EventDetail - eventNum"+eventArticle.getEvent_num()); %>
+ </div>
  <div class="eventContainer">
 
 
+
 		<%
-		if(articleList != null && listCount > 0){
-			// 오늘 날짜 구함
-			Date nowDate = new Date();
-			SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
-			int nowwDate = Integer.parseInt(sf.format(nowDate));
+		if(eventArticle.getEvent_category().equals("coup_event") || eventArticle.getEvent_category().equals("sale_event")){
+		if(itemList != null && listCount > 0){
+		for(int i=0;i<itemList.size();i++){
+			int discount = eventArticle.getDiscount();
+			int realprice = itemList.get(i).getProduct_price();
+			int saleprice = realprice - ((realprice * discount) /100);
+			%>
 			
-		for(int i=0;i<articleList.size();i++){
-			// 저장된 이벤트 날짜 구해서 - 빼고 계산
-			String startdate = articleList.get(i).getEvent_start().replaceAll("-","");
-			String limitdate = articleList.get(i).getEvent_limit().replaceAll("-","");
-			int startdate1 = Integer.parseInt(startdate);
-			int limitdate1 = Integer.parseInt(limitdate);
-			// 오늘 날짜와 이벤트 날짜 비교해서 이벤트 띄우기
-			if( startdate1 <= nowwDate && limitdate1 >= nowwDate){
-		%>
-		
-		<div class="event_content" 
-		onclick="location.href='EventDetail.event?board_num=<%=articleList.get(i).getEvent_num() %>&page=<%=nowPage%>&condition=<%=articleList.get(i).getCondition()%>'">
-			<div style="margin: 0 auto;">
-				 
-				<p><img src="${pageContext.request.contextPath}/Images/event/<%=articleList.get(i).getEvent_img() %>" width="360px" height="250px"></p>
-				<p><span style="font-weight: bold;color: #262729; "><%=articleList.get(i).getEvent_titie()%></span>
-				<span style="color:red;">[<%=articleList.get(i).getDiscount()%>%]</span></p>
-				<p style="color: grey;font-size: 14px;"><%=articleList.get(i).getEvent_start() %>~<%=articleList.get(i).getEvent_limit() %></p>
+		<div class="event_content" onclick="location.href='Eventproductview.event?product_num=<%=itemList.get(i).getProduct_num() %>&page=<%=nowPage%>'">
+			<div>
+				<img src="${pageContext.request.contextPath}/Images/event/<%=itemList.get(i).getProduct_image() %>" width="358px"
+				height="250px">
+				<p><%=itemList.get(i).getProduct_name()%></p>
+				<p style="color:red;"><%=itemList.get(i).getProduct_category_code()%></p>
+				<p><span style="text-decoration: line-through;color: grey;"><%=realprice %>원</span>&nbsp;
+				<span style="color: black;"><%=saleprice %>원</span>&nbsp;
+				<span style="color:red;">[<%=discount %>%]</span></p>
+				
 			</div>
 
 		</div>
-		
-		
-		<%}else{
-			// 종료된 이벤트 내용 %>
-				<div style="margin: 0 auto;">
-				 
-				<p><img src="${pageContext.request.contextPath}/Images/event/<%=articleList.get(i).getEvent_img() %>" width="360px" height="250px"
-				style="color: grey;"></p>
-				<p><span style="font-weight: bold;color: #262729; "><%=articleList.get(i).getEvent_titie()%></span>
-				<span style="color:red;">[<%=articleList.get(i).getDiscount()%>%]</span></p>
-				<p style="color: grey;font-size: 14px;"><%=articleList.get(i).getEvent_start() %>~<%=articleList.get(i).getEvent_limit() %></p>
-			</div>
-		<%}} %>
-		
-		
-		
+		<%} %>
 	</div>
 
 				<section id="pageList">
 		<%if(nowPage<=1){ %>
 		[이전]&nbsp;
 		<%}else{ %>
-		<a href="EventList.event?page=<%=nowPage-1 %>">[이전]</a>&nbsp;
+		<a href="EventDetail.event?page=<%=nowPage-1 %>">[이전]</a>&nbsp;
 		<%} %>
 
 		<%for(int a=startPage;a<=endPage;a++){
 				if(a==nowPage){%>
 		[<%=a %>]
 		<%}else{ %>
-		<a href="EventList.event?page=<%=a %>">[<%=a %>]
+		<a href="EventDetail.event?page=<%=a %>">[<%=a %>]
 		</a>&nbsp;
 		<%} %>
 		<%} %>
@@ -133,7 +143,7 @@ font-size: 18px;}
 		<%if(nowPage>=maxPage){ %>
 		[다음]
 		<%}else{ %>
-		<a href="EventList.event?page=<%=nowPage+1 %>">[다음]</a>
+		<a href="EventDetail.event?page=<%=nowPage+1 %>">[다음]</a>
 		<%} %>
 	</section>
 	<%
@@ -143,8 +153,9 @@ font-size: 18px;}
 	%>
 	<section id="emptyArea">등록된 글이 없습니다.</section>
 	<%
-	}
-%>
+	}}else{ // 타임이벤트 들어갈 자리%>
+		
+<%}%> 
 </div>
  <!-- Grid -->
  

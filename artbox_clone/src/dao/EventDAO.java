@@ -6,9 +6,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import vo.EventBean;
+import vo.ProductBean;
 
 public class EventDAO {
 	// 1.
@@ -36,20 +39,18 @@ public class EventDAO {
 		
 	}
 
+	// 이벤트 등록 / 상품 할인 수정
 	public int registEvent(EventBean eventBean) {
 		
 		int insertCount = 0;
+		int updateCount = 0;
 		
 		PreparedStatement pstmt = null;
 		
-		System.out.println( eventBean.getEvent_titie());
-		System.out.println(eventBean.getEvent_content());
-		System.out.println(eventBean.getEvent_time());
 
 		try {
-			System.out.println("insertArticle- try ");
 			
-			String sql = "INSERT INTO event_board VALUES(null,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO event_board VALUES(null,?,?,?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, eventBean.getEvent_titie());
 			pstmt.setString(2, eventBean.getEvent_content());
@@ -59,11 +60,23 @@ public class EventDAO {
 			pstmt.setString(6, eventBean.getEvent_start());
 			pstmt.setString(7, eventBean.getEvent_limit());
 			pstmt.setString(8, eventBean.getEvent_img());
+			pstmt.setString(9, eventBean.getEvent_category());
 			
 			
 			insertCount = pstmt.executeUpdate();
 			
+			if(eventBean.getDiscount()!=0) {
+			sql = "UPDATE product SET sale_price=? WHERE category_code=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, eventBean.getDiscount());
+			pstmt.setString(2, eventBean.getCondition());
 			
+			updateCount = pstmt.executeUpdate();
+			if(updateCount>0) {
+				System.out.println("상품 할인 적용 성공");
+			}
+			
+			}
 		} catch (SQLException e) {
 			System.out.println("EventDAO- registEvent()실패!"+e.getMessage());
 		} finally {
@@ -75,6 +88,7 @@ public class EventDAO {
 		return insertCount;
 	}
 	
+	// 이벤트 갯수
 	public int selectListCount() {
 		int listCount = 0;
 		
@@ -101,9 +115,11 @@ public class EventDAO {
 		return listCount;
 	}
 
+	// 이벤트 리스트
 	public ArrayList<EventBean> selectArticleList(int page, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		int updateCount = 0;
 		
 		int startRow = (page -1)*limit;
 		
@@ -114,25 +130,46 @@ public class EventDAO {
 			// 게시물 갯수 조회할 SQL 구문 작성
 			// => 정렬 : board_re_ref 기준 내림차순, board_re_seq 기준 오름차순
 			// => limit : 시작 행 번호부터 지정된 게시물 갯수 만큼 제한
-	String sql = "SELECT * FROM event_board LIMIT ?,?";
+			String sql = "SELECT * FROM event_board ORDER BY num desc LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, page);
+			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, limit);
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				EventBean rowData = new EventBean();
+				rowData.setEvent_num(rs.getInt("num"));
 				rowData.setEvent_titie(rs.getString("event_title"));
 				rowData.setEvent_content(rs.getString("event_content"));
 				rowData.setEvent_time(rs.getTimestamp("event_time"));
-				rowData.setCondition(rs.getString("condition"));
-				rowData.setDiscount(rs.getInt("discount_per"));
+				rowData.setCondition(rs.getString("event_condition"));
+				rowData.setDiscount(rs.getInt("event_discount"));
 				rowData.setEvent_start(rs.getString("event_start"));
 				rowData.setEvent_limit(rs.getString("event_limit"));
 				rowData.setEvent_img(rs.getString("event_img"));
+				rowData.setEvent_category(rs.getString("event_category"));
 			
 				articleList.add(rowData);
+				
+				Date nowDate = new Date();
+				SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+				String limitdate = rs.getString("event_limit").replaceAll("-","");
+				int limitdate1 = Integer.parseInt(limitdate);
+				int nowwDate = Integer.parseInt(sf.format(nowDate));
+				
+				if(nowwDate>limitdate1 ) {
+					sql = "UPDATE product SET sale_price=0 WHERE category_code=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, rs.getString("event_condition"));
+					
+					updateCount = pstmt.executeUpdate();
+					
+					if(updateCount>0) {
+						System.out.println("상품 할인 내리기 성공");
+					}
+				}
+				
 			}
 		} catch (SQLException e) {
 			System.out.println("EventDAO- selectArticleList()실패!"+e.getMessage());
@@ -143,6 +180,171 @@ public class EventDAO {
 		
 		return articleList;
 	}
+	
+	// 클릭한 이벤트
+		public EventBean selectEventArticle(int eBoard_Num) {
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			EventBean eventArticle =  null;
+			
+			try {
+				String sql = "SELECT * FROM event_board WHERE num=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, eBoard_Num);
+				rs= pstmt.executeQuery();
+				
+				if(rs.next()) {
+					eventArticle = new EventBean();
+					eventArticle.setEvent_num(eBoard_Num);
+					eventArticle.setEvent_titie(rs.getString("event_title"));
+					eventArticle.setEvent_content(rs.getString("event_content"));
+					eventArticle.setEvent_time(rs.getTimestamp("event_time"));
+					eventArticle.setCondition(rs.getString("event_condition"));
+					eventArticle.setDiscount(rs.getInt("event_discount"));
+					eventArticle.setEvent_start(rs.getString("event_start"));
+					eventArticle.setEvent_limit(rs.getString("event_limit"));
+					eventArticle.setEvent_img(rs.getString("event_img"));
+					eventArticle.setEvent_category(rs.getString("event_category"));
+					
+					System.out.println(rs.getString("event_img"));
+				}
+				
+			} catch (SQLException e) {
+				System.out.println("EventDAO- selectEventArticle()실패!"+e.getMessage());
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			
+			
+			
+			return eventArticle;
+		}
+
+	// 클릭한 이벤트 카테고리에 저장된 상품 갯수
+	public int selectEventItemListCount(String condition) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT COUNT(num) FROM product WHERE category_code like ?";
+			pstmt= con.prepareStatement(sql);
+			pstmt.setString(1, condition);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				System.out.println(rs.getInt(1));
+				listCount = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("EventDAO- selectEventItemListCount()실패!"+e.getMessage());
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return listCount;
+	}
+
+	// 클릭한 이벤트의 상품 리스트
+	public ArrayList<ProductBean> selectEventItemList(int page, int limit, String condition) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int startRow = (page -1)*limit;
+		
+		ArrayList<ProductBean> listProduct = new ArrayList<ProductBean>();
+		
+		
+		try {
+			String sql = "SELECT * FROM product WHERE category_code like ? LIMIT ?,?";
+			ProductBean productBean = null;
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, condition);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, limit);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				productBean = new ProductBean();
+				productBean.setProduct_num(rs.getInt("num"));
+				productBean.setProduct_code(rs.getString("code"));
+				productBean.setProduct_name(rs.getString("name"));
+				productBean.setProduct_image(rs.getString("image"));
+				productBean.setProduct_image2(rs.getString("image2"));
+				productBean.setProduct_description(rs.getString("description"));
+				productBean.setProduct_price(rs.getInt("price"));
+				productBean.setProduct_brand(rs.getString("brand"));
+				productBean.setProduct_stock_count(rs.getInt("stock_count"));
+				productBean.setProduct_sale_price(rs.getInt("sale_price"));
+				productBean.setProduct_keywords(rs.getString("keywords"));
+				productBean.setProduct_regdate(rs.getTimestamp("regdate"));
+				productBean.setProduct_category_code(rs.getString("category_code"));
+				productBean.setProduct_option_code(rs.getString("option_code"));
+				listProduct.add(productBean);
+			}
+		} catch (SQLException e) {
+			System.out.println("EventDAO- selectEventItemList()실패!"+e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listProduct;
+	}
+
+	// 이벤트 수정
+	public int modifyEvent(EventBean eventBean) {
+		int modifyCount = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		System.out.println( eventBean.getEvent_titie());
+		System.out.println( eventBean.getEvent_content());
+		System.out.println(eventBean.getCondition());
+		System.out.println(eventBean.getDiscount());
+		System.out.println (eventBean.getEvent_start());
+		System.out.println(eventBean.getEvent_limit());
+		System.out.println( eventBean.getEvent_img());
+		System.out.println(eventBean.getEvent_num());
+
+		try {
+			System.out.println("modifyEvent- try ");
+			
+			String sql = "UPDATE event_board SET event_title=?,event_content=?,event_condition=?,event_discount=?,event_start=?,event_limit=?,event_img=? WHERE num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, eventBean.getEvent_titie());
+			pstmt.setString(2, eventBean.getEvent_content());
+			pstmt.setString(3, eventBean.getCondition());
+			pstmt.setInt(4, eventBean.getDiscount());
+			pstmt.setString(5, eventBean.getEvent_start());
+			pstmt.setString(6, eventBean.getEvent_limit());
+			pstmt.setString(7, eventBean.getEvent_img());
+			pstmt.setInt(8, eventBean.getEvent_num());
+			
+			
+			modifyCount = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			System.out.println("EventDAO- modifyEvent()실패!"+e.getMessage());
+		} finally {
+			close(pstmt);
+		}
+		
+		return modifyCount;
+	}
+
+
+	
 
 	
 	

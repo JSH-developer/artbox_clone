@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class EventBean {
 	
-	private String event_num;
+	private int event_num;
 	private String event_titie;
 	private String event_content;
 	private Timestamp event_time;
@@ -12,12 +12,12 @@ public class EventBean {
 	private int discount;
 	private String event_start;
 	private String event_limit;
-	private String event_img;
-	
-	
+	private String event_img,event_category;
+
+
 	public EventBean() {}
 
-	public EventBean(String event_num, String event_titie, String event_content, Timestamp event_time, String condition,
+	public EventBean(int event_num, String event_titie, String event_content, Timestamp event_time, String condition,
 			int discount, String event_start, String event_limit, String event_img) {
 		super();
 		this.event_num = event_num;
@@ -31,11 +31,11 @@ public class EventBean {
 		this.event_img = event_img;
 	}
 
-	public String getEvent_num() {
+	public int getEvent_num() {
 		return event_num;
 	}
 
-	public void setEvent_num(String event_num) {
+	public void setEvent_num(int event_num) {
 		this.event_num = event_num;
 	}
 
@@ -115,6 +115,13 @@ public class EventBean {
 
 	public void setEvent_img(String event_img) {
 		this.event_img = event_img;
+	}
+	public String getEvent_category() {
+		return event_category;
+	}
+
+	public void setEvent_category(String event_category) {
+		this.event_category = event_category;
 	}
 	
 	
