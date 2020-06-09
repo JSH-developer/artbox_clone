@@ -27,7 +27,6 @@ public class MemberFrontController extends HttpServlet {
     	request.setCharacterEncoding("UTF-8");
     	
     	String command = request.getServletPath();
-    	System.out.println(command);
     	Action action = null;
     	ActionForward forward = null;
     	
