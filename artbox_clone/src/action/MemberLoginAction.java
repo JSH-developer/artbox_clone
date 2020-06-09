@@ -1,28 +1,34 @@
 package action;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import svc.MemberBeanService;
 import svc.MemberLoginService;
-import vo.ActionForward;
+import vo.MemberBean;
 
-public class MemberLoginAction implements Action {
+public class MemberLoginAction {
 
-	@Override
-	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public int execute(String id, String pw, HttpServletRequest request) {
 		System.out.println("MemberLoginAction");
-		ActionForward forward = null;
-		
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
-//		System.out.println(id +", "+pw);
-		
 		MemberLoginService MemberLoginService = new MemberLoginService();
 		
-		boolean LoginSuccess = MemberLoginService.LoginSuccess(id, pw);
+		int dbid = MemberLoginService.LoginSuccess(id, pw);
+		if(dbid == 1) {
+			MemberBeanService MemberBeanService = new MemberBeanService();
+			
+			
+			MemberBean bb = MemberBeanService.myName(id);
+			String name = bb.getName();
+			HttpSession session = request.getSession();
+			session.setAttribute("name", name);
+			session.setAttribute("id", id);
+			System.out.println(name);
+		}
 		
-		
-		return forward;
+		return dbid;
 	}
+	
+	
 
 }

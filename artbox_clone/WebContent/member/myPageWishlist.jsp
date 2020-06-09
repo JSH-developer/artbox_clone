@@ -5,19 +5,20 @@
 <head>
 <meta charset="UTF-8">
 <title>ARTBOX</title>
-<link href="../css/member/myPage.css" rel="stylesheet">
+<link href="css/member/myPage.css" rel="stylesheet">
 <script src="../js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
-$(document).ready(function(){  
-	  $(".MInfo").click(function(){    
-	   $(".MInfo").addClass("on");  
-	   $(".Pop_Menu").slideToggle("fast");   
-	  });
-	 
-	  $(".select .sub").mouseleave(function() {
-	   $(".MInfo").removeClass("on"); 
-	  $(this).hide();
-	 });
+
+	$(document).ready(function() {
+// 		$(".MInfo").click(function() {
+// 			$(".MInfo").addClass("on");
+// 			$(".Pop_Menu").slideToggle("fast");
+// 		});
+
+		$(".select .sub").mouseleave(function() {
+			$(".MInfo").removeClass("on");
+			$(this).hide();
+		});
 	});
 </script>
 </head>
@@ -25,21 +26,21 @@ $(document).ready(function(){
 	<div class = "body_box">
 		<div class="top_box">
 			<div class="whoes">
-				<span class="MNmSpan">안녕하세요, <span class="MNm">강상민</span> 님
-				</span> <span class="MInfo">회원정보
-					<div class="Pop_Menu" style="display: none;">
-						<ul>
-							<a href="#" onclick="GA_event('마이페이지', '상단 메뉴_팝업', '회원정보 변경');"><li>회원정보
-									변경</li></a>
-							<a href="#" onclick="GA_event('마이페이지', '상단 메뉴_팝업', '나의 배송지 관리');"><li>나의
-									배송지 관리</li></a>
+				<span class="MNmSpan">안녕하세요, <span class="MNm">${name}</span> 님</span> 
+				<span class="MInfo">회원정보
+<!-- 					<div class="Pop_Menu" style="display: none;"> -->
+<!-- 						<ul> -->
+<!-- 							<a href="#" onclick="GA_event('마이페이지', '상단 메뉴_팝업', '회원정보 변경');"><li>회원정보 -->
+<!-- 									변경</li></a> -->
+<!-- 							<a href="#" onclick="GA_event('마이페이지', '상단 메뉴_팝업', '나의 배송지 관리');"><li>나의 -->
+<!-- 									배송지 관리</li></a> -->
 
-							<a href="#"
-								onclick="GA_event('마이페이지', '상단 메뉴_팝업', '나의 환불계좌 관리');"><li>나의
-									환불계좌 관리</li></a>
-							<a href="#" onclick="GA_event('마이페이지', '상단 메뉴_팝업', '로그아웃');"><li>로그아웃</li></a>
-						</ul>
-					</div>
+<!-- 							<a href="#" -->
+<!-- 								onclick="GA_event('마이페이지', '상단 메뉴_팝업', '나의 환불계좌 관리');"><li>나의 -->
+<!-- 									환불계좌 관리</li></a> -->
+<!-- 							<a href="#" onclick="GA_event('마이페이지', '상단 메뉴_팝업', '로그아웃');"><li>로그아웃</li></a> -->
+<!-- 						</ul> -->
+<!-- 					</div> -->
 				</span><a href="#" onclick="GA_event('마이페이지_PC', '상단 메뉴', '이벤트 참여/당첨 내역');"><span
 					class="MEvent">이벤트 참여/당첨 내역</span></a>
 
@@ -51,7 +52,7 @@ $(document).ready(function(){
 							class="GImg" src="../Images/img/등급.png" /> <span class="GSee grade5">[등급혜택보기]</span>
 					</li></a>
 					<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '꿈캔디 내역');"><li
-						class="Tbox2"><img class="CImg" src="../Images/img/포인트.png" /> <span
+						class="Tbox2"><img class="CImg" src="Images/img/포인트.png" /> <span
 							class="CCandy">0</span></li></a>
 					<li class="Tbox3">
 						<ul>
@@ -59,9 +60,9 @@ $(document).ready(function(){
 									<span>주문/배송</span><span>0</span>
 							</li></a>
 							<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '쿠폰');"><li>
-									<span>쿠폰</span><span>4</span>
+									<span>쿠폰</span><span>0</span>
 							</li></a>
-							<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '쿠매후기');"><li>
+							<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '구매후기');"><li>
 									<span>구매후기</span><span>0</span>
 							</li></a>
 						</ul>
@@ -73,11 +74,11 @@ $(document).ready(function(){
 		</div>
 		<div class="MenuBar_Box">
 			<ul>
-				<li onclick="location.href='myPageOrders.jsp'">주문/배송</li>
-				<li onclick="location.href='myPageRe.jsp'">취소/반품/교환</li>
-				<li onclick="location.href='myPageWishlist.jsp'" class="on">위시리스트</li>
-				<li onclick="location.href='myPageQ&A.jsp'">상품Q&A</li>
-				<li onclick="location.href='myPageQuestion.jsp'">1:1 문의/상담</li>
+				<li onclick="location.href='myPageOrders.member'">주문/배송</li>
+				<li onclick="location.href='myPageRe.member'">취소/반품/교환</li>
+				<li onclick="location.href='myPageWishlist.member'" class="on">위시리스트</li>
+				<li onclick="location.href='myPageQ&A.member'">상품Q&A</li>
+				<li onclick="location.href='myPageQuestion.member'">1:1 문의/상담</li>
 			</ul>
 		</div>
 

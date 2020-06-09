@@ -6,7 +6,7 @@
 
 /*  a, input, textarea, select {outline:none; -webkit-appearance: none; -moz-appearance: none; border-radius:0;} */ 
 
-a:link, a:visited, a:active, a:hover { text-decoration:none; color:#808080; }
+a:link, a:visited, a:active, a:hover { text-decoration:none; color:#777777; }
 /* a:hover                              { } */
 /* a.privacy {font-weight:bold;color:#3a4b59;} */
 

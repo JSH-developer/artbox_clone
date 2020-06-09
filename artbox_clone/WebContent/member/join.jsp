@@ -4,10 +4,11 @@
 <html lang="ko">
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<link href="../css/member/join.css" rel="stylesheet" type="text/css">
-<link href="../css/front.css" rel="stylesheet" type="text/css">
-<link href="../css/slide.css" rel="stylesheet" type="text/css">
-<link href="../css/post.css" rel="stylesheet" type="text/css">
+<link href="css/member/join.css" rel="stylesheet" type="text/css">
+<link href="css/front.css" rel="stylesheet" type="text/css">
+<link href="css/slide.css" rel="stylesheet" type="text/css">
+<link href="css/post.css" rel="stylesheet" type="text/css">
+<title>ARTBOX</title>
 </head>
 <body>
 
@@ -96,11 +97,10 @@
 		
 		</div>
 <!-- 							------------------------------- 정규표현식 -----------------------------------          -->
-<script src="../js/jquery-3.5.0.js"></script>
+<script src="js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 
 		
-// 		var idcheck = /^[\w]{4,16}$/;
 		var idcheck = /^(?!(?:[0-9]+)$)([a-zA-Z]|[0-9a-zA-Z]){4,16}$/;
 		var pwcheck = /^(?!(?:[0-9]+)$)([a-zA-Z]|[0-9a-zA-Z]){4,16}$/;
 		var birthcheck = /^[0-9]{8}$/;
@@ -357,7 +357,6 @@
         }).open();
     }
 </script>
-	
 	
 <!-- 		<a class="JoinButton" href="javascript:fnJoin();">가입하기</a> -->
 		<div class="JoinButton">

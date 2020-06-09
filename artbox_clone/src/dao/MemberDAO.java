@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.security.auth.login.LoginException;
+
 import static db.jdbcUtil.*;
 
 import vo.MemberBean;
@@ -85,8 +87,8 @@ public class MemberDAO {
 		return idcheck;
 	}
 
-	public boolean LoginSuccess(String id, String pw) {
-		boolean LoginSuccess = false;
+	public int LoginSuccess(String id, String pw) {
+		int LoginSuccess = -1; // 아이디 존재안함
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
@@ -97,16 +99,54 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
+				if(rs.getString(1).equals(pw)) {
+					LoginSuccess = 1; // 로그인 성공
+				}else {
+					LoginSuccess = 0; // 패스워드 틀림
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("LoginSuccess오류 - "+e.getMessage());
+		}
+		return LoginSuccess;
+	}
+	
+	
+	public MemberBean myName(String id) {
+		MemberBean bb = new MemberBean();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select * from member where id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				bb.setNum(rs.getInt("num"));
+				bb.setId(rs.getString("id"));
+				bb.setPw(rs.getString("pw"));
+				bb.setName(rs.getString("name"));
+				bb.setPostcode(rs.getString("postcode"));
+				bb.setAddr_basic(rs.getString("addr_basic"));
+				bb.setAddr_detail(rs.getString("addr_detail"));
+				bb.setEmail(rs.getString("email"));
+				bb.setPhone(rs.getString("phone"));
+				bb.setGender(rs.getString("gender"));
+				bb.setPoint(rs.getInt("point"));
+				bb.setBirth(rs.getString("birth"));
+				bb.setGrade(rs.getString("grade"));
+				bb.setStatus(rs.getInt("status"));
+				bb.setRegdate(rs.getDate("regdate"));
 				
 			}
 			
-		} catch (SQLException e) {
-			System.out.println("LoginSuccess 실패 - "+e.getMessage());
-		} finally {
-			close(rs);
-			close(pstmt);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return LoginSuccess;
+		return bb;
 		
 		
 	}

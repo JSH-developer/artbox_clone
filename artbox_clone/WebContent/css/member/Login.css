@@ -19,6 +19,10 @@
     color: #999999;
 }
 
+input[type=submit] {
+	cursor: pointer;
+}
+
 input[type=checkbox] {
     padding: 0;
     margin: 0;
@@ -43,6 +47,35 @@ input[type=checkbox] {
     background-color: #f3f3f3;
     border-radius: 5px;
 }
+
+
+.loginBody .simpleLogin:before{
+		content: "";
+        display: inline;
+        float:left;
+        width: 225px;
+        border-bottom: 1px solid #bcbcbc;
+        margin: 12px auto 15px;
+}
+
+.loginBody .simpleLogin:after {
+        content: "";
+        display: block;
+        float:right;
+        width: 225px;
+        border-bottom: 1px solid #bcbcbc;
+        margin: 12px auto 15px;
+        
+      }
+
+.loginBody .simpleLogin {
+	color:#7c7c7c;
+	text-align: center;
+	text-decoration: none;
+	padding-left: 40px;
+	margin-bottom: 10px;
+}
+
 .joinLink{
 	width: 100%;
     height: 27px;

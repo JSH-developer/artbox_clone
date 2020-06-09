@@ -96,7 +96,7 @@ a.NonMemberOrderDetailButton {display:block; width:100%; height:56px; line-heigh
 .trJoin dd.reasonchk {line-height:27px; color:#000000; font-size:17px;}
 .trJoin dd.reasonchk #i_reasonetc {display:none;}
 .trJoin dd.findpw {width:180px;}
-
+.trJoin .conButton{color:#ffffff;}
 .trJoin dt.addinfo {width:180px;}
 
 
@@ -143,7 +143,7 @@ h3.MemberModify .br {display:inline;}
 .AgreementText p {font-size:14px; line-height:24px; height:250px; overflow-y:scroll; padding:0; margin:0; color:#aaaaaa; white-space:pre-line;}
 
 /* a.JoinButton {display:block; width:310px; height:56px; line-height:56px; font-size:22px; color:#ffffff; background-color:#000000; font-weight:bold; text-decoration:none; text-align:center; border:0; border-radius:5px; margin:0 auto;} */
-input[type=submit] { width:310px; height:56px; line-height:56px; background-color:#000000; font-weight:bold; color:#ffffff; font-size:20px; text-decoration:none; text-align:center; border:0; border-radius:5px; margin-left: 220px;}
+input[type=submit] { width:310px; height:56px; line-height:56px; background-color:#000000; font-weight:bold; color:#ffffff; font-size:20px; text-decoration:none; text-align:center; border:0; border-radius:5px; margin-left: 220px; cursor: pointer;}
 input[type=submit]:active {width:300px; height:52px; line-height:56px; background-color:#000000; font-weight:bold; color:#ffffff; font-size:20px; text-decoration:none; text-align:center; border:0; border-radius:5px; margin-left: 225px; margin-top: 2px; margin-bottom: 2px;}
 a.conButton {display:inline-block; width:100px; height:56px; line-height:56px; font-size:17px; color:#ffffff; background-color:#8e939e; text-decoration:none; text-align:center; border:0; border-radius:5px; margin:0;}
 

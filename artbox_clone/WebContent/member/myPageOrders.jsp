@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>ARTBOX</title>
-<link href="../css/member/myPage.css" rel="stylesheet">
+<link href="css/member/myPage.css" rel="stylesheet">
 <script src="../js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){ 
