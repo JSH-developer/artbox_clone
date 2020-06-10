@@ -36,12 +36,13 @@ public class ItemDAO {
 	
 
 	public ArrayList<ProductBean> selectMajorLink(String majorCategory) {
-		String sql = "select * from product where category_code like '"+majorCategory+"%'";
+		String sql = "select * from product where category_code like ?";
 		ProductBean productBean = null;
 		ArrayList<ProductBean> listProduct = new ArrayList<ProductBean>();
 		try {
 			pstmt = con.prepareStatement(sql);
-//			pstmt.setString(1, majorCategory);
+		
+			pstmt.setString(1, majorCategory+"%");
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				productBean = new ProductBean();
