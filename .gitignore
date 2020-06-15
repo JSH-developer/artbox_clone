@@ -1,0 +1,8 @@
+*/.git/*
+*/META-INF/
+*/WEB-INF/
+*/bin/
+*/classes/
+.classpath
+.deployables
+.project
