@@ -113,54 +113,6 @@ public class ItemDAO {
 		
 	}
 
-
-	public int getMajorCount(String majorCategory) {
-		int count = 0;
-		String sql = "select count(num) from product where category_code=?";
-		System.out.println(con);
-		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, majorCategory);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				count = rs.getInt("count(num)");
-			}
-				
-			}catch(SQLException e){
-				e.printStackTrace();
-			}finally {
-//				close(rs);
-//				close(pstmt);
-//				close(con);
-			}
-		
-		return count;
-	}
-
-
-	public int getMinorCount(String minorCategory) {
-		int count = 0;
-		String sql = "select count(num) from product where category_code like '?%'";
-		
-		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, minorCategory);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				count = rs.getInt("num");
-			}
-				
-			}catch(SQLException e){
-				e.printStackTrace();
-			}finally {
-				close(rs);
-				close(pstmt);
-				close(con);
-			}
-		
-		return count;
-	}	
-	
 	public int insertQuestion(QuestionBean questionBean) {
 		int insertCount = 0;
 		
@@ -201,6 +153,40 @@ public class ItemDAO {
 		}
 		
 		return insertCount;
+	}
+
+
+	public ArrayList<ProductBean> search(String kwd) {
+		String sql = "select * from product where keywords like ?";
+		ProductBean productBean = null;
+		ArrayList<ProductBean> listProduct = new ArrayList<ProductBean>();
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%"+kwd+"%");
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				productBean = new ProductBean();
+				productBean.setProduct_num(rs.getInt("num"));
+				productBean.setProduct_code(rs.getString("code"));
+				productBean.setProduct_name(rs.getString("name"));
+				productBean.setProduct_image(rs.getString("image"));
+				productBean.setProduct_image2(rs.getString("image2"));
+				productBean.setProduct_description(rs.getString("description"));
+				productBean.setProduct_price(rs.getInt("price"));
+				productBean.setProduct_brand(rs.getString("brand"));
+				productBean.setProduct_stock_count(rs.getInt("stock_count"));
+				productBean.setProduct_sale_price(rs.getInt("sale_price"));
+				productBean.setProduct_keywords(rs.getString("keywords"));
+				productBean.setProduct_regdate(rs.getTimestamp("regdate"));
+				productBean.setProduct_category_code(rs.getString("category_code"));
+				productBean.setProduct_option_code(rs.getString("option_code"));
+				listProduct.add(productBean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return listProduct;
 	}	
 
 }

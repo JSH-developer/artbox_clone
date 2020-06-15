@@ -1,7 +1,7 @@
 /build/
-.DS_Store
-.classpath
-.tern-project
-.settings
-/META-INF/
-/WEB-INF/
+*/.DS_Store
+*/.classpath
+*/.tern-project
+*/.settings
+*/META-INF/
+*/WEB-INF/

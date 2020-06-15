@@ -46,8 +46,8 @@
 			</li>
 			<li class="Search">
 				<div id="CommonSearch">
-					<input type="text" id="kwd" value="" onkeypress="if(event.keyCode==13){fnCommonSearch(1);}">
-					<a href="javascript:fnCommonSearch(1);" title="검색" onclick="GA_event('HEAD', '최상단 메뉴 PC', '검색');">
+					<input type="text" id="kwd" value="" onkeypress="if(event.keyCode==13){searchfn();}">
+					<a href="javascript:searchfn();" title="검색" onclick="searchfn();">
 					<img src="${pageContext.request.contextPath}/Images/common/top_icon_search.png"></a>
 				</div>
 			</li>
@@ -59,6 +59,27 @@
 </div>
  
  </div>
+ 
+ <!-- -------------------------- 검색 ------------------------------- -->
+<script type="text/javascript">
+
+function searchfn(){
+	var kwd, url;
+	kwd = document.querySelector("#kwd").value.trim();
+	if(!kwd){
+		alert("검색어를 입력 해 주세요");
+		document.querySelector("#kwd").focus();
+	}else{
+		url = "search.item?kwd="+kwd;
+		location.replace(url);
+	}
+}
+
+</script>
+<!-- -------------------------- 검색 ------------------------------- -->
+
+
+
  <!-- 네비게이션바 -->
 <!--  </header> -->
  <!-- 헤더 -->

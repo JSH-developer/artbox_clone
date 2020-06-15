@@ -13,6 +13,7 @@ import action.Action;
 import item.action.CategoryLinkAction;
 import item.action.ItemDetailAction;
 import item.action.QuestionWriteAction;
+import item.action.SearchAction;
 import vo.ActionForward;
 
 
@@ -45,6 +46,13 @@ public class ItemController extends HttpServlet {
 			}
 		}else if(command.equals("/questionWrite.item")) {
 			action = new QuestionWriteAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/search.item")) {
+			action = new SearchAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
