@@ -80,6 +80,7 @@
                             </p>
                         </a>
                         <span>
+                        
                            <fmt:formatNumber value="${item.product_price }" pattern="0원"/> 
                         </span>
                         <span>
