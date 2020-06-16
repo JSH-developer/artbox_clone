@@ -9,7 +9,7 @@ import static db.jdbcUtil.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-public class OrderListService {
+public class AdminOrderListService {
 	
 	public int getListCount() {
 		int listCount=0;

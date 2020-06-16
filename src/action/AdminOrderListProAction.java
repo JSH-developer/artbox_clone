@@ -6,14 +6,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.AdminDAO;
-import svc.OrderListService;
+import svc.AdminOrderListService;
 import svc.ProductListService;
 import vo.ActionForward;
 import vo.OrdersBean;
 import vo.PageInfo;
 import vo.ProductBean;
 
-public class OrderListProAction implements Action {
+public class AdminOrderListProAction implements Action {
 	
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -27,7 +27,7 @@ public class OrderListProAction implements Action {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 		
-		OrderListService orderListService = new OrderListService();
+		AdminOrderListService orderListService = new AdminOrderListService();
 		int listCount = orderListService.getListCount();
 		ArrayList<OrdersBean> orderList = orderListService.getOrderList(page, limit);
 		

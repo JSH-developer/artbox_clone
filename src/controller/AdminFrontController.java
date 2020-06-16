@@ -19,8 +19,8 @@ import action.MemberViewProAction;
 import action.OptionDeleteProAction;
 import action.OptionListProAction;
 import action.OptionWriteProAction;
-import action.OrderListProAction;
-import action.OrderViewProAction;
+import action.AdminOrderListProAction;
+import action.AdminOrderViewProAction;
 import action.ProductDeleteProAction;
 import action.ProductListProAction;
 import action.ProductModifyFormAction;
@@ -182,14 +182,14 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}else if(command.equals("/OrderList.admin")) { // 주문 리스트 페이지
-			action = new OrderListProAction();
+			action = new AdminOrderListProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}else if(command.equals("/OrderView.admin")) { // 주문 상세보기 페이지
-			action = new OrderViewProAction();
+			action = new AdminOrderViewProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

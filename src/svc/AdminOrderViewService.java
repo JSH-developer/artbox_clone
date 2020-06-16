@@ -8,7 +8,7 @@ import vo.ReceiverBean;
 
 import static db.jdbcUtil.*;
 
-public class OrderViewService {
+public class AdminOrderViewService {
 	
 	
 	public OrdersBean infoOrders(int orders_num) {
