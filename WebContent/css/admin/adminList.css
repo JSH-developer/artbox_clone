@@ -1,0 +1,80 @@
+@charset "UTF-8";
+
+*{font-family: 'Noto Sans KR', sans-serif;}
+
+
+.admin_nav{
+	list-style-type: none;
+	width: auto;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+.admin_nav li{
+	display: inline-block;
+	padding:10px;
+}
+
+.admin_nav li a:visited, .admin_nav li a:link, .admin_nav li a:active, .admin_nav li a:hover{
+	color:black;
+}
+
+.admin_nav li a:hover{
+	padding:10px;
+	background: gray;
+	color:white;
+}
+
+.list_title{
+	text-align: center;
+	
+}
+
+.table_content{
+	width:inherit;
+	border-collapse: collapse;
+}
+
+.table_content tr{
+	text-align: center;
+}
+
+.table_content th{
+	padding: 20px;
+	border-bottom: 1px solid red;
+}
+
+.table_content td{
+	border-bottom: 1px solid gray;
+}
+
+.table_content a{
+	display: block;
+	padding: 20px;
+	width: 100%;
+	height: 100%;
+}
+
+.table_content a:link, .table_content a:hover, .table_content a:visited, .table_content a:active{
+	color: black;
+}
+
+.table_content a:hover{
+	background-color: #fff1f0;
+}
+
+.table_btn{
+	margin-top:10px;
+	float:right;
+	background-color: white;
+	border:1px solid black;
+	
+}
+
+#pageList{
+	display:block;
+	text-align: center;
+	margin-top: 50px;
+}
+

@@ -6,7 +6,10 @@
 <meta charset="UTF-8">
 <title>ARTBOX(포트폴리오)</title>
 
-<link href="${pageContext.request.contextPath}/css/admin/registProduct.css" rel="stylesheet" type="text/css">
+<!-- 구글 폰트  -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+<link href="${pageContext.request.contextPath}/css/admin/adminRegist.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
@@ -25,7 +28,7 @@
 </div>
 <br>
 
-<h1>카테고리 등록</h1>
+<h1 class="registTitle">카테고리 등록</h1>
 <form action="CategoryWritePro.admin" method="post">
 <table class="reg_tab">
 	<tr><th>카테고리 대분류</th><td><select style="padding-left:5px" name="category_sup">
