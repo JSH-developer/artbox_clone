@@ -116,6 +116,7 @@
 			<div class="clear"></div>
 		</div>
 		<div>
+			<input type="checkbox" id="popup">
 		
 		</div>
 	</div>

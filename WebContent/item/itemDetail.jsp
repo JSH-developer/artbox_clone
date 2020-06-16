@@ -47,6 +47,12 @@
 		$('.delivery-overlay').css('display','none');
 		$('.share-overlay').css('display','none');
 	})
+	$(document).on('click','.full-screen-close',function(){
+		$('.full-screen').css('display','none');
+		$('.qna-overlay').css('display','none');
+		$('.delivery-overlay').css('display','none');
+		$('.share-overlay').css('display','none');
+	})
 	// 버튼 클릭시 수량 변동
 	$(document).on("click", ".btnStockQty", function(){
 		var obj = $(this).parent().find("input[type=tel]");
@@ -322,6 +328,7 @@
 		</section>
 		<!-- </article> -->
 		<section class="full-screen">
+			<div class="full-screen-close"></div>
 			<div class="qna-overlay">
 			<form action="questionWrite.item" name="questionForm" method="post" onsubmit="return qnacheck()">
 				<input type="hidden" name="product_num" value="${productBean.product_num}">
