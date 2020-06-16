@@ -3,6 +3,8 @@
     <%@page import="java.util.ArrayList"%>
 <%@page import="vo.ProductBean"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,20 +26,15 @@
 
         </div>
         <div class="category">
-            <span><a href="">전체</a></span>
-            <span class="category_menu"><a href="">텀블러</a></span>
-            <span class="category_menu"><a href="">컴/머그/잔</a></span>
-            <span class="category_menu"><a href="">술잔</a></span>
-            <span class="category_menu"><a href="">도시락</a></span>
-            <span class="category_menu"><a href="">기타 주방용품</a></span>
-            <span class="category_menu"><a href="">푸드</a></span>
-            <span class="category_menu"><a href="">칫솔케이스/살균기</a></span>
-            <span class="category_menu"><a href="">욕실용품</a></span>
+            <span><a href="${pageContext.request.contextPath}/itemList.item?major=${code}">전체</a></span>
+            	<c:forEach var="minorCategory" items="${printCategory}" varStatus="status">
+            <span class="category_menu"><a href="${pageContext.request.contextPath}/itemList.item?minor=${code}<fmt:formatNumber value="${status.count}" pattern="00" />">${minorCategory}</a></span>
+            </c:forEach>
         </div>
 
         <div class="info">
             <span class="total_count">
-                <p>총 <b>300</b>개의 상품이 조회되었습니다.</p>
+                <p>총 <b>${count}</b>개의 상품이 조회되었습니다.</p>
             </span>
             <span class="select_box">
                 <select>
@@ -66,7 +63,7 @@
 
         <div class="item_list">
             <ul class="ul_list">
-            	<c:forEach var="item" items="${productBean }">
+            	<c:forEach var="item" items="${productBean }" varStatus="status">
                 <li>
                     <span class="item">
                         <a href="${pageContext.request.contextPath}/itemDetail.item?product_num=${item.product_num }">
@@ -83,10 +80,18 @@
                             </p>
                         </a>
                         <span>
-                            ${item.product_price }
+                        
+                           <fmt:formatNumber value="${item.product_price }" pattern="0원"/> 
                         </span>
                         <span>
-                            &nbsp;
+                        <c:choose>
+                        <c:when test="${status.count<6 }">
+                            new!!!
+                        </c:when>
+                        <c:otherwise>
+                        	&nbsp;
+                        </c:otherwise>    
+                        </c:choose>
                             <!-- 기본값으로 공백 꼭 들어가야함 -->
                         </span>
                     </span>
