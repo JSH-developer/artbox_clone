@@ -3,9 +3,6 @@ package vo;
 public class SelectOrderBean {
 	// 선택주문을 위한 javaBean 객체
 	private String name;
-	private String postcode;
-	private String addr_basic;
-	private String addr_detail;
 	private String email;
 	private String phone;
 	private int point;
@@ -21,24 +18,6 @@ public class SelectOrderBean {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public String getPostcode() {
-		return postcode;
-	}
-	public void setPostcode(String postcode) {
-		this.postcode = postcode;
-	}
-	public String getAddr_basic() {
-		return addr_basic;
-	}
-	public void setAddr_basic(String addr_basic) {
-		this.addr_basic = addr_basic;
-	}
-	public String getAddr_detail() {
-		return addr_detail;
-	}
-	public void setAddr_detail(String addr_detail) {
-		this.addr_detail = addr_detail;
 	}
 	public String getEmail() {
 		return email;

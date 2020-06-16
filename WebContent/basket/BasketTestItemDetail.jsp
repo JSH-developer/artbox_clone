@@ -27,10 +27,10 @@
 			$(".fullscreen").removeClass("on");
 		})
 		
-		function cartCheck() { // 확인/취소 선택 시 장바구니 상품 담음
+		function basketCheck() { // 확인/취소 선택 시 장바구니 상품 담음
 			var result = confirm("선택하신 상품이 장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?");
 			// result(확인/취소) 값을 넘겨줘서 Action 클래스에서 장바구니 페이지로 이동할지 안할지 판별
-			document.gfr.action = "addCart.cart?result=" + result;
+			document.gfr.action = "insertBasket.basket?result=" + result;
 			document.gfr.submit();
 		}
 
@@ -46,7 +46,7 @@
 	<div class="wrap">
 		<section class="iteminfo">
 			<form action="" method="post" name="gfr">
-			<input type="hidden" name="num" value=1>
+			<input type="hidden" name="num" value=2>
 				<div class="slideimg">
 					<ul>
 						<li><img src=detail1.jpg></li>
@@ -84,7 +84,7 @@
 						총 합계금액<b>5,800 원</b>
 					</div>
 					<div class="pdtBtnList">
-					<span class="btnCart"><input type="button" value="장바구니 담기" onclick="cartCheck()"></span>
+					<span class="btnBasket"><input type="button" value="장바구니 담기" onclick="basketCheck()"></span>
 						<span class="btnOrder"><input type="button" value="바로 구매하기"></span>
 						<span class="btnWish off"></span>
 						<span class="btnOverlay btnShare" data="btnShare"></span>

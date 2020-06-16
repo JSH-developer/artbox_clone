@@ -11,17 +11,8 @@
 <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/css/order/Order.css" rel="stylesheet" type="text/css">
 
-<script type="text/javascript" src="../js/PopZipCodeJson.js"></script>
 <script type="text/javascript" src="../js/jquery-3.5.0.js"></script>
 
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-125049262-1');
-</script>
- 
 </head>
 <body>
 
@@ -37,12 +28,29 @@
 	<h1>주문 완료!</h1>
 	<div class="OrderComplete">
 		<span class="CompleteImage"></span>
-		<b>주문번호 20200502000049</b>
+		<b>주문번호 ${list[0].orders_order_num}</b>
 		
-		은행 : 국민은행<br />
-		계좌번호 : 00159071270692 (아트박스)<br />
-		입금기한 : 2020-05-09<br />
-		입금하실 금액 : 16,900원<br />
+	번호 : ${list[0].num}<br>
+	주문번호 : ${list[0].orders_order_num}<br>
+	product 테이블의 num(인덱스) : ${list[0].product_num}<br>
+	receiver 테이블의 num(인덱스) : ${list[0].receiver_num}<br>
+	<c:forEach var="orderList" items="${list}" varStatus="status">
+	상품코드 : ${orderList.code}<br>
+	상품이름 : ${orderList.name}<br>
+	대표이미지 파일명 : ${orderList.image} <br>
+	상품가격 : ${orderList.price}<br>
+	수량 : ${orderList.quantity}<br>
+	</c:forEach>
+	승인(결제)날짜 : ${list[0].orders_regdate}<br>
+	결제(최종)금액 : ${list[0].orders_total_price}<br>
+	결제수단 : ${list[0].orders_payMethod}<br>
+	수신자 이름 : ${list[0].receiver_name}<br>
+	수신자 폰번호 : ${list[0].receiver_phone}<br>
+	수신자 우편번호 : ${list[0].receiver_postcode}<br>
+	수신자 기본주소 : ${list[0].receiver_addr}<br>
+	수신자 상세주소 : ${list[0].receiver_addr_detail}<br>
+	배송메세지 : ${list[0].receiver_msg}
+		
 		&nbsp;<br />
 		&nbsp;<br />
 		

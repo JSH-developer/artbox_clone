@@ -10,15 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import action.CartAddAction;
-import action.CartDeleteOneAction;
-import action.CartListAction;
-import action.CartQuantityUpdateAction;
-import action.CartTestLoginAction;
+import action.BasketInsertAction;
+import action.BasketDeleteOneAction;
+import action.BasketListAction;
+import action.BasketQuantityUpdateAction;
+import action.BasketTestLoginAction;
 import vo.ActionForward;
 
-@WebServlet("*.cart")
-public class CartFrontController extends HttpServlet {
+@WebServlet("*.basket")
+public class BasketFrontController extends HttpServlet {
 	
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -28,42 +28,42 @@ public class CartFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		if(command.equals("/login.cart")) {
+		if(command.equals("/login.basket")) {
 			forward = new ActionForward();
-			forward.setPath("/cart/CartTestLogin.jsp");
-		} else if(command.equals("/LoginAction.cart")) {
-			action = new CartTestLoginAction();
+			forward.setPath("/basket/BasketTestLogin.jsp");
+		} else if(command.equals("/LoginAction.basket")) {
+			action = new BasketTestLoginAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/productDetail.cart")) {
+		} else if(command.equals("/productDetail.basket")) {
 			forward = new ActionForward();
-			forward.setPath("/cart/CartTestItemDetail.jsp");
-		} else if(command.equals("/addCart.cart")) {
-			action = new CartAddAction();
+			forward.setPath("/basket/BasketTestItemDetail.jsp");
+		} else if(command.equals("/insertBasket.basket")) {
+			action = new BasketInsertAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/listCart.cart")) {
-			action = new CartListAction();
+		} else if(command.equals("/listBasket.basket")) {
+			action = new BasketListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/updateQuantity.cart")) {
-			action = new CartQuantityUpdateAction();
+		} else if(command.equals("/updateQuantity.basket")) {
+			action = new BasketQuantityUpdateAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/deleteOne.cart")) {
-			action = new CartDeleteOneAction();
+		} else if(command.equals("/deleteOne.basket")) {
+			action = new BasketDeleteOneAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

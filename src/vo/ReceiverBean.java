@@ -5,14 +5,13 @@ public class ReceiverBean {
 	private String receiver; // 배송지명(자택, 회사..)
 	private String receiver_name; // 수신자 이름
 	private String receiver_phone; // 수신자 폰번호
-	private String receiver_tel; // 수신자 전화번호
 	private String receiver_postcode; // 수신자 우편번호
 	private String receiver_addr; // 수신자 기본주소
 	private String receiver_addr_detail; // 수신자 상세주소
 	private String receiver_msg; // 배송메세지
 	private String receiver_date; // 배송지 저장날짜
 	private String receiver_member_id; // member 테이블의 id(아이디)
-	private int receiver_orders_num; // orders 테이블의 num(인덱스)
+	private int receiver_basic_num; // 기본배송지 여부
 
 	public int getReceiver_num() {
 		return receiver_num;
@@ -37,12 +36,6 @@ public class ReceiverBean {
 	}
 	public void setReceiver_phone(String receiver_phone) {
 		this.receiver_phone = receiver_phone;
-	}
-	public String getReceiver_tel() {
-		return receiver_tel;
-	}
-	public void setReceiver_tel(String receiver_tel) {
-		this.receiver_tel = receiver_tel;
 	}
 	public String getReceiver_postcode() {
 		return receiver_postcode;
@@ -80,11 +73,11 @@ public class ReceiverBean {
 	public void setReceiver_member_id(String receiver_member_id) {
 		this.receiver_member_id = receiver_member_id;
 	}
-	public int getReceiver_orders_num() {
-		return receiver_orders_num;
+	public int getReceiver_basic_num() {
+		return receiver_basic_num;
 	}
-	public void setReceiver_orders_num(int receiver_orders_num) {
-		this.receiver_orders_num = receiver_orders_num;
+	public void setReceiver_basic_num(int receiver_basic_num) {
+		this.receiver_basic_num = receiver_basic_num;
 	}
 	
 }

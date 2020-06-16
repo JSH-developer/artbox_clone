@@ -6,15 +6,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import svc.CartListService;
+import svc.BasketListService;
 import vo.ActionForward;
 
-// 장바구니 목록을 보여주는 CartListAction 클래스 정의
-public class CartListAction implements Action {
+// 장바구니 목록을 보여주는 BasketListAction 클래스 정의
+public class BasketListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("CartListAction");
+		System.out.println("BasketListAction");
 		
 		// 세션값 가져오기
 		HttpSession session = request.getSession();
@@ -25,28 +25,28 @@ public class CartListAction implements Action {
 		if(id == null){
 			forward = new ActionForward();
 			forward.setRedirect(true);
-			forward.setPath("/artbox_clone/login.cart");
+			forward.setPath("/artbox_clone/login.basket");
 			return forward;
 		}
 		
-		// cartListService 인스턴스 생성 후 getCartList() 메서드 호출하여 장바구니 목록 가져오기
+		// basketListService 인스턴스 생성 후 getBasketList() 메서드 호출하여 장바구니 목록 가져오기
 		// => 파라미터 : id , 리턴타입 : Vector
-		CartListService cartListService = new CartListService();
-		List list = cartListService.getCartList(id);
+		BasketListService basketListService = new BasketListService();
+		List list = basketListService.getBasketList(id);
 		if(list == null) {
 			forward = new ActionForward();
-			forward.setPath("/cart/Cart.jsp");
+			forward.setPath("/basket/Basket.jsp");
 		} else {
-			// 첫번째 vector 칸의 값인 cartList 저장
-			List cartList = (List)list.get(0);
+			// 첫번째 vector 칸의 값인 basketList 저장
+			List basketList = (List)list.get(0);
 			// 두번째 vector 칸의 값인 itemsList 저장
 			List itemsList = (List)list.get(1);
 			
 			forward = new ActionForward();
-			// request 에 cartList / itemsList 담기
-			request.setAttribute("cartList", cartList);
+			// request 에 basketList / itemsList 담기
+			request.setAttribute("basketList", basketList);
 			request.setAttribute("itemsList", itemsList);
-			forward.setPath("/cart/Cart.jsp");
+			forward.setPath("/basket/Basket.jsp");
 			
 		}
 		

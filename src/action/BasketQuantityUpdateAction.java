@@ -5,25 +5,25 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import svc.CartQuantityUpdateService;
+import svc.BasketQuantityUpdateService;
 import vo.ActionForward;
 
-// 장바구니 수량 옵션 변경하는 CartQuantityUpdateAction 클래스 정의
-public class CartQuantityUpdateAction implements Action {
+// 장바구니 수량 옵션 변경하는 BasketQuantityUpdateAction 클래스 정의
+public class BasketQuantityUpdateAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("CartQuantityUpdateAction");
+		System.out.println("BasketQuantityUpdateAction");
 		ActionForward forward = new ActionForward();
-		int cartidx = Integer.parseInt(request.getParameter("cartidx"));
+		int basketidx = Integer.parseInt(request.getParameter("basketidx"));
 		int quantity = Integer.parseInt(request.getParameter("qty"));
 		
-		boolean isUpdateSuccess = CartQuantityUpdateService.updateCart(cartidx, quantity);
+		boolean isUpdateSuccess = BasketQuantityUpdateService.updateBasket(basketidx, quantity);
 		
 		// 수량 변경 결과에 따른 처리
 		// => isUpdateSuccess 가 false 일 경우
 		//    자바스크립트 사용하여 "수정 실패!" 출력 후 이전페이지로 이동
-		// => 아니면 ActionForward 객체를 사용하여 listCart.cart 로 포워딩
+		// => 아니면 ActionForward 객체를 사용하여 listBasket.basket 로 포워딩
 		if(!isUpdateSuccess) { 
 			// 1. response 객체를 사용하여 문서 타입 및 인코딩 설정
 			response.setContentType("text/html;charset=UTF-8");
@@ -39,7 +39,7 @@ public class CartQuantityUpdateAction implements Action {
 		} else {
 			forward = new ActionForward();
 			forward.setRedirect(true);
-			forward.setPath("listCart.cart");
+			forward.setPath("listBasket.basket");
 		}
 		
 		return forward;

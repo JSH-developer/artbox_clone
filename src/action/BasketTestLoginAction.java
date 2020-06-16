@@ -6,10 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.CartTestMemberDAO;
+import dao.BasketTestMemberDAO;
 import vo.ActionForward;
 
-public class CartTestLoginAction implements Action {
+public class BasketTestLoginAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -21,7 +21,7 @@ public class CartTestLoginAction implements Action {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 
-		CartTestMemberDAO mdao = new CartTestMemberDAO();
+		BasketTestMemberDAO mdao = new BasketTestMemberDAO();
 		int check = mdao.idcheck(id, pw);
 
 		if (check == 1) { // 로그인 성공
@@ -30,7 +30,7 @@ public class CartTestLoginAction implements Action {
 			session.setAttribute("id", id);
 			
 			forward = new ActionForward();
-			forward.setPath("/productDetail.cart");
+			forward.setPath("/productDetail.basket");
 			return forward;
 		} else if (check == 0) {
 			// check == 0 비밀번호 틀림. 뒤로 이동.

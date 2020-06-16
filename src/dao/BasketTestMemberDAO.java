@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CartTestMemberDAO {
+public class BasketTestMemberDAO {
 
 	private Connection getConnection() throws Exception {
 

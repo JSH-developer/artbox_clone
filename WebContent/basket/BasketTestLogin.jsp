@@ -7,9 +7,9 @@
 </head>
 <body>
 <h1>login</h1>
-<!-- http://localhost:8080/artbox_clone/login.cart -->
+<!-- http://localhost:8080/artbox_clone/login.basket -->
 
-<form action="LoginAction.cart" method="post" name="fr">
+<form action="LoginAction.basket" method="post" name="fr">
 	아이디 :	<input type="text" name="id"><br>
 	비밀번호 : <input type="password" name="pw"><br>
 	<input type="submit" value="전송">

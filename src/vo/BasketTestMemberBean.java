@@ -2,7 +2,7 @@ package vo;
 
 import java.sql.Timestamp;
 
-public class CartTestMemberBean {
+public class BasketTestMemberBean {
 	private int num;
 	private String id;
 	private String pw;
@@ -19,9 +19,9 @@ public class CartTestMemberBean {
 	private int status;
 	private Timestamp regdate;
 	
-	public CartTestMemberBean() {}
+	public BasketTestMemberBean() {}
 
-	public CartTestMemberBean(int num, String id, String pw, String name, String postcode, String addr_basic,
+	public BasketTestMemberBean(int num, String id, String pw, String name, String postcode, String addr_basic,
 			String addr_detail, String email, String phone, String gender, int point, String birth, String grade,
 			int status, Timestamp regdate) {
 		this.num = num;
