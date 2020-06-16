@@ -11,6 +11,7 @@ import vo.MemberBean;
 import vo.OptionBean;
 import vo.OrdersBean;
 import vo.ProductBean;
+import vo.ReceiverBean;
 
 import static db.jdbcUtil.*;
 
@@ -784,6 +785,39 @@ public class AdminDAO {
 		}
 		
 		return ordersBean;
+	}
+
+	// reciever 상세정보를 빼오기
+	public ReceiverBean toViewReceiver(int orders_order_num) {
+		ReceiverBean receiverBean = null;
+		
+		try {
+			String sql="SELECT * FROM receiver WHERE orders_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, orders_order_num);
+			
+			rs= pstmt.executeQuery();
+			
+			if(rs.next()) {
+				receiverBean = new ReceiverBean();
+				receiverBean.setReceiver_num(rs.getInt("num"));
+				receiverBean.setReceiver_name(rs.getString("receiver_name"));
+				receiverBean.setReceiver_phone(rs.getString("receiver_phone"));
+				receiverBean.setReceiver_postcode(rs.getString("receiver_postcode"));
+				receiverBean.setReceiver_addr(rs.getString("receiver_addr"));
+				receiverBean.setReceiver_addr_detail(rs.getString("receiver_addr_detail"));
+				receiverBean.setReceiver_msg(rs.getString("receiver_msg"));
+				receiverBean.setReceiver_date(rs.getTimestamp("receiver_date").toString());
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return receiverBean;
 	}
 
 

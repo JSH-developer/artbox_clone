@@ -40,11 +40,34 @@ function deleteProduct(){
 <h1 class="viewTitle">주문상세보기</h1>
 <div class="wrapView">
 <table class="viewTable">
-<tr><th>주문 번호</th><td><c:out value="${orderBean.orders_num}"/></td></tr>
+<tr><th>주문 인덱스</th><td><c:out value="${ordersBean.orders_num}"/></td></tr>
+<tr><th>주문 번호</th><td><c:out value="${ordersBean.orders_order_num}"/></td></tr>
+<tr><th>아이디</th><td><c:out value="${ordersBean.orders_member_id}"/></td></tr>
+<tr><th>주문 이름</th><td><c:out value="${ordersBean.orders_order_name}"/></td></tr>
+<tr><th>주문 이메일</th><td><c:out value="${ordersBean.orders_order_email}"/></td></tr>
+<tr><th>주문 연락처</th><td><c:out value="${ordersBean.orders_order_phone}"/></td></tr>
+<tr><th>포인트</th><td><c:out value="${ordersBean.orders_point}"/></td></tr>
+<tr><th>주문 총금액</th><td><c:out value="${ordersBean.orders_total_price}"/></td></tr>
+<tr><th>결제수단</th><td><c:out value="${ordersBean.orders_payMethod}"/></td></tr>
+<tr><th>배송현황</th><td><c:out value="${ordersBean.orders_state}"/></td></tr>
+<tr><th>주문날짜</th><td><c:out value="${ordersBean.orders_regdate}"/></td></tr>
 </table>
 <br><br>
 <button onclick="location.href='OrderList.admin?page=${param.page}'" class="viewBtn">목록가기</button>
 <button onclick="deleteProduct()"  class="viewBtn deleteBtn">주문삭제</button>
+<br><br>
+
+<h1 class="viewTitle">수신자 상세보기</h1>
+<table class="viewTable">
+<tr><th>수신자 인덱스</th><td><c:out value="${receiverBean.receiver_num}"/></td></tr>
+<tr><th>수신자 이름</th><td><c:out value="${receiverBean.receiver_name}"/></td></tr>
+<tr><th>수신자 연락처</th><td><c:out value="${receiverBean.receiver_phone}"/></td></tr>
+<tr><th>수신자 우편번호</th><td><c:out value="${receiverBean.receiver_postcode}"/></td></tr>
+<tr><th>수신자 기본주소</th><td><c:out value="${receiverBean.receiver_addr}"/></td></tr>
+<tr><th>수신자 상세주소</th><td><c:out value="${receiverBean.receiver_addr_detail}"/></td></tr>
+<tr><th>수신자 메세지</th><td><c:out value="${receiverBean.receiver_msg}"/></td></tr>
+</table>
+
 </div>
 </div>
 
