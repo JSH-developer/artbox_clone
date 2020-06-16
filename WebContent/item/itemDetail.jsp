@@ -12,7 +12,7 @@
 	<link href="${pageContext.request.contextPath}/css/item/swiper.min.css" rel="stylesheet" type="text/css">
 	<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
-	
+	 
 	<script type="text/javascript">
 	// 시작시 문의 불러옴
 	window.onload = function (){
