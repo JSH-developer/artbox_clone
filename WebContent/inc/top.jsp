@@ -19,18 +19,18 @@
  <div class="pageNavigationBar" id="topBar">
 		<nav id="top_menu">
 		<ul>
-			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=DT" onclick="GA_event('HEAD', '최상단 메뉴', '인형/토이');">인형/토이</a></li>
-			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=FA" onclick="GA_event('HEAD', '최상단 메뉴', '문구');">문구</a></li>
-			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=FS" onclick="GA_event('HEAD', '최상단 메뉴', '패션');">패션</a></li>
-			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=KB" onclick="GA_event('HEAD', '최상단 메뉴', '주방/욕실');">주방/욕실</a></li>
-			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=LD" onclick="GA_event('HEAD', '최상단 메뉴', '리빙/데코');">리빙/데코</a></li>
-			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=DI" onclick="GA_event('HEAD', '최상단 메뉴', '디지털/가전');">디지털/가전</a></li>
-			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=TR" onclick="GA_event('HEAD', '최상단 메뉴', '여행');">여행</a></li>
-			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=BE" onclick="GA_event('HEAD', '최상단 메뉴', '뷰티');">뷰티</a></li>
-			<li class="CategoryMiddle"><a href="index.event" onclick="GA_event('HEAD', '최상단 메뉴', '여행');">베스트</a></li>
-			<li class="CategoryMiddle"><a href="EventList.event" onclick="GA_event('HEAD', '최상단 메뉴', '뷰티');">이벤트</a></li>
+			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=DT">인형/토이</a></li>
+			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=FA">문구</a></li>
+			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=FS">패션</a></li>
+			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=KB">주방/욕실</a></li>
+			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=LD">리빙/데코</a></li>
+			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=DI">디지털/가전</a></li>
+			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=TR">여행</a></li>
+			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=BE">뷰티</a></li>
+			<li class="CategoryMiddle"><a href="index.event">베스트</a></li>
+			<li class="CategoryMiddle"><a href="EventList.event">이벤트</a></li>
 			<li class="Cart">
-				<a href="${pageContext.request.contextPath}/cart/Cart.jsp" title="장바구니" onclick="GA_event('HEAD', '최상단 메뉴 PC', '장바구니');">
+				<a href="${pageContext.request.contextPath}/cart/Cart.jsp" title="장바구니">
 						
 					<img src="${pageContext.request.contextPath}/Images/common/top_icon_cart.png">
 				</a>
@@ -39,7 +39,7 @@
 			
 			<li class="MyPage">
 			
-				<a href="#" title="로그인" onclick="GA_event('HEAD', '최상단 메뉴', '로그인');"><img src="${pageContext.request.contextPath}/Images/common/top_icon_login.png" id="MyInfoSummaryIcon"></a>
+				<a href="#" title="로그인"><img src="${pageContext.request.contextPath}/Images/common/top_icon_login.png" id="MyInfoSummaryIcon"></a>
 <!-- 				<a href="javascript:location.href='https://www.artboxmall.com:443/Home/Member/Login.asp?rtnURL=%2FHome%2Findex%2Easp';" id="LoginBalloon" onclick="GA_event('HEAD', '최상단 메뉴', '팝업로그인');" style="visibility: hidden;"><img src="/Images/common/login_balloon.png?v=2"></a> -->
 				<a class="btnBallon" href="javascript:fnLoginBalloon();"></a>
 			
@@ -59,27 +59,6 @@
 </div>
  
  </div>
- 
- <!-- -------------------------- 검색 ------------------------------- -->
-<script type="text/javascript">
-
-function searchfn(){
-	var kwd, url;
-	kwd = document.querySelector("#kwd").value.trim();
-	if(!kwd){
-		alert("검색어를 입력 해 주세요");
-		document.querySelector("#kwd").focus();
-	}else{
-		url = "search.item?kwd="+kwd;
-		location.replace(url);
-	}
-}
-
-</script>
-<!-- -------------------------- 검색 ------------------------------- -->
-
-
-
  <!-- 네비게이션바 -->
 <!--  </header> -->
  <!-- 헤더 -->

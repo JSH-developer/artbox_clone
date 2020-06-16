@@ -14,6 +14,7 @@ import item.action.CategoryLinkAction;
 import item.action.ItemDetailAction;
 import item.action.QuestionWriteAction;
 import item.action.SearchAction;
+import item.action.SelectBoxAction;
 import vo.ActionForward;
 
 
@@ -26,7 +27,6 @@ public class ItemController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String command = request.getServletPath();
 		// 경로 추적하기위해 출력중
-		System.out.println(command);
 		Action action = null;
 		ActionForward forward = null;
 		
@@ -53,6 +53,13 @@ public class ItemController extends HttpServlet {
 			}
 		}else if(command.equals("/search.item")) {
 			action = new SearchAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/selectBox.item")) {
+			action = new SelectBoxAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

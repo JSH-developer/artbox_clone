@@ -157,12 +157,16 @@ public class ItemDAO {
 
 
 	public ArrayList<ProductBean> search(String kwd) {
-		String sql = "select * from product where keywords like ?";
+		String sql = "select * from product where keywords like ? "
+				+ "or name like ? "
+				+ "or brand like ?";
 		ProductBean productBean = null;
 		ArrayList<ProductBean> listProduct = new ArrayList<ProductBean>();
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, "%"+kwd+"%");
+			pstmt.setString(2, "%"+kwd+"%");
+			pstmt.setString(3, "%"+kwd+"%");
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				productBean = new ProductBean();

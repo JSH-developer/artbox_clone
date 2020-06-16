@@ -58,7 +58,7 @@
 }
 
 .head_img {
-    background-image: url('../item/cate-img.png');
+  	position: relative;
     background-repeat: no-repeat;
     background-size: cover;
     height: 300px;
@@ -193,4 +193,11 @@
     margin: 0 5px 30px 10px;
     line-height: 15px;
     vertical-align: middle;
+}
+
+.categoryName {
+	font-size: 3em;
+	position: absolute;
+	left: 30px;
+	bottom: 10px;
 }
