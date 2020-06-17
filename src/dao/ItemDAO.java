@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import vo.CategoryBean;
 import vo.ProductBean;
 import vo.QuestionBean;
 
@@ -261,6 +262,34 @@ public class ItemDAO {
 		}
 		
 		return count;
+	}
+
+
+	public CategoryBean getCategory(String product_category_code) {
+		System.out.println("getCategory");
+		CategoryBean categoryBean = new CategoryBean();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT * FROM category WHERE category_code=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, product_category_code);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				categoryBean.setCategory_code(rs.getString("category_code"));
+				categoryBean.setCategory_sup(rs.getString("category_sup"));
+				categoryBean.setCategory_sub(rs.getString("category_sub"));
+			}
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - getCategory() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		System.out.println(categoryBean.getCategory_sub());
+		return categoryBean;
 	}	
 
 }

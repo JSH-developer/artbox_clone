@@ -14,9 +14,24 @@
 	<script src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 	
 	<script type="text/javascript">
-	// 시작시 문의 불러옴 
+	// 시작시
 	window.onload = function (){
+		//대분류 카테고리 replace
+// 		replaceMajor();
+		//문의 불러옴
 		goQuestionPage("${questionPageInfo.pageNum}");
+	}
+	//대분류 카테고리 replace
+	function replaceMajor(){
+		var major = '${categoryBean.category_sup }';		
+		if(major == 'DT') {$('.major').html('인형/토이');}
+		else if(major == 'FA') {$('.major').html('문구');}
+		else if(major == 'FS') {$('.major').html('패션');}
+		else if(major == 'KB') {$('.major').html('주방/욕실');}
+		else if(major == 'LD') {$('.major').html('리빙/데코');}
+		else if(major == 'DI') {$('.major').html('디지털/가전');}
+		else if(major == 'TR') {$('.major').html('여행');}
+		else if(major == 'BE') {$('.major').html('뷰티');}
 	}
 	// 후기,문의 테이블 클릭시 토글 오픈
 	$(document).on('click','.tr',function(){
@@ -198,7 +213,11 @@
 				</div>
 				<div class="text-info">
 					<div class="pdt-name">${productBean.product_name }</div>
-					<div class="pdt-category"><a href="#">인형/토이</a> > <a href="#">FUN/TOY</a></div>
+					<div class="pdt-category">
+						<a href="#" class="major">${category_sup }</a>
+						&gt;
+						<a href="#" class="minor">${category_sub }</a>
+					</div>
 					<div class="pdt-right pdt-price"><fmt:formatNumber value="${productBean.product_price}" type="number" />원</div>
 					<div class="pdt-right pdt-delivery">2,500원
 						<input type="button" class="btn-delivery modal" value="배송비 안내">
