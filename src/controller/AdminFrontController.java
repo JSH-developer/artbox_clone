@@ -10,10 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.CategoryDeleteProAction;
 import action.CategoryListProAction;
 import action.CategoryWriteProAction;
+import action.MemberDeleteProAction;
+import action.MemberListProAction;
+import action.MemberViewProAction;
+import action.OptionDeleteProAction;
 import action.OptionListProAction;
 import action.OptionWriteProAction;
+import action.AdminOrderListProAction;
+import action.AdminOrderViewProAction;
 import action.ProductDeleteProAction;
 import action.ProductListProAction;
 import action.ProductModifyFormAction;
@@ -56,6 +63,13 @@ public class AdminFrontController extends HttpServlet {
 			}
 		}else if(command.equals("/CategoryList.admin")) {
 			action = new CategoryListProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/CategoryDeletePro.admin")) { // 카테고리 삭제 수행
+			action = new CategoryDeleteProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -132,6 +146,13 @@ public class AdminFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("/OptionDeletePro.admin")) { // 옵션 삭제 수행
+			action = new OptionDeleteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}else if(command.equals("/OptionList.admin")) { // 옵션 리스트 페이지
 			action = new OptionListProAction();
 			try {
@@ -139,8 +160,42 @@ public class AdminFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("/MemberList.admin")) { // 회원 리스트 페이지
+			action = new MemberListProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/MemberView.admin")) { // 회원 보기 페이지
+			action = new MemberViewProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/MemberDeletePro.admin")) { // 회원 삭제 
+			action = new MemberDeleteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/OrderList.admin")) { // 주문 리스트 페이지
+			action = new AdminOrderListProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/OrderView.admin")) { // 주문 상세보기 페이지
+			action = new AdminOrderViewProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		
 		
 		
 		
@@ -154,7 +209,6 @@ public class AdminFrontController extends HttpServlet {
 				RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
 				dispatcher.forward(request, response);
 			}
-			
 		}
 		
 	}	

@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+*{font-family: 'Noto Sans KR', sans-serif;}
+
+.viewTitle{
+	text-align: center;
+}
+
+.wrapView{
+	text-align: center;
+}
+
+.viewTable{
+	margin:0 auto;
+}
+
+.viewTable th{
+	padding:20px;
+	color: black;
+
+}
+
+.viewTable td{
+	padding:20px;
+	border-bottom: 0.1px solid #f1f3f1;
+
+}
+
+.viewBtn{
+	padding: 10px;
+	margin: 10px;
+	background-color: black;
+	color:white;
+	border: none;
+}
+
+.deleteBtn{
+	background-color: red;
+	border:none;
+	color:white;
+	
+}
+

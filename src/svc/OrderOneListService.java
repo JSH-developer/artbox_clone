@@ -11,7 +11,7 @@ import vo.SelectOrderBean;
 
 public class OrderOneListService {
 
-	public List getOrderOneList(String member_id, String arrCart) {
+	public List getOrderOneList(String member_id, String arrBasket) {
 		System.out.println("OrderOneListService - getOrderOneList()");
 		
 		// DB 작업을 위한 준비 => Connection 객체, DAO 객체, DAO 객체의 메서드 호출
@@ -24,16 +24,16 @@ public class OrderOneListService {
 		// 3. orderDAO 객체에 Connection 객체 전달
 		orderDAO.setConnection(con);
 		
-		String[] cartNumArr = arrCart.split(",");
+		String[] basketNumArr = arrBasket.split(",");
 		// 4. orderDAO 클래스의 selectOrderList() 메서드를 호출하여
 		//    파라미터 : member_id
 		//    리턴타입 : List
 		
 		List list = new ArrayList();
-		for(String i:cartNumArr) {
-			ArrayList<SelectOrderBean> cartList = new ArrayList<SelectOrderBean>();
-			cartList = orderDAO.OrderOneList(member_id, Integer.parseInt(i));
-			list.add(cartList);
+		for(String i:basketNumArr) {
+			List<SelectOrderBean> basketList = new ArrayList<SelectOrderBean>();
+			basketList = orderDAO.OrderOneList(member_id, Integer.parseInt(i));
+			list.add(basketList);
 		}
 		
 		

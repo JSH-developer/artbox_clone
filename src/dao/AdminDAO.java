@@ -7,8 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vo.CategoryBean;
+import vo.MemberBean;
 import vo.OptionBean;
+import vo.OrdersBean;
 import vo.ProductBean;
+import vo.ReceiverBean;
 
 import static db.jdbcUtil.*;
 
@@ -245,7 +248,7 @@ public class AdminDAO {
 		int startRow = (page-1)*limit;
 		
 		try {
-			String sql="SELECT * FROM category ORDER BY category_code DESC limit ?,?";
+			String sql="SELECT * FROM category WHERE category_code NOT LIKE 'XX%' ORDER BY category_code DESC limit ?,?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, limit);
@@ -293,6 +296,27 @@ public class AdminDAO {
 		
 		return listCount;
 	}
+	
+	// 카테고리 삭제 기능 수행
+	public int deleteCategory(int num){
+		int deleteCount = 0;
+		
+		try {
+			String sql="UPDATE category SET category_code='XX"+num+"' WHERE num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			deleteCount = pstmt.executeUpdate();
+			
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return deleteCount;
+	}
 
 	// 옵션을 등록하기 위한 함수
 	public int regOption(OptionBean optionBean) {
@@ -323,7 +347,7 @@ public class AdminDAO {
 		try {
 			String sql = "SELECT LPAD(COUNT(num),2,'0') 'option_num' FROM product_option WHERE option_code LIKE ?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, product_index+"__");
+			pstmt.setString(1, product_index+"%");
 			
 			rs=pstmt.executeQuery();
 			
@@ -349,7 +373,7 @@ public class AdminDAO {
 		int startRow = (page-1)*limit;
 		
 		try {
-			String sql="SELECT * FROM product_option ORDER BY option_code DESC limit ?,?";
+			String sql="SELECT * FROM product_option WHERE option_code NOT LIKE '%XX' ORDER BY option_code DESC limit ?,?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, limit);
@@ -397,13 +421,33 @@ public class AdminDAO {
 		
 		return listCount;
 	}
+	
+	// 옵션 기능 삭제 수행
+	public int deleteOption(int num) {
+		int deleteCount = 0;
+		
+		try {
+//			String sql="DELETE FROM product_option WHERE num=?";
+			String sql="UPDATE product_option SET option_code = concat(option_code,'XX') WHERE num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			deleteCount = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return deleteCount;
+	}
 
 	// 상품등록 페이지에서 카테고리의 리스트를 출력하기 위한 함수
 	public String toMakeCategorySelect() {
 		String result ="";
 		
 		try {
-			String sql="SELECT * FROM category ORDER BY category_code DESC";
+			String sql="SELECT * FROM category WHERE category_code <> 'XX' ORDER BY category_code DESC";
 			pstmt=con.prepareStatement(sql);
 			
 			rs= pstmt.executeQuery();
@@ -427,7 +471,7 @@ public class AdminDAO {
 		String result ="";
 		
 		try {
-			String sql="SELECT * FROM product_option WHERE option_code NOT LIKE '%00' ORDER BY option_code DESC ";
+			String sql="SELECT * FROM product_option WHERE option_code NOT LIKE '%00' AND option_code NOT LIKE '%XX'  ORDER BY option_code DESC ";
 			pstmt=con.prepareStatement(sql);
 			
 			rs= pstmt.executeQuery();
@@ -469,7 +513,7 @@ public class AdminDAO {
 		
 		return result;
 	}
-
+	
 	//  상품 수정 기능 수행
 	public int modifyProduct(ProductBean productBean) {
 		int updateCount = 0;
@@ -520,5 +564,261 @@ public class AdminDAO {
 		
 		return deleteCount;
 	}
+
+	
+	// 멤버 갯수 세기
+	public int memberCount() {
+		int listCount = 0;
+		
+		try {
+			String sql ="SELECT COUNT(num) FROM member";
+			pstmt=con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+	
+	// 멤버 리스트를 출력하기 위한 함수
+	public ArrayList<MemberBean> toListMember(int page, int limit) {
+		ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
+		
+		int startRow = (page-1)*limit;
+		
+		try {
+			String sql="SELECT * FROM member ORDER BY num DESC limit ?,?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, limit);
+			
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				MemberBean memberBean = new MemberBean();
+				memberBean.setNum(rs.getInt("num"));
+				memberBean.setId(rs.getString("id"));
+				memberBean.setPw(rs.getString("pw"));
+				memberBean.setName(rs.getString("name"));
+				memberBean.setPostcode(rs.getString("postcode"));
+				memberBean.setAddr_basic(rs.getString("addr_basic"));
+				memberBean.setAddr_detail(rs.getString("addr_detail"));
+				memberBean.setEmail(rs.getString("email"));
+				memberBean.setPhone(rs.getString("phone"));
+				memberBean.setGender(rs.getString("gender"));
+				memberBean.setPoint(rs.getInt("point"));
+				memberBean.setBirth(rs.getString("birth"));
+				memberBean.setGrade(rs.getString("grade"));
+				memberBean.setRegdate(rs.getDate("regdate"));
+				
+				memberList.add(memberBean);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return memberList;
+	}
+
+	// 멤버 디테일 페이지 구성
+	public MemberBean toViewMember(int num) {
+		MemberBean memberBean = null;
+		
+		try {
+			String sql="SELECT * FROM member WHERE num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			rs= pstmt.executeQuery();
+			
+			if(rs.next()) {
+				memberBean = new MemberBean();
+				memberBean.setNum(rs.getInt("num"));
+				memberBean.setId(rs.getString("id"));
+				memberBean.setPw(rs.getString("pw"));
+				memberBean.setName(rs.getString("name"));
+				memberBean.setPostcode(rs.getString("postcode"));
+				memberBean.setAddr_basic(rs.getString("addr_basic"));
+				memberBean.setAddr_detail(rs.getString("addr_detail"));
+				memberBean.setEmail(rs.getString("email"));
+				memberBean.setPhone(rs.getString("phone"));
+				memberBean.setGender(rs.getString("gender"));
+				memberBean.setPoint(rs.getInt("point"));
+				memberBean.setBirth(rs.getString("birth"));
+				memberBean.setGrade(rs.getString("grade"));
+				memberBean.setStatus(rs.getInt("status"));
+				memberBean.setRegdate(rs.getDate("regdate"));
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return memberBean;
+	}
+
+	// 멤버 삭제를 위한 함수
+	public int deleteMember(int num) {
+		int deleteCount = 0;
+		
+		try {
+			String sql="DELETE FROM member WHERE num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			deleteCount = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return deleteCount;
+	}
+
+	// orders 갯수 세기
+	public int orderCount() {
+		int listCount = 0;
+		
+		try {
+			String sql ="SELECT COUNT(num) FROM orders";
+			pstmt=con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+	// order 리스트 만들기
+	public ArrayList<OrdersBean> toListOrder(int page, int limit) {
+		ArrayList<OrdersBean> orderList = new ArrayList<OrdersBean>();
+		
+		int startRow = (page-1)*limit;
+		
+		try {
+			String sql="SELECT * FROM orders ORDER BY regdate DESC limit ?,?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, limit);
+			
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				OrdersBean ordersBean = new OrdersBean();
+				ordersBean.setOrders_num(rs.getInt("num"));
+				ordersBean.setOrders_order_num(rs.getInt("order_num"));
+				ordersBean.setOrders_member_id(rs.getString("member_id"));
+				ordersBean.setOrders_regdate(rs.getTimestamp("regdate"));
+				ordersBean.setOrders_state(rs.getInt("state"));
+				orderList.add(ordersBean);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return orderList;
+	}
+
+	// orders 상세 페이지를 보기위해서 정보 빼오기
+	public OrdersBean toViewOrders(int orders_num) {
+		OrdersBean ordersBean = null;
+		
+		try {
+			String sql="SELECT * FROM orders WHERE num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, orders_num);
+			
+			rs= pstmt.executeQuery();
+			
+			if(rs.next()) {
+				ordersBean = new OrdersBean();
+				ordersBean.setOrders_num(rs.getInt("num"));
+				ordersBean.setOrders_order_num(rs.getInt("order_num"));
+				ordersBean.setOrders_member_id(rs.getString("member_id"));
+				ordersBean.setOrders_order_name(rs.getString("order_name"));
+				ordersBean.setOrders_order_email(rs.getString("order_email"));
+				ordersBean.setOrders_order_phone(rs.getString("order_phone"));
+				ordersBean.setOrders_point(rs.getInt("point"));
+				ordersBean.setOrders_total_price(rs.getInt("total_price"));
+				ordersBean.setOrders_payMethod(rs.getString("pay_method"));
+				ordersBean.setOrders_state(rs.getInt("state"));
+				ordersBean.setOrders_regdate(rs.getTimestamp("regdate"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return ordersBean;
+	}
+
+	// reciever 상세정보를 빼오기
+	public ReceiverBean toViewReceiver(int orders_order_num) {
+		ReceiverBean receiverBean = null;
+		
+		try {
+			String sql="SELECT * FROM receiver WHERE orders_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, orders_order_num);
+			
+			rs= pstmt.executeQuery();
+			
+			if(rs.next()) {
+				receiverBean = new ReceiverBean();
+				receiverBean.setReceiver_num(rs.getInt("num"));
+				receiverBean.setReceiver_name(rs.getString("receiver_name"));
+				receiverBean.setReceiver_phone(rs.getString("receiver_phone"));
+				receiverBean.setReceiver_postcode(rs.getString("receiver_postcode"));
+				receiverBean.setReceiver_addr(rs.getString("receiver_addr"));
+				receiverBean.setReceiver_addr_detail(rs.getString("receiver_addr_detail"));
+				receiverBean.setReceiver_msg(rs.getString("receiver_msg"));
+				receiverBean.setReceiver_date(rs.getTimestamp("receiver_date").toString());
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return receiverBean;
+	}
+
 
 }

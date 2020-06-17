@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-String categorySelectList = (String)request.getAttribute("categorySelectList");
-String optionSelectList = (String)request.getAttribute("optionSelectList");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,6 +35,9 @@ $(document).ready(function(){
 	
 })
 </script>
+
+<!-- 구글 폰트  -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
@@ -101,7 +101,7 @@ $(document).ready(function() {
 </script>
 
 <!-- registProduct 페이지에 대한 전용 css, 딴 css 필요없음!!!!!! -->
-<link href="${pageContext.request.contextPath}/css/admin/registProduct.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/admin/adminRegist.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
@@ -119,17 +119,17 @@ $(document).ready(function() {
 </div>
 <br>
 
-<h1>상품등록</h1>
+<h1 class="registTitle">상품등록</h1>
 <form action="ProductWritePro.admin" method="post" enctype="multipart/form-data">
 <table class="reg_tab">
-	<tr><th>상품카테고리</th><td><select id="product_category_code" name="product_category_code"><option>카테고리를 선택해주세요</option><%=categorySelectList %></select></td></tr>
-	<tr><th>상품옵션</th><td><select id="product_option_code" name="product_option_code"><option value="00">기본옵션(+0)</option><%=optionSelectList %></select></td></tr>
+	<tr><th>상품카테고리</th><td><select id="product_category_code" name="product_category_code"><option>카테고리를 선택해주세요</option><c:out value="${categorySelectList}" escapeXml="false"/></select></td></tr>
+	<tr><th>상품옵션</th><td><select id="product_option_code" name="product_option_code"><option value="00">기본옵션(+0)</option><c:out value="${optionSelectList}" escapeXml="false"/></select></td></tr>
 	<tr><th>상품명</th><td><input type="text" name="product_name"></td></tr>
 	<tr><th>브랜드</th><td><input type="text" name="product_brand"></td></tr>
 	<tr><th>상품가격</th><td><input type="text" name="product_price"></td></tr>
 	<tr><th>상품상세</th><td style="margin-left:100px"><textarea id="summernote" name="product_description"></textarea></td></tr>
 	<tr><th>재고수량</th><td><input type="number" name="product_stock_count"></td></tr>
-	<tr><th>세일가격</th><td><input type="text" name="product_sale_price" value="0"></td></tr>
+	<tr><th>세일가격</th><td><input type="text" name="product_sale_price"></td></tr>
 	<tr><th>대표 이미지</th><td><input type="file" name="product_image" accept="image/*" multiple="multiple"></td></tr>
 	<tr><th>대표 이미지2</th><td><input type="file" name="product_image2" accept="image/*"></td></tr>
 	<tr><th>키워드 입력</th><td><input type="text" name="product_keywords" placeholder=" ex) #키워드1 #키워드2"></td></tr>
@@ -137,6 +137,8 @@ $(document).ready(function() {
 </table>
 </form>
 </div>
+
+<!-- // 지울 거 임 -->
 <p><% out.print(request.getRealPath("/upload")); %></p>
 
  <!--  푸터 -->
