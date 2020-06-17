@@ -5,11 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import vo.CategoryBean;
 import vo.MemberBean;
 import vo.OptionBean;
 import vo.OrdersBean;
+import vo.OrdersDetailBean;
 import vo.ProductBean;
 import vo.ReceiverBean;
 
@@ -818,6 +820,41 @@ public class AdminDAO {
 		}
 		
 		return receiverBean;
+	}
+
+	// 주문상품상세 출력해오기
+	public ArrayList<OrdersDetailBean> toViewOrdersDetail(int orders_order_num) {
+		ArrayList<OrdersDetailBean> ordersDetailBeans = new ArrayList<OrdersDetailBean>();
+		
+		try {
+			String sql="SELECT * FROM orders_detail WHERE orders_order_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, orders_order_num);
+			
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				OrdersDetailBean ordersDetailBean = new OrdersDetailBean();
+				ordersDetailBean.setOrdersDetail_num(rs.getInt("num"));
+				ordersDetailBean.setOrdersDetail_quantity(rs.getInt("quantity"));
+				ordersDetailBean.setOrdersDetail_orders_order_num(rs.getInt("orders_order_num"));
+				ordersDetailBean.setOrdersDetail_product_num(rs.getInt("product_num"));
+				ordersDetailBean.setOrdersDetail_receiver_num(rs.getInt("receiver_num"));
+				ordersDetailBean.setOrdersDetail_code(rs.getString("code"));
+				ordersDetailBean.setOrdersDetail_name(rs.getString("name"));
+				ordersDetailBean.setOrdersDetail_image(rs.getString("image"));
+				ordersDetailBean.setOrdersDetail_price(rs.getInt("price"));
+				ordersDetailBeans.add(ordersDetailBean);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return ordersDetailBeans;
 	}
 
 

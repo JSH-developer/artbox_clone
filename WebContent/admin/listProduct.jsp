@@ -6,9 +6,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
-<%
-	ArrayList<ProductBean> productList = (ArrayList<ProductBean>)request.getAttribute("productList");
-%>
 <html>
 <head>
 <meta charset="UTF-8">

@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,9 +54,6 @@ function deleteProduct(){
 <tr><th>주문날짜</th><td><c:out value="${ordersBean.orders_regdate}"/></td></tr>
 </table>
 <br><br>
-<button onclick="location.href='OrderList.admin?page=${param.page}'" class="viewBtn">목록가기</button>
-<button onclick="deleteProduct()"  class="viewBtn deleteBtn">주문삭제</button>
-<br><br>
 
 <h1 class="viewTitle">수신자 상세보기</h1>
 <table class="viewTable">
@@ -67,6 +65,24 @@ function deleteProduct(){
 <tr><th>수신자 상세주소</th><td><c:out value="${receiverBean.receiver_addr_detail}"/></td></tr>
 <tr><th>수신자 메세지</th><td><c:out value="${receiverBean.receiver_msg}"/></td></tr>
 </table>
+
+<h1 class="viewTitle">주문상품 상세보기</h1>
+
+<c:forEach var="i" begin="0" end="${fn:length(ordersDetailBeans)-1}" step="1">
+<table class="viewTable">
+<tr><th>상품상세 인덱스</th><td><c:out value="${ordersDetailBeans[i].ordersDetail_num}"/></td></tr>
+<tr><th>상품상세 수량</th><td><c:out value="${ordersDetailBeans[i].ordersDetail_quantity}"/></td></tr>
+<tr><th>상품상세 코드</th><td><c:out value="${ordersDetailBeans[i].ordersDetail_code}"/></td></tr>
+<tr><th>상품상세 이름</th><td><c:out value="${ordersDetailBeans[i].ordersDetail_name}"/></td></tr>
+<tr><th>상품상세 이미지</th><td><c:out value="${ordersDetailBeans[i].ordersDetail_image}"/></td></tr>
+<tr><th>상품상세 가격</th><td><c:out value="${ordersDetailBeans[i].ordersDetail_price}"/></td></tr>
+</table>
+<br><br>
+</c:forEach>
+
+<button onclick="location.href='OrderList.admin?page=${param.page}'" class="viewBtn">목록가기</button>
+<button onclick="deleteProduct()"  class="viewBtn deleteBtn">주문삭제</button>
+<br><br>
 
 </div>
 </div>
