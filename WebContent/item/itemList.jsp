@@ -144,7 +144,7 @@ function selectBox(e){
 		
 		
 	}if(e.value==3){
-		location.href = "/artbox_clone/selectBox.item?select="+result+"&status="+status+"&myreq=13";
+		location.href = "/artbox_clone/selectBox.item?select="+result+"&status="+status;
 		
 	}if(e.value==4){
 		
