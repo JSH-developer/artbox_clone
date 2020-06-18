@@ -1,13 +1,16 @@
 package action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import svc.CouponService;
 import svc.OrderOneListService;
 import vo.ActionForward;
+import vo.CouponBean;
 
 public class OrderOneListAction implements Action {
 
@@ -29,6 +32,18 @@ public class OrderOneListAction implements Action {
 			forward.setRedirect(true);
 			forward.setPath("/artbox_clone/login.basket");
 			return forward;
+		}
+		
+		CouponService couponService = new CouponService();
+		ArrayList<CouponBean> mycouponList= couponService.getmycouponlist(id);
+		
+		if(mycouponList != null) {
+			System.out.println(id+"님 쿠폰 리스트 갖고옴");
+			
+			request.setAttribute("mycouponList", mycouponList);
+			
+		}else {
+			System.out.println("리스트 불러오기 실패");
 		}
 		
 		// basketListService 인스턴스 생성 후 getBasketList() 메서드 호출하여 장바구니 목록 가져오기

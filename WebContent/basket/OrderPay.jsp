@@ -45,6 +45,33 @@ $(document).ready(function(){
 //        }
 //        alert(msg);
 //    });
+
+	function setComma(number) //asp의 formatnumber 사용법 -> var xxx = setComma(parseInt(변수));
+	{
+		var minusYN = "N";
+		if (parseInt(number,10)<0)
+		{
+			minusYN = "Y";
+			number = parseInt(number,10)*-1;
+		}
+
+		var nArr = String(number).split("").join(",").split("");
+		for (var i=nArr.length-1, j=1; i>=0; i--, j++)
+		{
+			 if( j%6 != 0 && j%2 == 0)
+			 {
+				 nArr[i] = "";
+			 }
+		}
+		if (minusYN=="Y")
+		{
+			return "-"+nArr.join("");
+		}
+		else
+		{
+			return nArr.join("");
+		}
+	}
    
    $("input[type=tel]").keyup(function(e){
       if (!Check_Number(e.currentTarget.value)) {
@@ -323,6 +350,58 @@ $(document).ready(function(){
 
    }
 
+	fnTotalPriceAmount = function(){
+
+		var TotalPriceSum                 = parseInt($("input[name=TotalPriceSum]").val(),10);
+		var TotalPriceDelivery            = parseInt($("input[name=TotalPriceDelivery]").val(),10);
+		var TotalPriceMemberLevelDiscount = parseInt($("input[name=TotalPriceMemberLevelDiscount]").val(),10);
+		var TotalUseMileage               = parseInt($("input[name=TotalUseMileage]").val(),10);
+		var TotalUseBonusCoupon           = parseInt($("input[name=TotalUseBonusCoupon]").val(),10);
+		var TotalUseGoodsCoupon           = parseInt($("input[name=TotalUseGoodsCoupon]").val(),10);
+		var TotalUseFreeCoupon            = parseInt($("input[name=TotalUseFreeCoupon]").val(),10);
+
+		var TotalPriceAmount = TotalPriceSum+TotalPriceDelivery-TotalPriceMemberLevelDiscount-TotalUseMileage-TotalUseBonusCoupon-TotalUseGoodsCoupon-TotalUseFreeCoupon;
+		var TotalMileageAmount = Math.ceil((TotalPriceAmount/100)*parseFloat($("#MemMileageSaveRate").val()));
+
+
+
+
+		if (TotalPriceAmount < 0)
+		{
+			alert("총 합계금액은 0원 이상이어야 합니다.");
+			fnInitDiscountTable();
+			return;
+		}
+
+
+		$("#i_TotalDiscountPriceInfo_summary").val("- " + setComma(TotalUseMileage+TotalUseBonusCoupon+TotalUseGoodsCoupon+TotalUseFreeCoupon) + " 원"); //접혔을 때 할인금액
+		$("#i_TotalDiscountPriceInfo").val("- " + setComma(TotalUseMileage+TotalUseBonusCoupon+TotalUseGoodsCoupon+TotalUseFreeCoupon) + " 원"); //펼쳤을 때 할인금액
+		
+		$("#TotalDiscountPriceSum").text(setComma(TotalUseMileage+TotalUseBonusCoupon+TotalUseGoodsCoupon+TotalUseFreeCoupon+TotalPriceMemberLevelDiscount));
+
+		$("input[name=TotalPriceAmount]").val(TotalPriceAmount);
+		$("#TotalPriceAmount").text(setComma(TotalPriceAmount));
+		$("#TotalPriceAmount2").text(setComma(TotalPriceAmount));
+		$("#UseMileageAll").val(TotalPriceAmount);
+
+// 		if (TotalPriceAmount<=0) { //논페이 열기
+// 			$("#OrderPayInfoNonPay").css("display","block");
+// 			$("#OrderPayInfoArrow").css("display","none");
+// 			$("#OrderPayInfoSummary").css("display","none");
+// 			$("#OrderPayInfo").css("display","none");
+
+// 			$("#gaPayTypeText").val("포인트 결제");
+
+// 		} else { //논페이 닫기
+// 			$("#OrderPayInfoNonPay").css("display","none");
+// 			$("#OrderPayInfoArrow").css("display","block");
+// 			$("#OrderPayInfoArrow").attr("class","Open");
+// 			$("#OrderPayInfoSummary").css("display","none");
+// 			$("#OrderPayInfo").css("display","block");
+
+// 			$("#gaPayTypeText").val($("#gaPayTypeTextTemp").val());
+// 		}
+	}
 
    fnInitDiscountTable = function(){
 
@@ -841,10 +920,28 @@ function execDaumPostCode() { // 우편번호
                   <select id="CouponIdxSelect_Null">
                      <option value="" selected="selected">사용안함</option>
                   </select>
-                  
-                  <select name="BonusCouponIdx" id="CouponIdxSelect_Bonus" disabled="disabled" class="none">
-                     <option value="" alt="0" selected="selected">해당 쿠폰이 없습니다.</option>
-                  </select>
+
+						<c:if test="${empty mycouponList}"> <!-- 쿠폰 없을때 -->
+						<select name="BonusCouponIdx" id="CouponIdxSelect_Bonus" disabled="disabled" class="none">
+							<option value="" alt="0" selected="selected">해당 쿠폰이 없습니다.</option>
+						</select>
+						</c:if>
+						
+						<c:if test="${!empty mycouponList}">  <!-- 쿠폰 있을때 -->
+						<select name="BonusCouponIdx" id="CouponIdxSelect_Bonus" onchange="fnCouponSelect(this);" class="none" >
+<!-- 						style="display: block;"> -->
+
+							<option value="" alt="0" selected="selected">선택</option>
+							
+							<c:forEach  var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
+							<c:set var="Coupon" value="${mycouponList[i].coupon_category}"/>
+							<c:if test="${'bonuscoupon' == Coupon }">
+							<option value="53146604" alt="${mycouponList[i].coupon_price }">
+							${mycouponList[i].coupon_name}</option>
+							</c:if>
+						</c:forEach>
+						</select>
+							</c:if>
                   
                   <input type="hidden" id="NotCoupon" value="N" />
 
