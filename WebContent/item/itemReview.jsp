@@ -115,9 +115,6 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
-		<div>
-		
-		</div>
 	</div>
 	<!-- /메인 콘텐츠  -->
 	<!--  푸터 -->
