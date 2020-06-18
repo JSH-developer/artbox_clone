@@ -214,9 +214,9 @@
 				<div class="text-info">
 					<div class="pdt-name">${productBean.product_name }</div>
 					<div class="pdt-category">
-						<a href="#" class="major">${category_sup }</a>
+						<a href="${pageContext.request.contextPath}/itemList.item?major=${productBean.product_code}" class="major">${category_sup }</a>
 						&gt;
-						<a href="#" class="minor">${category_sub }</a>
+						<a href="${pageContext.request.contextPath}/itemList.item?minor=${productBean.product_category_code}" class="minor">${category_sub }</a>
 					</div>
 					<div class="pdt-right pdt-price"><fmt:formatNumber value="${productBean.product_price}" type="number" />원</div>
 					<div class="pdt-right pdt-delivery">2,500원
