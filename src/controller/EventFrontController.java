@@ -14,6 +14,7 @@ import action.CouponAllListAction;
 import action.CouponIssuedAction;
 import action.CouponOrderPayFormAction;
 import action.CouponWriteProAction;
+import action.EventDeleteProAction;
 import action.EventDetailAction;
 import action.EventListAction;
 import action.EventModifyFormAction;
@@ -21,6 +22,7 @@ import action.EventModifyProAction;
 import action.EventWriteProAction;
 import action.EventproductviewAction;
 import action.MypageCouponListAction;
+import svc.ProductWriteService;
 import vo.ActionForward;
 
 @WebServlet("*.event")
@@ -32,7 +34,8 @@ public class EventFrontController extends HttpServlet {
 		
 		Action action = null;
 		ActionForward forward = null;
-	
+		ProductWriteService productWriteService = null;
+
 		
 		if(command.equals("/index.event")){	// 이벤트 관련 링크들
 			System.out.println("/index.event");
@@ -45,7 +48,7 @@ public class EventFrontController extends HttpServlet {
 			
 		}else if(command.equals("/CouponWriteForm.event")){	// 쿠폰 등록 입력
 			System.out.println("/CouponWriteForm.event");
-			
+
 			action = new CouponAllListAction(); 
 			try {
 				forward = action.execute(request, response);
@@ -100,7 +103,11 @@ public class EventFrontController extends HttpServlet {
 			
 		}else if(command.equals("/EventWriteForm.event")){	// 이벤트 등록
 			System.out.println("/EventWriteForm.event");
-
+			// 카테고리 불러오기
+			productWriteService = new ProductWriteService();
+			String categorySelectList = productWriteService.categorySelectList();
+			request.setAttribute("categorySelectList", categorySelectList);
+			
 			forward = new ActionForward();
 			forward.setPath("/event/registEvent.jsp"); 
 			
@@ -115,7 +122,11 @@ public class EventFrontController extends HttpServlet {
 			
 		}else if(command.equals("/EventModifyForm.event")){	// 이벤트 수정
 			System.out.println("/EventModifyForm.event");
-
+			// 카테고리 불러오기
+			productWriteService = new ProductWriteService();
+			String categorySelectList = productWriteService.categorySelectList();
+			request.setAttribute("categorySelectList", categorySelectList);
+			
 			action = new EventModifyFormAction();
 			try {
 				forward = action.execute(request, response);
@@ -148,9 +159,17 @@ public class EventFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/Eventproductview.event")) { // 이벤트 관련 상품
+		}else if(command.equals("/Eventproductview.event")) { // 이벤트 관련 상품 불러오기
 			System.out.println("/Eventproductview.event");
 			action = new EventproductviewAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/EventDeletePro.event")) { // 이벤트 삭제
+			System.out.println("/EventDeletePro.event");
+			action = new EventDeleteProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

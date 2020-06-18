@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import svc.CouponService;
 import svc.EventService;
 import vo.ActionForward;
+import vo.CouponBean;
 import vo.EventBean;
 import vo.PageInfo;
 import vo.ProductBean;
@@ -57,6 +59,13 @@ public class EventDetailAction implements Action {
 		
 		// 페이징 정보를 저장할 PageInfo 객체 생성 및 데이터 저장
 		PageInfo pageInfo = new PageInfo(page,maxPage,startPage,endPage,listCount);
+		
+		
+		// 관련 쿠폰 불러오기
+		CouponService couponService = new CouponService();
+		CouponBean itemcoupon = couponService.getCouponList(condition);
+		request.setAttribute("itemcoupon", itemcoupon);
+		
 			
 		// request 객체에 PageInfo 객체와 ArrayList 객체 저장
 		request.setAttribute("pageInfo", pageInfo);

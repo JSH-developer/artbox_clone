@@ -22,7 +22,6 @@ public class ItemDetailAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		ProductBean productBean = null;
-
 		//파라미터로 전달된 게시물 넘버값 
 		int product_num = Integer.parseInt(request.getParameter("product_num"));
 		//로그인 안했으면 id값 guest
@@ -33,6 +32,7 @@ public class ItemDetailAction implements Action {
 		//admin의 svc.ProductViewService 객체 재활용 
 		ProductViewService pvs = new ProductViewService();
 		productBean = pvs.infoProduct(product_num);
+	
 		request.setAttribute("productBean", productBean);
 		
 		String category_sup = productBean.getProduct_category_code().substring(0,2); 

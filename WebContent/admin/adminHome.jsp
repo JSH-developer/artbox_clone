@@ -5,18 +5,14 @@
 <head>
 <meta charset="UTF-8">
  <title>ARTBOX(포트폴리오)</title>
+ 
+ 
+ <!-- 구글 폰트  -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<style>*{font-family: 'Noto Sans KR', sans-serif;}</style>
+ 
 <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
-
-<style>
-span.adhome_menu{
-	display: inline-block;
-	border:1px solid black;
-	padding:10px;
-	margin-right: 10px;
-
-}
-
-</style>
+<link href="${pageContext.request.contextPath}/css/admin/adminHome.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
@@ -25,10 +21,11 @@ span.adhome_menu{
  <!-- 헤더 -->
  
  <div class="pageContent">
- <h1> 관리자 페이지</h1>
+ <h1 class="homeTitle"> 관리자 페이지</h1>
 
+<div class="wrapAdhome">
  <span class="adhome_menu">
- <a href="#"><img src="${pageContext.request.contextPath}/Images/admin/member.png" width="100"/><br>
+ <a href="MemberList.admin"><img src="${pageContext.request.contextPath}/Images/admin/member.png" width="100"/><br>
  <h3>회원관리</h3></a>
  </span>
  
@@ -38,12 +35,15 @@ span.adhome_menu{
  </span>
  
  <span class="adhome_menu">
- <img src="${pageContext.request.contextPath}/Images/admin/order.png" width="100"/>
- <h3>주문관리</h3>
+ <a href="OrderList.admin"><img src="${pageContext.request.contextPath}/Images/admin/order.png" width="100"/>
+ <h3>주문관리</h3></a>
  </span>
  
- 
- 
+ <span class="adhome_menu">
+ <img src="${pageContext.request.contextPath}/Images/admin/event.png" width="100"/>
+ <h3>이벤트관리</h3>
+ </span>
+ </div>
  </div>
  
 <!--  푸터 -->

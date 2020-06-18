@@ -115,10 +115,13 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
+<<<<<<< HEAD
 		<div>
 			<input type="checkbox" id="popup">
 		
 		</div>
+=======
+>>>>>>> refs/remotes/origin/item
 	</div>
 	<!-- /메인 콘텐츠  -->
 	<!--  푸터 -->

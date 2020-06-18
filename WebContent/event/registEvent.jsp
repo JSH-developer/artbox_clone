@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,7 +70,33 @@ $(document).ready(function() {
 
 <!-- registProduct 페이지에 대한 전용 css, 딴 css 필요없음!!!!!! -->
 <link href="${pageContext.request.contextPath}/css/admin/registProduct.css" rel="stylesheet" type="text/css">
-
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#event_condition option").each(function() {
+		var text = $(this).text();
+		
+		if(text.indexOf('DT') != -1) {
+			$(this).html(text.replace('DT', '인형/토이'));
+		}else if(text.indexOf('FA') != -1) {
+			$(this).html(text.replace('FA', '문구'));	
+		}else if(text.indexOf('FS') != -1){
+			$(this).html(text.replace('FS', '패션'));
+		}else if(text.indexOf('KB') != -1){
+			$(this).html(text.replace('KB', '주방/욕실'));
+		}else if(text.indexOf('LD') != -1){
+			$(this).html(text.replace('LD', '리빙/데코'));
+		}else if(text.indexOf('DI') != -1){
+			$(this).html(text.replace('DI', '디지털/가전'));
+		}else if(text.indexOf('TR') != -1){
+			$(this).html(text.replace('TR', '여행'));
+		}else if(text.indexOf('BE') != -1){
+			$(this).html(text.replace('BE', '뷰티'));	
+		}
+		
+		});
+	
+})
+</script>
 </head>
 <body>
 
@@ -93,12 +120,16 @@ $(document).ready(function() {
 <table class="reg_tab">
 	<tr><th>이벤트 제목</th><td><input type="text" name="event_title"></td></tr>
 	<tr><th>이벤트 내용</th><td style="margin-left:100px"><textarea id="summernote" name="event_content"></textarea></td></tr>
-	<tr><th>이벤트 할인%</th><td><input type="text" name="event_discount"></td></tr>
-	<tr><th>이벤트 조건</th><td><input type="text" name="event_condition"></td></tr>
+	<tr><th>이벤트 할인%</th><td><input type="text" name="event_discount" placeholder="세일은 %로, 쿠폰은 차감가격 입력"></td></tr>
+	<tr><th>이벤트 조건</th><td><select id="event_condition" name="event_condition"><option>카테고리를 선택해주세요</option>${categorySelectList}</select>
+		</td></tr>
 	<tr><th>이벤트 시작일</th><td><input type="date" name="event_start"></td></tr>
 	<tr><th>이벤트 마감일</th><td><input type="date" name="event_limit"></td></tr>
 	<tr><th>대표 이미지</th><td><input type="file" name="event_img" accept="image/*"></td></tr>
-	<tr><th>이벤트 카테고리</th><td><input type="text" name="event_category"></td></tr>
+	<tr><th>이벤트 카테고리</th><td><select name="event_category">
+    	<option value="">이벤트 종류 선택</option>
+    	<option value="sale_event">세일 이벤트</option>
+   		<option value="coup_event">쿠폰 이벤트</option></select></td></tr>
 	<tr class="btn_tr"><td colspan="2"><input type="submit" value="이벤트 등록"></td></tr>
 </table>
 </form>

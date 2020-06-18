@@ -18,23 +18,25 @@ public class EventproductviewAction implements Action {
 		
 		ActionForward forward = null;
 		
+		// 조건 불러오기
+		String condition = request.getParameter("condition");
+		
+		System.out.println("condition"+condition);
+		
+		// 상품에 맞는 쿠폰
 		CouponService couponService = new CouponService();
+		CouponBean itemcoupon = couponService.getCouponList(condition);
+		request.setAttribute("itemcoupon", itemcoupon);
 		
-		
-		ArrayList<CouponBean> couponList = couponService.getCouponAllList();
-		
-		request.setAttribute("couponList", couponList);
 		
 		// 상품 불러오기
 		ProductBean productBean = null;
-		
 		int product_num = Integer.parseInt(request.getParameter("product_num"));
-		
 		ProductViewService productViewService = new ProductViewService();
 		productBean = productViewService.infoProduct(product_num);
 		
 		
-		request.setAttribute("productBean", productBean);
+		request.setAttribute("item", productBean);
 		request.setAttribute("product_num", product_num);
 		
 		forward = new ActionForward();

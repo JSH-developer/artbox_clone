@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import item.action.CategoryLinkAction;
 import item.action.ItemDetailAction;
-import item.action.QuestionListAction;
 import item.action.QuestionWriteAction;
-import item.action.UploadTestAction;
+import item.action.SearchAction;
+import item.action.SelectBoxAction;
 import vo.ActionForward;
 
 
@@ -27,7 +27,6 @@ public class ItemController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String command = request.getServletPath();
 		// 경로 추적하기위해 출력중
-		System.out.println(command);
 		Action action = null;
 		ActionForward forward = null;
 		
@@ -52,23 +51,22 @@ public class ItemController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-		else if(command.equals("/questionList.item")) {
-			action = new QuestionListAction();
+		}else if(command.equals("/search.item")) {
+			action = new SearchAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/selectBox.item")) {
+			action = new SelectBoxAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		else if(command.equals("/uploadtest.itme")) {
-			action = new UploadTestAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		
 		if(forward != null) {
 			if(forward.isRedirect()) { 
 				response.sendRedirect(forward.getPath());

@@ -9,7 +9,7 @@ import dao.OrderDAO;
 
 public class OrderAllListService {
 
-	public List getOrderAllList(String member_id/*, int cartidx*/) {
+	public List getOrderAllList(String member_id/*, int basketidx*/) {
 		System.out.println("OrderAllListService - getOrderAllList()");
 		
 		// DB 작업을 위한 준비 => Connection 객체, DAO 객체, DAO 객체의 메서드 호출
@@ -25,13 +25,13 @@ public class OrderAllListService {
 		// 4. orderDAO 클래스의 selectOrderList() 메서드를 호출하여
 		//    파라미터 : member_id
 		//    리턴타입 : List
-		List list = orderDAO.OrderAllList(member_id/*, cartidx*/);
+//		List list = orderDAO.OrderAllList(member_id/*, basketidx*/);
 		
 		// 5. Connection 객체 반환
 		close(con);
 		
 		// 6. 작업 결과 리턴
-		return list;
+		return null; // list
 	}
 
 }

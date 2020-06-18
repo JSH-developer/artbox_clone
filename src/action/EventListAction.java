@@ -19,6 +19,9 @@ public class EventListAction implements Action {
 		int page = 1;
 		int limit = 10;
 		
+		
+		String event_category = request.getParameter("event_category");
+		
 		if(request.getParameter("page")!=null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
@@ -27,10 +30,10 @@ public class EventListAction implements Action {
 		
 		EventService eventService = new EventService();
 		
-		int listCount = eventService.getListCount();
-		System.out.println("listCount"+listCount);
+		int listCount = eventService.getListCount(event_category);
+		System.out.println("EventListAction - listCount : "+listCount);
 		
-		ArrayList<EventBean> articleList = eventService.getArticleList(page,limit);
+		ArrayList<EventBean> articleList = eventService.getArticleList(page,limit,event_category);
 		
 		// 페이징 처리를 위해 페이지 수 계산
 		// 1. 최대 페이지 번호 계산: 전체 게시물 수 / limit 결과를 반올림 처리 위해 0.95

@@ -20,10 +20,7 @@ public class EventModifyFormAction implements Action {
 		
 		// EventService 객체 호출
 		EventService eventService = new EventService();
-		
-		// 클릭한 이벤트 저장
 		EventBean eventArticle = eventService.getEventArticle(eBoard_Num);
-		
 		request.setAttribute("eventArticle", eventArticle);
 		
 		

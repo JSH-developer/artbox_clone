@@ -1,7 +1,6 @@
 package action;
 
 import java.io.PrintWriter;
-import java.sql.Timestamp;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -46,10 +45,11 @@ public class EventModifyProAction implements Action {
 		eventBean.setEvent_num(Integer.parseInt(multi.getParameter("event_num")));
 		eventBean.setEvent_titie(multi.getParameter("event_title"));
 		eventBean.setEvent_content(multi.getParameter("event_content"));
-		eventBean.setCondition(multi.getParameter("event_condition"));
-		eventBean.setDiscount(Integer.parseInt(multi.getParameter("event_discount")));
+		eventBean.setEvent_condition(multi.getParameter("event_condition"));
+		eventBean.setEvent_discount(Integer.parseInt(multi.getParameter("event_discount")));
 		eventBean.setEvent_start(multi.getParameter("event_start"));
 		eventBean.setEvent_limit(multi.getParameter("event_limit"));
+		eventBean.setEvent_category(multi.getParameter("event_category"));
 		eventBean.setEvent_img(multi.getOriginalFileName((String)multi.getFileNames().nextElement()));
 		
 		
@@ -70,7 +70,7 @@ public class EventModifyProAction implements Action {
 			
 			forward = new ActionForward();
 			forward.setRedirect(true);
-			forward.setPath("EventList.event");
+			forward.setPath("EventList.event?event_category=sale_event");
 			
 		}
 		

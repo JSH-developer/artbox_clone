@@ -21,19 +21,15 @@ public class ProductDeleteProAction implements Action {
 		boolean isDelete = productDeleteService.deleteProduct(num);
 		
 		if(isDelete) {
-			
-			response.setContentType("text/html;charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script type=\"text/javascript\">");
-			out.println("alert('삭제가 완료 되었습니다!!')");
-			out.println("</script>");
-			
 			forward = new ActionForward();
 			forward.setPath("/ProductList.admin?page="+page);
 		}else {
-			forward = new ActionForward();
-			forward.setRedirect(true);
-			forward.setPath("./home.admin");
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script type=\"text/javascript\">");
+			out.println("alert('삭제에 실패하였습니다!!')");
+			out.println("history.back();");
+			out.println("</script>");
 		}
 		
 		return forward;

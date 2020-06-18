@@ -36,7 +36,7 @@ public class EventService {
 	}
 	
 	// 이벤트 게시물 카운트
-	public int getListCount() {
+	public int getListCount(String event_category) {
 		System.out.println("EventService - getListCount");
 		int listCount = 0;
 		
@@ -44,7 +44,7 @@ public class EventService {
 		EventDAO eventDAO = EventDAO.getInstance();
 		eventDAO.setConnection(con);
 		
-		listCount = eventDAO.selectListCount(); // create함
+		listCount = eventDAO.selectListCount(event_category); // create함
 		
 		close(con);
 		
@@ -52,7 +52,7 @@ public class EventService {
 	}
 
 	// 이벤트 리스트 가져오기
-	public ArrayList<EventBean> getArticleList(int page, int limit) {
+	public ArrayList<EventBean> getArticleList(int page, int limit,String event_category) {
 		
 		ArrayList<EventBean> articleList = null;
 		
@@ -60,7 +60,7 @@ public class EventService {
 		EventDAO eventDAO = EventDAO.getInstance();
 		eventDAO.setConnection(con);
 		
-		articleList = eventDAO.selectArticleList(page,limit);
+		articleList = eventDAO.selectArticleList(page,limit,event_category);
 		
 		close(con);
 		
@@ -134,6 +134,28 @@ public class EventService {
 		
 		
 		return modifySuccess;
+	}
+
+	
+	public boolean deleteEvent(String board_num) {
+		boolean deleteSuccess = false;
+
+		Connection con = getConnection();
+		
+		EventDAO eventDAO = EventDAO.getInstance();
+		eventDAO.setConnection(con);
+		
+		int isSuccess = eventDAO.deleteEvent(board_num);
+		
+		if(isSuccess>0) {
+			deleteSuccess = true;
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		
+		return deleteSuccess;
 	}
 
 

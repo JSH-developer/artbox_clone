@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import svc.CouponService;
 import svc.EventService;
+import svc.ProductWriteService;
 import vo.ActionForward;
 import vo.CouponBean;
 import vo.EventBean;
@@ -19,12 +20,16 @@ public class CouponAllListAction implements Action {
 		
 		ActionForward forward = null;
 		
+		// 저장된 쿠폰 리스트 불러오기
 		CouponService couponService = new CouponService();
-		
-		
 		ArrayList<CouponBean> couponList = couponService.getCouponAllList();
-		
 		request.setAttribute("couponList", couponList);
+		
+		// 카테고리 불러오기
+		ProductWriteService productWriteService = new ProductWriteService();
+		String categorySelectList = productWriteService.categorySelectList();
+		request.setAttribute("categorySelectList", categorySelectList);
+		
 		
 		forward = new ActionForward();
 		forward.setPath("/event/registCoupon.jsp");

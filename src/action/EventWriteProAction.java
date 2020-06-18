@@ -48,8 +48,8 @@ public class EventWriteProAction implements Action {
 		System.out.println(multi.getParameter("event_title"));
 		eventBean.setEvent_content(multi.getParameter("event_content"));
 		eventBean.setEvent_time(reg_date);
-		eventBean.setCondition(multi.getParameter("event_condition"));
-		eventBean.setDiscount(Integer.parseInt(multi.getParameter("event_discount")));
+		eventBean.setEvent_condition(multi.getParameter("event_condition"));
+		eventBean.setEvent_discount(Integer.parseInt(multi.getParameter("event_discount")));
 		eventBean.setEvent_start(multi.getParameter("event_start"));
 		eventBean.setEvent_limit(multi.getParameter("event_limit"));
 		eventBean.setEvent_category(multi.getParameter("event_category"));
@@ -73,7 +73,7 @@ public class EventWriteProAction implements Action {
 			
 			forward = new ActionForward();
 			forward.setRedirect(true);
-			forward.setPath("EventList.event");
+			forward.setPath("EventList.event?event_category=sale_event");
 			
 		}
 		

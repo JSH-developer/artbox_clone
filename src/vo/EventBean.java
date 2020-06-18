@@ -8,8 +8,8 @@ public class EventBean {
 	private String event_titie;
 	private String event_content;
 	private Timestamp event_time;
-	private String condition;
-	private int discount;
+	private String event_condition;
+	private int event_discount;
 	private String event_start;
 	private String event_limit;
 	private String event_img,event_category;
@@ -17,15 +17,15 @@ public class EventBean {
 
 	public EventBean() {}
 
-	public EventBean(int event_num, String event_titie, String event_content, Timestamp event_time, String condition,
-			int discount, String event_start, String event_limit, String event_img) {
+	public EventBean(int event_num, String event_titie, String event_content, Timestamp event_time, String event_condition,
+			int event_discount, String event_start, String event_limit, String event_img) {
 		super();
 		this.event_num = event_num;
 		this.event_titie = event_titie;
 		this.event_content = event_content;
 		this.event_time = event_time;
-		this.condition = condition;
-		this.discount = discount;
+		this.event_condition = event_condition;
+		this.event_discount = event_discount;
 		this.event_start = event_start;
 		this.event_limit = event_limit;
 		this.event_img = event_img;
@@ -69,25 +69,21 @@ public class EventBean {
 	}
 
 
-	public String getCondition() {
-		return condition;
+	public String getEvent_condition() {
+		return event_condition;
 	}
 
-
-	public void setCondition(String condition) {
-		this.condition = condition;
+	public void setEvent_condition(String event_condition) {
+		this.event_condition = event_condition;
 	}
 
-
-	public int getDiscount() {
-		return discount;
+	public int getEvent_discount() {
+		return event_discount;
 	}
 
-
-	public void setDiscount(int discount) {
-		this.discount = discount;
+	public void setEvent_discount(int event_discount) {
+		this.event_discount = event_discount;
 	}
-
 
 	public String getEvent_start() {
 		return event_start;

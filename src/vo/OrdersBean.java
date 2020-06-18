@@ -9,7 +9,6 @@ public class OrdersBean {
 	private String orders_order_name; // 주문자 이름
 	private String orders_order_email; // 주문자 이메일
 	private String orders_order_phone; // 주문자 폰번호
-	private String orders_order_tel; // 주문자 전화번호
 	private int orders_point; // 결제포인트
 	private int orders_total_price; // 결제(최종)금액
 	private String orders_payMethod; // 결제수단
@@ -51,12 +50,6 @@ public class OrdersBean {
 	}
 	public void setOrders_order_phone(String orders_order_phone) {
 		this.orders_order_phone = orders_order_phone;
-	}
-	public String getOrders_order_tel() {
-		return orders_order_tel;
-	}
-	public void setOrders_order_tel(String orders_order_tel) {
-		this.orders_order_tel = orders_order_tel;
 	}
 	public int getOrders_point() {
 		return orders_point;

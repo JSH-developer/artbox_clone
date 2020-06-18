@@ -1787,7 +1787,7 @@ function execDaumPostCode() { // 우편번호
 							%>
 							
 							<option value="53146604" alt=<%=myCouponList.get(i).getCoupon_price() %>>
-							<%=myCouponList.get(i).getCoupon_name()%>
+							<%=myCouponList.get(i).getCoupon_name()%></option>
 						
 <!-- 							<option value="53146338" alt="2000">가입회원 2000원 할인 쿠폰</option> -->
 						<%}} %>
