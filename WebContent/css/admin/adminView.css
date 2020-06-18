@@ -41,3 +41,33 @@
 	
 }
 
+.viewDetailTable{
+	margin:0 auto;
+	text-align: center;
+	border-collapse:collapse;
+}
+
+.viewDetailTable th{
+	padding: 20px;
+	border-bottom: 1px solid #ff0000;
+}
+
+.wrapTbl{
+	height: auto;
+  	overflow: hidden;
+}
+
+.vt_child1{
+	display:inline-block;
+	padding-right: 100px;
+}
+
+.vt_child2{
+	display:inline-block;
+ 	vertical-align: top;
+}
+
+.admin_hr{
+	border-style: dashed;
+	border-color: gray;
+}

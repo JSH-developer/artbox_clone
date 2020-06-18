@@ -195,8 +195,14 @@ public class AdminFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("/changeState.admin")) { // 배송 상태변경 페이지 연결
+			try {
+				forward=new ActionForward();
+				forward.setPath("/admin/changeStateOfOrder.jsp");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		
 		
 		
 		
