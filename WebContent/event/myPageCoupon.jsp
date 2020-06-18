@@ -1,9 +1,9 @@
 <%@page import="vo.CouponBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%
 ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute("mycouponList");
@@ -37,8 +37,9 @@ ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute(
 	<div class="top_box">
 		<div class="whoes">
 		<%String id = "jini"; %>
+		<c:set var="id" value="jini"/>
 		<input type="hidden" id="loginid">
-			<span><%=id %></span> 님이 지금 사용하실 수 있는 쿠폰
+			<span>${id}</span> 님이 지금 사용하실 수 있는 쿠폰
 		</div>
 		<div class="three_box">
 			
@@ -72,107 +73,75 @@ ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute(
 	</div>
 	<div class="enroll_coupon_tab">
 		<span>이벤트 쿠폰</span><span>* 오프라인 매장이나 제휴사 이벤트를 통해 발급받으신 쿠폰번호를 등록하시면 쿠폰이 발급됩니다.</span>
-		<span id="couponissue" onclick="location.href='CouponIssued.event?getid=<%=id%>'">쿠폰 등록하기</span>
+		<span id="couponissue">쿠폰 등록하기</span>
 	</div>
 
 <div>
-<input type="button" value="가입 쿠폰 freeshipping" onclick="location.href='CouponIssued.event?getid=<%=id%>&couponname=5월쿠폰bonus'">
-<input type="button" value="웰컴 배송비무료쿠폰" onclick="location.href='CouponIssued.event?getid=<%=id%>'">
-<input type="button" value="웰컴 10%할인쿠폰" onclick="location.href='CouponIssued.event?getid=<%=id%>'">
 
 </div>
 
+<c:set var="bonusCouponCount" value="0"/>
+<c:set var="freeCouponCount" value="0"/>
+<c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
+<c:set var="Coupon" value="${mycouponList[i].coupon_category}" />
+<c:if test="${Coupon eq 'bonuscoupon' }">
+<c:set var="bonusCouponCount" value="${bonusCouponCount+1 }"/>
+</c:if>
 
-	<section id="listForm">
-		<table>
-			<%
-if(myCouponList != null ){
-%>
+<c:if test="${Coupon eq 'freecoupon' }">
+<c:set var="freeCouponCount" value="${freeCouponCount+1 }"/>
+</c:if>
 
-			<tr id="tr_top">
-				<td>번호</td>
-				<td>제목</td>
-				<td>작성자</td>
-				<td>날짜</td>
-				<td>조회수</td>
-			</tr>
-
-			<% for(int i=0;i<myCouponList.size();i++){ %>
-			<tr>
-			
-				<td><%=myCouponList.get(i).getCoupon_name()%></td>
-				<td><%=myCouponList.get(i).getCoupon_price()%></td>
-				<td><%=myCouponList.get(i).getCoupon_condition() %></td>
-				<td><%=myCouponList.get(i).getCoupon_start() %></td>
-				<td><%=myCouponList.get(i).getCoupon_limit() %></td> 
-				<td><%=myCouponList.get(i).getCoupon_use() %></td> 
-				<td><%=myCouponList.get(i).getCoupon_reason() %></td> 
-				<td><%=myCouponList.get(i).getCoupon_member_id() %></td> 
-				<td><%=myCouponList.get(i).getCoupon_category() %></td> 
-			</tr>
-			<%}
-			}%>
-		</table>
-</section>
-	<%
-				int bonusCouponCount = 0; int freeCouponCount=0;
-			
-	for (int i = 0; i < myCouponList.size(); i++) {
-		String Coupon = myCouponList.get(i).getCoupon_category();
-		if (("bonuscoupon").equals(Coupon)) {
-			bonusCouponCount++;
-		}
-		if (("freecoupon").equals(Coupon)) {
-			freeCouponCount++;
-		}
-		
-	}
-%>
+</c:forEach>
 
 
+
+<!-- 가지고 있는 쿠폰 목록 -->
 				<div class="coupon_tab on">온라인 전용 쿠폰 (2장)</div>
-	
 		
 				<div class="coupon_box">
-					<div class="detail_tab">보너스 쿠폰 (<%=bonusCouponCount %>장)</div>
+					<div class="detail_tab">보너스 쿠폰 (${bonusCouponCount }장)</div>
 					<div class="CouponList">
 						<ul>
-							<% for(int i=0;i<myCouponList.size();i++){ 	
-							String Coupon = myCouponList.get(i).getCoupon_category();
-							if(("bonuscoupon").equals(Coupon)){  %>
+		<c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
+		<c:set var="myCoupon" value="${mycouponList[i].coupon_category}" />
+		<c:if test="${myCoupon eq 'bonuscoupon' }">
 							<li>
 								<div class="CouponImage">
 									<img
 										src="http://www.poom.co.kr/Images/Ver2/Mypoom/sale2000.jpg">
 								</div>
-									<div class="CouponName" title=<%=myCouponList.get(i).getCoupon_name() %>><%=myCouponList.get(i).getCoupon_name() %></div>
+									<div class="CouponName" title= "${ mycouponList[i].coupon_name}">
+								${mycouponList[i].coupon_name}</div>
 								<div class="CouponInfo">
-									<span><%=myCouponList.get(i).getCoupon_start() %> ~ <%=myCouponList.get(i).getCoupon_limit() %></span>
-									<span><%=myCouponList.get(i).getCoupon_reason() %></span>
+									<span>${mycouponList[i].coupon_start} ~ ${mycouponList[i].coupon_limit}</span>
+									<span>${mycouponList[i].coupon_reason}</span>
 								</div>
 							</li>
-						<%} }%>
+						</c:if>
+						</c:forEach>
 						</ul>
 					</div>
-					
-					
-					<div class="detail_tab">무료배송 쿠폰 (<%=freeCouponCount %>장)</div>
+
+
+					<div class="detail_tab">
+						무료배송 쿠폰 (${freeCouponCount }장)
+					</div>
 					<div class="CouponList">
 						<ul>
-					<% for(int i=0;i<myCouponList.size();i++){ 	
-					String Coupon = myCouponList.get(i).getCoupon_category();
-						if(("freecoupon").equals(Coupon)){%>
-							<li>
-								<div class="CouponImage">
-									<img src="http://www.poom.co.kr/Images/Ver2/Mypoom/sale13.jpg">
-								</div>
-								<div class="CouponName" title="가입회원 무료배송쿠폰"><%=myCouponList.get(i).getCoupon_name() %></div>
-								<div class="CouponInfo">
-									<span><%=myCouponList.get(i).getCoupon_start() %> ~ <%=myCouponList.get(i).getCoupon_limit() %></span>
-									<span><%=myCouponList.get(i).getCoupon_reason() %></span>
-								</div>
-							</li>
-							<%}} %>
+							<c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
+								<c:set var="myCoupon" value="${mycouponList[i].coupon_category}" />
+								<c:if test="${myCoupon eq 'freecoupon' }">
+									<li>
+										<div class="CouponImage"> <img src="http://www.poom.co.kr/Images/Ver2/Mypoom/sale2000.jpg"></div>
+										<div class="CouponName" title="${ mycouponList[i].coupon_name}">${mycouponList[i].coupon_name}</div>
+										<div class="CouponInfo">
+											<span>${mycouponList[i].coupon_start} ~${mycouponList[i].coupon_limit}</span> 
+											<span>${mycouponList[i].coupon_reason}</span>
+										</div>
+									</li>
+								</c:if>
+							</c:forEach>
 						</ul>
 					</div>
 				</div>
@@ -180,13 +149,6 @@ if(myCouponList != null ){
 				<div class="coupon_tab on">매장 전용 쿠폰 (0장)</div>
 	
 	<div class="coupon_box nocoupon">보유한 쿠폰이 없습니다.</div>
-	
-<!-- 	<script type="text/javascript"> -->
-// function couponcount{
-// // 	$('#bonusCouponCount').val()== 
-// 	document.getElementById("bonusCouponCount").value =document.getElementById("newbonusCouponCount").value;
-// }
-<!-- </script> -->
 
 
 	<div class="bMargin"></div>

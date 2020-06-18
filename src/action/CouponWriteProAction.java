@@ -26,7 +26,6 @@ public class CouponWriteProAction implements Action {
 		couponBean.setCoupon_start(request.getParameter("coupon_start"));
 		couponBean.setCoupon_limit(request.getParameter("coupon_limit"));
 		couponBean.setCoupon_reason(request.getParameter("coupon_reason"));
-//		couponBean.setCoupon_member_id(request.getParameter("coupon_member_id"));
 		couponBean.setCoupon_category(request.getParameter("coupon_category"));
 
 		CouponService couponService = new CouponService();
