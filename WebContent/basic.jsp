@@ -38,6 +38,11 @@
 				<h2>
 				<a href="ProductWriteForm.admin">상품 등록 페이지</a>
 			</h2>
+							<h2>
+				<a href="memberLoginForm.member">로그인</a>
+			</h2>
+			
+			
 			
 
  

@@ -115,8 +115,6 @@
 <%-- 				</c:if> --%>
 				
 		
-				
-		
 		<fmt:parseNumber var="saleprice" value="${saleprice }" integerOnly="true" />
 
 <!-- 		상품불러오는코드		 -->

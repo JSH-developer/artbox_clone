@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.catalina.Session;
 
 import svc.CouponService;
 import vo.ActionForward;
@@ -20,7 +23,9 @@ public class MypageCouponListAction implements Action {
 		
 		ServletContext context = request.getServletContext();
 		
-		String id = "jini";
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
+
 		
 		CouponService couponService = new CouponService();
 		ArrayList<CouponBean> mycouponList= couponService.getmycouponlist(id);

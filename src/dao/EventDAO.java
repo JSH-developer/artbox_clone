@@ -66,14 +66,14 @@ public class EventDAO {
 			insertCount = pstmt.executeUpdate();
 			int ediscount = eventBean.getEvent_discount();
 			
-//			if(eventBean.getEvent_category().equals("coup_event")) {
-//				String discount="price - "+ediscount;
-//					
-//				sql = "UPDATE product SET sale_price="+discount+" WHERE category_code=?";
-//				pstmt = con.prepareStatement(sql);
-//				pstmt.setString(1, eventBean.getEvent_condition());
-//				
-//			}
+			if(eventBean.getEvent_category().equals("coup_event")) {
+				String discount="price - "+ediscount;
+					
+				sql = "UPDATE product SET sale_price="+discount+" WHERE category_code=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, eventBean.getEvent_condition());
+				
+			}
 			
 			if(eventBean.getEvent_category().equals("sale_event")) {
 			String discount="price - ((price * "+ediscount+")/100)";

@@ -36,8 +36,7 @@ ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute(
 	
 	<div class="top_box">
 		<div class="whoes">
-		<%String id = "jini"; %>
-		<c:set var="id" value="jini"/>
+		<c:set var="id" value="${sessionScope.id}"/>
 		<input type="hidden" id="loginid">
 			<span>${id}</span> 님이 지금 사용하실 수 있는 쿠폰
 		</div>

@@ -64,7 +64,7 @@ ProductBean item= (ProductBean)request.getAttribute("item");
 // 		String loginId = "jini";	// 로그인한 아이디
 // 		String item_category = item.getProduct_category_code();// 불러온 상품의 카테고리
 			%>
-			<c:set var="sessionId" value="sessionScope.userId"/>
+			<c:set var="sessionId" value="${sessionScope.id}"/>
 			<c:set var="loginId" value="jini"/>
 			<c:set var="item_category" value="${item.product_category_code }"/>
 			<c:set var="realprice" value="${item.product_price}"/>
@@ -75,7 +75,7 @@ ProductBean item= (ProductBean)request.getAttribute("item");
 			<c:out value="${itemcoupon.coupon_name  }"/>
 		<span>카테고리 : ${item_category}</span>
 		
-		<input type="hidden" id="loginId" value="${loginId}">
+		<input type="hidden" id="loginId" value="${sessionId}">
 
 	<%
 // 		if (couponList != null) {

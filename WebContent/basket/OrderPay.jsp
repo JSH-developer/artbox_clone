@@ -958,12 +958,29 @@ function execDaumPostCode() { // 우편번호
                <dt>무료배송쿠폰</dt>
                <dd>
                
-                  <select name="FreeCouponIdx" id="CouponIdxSelect_Free" onchange="fnCouponSelect(this);" >
-                     <option value="" alt="0" selected="selected">선택</option>
-                     
-                     <option value="52183406" alt="2500">가입회원 무료배송쿠폰</option>
-                     
-                  </select>
+                  
+               <c:if test="${empty mycouponList}"> <!-- 쿠폰 없을때 -->
+				<select name="FreeCouponIdx" id="CouponIdxSelect_Null" onchange="fnCouponSelect(this);" disabled="disabled" class="none">
+							<option value="" alt="0" selected="selected">해당 쿠폰이 없습니다.</option>
+						</select>
+				</c:if>
+						
+						<c:if test="${!empty mycouponList}">  <!-- 쿠폰 있을때 -->
+						<select name="FreeCouponIdx" id="CouponIdxSelect_Free" onchange="fnCouponSelect(this);" class="block" >
+<!-- 						style="display: block;"> -->
+
+							<option value="" alt="0" selected="selected">선택</option>
+							
+							<c:forEach  var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
+							<c:set var="Coupon" value="${mycouponList[i].coupon_category}"/>
+							<c:if test="${'freecoupon' == Coupon }">
+							<option value="53146604" alt="${mycouponList[i].coupon_price }">
+							${mycouponList[i].coupon_name}</option>
+							</c:if>
+						</c:forEach>
+						</select>
+							</c:if>
+                  
                
                   <p class="null"></p>
                </dd>
