@@ -21,7 +21,7 @@ public class OrderAllListAction implements Action {
 		String id = (String)session.getAttribute("id");
 		ActionForward forward = null;
 		
-//		int basketidx = Integer.parseInt(request.getParameter("basketidx"));
+//		int basketIdx = Integer.parseInt(request.getParameter("basketIdx"));
 		
 		// 세션값 없으면 로그인페이지로 돌아가기
 		if(id == null){
@@ -34,7 +34,7 @@ public class OrderAllListAction implements Action {
 		// basketListService 인스턴스 생성 후 getBasketList() 메서드 호출하여 장바구니 목록 가져오기
 		// => 파라미터 : id , 리턴타입 : Vector
 		OrderAllListService orderAllListService = new OrderAllListService();
-		List list = orderAllListService.getOrderAllList(id/*, basketidx*/);
+		List list = orderAllListService.getOrderAllList(id/*, basketIdx*/);
 		List productList = (List)list.get(0);
 		List basketList = (List)list.get(1);
 		List memberList = (List)list.get(2);

@@ -36,33 +36,33 @@ $(document).ready(function(){
 		fnBasketCalculate();
 	});
 
-	fnChangeOption = function(basketidx){ // 옵션변경 창 나타나기
-		if ($("#ItemListChangeOption"+basketidx).css("display")=="none") {
-			$("#ItemListChangeOption"+basketidx).css("display","block");
+	fnChangeOption = function(basketIdx){ // 옵션변경 창 나타나기
+		if ($("#ItemListChangeOption"+basketIdx).css("display")=="none") {
+			$("#ItemListChangeOption"+basketIdx).css("display","block");
 		} else {
-			$("#ItemListChangeOption"+basketidx).css("display","none");
+			$("#ItemListChangeOption"+basketIdx).css("display","none");
 		}
 	}
 	
 	fnBasketArray = function(actiontype){
 		var count = 0;
-		var arrBasketidx = 0;
+		var arrBasketIdx = 0;
 
 		$("input[name=BasketIdx]").each(function(){
 			if ($(this).prop("checked")){
 				count = count + 1;
-				arrBasketidx = arrBasketidx + "," + $(this).val();
-				var basketidx = $(this).parent().find("[name=BasketIdx]").val();
+				arrBasketIdx = arrBasketIdx + "," + $(this).val();
+				var basketIdx = $(this).parent().find("[name=BasketIdx]").val();
 // 				var basketArr = $("input[name=BasketIdx]").get();
 // 				var basketArr = new Array();
-// 				basketidx = basketidx + "," + $(this).val()
-				alert(actiontype+"\n"+basketidx+"\n"+arrBasketidx);
+// 				basketIdx = basketIdx + "," + $(this).val()
+				alert(actiontype+"\n"+basketIdx+"\n"+arrBasketIdx);
 
 				if (actiontype == "ARRAYDEL") { // 선택삭제
-// 					location.href = "deleteOne.basket?basketidx="+basketidx;
+// 					location.href = "deleteOne.basket?basketIdx="+basketIdx;
 // 					alert('삭제되었습니다.');
 				} else if (actiontype == "ARRAYBUY") { // 선택주문
-					location.href = "orderAll.order?basketidx="+basketidx;
+					location.href = "orderAll.order?basketIdx="+basketIdx;
 				}
 			}
 		});
@@ -75,29 +75,29 @@ $(document).ready(function(){
 	}
 	
 	
-	fnBasketOne = function(actiontype,basketidx,qty,optionidx){
-// 		alert(actiontype+"\n"+basketidx+"\n"+qty+"\n"+optionidx);
+	fnBasketOne = function(actiontype,basketIdx,qty,optionidx){
+// 		alert(actiontype+"\n"+basketIdx+"\n"+qty+"\n"+optionidx);
 		
 		if (actiontype == "BUY") { // 바로주문하기 버튼 클릭시
-			location.href = "orderOne.order?arrBasket=" + basketidx  + "&optionidx=" + optionidx;
+			location.href = "orderOne.order?arrBasket=" + basketIdx  + "&optionidx=" + optionidx;
 		} else if (actiontype == "QTY" && optionidx == 0) { // X(특정 상품 삭제) 버튼 클릭시
-			location.href = "deleteOne.basket?basketidx=" + basketidx;
+			location.href = "deleteOne.basket?basketIdx=" + basketIdx;
 			alert('삭제되었습니다.');
 		} else if (actiontype == "QTY" && optionidx != 0) { // 옵션변경 버튼 클릭시
-			location.href = "updateQuantity.basket?basketidx=" + basketidx + "&qty=" + qty;
+			location.href = "updateQuantity.basket?basketIdx=" + basketIdx + "&qty=" + qty;
 			alert('변경되었습니다.');
 		}
 
 	}
 	
-	fnSetQty = function(basketidx,add){ // 수량 변경 옵션
-		var qty = parseInt($("#Qty"+basketidx).val(),10)+parseInt(add,10);
+	fnSetQty = function(basketIdx,add){ // 수량 변경 옵션
+		var qty = parseInt($("#Qty"+basketIdx).val(),10)+parseInt(add,10);
 
 		if (qty<0) {
 			alert("0 이상의 값을 입력해야 합니다.");
 			return;
 		}
-		$("#Qty"+basketidx).val(qty);
+		$("#Qty"+basketIdx).val(qty);
 	}
 	
 	// 숫자 3자리 수마다 콤마찍기

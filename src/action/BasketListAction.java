@@ -15,11 +15,12 @@ public class BasketListAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("BasketListAction");
+		ActionForward forward = null;
 		
 		// 세션값 가져오기
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
-		ActionForward forward = null;
+		request.setCharacterEncoding("UTF-8");
 		
 		// 세션값 없으면 로그인페이지로 돌아가기
 		if(id == null){
@@ -30,16 +31,16 @@ public class BasketListAction implements Action {
 		}
 		
 		// basketListService 인스턴스 생성 후 getBasketList() 메서드 호출하여 장바구니 목록 가져오기
-		// => 파라미터 : id , 리턴타입 : Vector
 		BasketListService basketListService = new BasketListService();
+		// 파라미터 : id , 리턴타입 : List
 		List list = basketListService.getBasketList(id);
 		if(list == null) {
 			forward = new ActionForward();
 			forward.setPath("/basket/Basket.jsp");
 		} else {
-			// 첫번째 vector 칸의 값인 basketList 저장
+			// 첫번째 list 칸의 값인 basketList 저장
 			List basketList = (List)list.get(0);
-			// 두번째 vector 칸의 값인 itemsList 저장
+			// 두번째 list 칸의 값인 itemsList 저장
 			List itemsList = (List)list.get(1);
 			
 			forward = new ActionForward();
@@ -47,7 +48,6 @@ public class BasketListAction implements Action {
 			request.setAttribute("basketList", basketList);
 			request.setAttribute("itemsList", itemsList);
 			forward.setPath("/basket/Basket.jsp");
-			
 		}
 		
 		return forward;

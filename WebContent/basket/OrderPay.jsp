@@ -700,8 +700,9 @@ function execDaumPostCode() { // 우편번호
          <div class="DeliverySelect" id="MyDelivery1">
             <select onchange="fnSelectMyDelivery(this);">
                <option value="" selected="selected">선택</option>
-               
-<!--                <option value="||">자택</option> -->
+               		<option value="최유라||46934||부산광역시 사상구 모라로110번길 121 (모라동, 주공아파트1단지)||333-1||010||333||5678||||||">자택2</option>
+					
+					<option value="김땡땡||06257||서울특별시 강남구 논현로 311 (역삼동)||101-101||010||1234||5678||||||">자택</option>
                
             </select>
             <p class="null"></p>
@@ -1010,6 +1011,7 @@ function execDaumPostCode() { // 우편번호
 
 <input type="hidden" name="phone123" value="${orderListOne[0].phone}"/>
 <input type="hidden" name="TotalPriceAmount" value="${tps+tpd}"/>
+<input type="hidden" name="arrBasket" value="${arrBasket}"/>
 
 </form>
 

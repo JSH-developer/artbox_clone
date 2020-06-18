@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import svc.BasketDeleteOneService;
 import vo.ActionForward;
@@ -17,18 +18,14 @@ public class BasketDeleteOneAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("BasketDeleteOneAction");
 		ActionForward forward = null;
-	
 		
 		String arrBasket = request.getParameter("arrBasket");
 		System.out.println("가져온값" + arrBasket);
-//			System.out.println("확인");
-		// BasketDeleteOneService 인스턴스 생성 후 deleteBasket() 메서드 호출하여 장바구니 삭제하기
-		// => 파라미터 : 장바구니 인덱스번호(basketidx), 리턴타입 : boolean(isDeleteSuccess)
-//		for(String i : arrBasket) {
-//			int basket_num = Integer.parseInt(i);
-//		}
 		
+		// BasketDeleteOneService 인스턴스 생성 후 deleteBasket() 메서드 호출하여 장바구니 삭제하기
+		// => 파라미터 : 장바구니 인덱스번호(arrBasket), 리턴타입 : boolean(isDeleteSuccess)
 		boolean isDeleteSuccess = BasketDeleteOneService.deleteBasket(arrBasket);
+	
 		// 삭제 결과에 따른 처리
 		// => isDeleteSuccess 가 false 일 경우
 		//    자바스크립트 사용하여 "삭제 실패!" 출력 후 이전페이지로 이동
@@ -47,9 +44,10 @@ public class BasketDeleteOneAction implements Action {
 			out.println("history.back();"); // 이전 페이지로 돌아가기
 			out.println("</script>"); // 자바스크립트 끝 태그
 		} else {
+			System.out.println("장바구니 삭제 성공!");
 			forward = new ActionForward();
 			forward.setRedirect(true);
-			forward.setPath("listBasket.basket");
+			forward.setPath("listBasket.basket"); // listBasket.basket 로 포워딩
 		}
 		
 		return forward;

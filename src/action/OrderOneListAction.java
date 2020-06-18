@@ -41,6 +41,7 @@ public class OrderOneListAction implements Action {
 		// request 에 basketList / itemsList 담기
 		request.setAttribute("orderListOne", orderList.get(0));
 		request.setAttribute("orderList", orderList);
+		request.setAttribute("arrBasket", arrBasket); // 주문한 상품번호 들고가기
 		forward.setPath("/basket/OrderPay.jsp");
 		
 /*		
