@@ -15,16 +15,15 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-	fnCheckAll = function(){ // 체크
+	// 체크 제어
+	fnCheckAll = function(){
 		var i = 0
-
 		$("input[name=BasketIdx]").each(function(){
 			if (!$(this).prop("checked")) {
 				i = i + 1;
 			}
 		});
-
-		if (i==0) { // 전부 체크되있으면 전체 체크해제
+		if (i == 0) { // 전부 체크되있으면 전체 체크해제
 			$("input[name=BasketIdx]").prop("checked",false);
 		} else { // 전체 체크
 			$("input[name=BasketIdx]").prop("checked",true);
@@ -32,11 +31,13 @@ $(document).ready(function(){
 		fnBasketCalculate();
 	}
 	
-	$("input[name=BasketIdx]").change(function(){ // 체크버튼 클릭시 총합계 계산
+	// 상품 체크버튼(추가) 클릭 시 총금액 다시 계산(fnBasketCalculate() 메서드 호출)
+	$("input[name=BasketIdx]").change(function(){
 		fnBasketCalculate();
 	});
 
-	fnChangeOption = function(basketIdx){ // 옵션변경 창 나타나기
+	// 옵션변경 창 나타내기 / 숨기기
+	fnChangeOption = function(basketIdx){
 		if ($("#ItemListChangeOption"+basketIdx).css("display")=="none") {
 			$("#ItemListChangeOption"+basketIdx).css("display","block");
 		} else {
@@ -44,40 +45,10 @@ $(document).ready(function(){
 		}
 	}
 	
-	fnBasketArray = function(actiontype){
-		var count = 0;
-		var arrBasketIdx = 0;
-
-		$("input[name=BasketIdx]").each(function(){
-			if ($(this).prop("checked")){
-				count = count + 1;
-				arrBasketIdx = arrBasketIdx + "," + $(this).val();
-				var basketIdx = $(this).parent().find("[name=BasketIdx]").val();
-// 				var basketArr = $("input[name=BasketIdx]").get();
-// 				var basketArr = new Array();
-// 				basketIdx = basketIdx + "," + $(this).val()
-				alert(actiontype+"\n"+basketIdx+"\n"+arrBasketIdx);
-
-				if (actiontype == "ARRAYDEL") { // 선택삭제
-// 					location.href = "deleteOne.basket?basketIdx="+basketIdx;
-// 					alert('삭제되었습니다.');
-				} else if (actiontype == "ARRAYBUY") { // 선택주문
-					location.href = "orderAll.order?basketIdx="+basketIdx;
-				}
-			}
-		});
-		
-		if (count<1) { // 체크된 상품 없이 버튼 클릭시
-			alert("선택된 상품이 없습니다.");
-			return;
-		}
-
-	}
-	
-	
+	// 선택 주문 / 삭제 / 옵션변경
 	fnBasketOne = function(actiontype,basketIdx,qty,optionidx){
 // 		alert(actiontype+"\n"+basketIdx+"\n"+qty+"\n"+optionidx);
-		
+
 		if (actiontype == "BUY") { // 바로주문하기 버튼 클릭시
 			location.href = "orderOne.order?arrBasket=" + basketIdx  + "&optionidx=" + optionidx;
 		} else if (actiontype == "QTY" && optionidx == 0) { // X(특정 상품 삭제) 버튼 클릭시
@@ -87,13 +58,13 @@ $(document).ready(function(){
 			location.href = "updateQuantity.basket?basketIdx=" + basketIdx + "&qty=" + qty;
 			alert('변경되었습니다.');
 		}
-
 	}
 	
-	fnSetQty = function(basketIdx,add){ // 수량 변경 옵션
+	// 상품 수량 변경 옵션
+	fnSetQty = function(basketIdx,add){
 		var qty = parseInt($("#Qty"+basketIdx).val(),10)+parseInt(add,10);
 
-		if (qty<0) {
+		if (qty<=0) {
 			alert("0 이상의 값을 입력해야 합니다.");
 			return;
 		}
@@ -112,6 +83,7 @@ $(document).ready(function(){
 	    return str.replace(/[^\d]+/g, '');
 	}
 	
+	// 장바구니 금액 계산
 	fnBasketCalculate = function(){
 		var TotalPriceSum = 0; //총 상품금액
 		var TotalPriceDelivery = 0; //총 배송비
@@ -129,32 +101,31 @@ $(document).ready(function(){
 		$("#TotalPriceSum").text(comma(TotalPriceSum)); // 값변경
 		$("#TotalPriceDelivery").text(comma(TotalPriceDelivery));
 		$("#TotalPriceAmount").text(comma(TotalPriceAmount));
-
 	}
 	
-		$(".btn-basketDelete").click(function(){
-			var checkArr = new Array();
-
-			$("input[name='BasketIdx']:checked").each(function(){
-				checkArr.push($(this).attr("data-basketNum"));
-			});
-
-			alert('삭제되었습니다.');
-
-			location.href = "deleteOne.basket?arrBasket=" + checkArr;
+	// 상품 삭제
+	$(".btn-basketDelete").click(function(){ // 삭제버튼 클릭 시
+		var arrBasket = new Array();
+		$("input[name='BasketIdx']:checked").each(function(){
+			arrBasket.push($(this).attr("data-basketNum"));
 		});
+		alert('삭제되었습니다.');
+		location.href = "deleteOne.basket?arrBasket="+arrBasket;
+	});
 
-		$(".btn-basket").click(function(){ // 주문버튼 클릭 시
-			var checkArr = new Array();
-
-			$("input[name='BasketIdx']:checked").each(function(){
-				checkArr.push($(this).attr("data-basketNum"));
-			});
-
-			location.href = "orderOne.order?arrBasket="+checkArr;
+	// 상품 주문
+	$(".btn-basket").click(function(){ // 주문버튼 클릭 시
+		var arrBasket = new Array();
+		$("input[name='BasketIdx']:checked").each(function(){
+			arrBasket.push($(this).attr("data-basketNum"));
 		});
-	
-	
+		if(arrBasket=="") { // 체크된 상품이 없을 경우
+			alert("선택된 상품이 없습니다.");
+			return;
+		} else {
+			location.href = "orderOne.order?arrBasket="+arrBasket;
+		}
+	});
 
 	fnBasketCalculate();
 });

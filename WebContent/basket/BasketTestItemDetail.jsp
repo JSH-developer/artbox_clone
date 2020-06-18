@@ -46,7 +46,7 @@
 	<div class="wrap">
 		<section class="iteminfo">
 			<form action="" method="post" name="gfr">
-			<input type="hidden" name="num" value=1>
+			<input type="hidden" name="num" value=2>
 				<div class="slideimg">
 					<ul>
 						<li><img src=detail1.jpg></li>

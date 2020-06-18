@@ -108,19 +108,19 @@ public class OrderCompleteAction implements Action {
 			out.println("history.back();");
 			out.println("</script>");
 		} else {
-			boolean isDeleteSuccess = BasketDeleteOneService.deleteBasket(arrBasket);
-			if(!isDeleteSuccess) {
-				System.out.println("isDeleteSuccess 주문 실패!");
-				out.println("<script>");
-				out.println("alert('주문 실패!')");
-				out.println("history.back();");
-				out.println("</script>");
-			} else {
+//			boolean isDeleteSuccess = BasketDeleteOneService.deleteBasket(arrBasket);
+//			if(!isDeleteSuccess) {
+//				System.out.println("isDeleteSuccess 주문 실패!");
+//				out.println("<script>");
+//				out.println("alert('주문 실패!')");
+//				out.println("history.back();");
+//				out.println("</script>");
+//			} else {
 				System.out.println("주문 성공!");
 				forward = new ActionForward();
 				forward.setRedirect(true);
 				forward.setPath("listOrderDetail.order");
-			}
+//			}
 		}
 		
 		// 상품전체개수 수정 itemdao    updateAmount(basketList)

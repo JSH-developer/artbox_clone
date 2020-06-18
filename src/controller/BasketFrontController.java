@@ -28,17 +28,17 @@ public class BasketFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		if(command.equals("/login.basket")) {
+		if(command.equals("/login.basket")) { // 로그인창(나중에 지울 부분)
 			forward = new ActionForward();
 			forward.setPath("/basket/BasketTestLogin.jsp");
-		} else if(command.equals("/LoginAction.basket")) {
+		} else if(command.equals("/LoginAction.basket")) { // 로그인(나중에 지울 부분)
 			action = new BasketTestLoginAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/productDetail.basket")) {
+		} else if(command.equals("/productDetail.basket")) { // 상품상세보기창(나중에 지울 부분)
 			forward = new ActionForward();
 			forward.setPath("/basket/BasketTestItemDetail.jsp");
 		} else if(command.equals("/insertBasket.basket")) {
