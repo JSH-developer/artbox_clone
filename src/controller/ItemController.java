@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import item.action.CategoryLinkAction;
 import item.action.ItemDetailAction;
+import item.action.QuestionListAction;
 import item.action.QuestionWriteAction;
 import item.action.SearchAction;
 import item.action.SelectBoxAction;
@@ -46,6 +47,13 @@ public class ItemController extends HttpServlet {
 			}
 		}else if(command.equals("/questionWrite.item")) {
 			action = new QuestionWriteAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/questionList.item")) {
+			action = new QuestionListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
