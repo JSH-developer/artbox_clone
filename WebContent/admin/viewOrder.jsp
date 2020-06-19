@@ -9,10 +9,6 @@
 <meta charset="UTF-8">
 <title>ARTBOX(포트폴리오)</title>
 
-
-
-
-
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -35,7 +31,7 @@ function deleteProduct(){
 }
 
 function changeStatus(){
-	var statusWindow = window.open("./changeState.admin?status="+${ordersBean.orders_state}, "", "width=700,height=250,left=250,top=250");
+	var statusWindow = window.open("./changeState.admin?num="+${ordersBean.orders_num}+"&status="+${ordersBean.orders_state}, "", "width=700,height=250,left=250,top=250");
 }
 </script>
 
@@ -61,9 +57,9 @@ function changeStatus(){
 <div class="wrapView">
 
 <div class="wrapTbl">
-
+<img class="admin_deco" src="${pageContext.request.contextPath}/Images/admin/otto.png" />
 <table class="viewTable vt_child1">
-<tr><td colspan="2"><h1 class="viewTitle">주문 상세보기<img src="${pageContext.request.contextPath}/Images/admin/otto.png" width="50px" height="50px"/></h1></td></tr>
+<tr><td colspan="2"><h1 class="viewTitle">주문 상세보기</h1></td></tr>
 <tr><th>주문 인덱스</th><td><c:out value="${ordersBean.orders_num}"/></td></tr>
 <tr><th>주문 번호</th><td><c:out value="${ordersBean.orders_order_num}"/></td></tr>
 <tr><th>아이디</th><td><c:out value="${ordersBean.orders_member_id}"/></td></tr>
@@ -77,8 +73,9 @@ function changeStatus(){
 <tr><th>주문날짜</th><td><c:out value="${ordersBean.orders_regdate}"/></td></tr>
 </table>
 
+<img class="admin_deco" src="${pageContext.request.contextPath}/Images/admin/october.png" />
 <table class="viewTable vt_child2">
-<tr><td colspan="2"><h1 class="viewTitle">수신자 상세보기<img src="${pageContext.request.contextPath}/Images/admin/october.png" width="50px" height="50px"/></h1></td></tr>
+<tr><td colspan="2"><h1 class="viewTitle">수신자 상세보기</h1></td></tr>
 <tr><th>수신자 인덱스</th><td><c:out value="${receiverBean.receiver_num}"/></td></tr>
 <tr><th>수신자 이름</th><td><c:out value="${receiverBean.receiver_name}"/></td></tr>
 <tr><th>수신자 연락처</th><td><c:out value="${receiverBean.receiver_phone}"/></td></tr>
@@ -88,10 +85,8 @@ function changeStatus(){
 <tr><th>수신자 메세지</th><td><c:out value="${receiverBean.receiver_msg}"/></td></tr>
 </table>
 
-
 </div>
-<hr class="admin_hr">
-<br>
+<br><br>
 
 <h1 class="viewTitle">주문상품 상세보기</h1>
 
@@ -102,12 +97,6 @@ function changeStatus(){
 <td><c:out value="${ordersDetailBeans[i].ordersDetail_name}"/></td><td><img src="${pageContext.request.contextPath}/upload/<c:out value="${ordersDetailBeans[i].ordersDetail_image}"/>" width="100px" height="100px"/></td>
 <td><c:out value="${ordersDetailBeans[i].ordersDetail_quantity}"/>개</td><td><c:out value="${ordersDetailBeans[i].ordersDetail_price}"/>원</td>
 <td>${ordersDetailBeans[i].ordersDetail_quantity * ordersDetailBeans[i].ordersDetail_price}원</td></tr>
-<%-- <tr><th>상품상세 인덱스</th><td><c:out value="${ordersDetailBeans[i].ordersDetail_num}"/></td></tr> --%>
-<%-- <tr><th>상품상세 수량</th><td><c:out value="${ordersDetailBeans[i].ordersDetail_quantity}"/></td></tr> --%>
-<%-- <tr><th>상품상세 코드</th><td><c:out value="${ordersDetailBeans[i].ordersDetail_code}"/></td></tr> --%>
-<%-- <tr><th>상품상세 이름</th><td><c:out value="${ordersDetailBeans[i].ordersDetail_name}"/></td></tr> --%>
-<%-- <tr><th>상품상세 이미지</th><td><c:out value="${ordersDetailBeans[i].ordersDetail_image}"/></td></tr> --%>
-<%-- <tr><th>상품상세 가격</th><td><c:out value="${ordersDetailBeans[i].ordersDetail_price}"/></td></tr> --%>
 </c:forEach>
 </table>
 <br><br>

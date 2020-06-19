@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.AdminChangeStateProAction;
 import action.CategoryDeleteProAction;
 import action.CategoryListProAction;
 import action.CategoryWriteProAction;
@@ -199,6 +200,13 @@ public class AdminFrontController extends HttpServlet {
 			try {
 				forward=new ActionForward();
 				forward.setPath("/admin/changeStateOfOrder.jsp");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/changeStatePro.admin")) { // 배송 상태변경 수행 
+			action = new AdminChangeStateProAction();
+			try {
+				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

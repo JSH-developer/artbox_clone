@@ -857,5 +857,25 @@ public class AdminDAO {
 		return ordersDetailBeans;
 	}
 
+	// 주문 배송상태 변경하기
+	public int changeState(int state, int num) {
+		int changeCount = 0;
+		
+		try {
+			String sql="UPDATE orders SET state = ? WHERE num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, state);
+			pstmt.setInt(2, num);
+			
+			changeCount = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return changeCount;
+	}
+
 
 }

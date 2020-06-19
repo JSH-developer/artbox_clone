@@ -14,9 +14,12 @@
 <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/css/admin/adminList.css" rel="stylesheet" type="text/css">
 
-<script>
+<!-- <script> -->
+<!-- // function changeStatus(){ -->
+<%-- // 	var statusWindow = window.open("./changeState.admin?num="+${ordersBean.orders_num}+"&status="+${ordersBean.orders_state}, "", "width=700,height=250,left=250,top=250"); --%>
+<!-- // } -->
+<!-- </script> -->
 
-</script>
 
 </head>
 <body>
@@ -34,6 +37,7 @@
 </ul>
 </div>
 
+<select><option>전체보기</option><option>배송준비증</option><option>배송진행중</option><option>배송완료</option><option>배송취소</option></select>
 <h1 class="list_title">주문리스트</h1>
 <table class="table_content">
 <tr><th>번호</th><th>아이디</th><th>주문번호</th><th>승인날짜</th><th>배송상태</th></tr>
@@ -43,8 +47,20 @@
 	<td>${orderList[i].orders_member_id}</td>
 	<td><a href='OrderView.admin?num=${orderList[i].orders_num}&page=${pageInfo.page}'>${orderList[i].orders_order_num}</a></td>
 	<td>${orderList[i].orders_regdate}</td>
-	<td><span class="orders_state">${orderList[i].orders_state}</span></td>
-	</tr>
+	<td><span class="orders_state">
+	<c:if test="${orderList[i].orders_state eq 0}">
+	배송준비중
+	</c:if>
+	<c:if test="${orderList[i].orders_state eq 1}">
+	배송진행중
+	</c:if>
+	<c:if test="${orderList[i].orders_state eq 2}">
+	배송완료
+	</c:if>
+	<c:if test="${orderList[i].orders_state eq -1}">
+	배송취소
+	</c:if>
+	</span><br><button onclick="window.open('./changeState.admin?num='+${orderList[i].orders_num}+'&status='+${orderList[i].orders_state}, '', 'width=700,height=250,left=250,top=250');">배송상태 변경</button></td></tr>
 </c:forEach>
 </table>
 

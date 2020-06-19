@@ -67,7 +67,5 @@
  	vertical-align: top;
 }
 
-.admin_hr{
-	border-style: dashed;
-	border-color: gray;
-}
+
+.admin_deco{vertical-align: bottom;width:50px; height:50px;}
