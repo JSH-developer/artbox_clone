@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import svc.BasketDeleteOneService;
 import svc.BasketListService;
 import svc.OrderCompleteService;
+import svc.OrderOneListService;
 import vo.ActionForward;
 import vo.OrdersBean;
 import vo.ReceiverBean;
@@ -45,18 +46,25 @@ public class OrderCompleteAction implements Action {
 		// 한글처리
 		request.setCharacterEncoding("utf-8");
 		
-		BasketListService basketListService = new BasketListService();
-		List list = basketListService.getBasketList(id);
-		// 첫번째 vector 칸의 값인 basketList 저장
-		List basketList = (List)list.get(0);
-		// 두번째 vector 칸의 값인 itemsList 저장
-		List itemList = (List)list.get(1);
+//		BasketListService basketListService = new BasketListService();
+//		List list = basketListService.getBasketList(id);
+//		// 첫번째 vector 칸의 값인 basketList 저장
+//		List basketList = (List)list.get(0);
+//		// 두번째 vector 칸의 값인 itemsList 저장
+//		List itemList = (List)list.get(1);
+		
+		OrderOneListService orderOneListService = new OrderOneListService();
+		List orderList = orderOneListService.getOrderOneList(id, arrBasket);
+//		System.out.println("사이즈~~~!" + orderList.size());
 		
 		System.out.println("아이디 : " + id);
 		System.out.println("가격 : " + request.getParameter("TotalPriceAmount"));
 		System.out.println("이름 : " + request.getParameter("memname"));
 		System.out.println("이메일 : " + request.getParameter("mememail"));
 		System.out.println("폰번호 : " + request.getParameter("phone123"));
+		System.out.println("배송이름 : " + request.getParameter("i_shipname"));
+		System.out.println("배송우편 : " + request.getParameter("i_shipzipcode"));
+		System.out.println("배송주소 : " + request.getParameter("i_shipaddr"));
 		
 		// 폼 => 자바빈 저장
 		// 상품결제 Bean 저장
@@ -97,7 +105,7 @@ public class OrderCompleteAction implements Action {
 		// 메서드 호출  => 주문정보저장
 		// 메서드호출 addOrder(orderbean,basketList,itemList)
 		OrderCompleteService orderCompleteService = new OrderCompleteService();
-		boolean isInsertSuccess = orderCompleteService.insertOrder(ordersbean, receiverBean, basketList, itemList, id);
+		boolean isInsertSuccess = orderCompleteService.insertOrder(ordersbean, receiverBean, orderList, id);
 		
 		// 리턴받은 결과를 사용하여 장바구니 등록 결과 판별
 		PrintWriter out = response.getWriter();

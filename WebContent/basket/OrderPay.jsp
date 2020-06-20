@@ -20,7 +20,7 @@ $(document).ready(function(){
     $.ajax({
 
         url:"/basket/inicis.jsp",
-        method:"GET",
+        method:"POST",
 		data: {name : "홍길동"},
         dataType:"JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨
 
@@ -217,24 +217,26 @@ $(document).ready(function(){
 
    fnSelectMyDelivery = function (obj) {
       if (obj.value) {
-         var arr = obj.value.split("||");
-         var ShipName,ShipZipCode,ShipAddr,ShipAddrD,ShipCpNum1,ShipCpNum2,ShipCpNum3;
+         var receiverArr = obj.value.split("||");
+         var ShipName,ShipPostcode,ShipAddr,ShipAddrD;
+         var ShipPhoneArr = receiverArr[1].split("-");
+         var ShipPhone1,ShipPhone2,ShipPhone3
 
-         ShipName = arr[0];
-         ShipZipCode = arr[1];
-         ShipAddr = arr[2];
-         ShipAddrD = arr[3];
-         ShipCpNum1 = arr[4];
-         ShipCpNum2 = arr[5];
-         ShipCpNum3 = arr[6];
+         ShipName = receiverArr[0];
+         ShipPhone1 = ShipPhoneArr[0];
+         ShipPhone2 = ShipPhoneArr[1];
+         ShipPhone3 = ShipPhoneArr[2];
+         ShipPostcode = receiverArr[2];
+         ShipAddr = receiverArr[3];
+         ShipAddrD = receiverArr[4];
 
          $("#i_shipname").val(ShipName);
-         $("#i_shipzipcode").val(ShipZipCode);
+         $("#i_shipzipcode").val(ShipPostcode);
          $("#i_shipaddr").val(ShipAddr);
          $("#i_shipaddrD").val(ShipAddrD);
-         $("#i_shipcpnum1").val(ShipCpNum1);
-         $("#i_shipcpnum2").val(ShipCpNum2);
-         $("#i_shipcpnum3").val(ShipCpNum3);
+         $("#i_shipcpnum1").val(ShipPhone1);
+         $("#i_shipcpnum2").val(ShipPhone2);
+         $("#i_shipcpnum3").val(ShipPhone3);
 
          $("#i_copyorderinfo").prop("checked",false);
       } else {
@@ -663,7 +665,7 @@ function execDaumPostCode() { // 우편번호
       <div class="gap20px"></div>
       <div class="gap20px"></div>
       <div class="OrderInfoTitle">
-         <h2>배송지 정보<a class="Open" id="OrderShipInfoArrow" href="javascript:fnOrderInfoTitle('OrderShipInfo','i_shipname','i_shipname_summary');"></a><div class="clear"></div></h2>
+         <h2>배송지 정보<a class="Open clear" id="OrderShipInfoArrow" href="javascript:fnOrderInfoTitle('OrderShipInfo','i_shipname','i_shipname_summary');"></a></h2>
       </div>
       <div id="OrderShipInfoSummary" class="OrderInfoSummary">
          <div class="gap20px"></div>
@@ -686,19 +688,30 @@ function execDaumPostCode() { // 우편번호
             <div class="clear"></div>
          </div>
          <div class="DeliverySelect" id="MyDelivery1">
-            <select onchange="fnSelectMyDelivery(this);">
-               <option value="" selected="selected">선택</option>
-               		<option value="최유라||46934||부산광역시 사상구 모라로110번길 121 (모라동, 주공아파트1단지)||333-1||010||333||5678||||||">자택2</option>
-					
-					<option value="김땡땡||06257||서울특별시 강남구 논현로 311 (역삼동)||101-101||010||1234||5678||||||">자택</option>
-               
-            </select>
+			<select onchange="fnSelectMyDelivery(this);">
+				<option value="" selected="selected">선택</option>
+				<c:forEach var="receiverBasicList" items="${receiverBasicList }" varStatus="status">
+               		<option value="${receiverBasicList.receiver_name }||${receiverBasicList.receiver_phone }||${receiverBasicList.receiver_postcode }||${receiverBasicList.receiver_addr }||${receiverBasicList.receiver_addr_detail }">${receiverBasicList.receiver }</option>
+				</c:forEach>
+<!-- 					<option value="김땡땡||06257||서울특별시 강남구 논현로 311 (역삼동)||101-101||010||1234||5678||||||">자택</option> -->
+			</select>
             <p class="null"></p>
          </div>
          <div class="DeliverySelect" id="MyDelivery2">
-         
-            <select><option value="" selected="selected">최근 배송지가 없습니다.</option></select>
-               
+         	<select>
+         	<c:choose>
+  				<c:when test="${empty receiverLastList }">
+            		<option value="" selected="selected">최근 배송지가 없습니다.</option>
+				</c:when>
+
+				<c:otherwise>
+               	<c:forEach var="receiverLastList" items="${receiverLastList }" varStatus="status">
+               		<option value="" selected="selected">선택</option>
+               		<option value="${receiverLastList.receiver_name }||${receiverLastList.receiver_phone }||${receiverLastList.receiver_postcode }||${receiverLastList.receiver_addr }||${receiverLastList.receiver_addr_detail }">${receiverLastList.receiver_addr }</option>
+				</c:forEach>
+				</c:otherwise>
+			</c:choose>
+			</select>
             <p class="null"></p>
          </div>
          <div class="DeliverySelect" id="MyDelivery3">
@@ -777,17 +790,13 @@ function execDaumPostCode() { // 우편번호
             </dl>
          </div>
          
-         <div class="ModifyShipAddr">
-            <input type="checkbox" id="i_modifyshipaddr" name="modifyshipaddr" value="Y" /> 현재 입력된 배송지를 기본 배송지로 설정<span class="MobileBr"><p class="null"></p></span>
-         </div>
-         
       </div>
       
    </div>
 
    <div class="SectionDiscount" id="SectionDiscount">
       <div class="OrderInfoTitle">
-         <h2>쿠폰/할인/꿈캔디 정보<a class="Open" id="OrderDiscountInfoArrow" href="javascript:fnOrderInfoTitle('OrderDiscountInfo','i_TotalDiscountPriceInfo','i_TotalDiscountPriceInfo_summary');"></a><div class="clear"></div></h2>
+         <h2>쿠폰/할인/꿈캔디 정보<a class="Open clear" id="OrderDiscountInfoArrow" href="javascript:fnOrderInfoTitle('OrderDiscountInfo','i_TotalDiscountPriceInfo','i_TotalDiscountPriceInfo_summary');"></a></h2>
       </div>
       <div id="OrderDiscountInfoSummary" class="OrderInfoSummary">
          <div class="gap20px"></div>
@@ -927,36 +936,6 @@ function execDaumPostCode() { // 우편번호
          <input type="hidden" name="TotalPriceAmount" value="27500" />
          <input type="hidden" name="TotalMileageAmount" value="250" />
       </div>
-
-
-      <script>
-         $(document).on("click",".TermsInform li", function(){
-            var x = $(this).attr("alt");
-
-            $(".TermsInform li").removeClass("on");
-            $(this).addClass("on");
-
-            $("#bnbn1").css("display", "none");
-            $("#bnbn2").css("display", "none");
-            $("#bnbn3").css("display", "none");
-
-            $("#bnbn"+x).css("display", "block");
-         });
-
-         $(document).on("mouseleave",".TermsInform", function(){
-            if ($(window).width() >= 1200) {
-               $(".TermsInform").css("display","none");
-            }
-         });
-
-         $(document).on("mouseover",".AgreeDetail", function(){
-            if ($(window).width() >= 1200) {
-               var x = $(this).attr("alt");
-               $("#AgreeDetail_"+x).css("display","block");
-            }
-         });
-      </script>
-
 
       <div class="OrderAgree">
          <div class="OrderAgreeAll"><input type="checkbox" id="i_OrderPayAgree" name="OrderPayAgree" value="Y" />&nbsp;&nbsp;&nbsp;약관 전체 동의하기</div>

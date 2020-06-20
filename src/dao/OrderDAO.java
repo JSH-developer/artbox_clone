@@ -11,11 +11,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import vo.BasketBean;
-import vo.BasketTestMemberBean;
 import vo.OrdersBean;
 import vo.OrdersDetailBean;
-import vo.ProductBean;
 import vo.ReceiverBean;
 import vo.SelectOrderBean;
 
@@ -49,8 +46,8 @@ public class OrderDAO {
 		try {
 			String sql = "SELECT member.name, member.email, member.phone, member.point, "
 					+ "product.num, product.code, product.name, product.image, product.price, basket.quantity "
-					+ "FROM member INNER JOIN basket ON member.id = basket.member_id "
-					+ "INNER JOIN product ON product.num = basket.product_num "
+					+ "FROM member JOIN basket ON member.id = basket.member_id "
+					+ "JOIN product ON product.num = basket.product_num "
 					+ "WHERE member_id=? AND basket.num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member_id);
@@ -190,28 +187,52 @@ public class OrderDAO {
 		int num = 1; // 번호
 		int basic_num = 0; // 기본배송지 여부(1:기본배송지)
 		try {
-			// receiver 번호 구하기
-			String sql="SELECT MAX(num) FROM receiver";
+			// receiver 중복 여부 판별
+			String sql="SELECT num FROM receiver WHERE member_id=? && receiver_name=? && receiver_phone=? "
+					+ "&& receiver_postcode=? && receiver_addr=? && receiver_addr_detail=?;";
 			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, receiverBean.getReceiver_name());
+			pstmt.setString(3, receiverBean.getReceiver_phone());
+			pstmt.setString(4, receiverBean.getReceiver_postcode());
+			pstmt.setString(5, receiverBean.getReceiver_addr());
+			pstmt.setString(6, receiverBean.getReceiver_addr_detail());
 			rs=pstmt.executeQuery();
-			if(rs.next()) {
-				num = rs.getInt(1)+1;
+			if(rs.next()) { // 값이 있으면 중복
+				System.out.println("값이 있음");
+				sql="UPDATE receiver SET receiver_date=now() WHERE member_id=? &&"
+						+ " receiver_name=? && receiver_phone=? && receiver_postcode=? && receiver_addr=? && receiver_addr_detail=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.setString(2, receiverBean.getReceiver_name());
+				pstmt.setString(3, receiverBean.getReceiver_phone());
+				pstmt.setString(4, receiverBean.getReceiver_postcode());
+				pstmt.setString(5, receiverBean.getReceiver_addr());
+				pstmt.setString(6, receiverBean.getReceiver_addr_detail());
+				insertReceiverCount = pstmt.executeUpdate();
+			} else { // 값이 없으면 새배송지 추가
+				sql="SELECT MAX(num) FROM receiver";
+				pstmt=con.prepareStatement(sql);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					num = rs.getInt(1)+1;
+					// 배송지 INSERT
+					System.out.println("값이 없음");
+					sql="INSERT INTO receiver VALUES(?,?,?,?,?,?,?,?,now(),?,?)";
+					pstmt=con.prepareStatement(sql);
+					pstmt.setInt(1, num);
+					pstmt.setString(2, receiverBean.getReceiver());
+					pstmt.setString(3, receiverBean.getReceiver_name());
+					pstmt.setString(4, receiverBean.getReceiver_phone());
+					pstmt.setString(5, receiverBean.getReceiver_postcode());
+					pstmt.setString(6, receiverBean.getReceiver_addr());
+					pstmt.setString(7, receiverBean.getReceiver_addr_detail());
+					pstmt.setString(8, receiverBean.getReceiver_msg());
+					pstmt.setString(9, id);
+					pstmt.setInt(10, basic_num);
+					insertReceiverCount = pstmt.executeUpdate();
+				}
 			}
-			
-			// 배송지 INSERT
-			sql="INSERT INTO receiver VALUES(?,?,?,?,?,?,?,?,now(),?,?)";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			pstmt.setString(2, receiverBean.getReceiver());
-			pstmt.setString(3, receiverBean.getReceiver_name());
-			pstmt.setString(4, receiverBean.getReceiver_phone());
-			pstmt.setString(5, receiverBean.getReceiver_postcode());
-			pstmt.setString(6, receiverBean.getReceiver_addr());
-			pstmt.setString(7, receiverBean.getReceiver_addr_detail());
-			pstmt.setString(8, receiverBean.getReceiver_msg());
-			pstmt.setString(9, id);
-			pstmt.setInt(10, basic_num);
-			insertReceiverCount = pstmt.executeUpdate();
 		}  catch (SQLException e) {
 //			e.printStackTrace();
 			System.out.println("OrderDAO - insertReceiver() 실패! : " + e.getMessage());
@@ -223,7 +244,7 @@ public class OrderDAO {
 	}
 	
 	// Orders_Detail 테이블 INSERT
-	public int insertDetail(List basketList, List itemList, String id) {
+	public int insertDetail(List orderList, String id) {
 		System.out.println("OrderDAO - insertDetail");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -253,7 +274,8 @@ public class OrderDAO {
 
 			System.out.println("3번");
 			// 배송지번호 불러오기
-			sql = "SELECT r.num FROM receiver r INNER JOIN orders o ON r.receiver_date = o.regdate WHERE r.member_id=?";
+			sql = "SELECT r.num FROM receiver r JOIN orders o ON r.receiver_date = o.regdate WHERE r.member_id=?"
+					+ " ORDER BY o.regdate DESC LIMIT 1";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs=pstmt.executeQuery();
@@ -266,20 +288,21 @@ public class OrderDAO {
 			System.out.println("orders_num값" + orders_num);
 			System.out.println("receiver_num값" + receiver_num);
 			// 주문상품만큼 INSERT
-			for(int i=0;i<basketList.size();i++) {
-				BasketBean basketBean=(BasketBean)basketList.get(i);
-				ProductBean productBean=(ProductBean)itemList.get(i);
+			for(int i=0;i<orderList.size();i++) {
+				List list =  (List)orderList.get(i);
+				SelectOrderBean selectOrderBean = (SelectOrderBean) list.get(0);
 				sql="INSERT INTO orders_detail VALUES(?,?,?,?,?,?,?,?,?)";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, num);
-				pstmt.setInt(2, basketBean.getBasket_quantity());
+				pstmt.setInt(2, selectOrderBean.getQuantity());
 				pstmt.setString(3, orders_num);//주문번호
-				pstmt.setInt(4, basketBean.getBasket_product_num());
+				pstmt.setInt(4, selectOrderBean.getItemNum());
 				pstmt.setInt(5, receiver_num); // 배송지번호
-				pstmt.setString(6, productBean.getProduct_code());
-				pstmt.setString(7, productBean.getProduct_name());
-				pstmt.setString(8, productBean.getProduct_image());
-				pstmt.setInt(9, productBean.getProduct_price());
+				pstmt.setString(6, selectOrderBean.getItemCode());
+				pstmt.setString(7, selectOrderBean.getItemName());
+				pstmt.setString(8, selectOrderBean.getItemImage());
+				pstmt.setInt(9, selectOrderBean.getItemprice());
+				
 				insertDetailCount = pstmt.executeUpdate();
 				num++; //일련번호증가
 				System.out.println(i + "번ㅎㅎㅎ");
@@ -302,7 +325,7 @@ public class OrderDAO {
 		
 		try {
 			String sql = "SELECT * FROM orders_detail WHERE orders_order_num=(SELECT MAX(orders_order_num)"
-					+ " FROM orders_detail INNER JOIN orders ON order_num=orders_order_num WHERE member_id=?)";
+					+ " FROM orders_detail JOIN orders ON order_num=orders_order_num WHERE member_id=?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			
@@ -351,6 +374,86 @@ public class OrderDAO {
 		} catch (SQLException e) {
 //			e.printStackTrace();
 			System.out.println("OrderDAO - getDetailList() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+
+	// 기본배송지 가져오기
+	public List getBasicReceiverList(String id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List list = new ArrayList();
+		
+		try {
+			String sql = "SELECT * FROM receiver WHERE member_id=? AND receiver IS NOT NULL";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ReceiverBean receiverBean = new ReceiverBean();
+				receiverBean.setReceiver_num(rs.getInt("num"));
+				receiverBean.setReceiver(rs.getString("receiver"));
+				receiverBean.setReceiver_name(rs.getString("receiver_name"));
+				receiverBean.setReceiver_phone(rs.getString("receiver_phone"));
+				receiverBean.setReceiver_postcode(rs.getString("receiver_postcode"));
+				receiverBean.setReceiver_addr(rs.getString("receiver_addr"));
+				receiverBean.setReceiver_addr_detail(rs.getString("receiver_addr_detail"));
+				receiverBean.setReceiver_msg(rs.getString("receiver_msg"));
+				receiverBean.setReceiver_date(rs.getString("receiver_date"));
+				receiverBean.setReceiver_member_id(rs.getString("member_id"));
+				receiverBean.setReceiver_basic_num(0);
+				list.add(receiverBean);
+			}
+
+		} catch (SQLException e) {
+//			e.printStackTrace();
+			System.out.println("OrderDAO - getReceiverList() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	// 최근배송지 가져오기
+	public List getLastReceiverList(String id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List list = new ArrayList();
+		
+		try {
+			String sql = "SELECT * FROM receiver WHERE num IN(SELECT receiver_num FROM orders_detail od"
+					+ " JOIN receiver r ON r.num=od.receiver_num) AND member_id=? ORDER BY receiver_date DESC LIMIT 3";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ReceiverBean receiverBean = new ReceiverBean();
+				receiverBean.setReceiver_num(rs.getInt("num"));
+				receiverBean.setReceiver(rs.getString("receiver"));
+				receiverBean.setReceiver_name(rs.getString("receiver_name"));
+				receiverBean.setReceiver_phone(rs.getString("receiver_phone"));
+				receiverBean.setReceiver_postcode(rs.getString("receiver_postcode"));
+				receiverBean.setReceiver_addr(rs.getString("receiver_addr"));
+				receiverBean.setReceiver_addr_detail(rs.getString("receiver_addr_detail"));
+				receiverBean.setReceiver_msg(rs.getString("receiver_msg"));
+				receiverBean.setReceiver_date(rs.getString("receiver_date"));
+				receiverBean.setReceiver_member_id(rs.getString("member_id"));
+				receiverBean.setReceiver_basic_num(0);
+				list.add(receiverBean);
+			}
+
+		} catch (SQLException e) {
+//			e.printStackTrace();
+			System.out.println("OrderDAO - getReceiverList() 실패! : " + e.getMessage());
 		} finally {
 			close(rs);
 			close(pstmt);

@@ -35,6 +35,8 @@ public class OrderOneListAction implements Action {
 		// => 파라미터 : id , 리턴타입 : Vector
 		OrderOneListService orderOneListService = new OrderOneListService();
 		List orderList = orderOneListService.getOrderOneList(id, arrBasket);
+		List receiverBasicList = orderOneListService.getBasicReceiverList(id); // 기본배송지
+		List receiverLastList = orderOneListService.getLastReceiverList(id); // 최근배송지
 		
 		System.out.println("이건 사이즈" +orderList.size());
 		forward = new ActionForward();
@@ -42,6 +44,8 @@ public class OrderOneListAction implements Action {
 		request.setAttribute("orderListOne", orderList.get(0));
 		request.setAttribute("orderList", orderList);
 		request.setAttribute("arrBasket", arrBasket); // 주문한 상품번호 들고가기
+		request.setAttribute("receiverBasicList", receiverBasicList);
+		request.setAttribute("receiverLastList", receiverLastList);
 		forward.setPath("/basket/OrderPay.jsp");
 		
 /*		
