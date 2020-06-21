@@ -5,8 +5,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
+import svc.CouponService;
 import svc.ProductViewService;
 import vo.ActionForward;
+import vo.CouponBean;
 import vo.ProductBean;
 
 public class ItemDetailAction implements Action {
@@ -27,6 +29,17 @@ public class ItemDetailAction implements Action {
 		productBean = pvs.infoProduct(product_num);
 	
 		request.setAttribute("productBean", productBean);
+		
+		
+		// 조건 불러오기
+		String condition = request.getParameter("condition");
+		
+		
+		// 상품에 맞는 쿠폰
+		CouponService couponService = new CouponService();
+		CouponBean itemcoupon = couponService.getCouponList(condition);
+		request.setAttribute("itemcoupon", itemcoupon);
+		
 		
 		//dispatcher 포워딩 
 		forward = new ActionForward();

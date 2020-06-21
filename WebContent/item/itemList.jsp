@@ -67,7 +67,7 @@
             	<c:forEach var="item" items="${productBean }" varStatus="status">
                 <li>
                     <span class="item">
-                        <a href="${pageContext.request.contextPath}/itemDetail.item?product_num=${item.product_num }">
+                        <a href="${pageContext.request.contextPath}/itemDetail.item?product_num=${item.product_num }&condition=${item.product_category_code}">
                             <div class="shopping_basket">
                                 <div class="shopping_basket_icon">
                                     <i class="far fa-heart"></i>
@@ -82,12 +82,12 @@
                         </a>
                         <span>
                         <c:choose>
-                        	<c:when test="${item.product_sale_price == null }">
+                        	<c:when test="${item.product_sale_price == 0 }">
                            <fmt:formatNumber value="${item.product_price }" pattern="0원"/>
                            </c:when>
                            <c:otherwise>
                            <del>${item.product_price }</del><br>
-                           <fmt:formatNumber value="${item.product_price - item.product_sale_price }" pattern="0원"/>
+                           <fmt:formatNumber value="${item.product_sale_price }" pattern="0원"/>
                            </c:otherwise>
                         </c:choose> 
                         </span>
@@ -95,7 +95,7 @@
                         <c:if test="${status.count<6 }">
                             <img src="${pageContext.request.contextPath}/Images/item/new.png">
                         </c:if>
-                        <c:if test="${item.product_sale_price != null }">
+                        <c:if test="${item.product_sale_price > 0 }">
                         	<img src="${pageContext.request.contextPath}/Images/item/sale.png">
                         </c:if>
                         	&nbsp;

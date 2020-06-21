@@ -41,6 +41,9 @@
 							<h2>
 				<a href="memberLoginForm.member">로그인</a>
 			</h2>
+										<h2>
+				<a href="home.admin">관리자 화면</a>
+			</h2>
 			
 			
 			

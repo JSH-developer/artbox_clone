@@ -10,18 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import action.CouponAllListAction;
-import action.CouponIssuedAction;
-import action.CouponOrderPayFormAction;
-import action.CouponWriteProAction;
-import action.EventDeleteProAction;
-import action.EventDetailAction;
-import action.EventListAction;
-import action.EventModifyFormAction;
-import action.EventModifyProAction;
-import action.EventWriteProAction;
-import action.EventproductviewAction;
-import action.MypageCouponListAction;
+import event.action.EventDeleteProAction;
+import event.action.EventDetailAction;
+import event.action.EventListAction;
+import event.action.EventModifyFormAction;
+import event.action.EventModifyProAction;
+import event.action.EventWriteProAction;
+import event.action.EventproductviewAction;
 import svc.ProductWriteService;
 import vo.ActionForward;
 
@@ -45,61 +40,6 @@ public class EventFrontController extends HttpServlet {
 			forward = new ActionForward();
 			// forward.setRedirect(false); // 포워딩 박식을 Dispatcher 방식으로 설정(기본값 생략 가능)
 			forward.setPath("/basic.jsp"); // 이동할 View 페이지 경로 지정
-			
-		}else if(command.equals("/CouponWriteForm.event")){	// 쿠폰 등록 입력
-			System.out.println("/CouponWriteForm.event");
-
-			action = new CouponAllListAction(); 
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-		
-		}else if(command.equals("/CouponWritePro.event")) {	// 쿠폰 등록 Pro
-			System.out.println("/CouponWritePro.event");
-			action = new CouponWriteProAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-		}else if(command.equals("/MypageCouponList.event")) {	// 마이페이지 
-			System.out.println("/MypageCouponList.event");
-			action = new MypageCouponListAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-		}else if(command.equals("/OrderPayForm.event")) {	// 주문에서 쿠폰 적용
-			System.out.println("/OrderPayForm.event");
-			action = new CouponOrderPayFormAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-		}else if(command.equals("/testSelectmain.event")) {	// 쿠폰 적용 테스트
-			System.out.println("/testSelectmain.event");
-
-			forward = new ActionForward();
-			//		forward.setRedirect(false); // 포워딩 방식을 Dispatcher 방식으로 설정(기본값 생략 가능)
-			forward.setPath("/event/PayCoupon.jsp"); // 이동할 View 페이지 경로 지정
-
-			
-		}else if(command.equals("/CouponIssued.event")) {	// 버튼누르면 쿠폰 발급
-			System.out.println("/CouponIssued.event");
-			action = new CouponIssuedAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 			
 		}else if(command.equals("/EventWriteForm.event")){	// 이벤트 등록
 			System.out.println("/EventWriteForm.event");

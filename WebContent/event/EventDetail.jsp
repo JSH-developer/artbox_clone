@@ -8,17 +8,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-    
- <%
-// 	ArrayList<ProductBean> itemList=(ArrayList<ProductBean>)request.getAttribute("itemList");
-//  	EventBean eventArticle=(EventBean)request.getAttribute("eventArticle");
-//     PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
-// 	int listCount=pageInfo.getListCount();
-// 	int nowPage=pageInfo.getPage();
-// 	int maxPage=pageInfo.getMaxPage();
-// 	int startPage=pageInfo.getStartPage();
-// 	int endPage=pageInfo.getEndPage();
-%>
 <c:set var="listCount" value="${pageInfo.listCount}"></c:set>
 <c:set var="nowPage" value="${pageInfo.page}"></c:set>
 <c:set var="maxPage" value="${pageInfo.maxPage}"></c:set>

@@ -1,10 +1,11 @@
-package action;
+package event.action;
 
 import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import action.Action;
 import svc.EventService;
 import vo.ActionForward;
 

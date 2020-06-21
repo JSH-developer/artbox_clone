@@ -136,7 +136,7 @@ public class EventService {
 		return modifySuccess;
 	}
 
-	
+	// 이벤트 삭제
 	public boolean deleteEvent(String board_num) {
 		boolean deleteSuccess = false;
 
@@ -157,6 +157,8 @@ public class EventService {
 		
 		return deleteSuccess;
 	}
+
+
 
 
 

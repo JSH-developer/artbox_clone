@@ -7,8 +7,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
-ArrayList<CouponBean> couponList= (ArrayList<CouponBean>)request.getAttribute("couponList");
-ProductBean item= (ProductBean)request.getAttribute("item");
+// ArrayList<CouponBean> couponList= (ArrayList<CouponBean>)request.getAttribute("couponList");
+// ProductBean item= (ProductBean)request.getAttribute("item");
 %>
 <!DOCTYPE html>
 <html>
@@ -26,7 +26,7 @@ ProductBean item= (ProductBean)request.getAttribute("item");
 
 		alert(getId+" : "+coup_Num);
 		
-		if(getId == "null"){
+		if(getId == "null" || getId == ""){
 
 			moveCheck = confirm("로그인하시겠습니까?"+getId);
 			
@@ -37,14 +37,22 @@ ProductBean item= (ProductBean)request.getAttribute("item");
 			}
 			
 		
-	}else{
-		var url = "CouponIssued.event?getid="+getId+"&couponNum="+coup_Num;
-		alert("쿠폰 저장함"+url);
-		location.href=url;
-		
+
+	} else {
+			var url = "CouponIssued.event?getid=" + getId + "&couponNum="+ coup_Num;
+			alert("쿠폰 저장함" + url);
+
+			moveCheck = confirm("쿠폰을 확인하시겠습니까?" + getId);
+
+			if (moveCheck) {
+				location.href = url;
+			} else {
+				alert("그대로 유지");
+			}
+		}
 	}
-		
-	}
+	
+	
 	
 </script>
 </head>
@@ -107,15 +115,15 @@ ProductBean item= (ProductBean)request.getAttribute("item");
 			<style>span#rprice {text-decoration: line-through;color:grey;}</style>
 			
 <!-- 			할인 있을때 -->
-				<c:if test="${empty itemcoupon}">
+				<c:if test="${empty itemcoupon.coupon_name}">
 						<span>이벤트 할인가격 :  ${saleprice }</span> 
 				</c:if>
 				
 <!-- 				쿠폰 있을때 -->
-			<c:if test="${!empty itemcoupon}">
-			<c:set var="coup_discount" value="${itemcoupon.coupon_price }"/>
-			<c:set var="c_sale_price" value="${realprice - itemcoupon.coupon_price }"/>
-				<span>쿠폰 할인가격 :  ${c_sale_price }</span> 
+			<c:if test="${not empty itemcoupon.coupon_name}">
+<%-- 			<c:set var="coup_discount" value="${itemcoupon.coupon_price }"/> --%>
+<%-- 			<c:set var="c_sale_price" value="${realprice - itemcoupon.coupon_price }"/> --%>
+				<span>쿠폰 할인가격 :  ${saleprice }</span> 
 					<input type="hidden" id="coupNum" value="${couponNum }">
 					<input type="button" id="coup_btn" value="${couponName }" onclick= "cpClick();" ><br>
 				</c:if>
