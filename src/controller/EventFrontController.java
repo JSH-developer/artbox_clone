@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import action.Action;
 import action.CouponAllListAction;
 import action.CouponIssuedAction;
 import action.CouponOrderPayFormAction;
@@ -21,6 +20,7 @@ import action.EventModifyProAction;
 import action.EventWriteProAction;
 import action.EventproductviewAction;
 import action.MypageCouponListAction;
+import action.admin.Action;
 import vo.ActionForward;
 
 @WebServlet("*.event")

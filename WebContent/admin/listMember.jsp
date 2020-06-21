@@ -11,6 +11,18 @@
 <meta charset="UTF-8">
 <title>ARTBOX(포트폴리오)</title>
 
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$(".search_btn").on("click",function(){
+		alert("test test test");
+	})
+	
+});
+</script>
+
+
 <!-- 구글 폰트  -->
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
@@ -33,7 +45,7 @@
 	<li><a href="MemberList.admin">회원 목록</a></li>
 </ul>
 </div>
-
+<input type="text" class="chooseOpt"><button class="search_btn">검색</button>
 <h1 class="list_title">회원리스트</h1>
 <table class="table_content">
 <tr><th>번호</th><th>아이디</th><th>등급</th><th>상태</th></tr>
@@ -54,7 +66,7 @@
 	◁&nbsp;
 	</c:when>
 	<c:when test="${pageInfo.page > 1}">
-	<a href="CategoryList.admin?page=${pageInfo.page-1}">◁</a>&nbsp;
+	<a href="MemberList.admin?page=${pageInfo.page-1}">◁</a>&nbsp;
 	</c:when>
 	</c:choose>
 	<c:forEach var="a" begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1">
@@ -63,7 +75,7 @@
 			[${a}]
 		</c:when>
 		<c:otherwise>
-			<a href="CategoryList.admin?page=${a}">[${a}]
+			<a href="MemberList.admin?page=${a}">[${a}]
 			</a>&nbsp;
 		</c:otherwise>
 		</c:choose>
@@ -73,7 +85,7 @@
 		▷
 	</c:when>
 	<c:otherwise>
-		<a href="CategoryList.admin?page=${pageInfo.page+1}">▷</a>
+		<a href="MemberList.admin?page=${pageInfo.page+1}">▷</a>
 	</c:otherwise>
 	</c:choose>
 </section>

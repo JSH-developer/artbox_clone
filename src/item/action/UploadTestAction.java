@@ -3,7 +3,7 @@ package item.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import action.Action;
+import action.admin.Action;
 import vo.ActionForward;
 
 public class UploadTestAction implements Action {

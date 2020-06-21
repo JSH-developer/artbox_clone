@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import action.admin.Action;
 import svc.CouponService;
 import svc.EventService;
 import vo.ActionForward;

@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import action.Action;
+import action.admin.Action;
 import item.svc.QuestionWriteSVC;
 import vo.ActionForward;
 import vo.QuestionBean;

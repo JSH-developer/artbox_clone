@@ -718,6 +718,29 @@ public class AdminDAO {
 		
 		return listCount;
 	}
+	
+	public int orderCount(int state) {
+		int listCount = 0;
+		
+		try {
+			String sql ="SELECT COUNT(num) FROM orders WHERE state=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, state);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
 
 	// order 리스트 만들기
 	public ArrayList<OrdersBean> toListOrder(int page, int limit) {
@@ -730,6 +753,40 @@ public class AdminDAO {
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, limit);
+			
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				OrdersBean ordersBean = new OrdersBean();
+				ordersBean.setOrders_num(rs.getInt("num"));
+				ordersBean.setOrders_order_num(rs.getInt("order_num"));
+				ordersBean.setOrders_member_id(rs.getString("member_id"));
+				ordersBean.setOrders_regdate(rs.getTimestamp("regdate"));
+				ordersBean.setOrders_state(rs.getInt("state"));
+				orderList.add(ordersBean);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return orderList;
+	}
+	
+	public ArrayList<OrdersBean> toListOrder(int page, int limit, int state) {
+		ArrayList<OrdersBean> orderList = new ArrayList<OrdersBean>();
+		
+		int startRow = (page-1)*limit;
+		
+		try {
+			String sql="SELECT * FROM orders WHERE state = ? ORDER BY regdate DESC limit ?,?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, state);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, limit);
 			
 			rs= pstmt.executeQuery();
 			
@@ -808,7 +865,7 @@ public class AdminDAO {
 				receiverBean.setReceiver_postcode(rs.getString("receiver_postcode"));
 				receiverBean.setReceiver_addr(rs.getString("receiver_addr"));
 				receiverBean.setReceiver_addr_detail(rs.getString("receiver_addr_detail"));
-				receiverBean.setReceiver_msg(rs.getString("receiver_msg"));
+//				receiverBean.setReceiver_msg(rs.getString("receiver_msg"));
 				receiverBean.setReceiver_date(rs.getTimestamp("receiver_date").toString());
 			}
 			

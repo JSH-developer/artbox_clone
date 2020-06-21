@@ -3,6 +3,7 @@ package action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import action.admin.Action;
 import svc.EventService;
 import vo.ActionForward;
 import vo.EventBean;

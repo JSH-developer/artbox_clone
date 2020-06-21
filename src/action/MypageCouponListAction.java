@@ -6,6 +6,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import action.admin.Action;
 import svc.CouponService;
 import vo.ActionForward;
 import vo.CouponBean;

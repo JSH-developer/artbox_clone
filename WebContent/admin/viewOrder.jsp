@@ -82,7 +82,7 @@ function changeStatus(){
 <tr><th>수신자 우편번호</th><td><c:out value="${receiverBean.receiver_postcode}"/></td></tr>
 <tr><th>수신자 기본주소</th><td><c:out value="${receiverBean.receiver_addr}"/></td></tr>
 <tr><th>수신자 상세주소</th><td><c:out value="${receiverBean.receiver_addr_detail}"/></td></tr>
-<tr><th>수신자 메세지</th><td><c:out value="${receiverBean.receiver_msg}"/></td></tr>
+<%-- <tr><th>수신자 메세지</th><td><c:out value="${receiverBean.receiver_msg}"/></td></tr> --%>
 </table>
 
 </div>
@@ -100,7 +100,7 @@ function changeStatus(){
 </c:forEach>
 </table>
 <br><br>
-<button onclick="location.href='OrderList.admin?page=${param.page}'" class="viewBtn">목록가기</button>
+<button onclick="location.href='OrderList.admin?page=${param.page}&state=${param.state}'" class="viewBtn">목록가기</button>
 <button onclick="deleteProduct()"  class="viewBtn deleteBtn">주문삭제</button>
 <br><br>
 

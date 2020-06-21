@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import action.Action;
-import action.OrderAllListAction;
-import action.OrderOneListAction;
+import action.admin.Action;
+import action.admin.OrderAllListAction;
+import action.admin.OrderOneListAction;
 import vo.ActionForward;
 
 @WebServlet("*.order")

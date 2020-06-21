@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
-import action.Action;
 import action.MemberJoinAction;
 import action.MemberJoinCheckAction;
 import action.MemberLoginAction;
+import action.admin.Action;
 import vo.ActionForward;
 
 @WebServlet("*.member")

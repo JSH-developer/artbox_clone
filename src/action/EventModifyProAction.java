@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import action.admin.Action;
 import svc.EventService;
 import vo.ActionForward;
 import vo.EventBean;

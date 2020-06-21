@@ -6,9 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import action.Action;
+import action.admin.Action;
 import item.svc.QuestionListSVC;
-import svc.ProductViewService;
+import svc.admin.ProductViewService;
 import vo.ActionForward;
 import vo.ProductBean;
 import vo.QuestionBean;
