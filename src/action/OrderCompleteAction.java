@@ -72,6 +72,7 @@ public class OrderCompleteAction implements Action {
 		ordersbean.setOrders_order_name(request.getParameter("memname"));
 		ordersbean.setOrders_order_email(request.getParameter("mememail"));
 		ordersbean.setOrders_order_phone(request.getParameter("phone123"));
+		ordersbean.setOrders_msg("배송지연습");
 		ordersbean.setOrders_point(Integer.parseInt("1"));
 		ordersbean.setOrders_total_price(Integer.parseInt(request.getParameter("TotalPriceAmount")));
 		ordersbean.setOrders_payMethod("페이방법");
@@ -84,7 +85,6 @@ public class OrderCompleteAction implements Action {
 		receiverBean.setReceiver_postcode("12345");
 		receiverBean.setReceiver_addr("주소연습");
 		receiverBean.setReceiver_addr_detail("주소디테일연습");
-		receiverBean.setReceiver_msg("배송지연습");
 		receiverBean.setReceiver_member_id(id);
 		
 		// 주문상세보기 Bean 저장

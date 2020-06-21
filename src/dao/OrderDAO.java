@@ -76,60 +76,6 @@ public class OrderDAO {
 		return OrderList;
 	}
 	
-	// 전체 주문
-//	public List OrderAllList(String member_id/*, int basketidx*/) {
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		
-//		List list = new ArrayList();
-//		List productList = new ArrayList();
-//		List basketList = new ArrayList();
-//		List memberList = new ArrayList();
-//		try {
-//			String sql = "SELECT member.name, member.postcode, member.addr_basic, "
-//					+ "member.addr_detail, member.email, member.phone, member.point, "
-//					+ "product.num, product.code, product.name, product.image, product.price, basket.quantity "
-//					+ "FROM member INNER JOIN basket ON member.id = basket.member_id "
-//					+ "INNER JOIN product ON product.num = basket.product_num "
-//					+ "WHERE member_id=?"; //  AND basket.num=?
-//			pstmt = con.prepareStatement(sql);
-//			pstmt.setString(1, member_id);
-////			pstmt.setInt(2, basketidx);
-//			rs = pstmt.executeQuery();
-//			while(rs.next()) {
-//				ProductBean productBean = new ProductBean();
-//				BasketBean basketBean = new BasketBean();
-//				BasketTestMemberBean memberBean = new BasketTestMemberBean();
-//				productBean.setProduct_num(rs.getInt("num"));
-//				productBean.setProduct_code(rs.getString("code"));
-//				productBean.setProduct_name(rs.getString("name"));
-//				productBean.setProduct_image(rs.getString("image"));
-//				productBean.setProduct_price(rs.getInt("price"));
-//				productList.add(productBean);
-//				basketBean.setBasket_quantity(rs.getInt("quantity"));
-//				basketList.add(basketBean);
-//				memberBean.setName(rs.getString("name"));
-//				memberBean.setPostcode(rs.getString("postcode"));
-//				memberBean.setAddr_basic(rs.getString("addr_basic"));
-//				memberBean.setAddr_detail(rs.getString("addr_detail"));
-//				memberBean.setEmail(rs.getString("email"));
-//				memberBean.setPhone(rs.getString("phone"));
-//				memberBean.setPoint(rs.getInt("point"));
-//				memberList.add(memberBean);
-//			}
-//			list.add(productList);
-//			list.add(basketList);
-//			list.add(memberList);
-//		} catch (SQLException e) {
-////			e.printStackTrace();
-//			System.out.println("OrderDAO - selectOrderList() 실패! : " + e.getMessage());
-//		} finally {
-//			close(rs);
-//			close(pstmt);
-//		}
-//		return list;
-//	}
-
 	// 주문 테이블 INSERT
 	public int insertOrder(OrdersBean ordersbean) {
 		System.out.println("OrderDAO - insertOrder");
@@ -151,7 +97,7 @@ public class OrderDAO {
 			orders_num = num;
 			
 			// 주문 INSERT
-			sql="INSERT INTO orders VALUES(?,?,?,?,?,?,?,?,?,?,now())";
+			sql="INSERT INTO orders VALUES(?,?,?,?,?,?,?,?,?,?,?,now())";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2, sdf.format(cal.getTime()).toString()+String.format("%06d", orders_num));//주문번호
@@ -159,14 +105,16 @@ public class OrderDAO {
 			pstmt.setString(4, ordersbean.getOrders_order_name());
 			pstmt.setString(5, ordersbean.getOrders_order_email());
 			pstmt.setString(6, ordersbean.getOrders_order_phone());
-			pstmt.setInt(7, ordersbean.getOrders_point());
-			pstmt.setInt(8, ordersbean.getOrders_total_price());
-			pstmt.setString(9, ordersbean.getOrders_payMethod());
-			pstmt.setInt(10, ordersbean.getOrders_state());
+			pstmt.setString(7, ordersbean.getOrders_msg());
+			pstmt.setInt(8, ordersbean.getOrders_point());
+			pstmt.setInt(9, ordersbean.getOrders_total_price());
+			pstmt.setString(10, ordersbean.getOrders_payMethod());
+			pstmt.setInt(11, ordersbean.getOrders_state());
 			insertOrderCount = pstmt.executeUpdate();
 			
 			System.out.println(num + ", " + sdf.format(cal.getTime()).toString()+String.format("%06d", orders_num) + ", " + ordersbean.getOrders_member_id()
-			 + ", " + ordersbean.getOrders_order_name() + ", " + ordersbean.getOrders_order_email() + ", " + ordersbean.getOrders_order_phone() + ", " + ordersbean.getOrders_point() + ", " + ordersbean.getOrders_total_price() 
+			 + ", " + ordersbean.getOrders_order_name() + ", " + ordersbean.getOrders_order_email() + ", " + ordersbean.getOrders_order_phone() 
+			 + ", " + ordersbean.getOrders_msg() + ", " + ordersbean.getOrders_point() + ", " + ordersbean.getOrders_total_price() 
 			 + ", " + ordersbean.getOrders_payMethod() + ", " + ordersbean.getOrders_state());
 		}  catch (SQLException e) {
 //			e.printStackTrace();
@@ -218,7 +166,7 @@ public class OrderDAO {
 					num = rs.getInt(1)+1;
 					// 배송지 INSERT
 					System.out.println("값이 없음");
-					sql="INSERT INTO receiver VALUES(?,?,?,?,?,?,?,?,now(),?,?)";
+					sql="INSERT INTO receiver VALUES(?,?,?,?,?,?,?,now(),?,?)";
 					pstmt=con.prepareStatement(sql);
 					pstmt.setInt(1, num);
 					pstmt.setString(2, receiverBean.getReceiver());
@@ -227,9 +175,8 @@ public class OrderDAO {
 					pstmt.setString(5, receiverBean.getReceiver_postcode());
 					pstmt.setString(6, receiverBean.getReceiver_addr());
 					pstmt.setString(7, receiverBean.getReceiver_addr_detail());
-					pstmt.setString(8, receiverBean.getReceiver_msg());
-					pstmt.setString(9, id);
-					pstmt.setInt(10, basic_num);
+					pstmt.setString(8, id);
+					pstmt.setInt(9, basic_num);
 					insertReceiverCount = pstmt.executeUpdate();
 				}
 			}
@@ -344,17 +291,18 @@ public class OrderDAO {
 				order_num = rs.getString("orders_order_num");
 				
 				ResultSet rs2 = null;
-				sql = "SELECT total_price, pay_method, regdate FROM orders WHERE order_num=?";
+				sql = "SELECT msg, total_price, pay_method, regdate FROM orders WHERE order_num=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, order_num);
 				rs2 = pstmt.executeQuery();
 				if(rs2.next()) {
+					ordersDetailBean.setOrders_msg(rs2.getString("msg"));
 					ordersDetailBean.setOrders_regdate(rs2.getTimestamp("regdate"));
 					ordersDetailBean.setOrders_total_price(rs2.getInt("total_price"));
 					ordersDetailBean.setOrders_payMethod(rs2.getString("pay_method"));
 				}
 				
-				sql = "SELECT receiver_name, receiver_phone, receiver_postcode, receiver_addr, receiver_addr_detail, receiver_msg"
+				sql = "SELECT receiver_name, receiver_phone, receiver_postcode, receiver_addr, receiver_addr_detail"
 						+ " FROM receiver r INNER JOIN orders o ON r.receiver_date = o.regdate WHERE r.member_id=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, id);
@@ -365,7 +313,6 @@ public class OrderDAO {
 					ordersDetailBean.setReceiver_postcode(rs2.getString("receiver_postcode"));
 					ordersDetailBean.setReceiver_addr(rs2.getString("receiver_addr"));
 					ordersDetailBean.setReceiver_addr_detail(rs2.getString("receiver_addr_detail"));
-					ordersDetailBean.setReceiver_msg(rs2.getString("receiver_msg"));
 				}
 				list.add(ordersDetailBean);
 				close(rs2);
@@ -381,7 +328,6 @@ public class OrderDAO {
 		
 		return list;
 	}
-	
 
 	// 기본배송지 가져오기
 	public List getBasicReceiverList(String id) {
@@ -404,7 +350,6 @@ public class OrderDAO {
 				receiverBean.setReceiver_postcode(rs.getString("receiver_postcode"));
 				receiverBean.setReceiver_addr(rs.getString("receiver_addr"));
 				receiverBean.setReceiver_addr_detail(rs.getString("receiver_addr_detail"));
-				receiverBean.setReceiver_msg(rs.getString("receiver_msg"));
 				receiverBean.setReceiver_date(rs.getString("receiver_date"));
 				receiverBean.setReceiver_member_id(rs.getString("member_id"));
 				receiverBean.setReceiver_basic_num(0);
@@ -444,7 +389,6 @@ public class OrderDAO {
 				receiverBean.setReceiver_postcode(rs.getString("receiver_postcode"));
 				receiverBean.setReceiver_addr(rs.getString("receiver_addr"));
 				receiverBean.setReceiver_addr_detail(rs.getString("receiver_addr_detail"));
-				receiverBean.setReceiver_msg(rs.getString("receiver_msg"));
 				receiverBean.setReceiver_date(rs.getString("receiver_date"));
 				receiverBean.setReceiver_member_id(rs.getString("member_id"));
 				receiverBean.setReceiver_basic_num(0);
@@ -462,62 +406,4 @@ public class OrderDAO {
 		return list;
 	}
 
-/*	
-	// 하나 주문
-	public List OrderOneList(String member_id, String product_num) {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		List list = new ArrayList();
-		List basketList = new ArrayList();
-		List productList = new ArrayList();
-		List memberList = new ArrayList();
-		try {
-			String sql = "SELECT member.name, member.postcode, member.addr_basic, "
-					+ "member.addr_detail, member.email, member.phone, member.point, "
-					+ "product.num, product.code, product.name, product.image, product.price, basket.quantity "
-					+ "FROM member INNER JOIN basket ON member.id = basket.member_id "
-					+ "INNER JOIN product ON product.num = basket.product_num "
-					+ "WHERE member_id=? AND  product_num=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, member_id);
-			pstmt.setString(2, product_num);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				ProductBean productBean = new ProductBean();
-				basketBean basketBean = new basketBean();
-				basketTestMemberBean memberBean = new basketTestMemberBean();
-				productBean.setProduct_num(rs.getInt("num"));
-				productBean.setProduct_code(rs.getString("code"));
-				productBean.setProduct_name(rs.getString("name"));
-				productBean.setProduct_image(rs.getString("image"));
-				productBean.setProduct_price(rs.getInt("price"));
-				productList.add(productBean);
-				basketBean.setbasket_quantity(rs.getInt("quantity"));
-				basketList.add(basketBean);
-				memberBean.setName(rs.getString("name"));
-				memberBean.setPostcode(rs.getString("postcode"));
-				memberBean.setAddr_basic(rs.getString("addr_basic"));
-				memberBean.setAddr_detail(rs.getString("addr_detail"));
-				memberBean.setEmail(rs.getString("email"));
-				memberBean.setPhone(rs.getString("phone"));
-				memberBean.setPoint(rs.getInt("point"));
-				memberList.add(memberBean);
-			}
-			list.add(productList);
-			list.add(basketList);
-			list.add(memberList);
-		} catch (SQLException e) {
-//			e.printStackTrace();
-			System.out.println("OrderDAO - selectOrderList() 실패! : " + e.getMessage());
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-		return list;
-	}
-*/
-	
-	
-	
 }

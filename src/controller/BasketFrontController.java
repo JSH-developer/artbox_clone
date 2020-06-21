@@ -28,17 +28,7 @@ public class BasketFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		if(command.equals("/login.basket")) { // 로그인창(나중에 지울 부분)
-			forward = new ActionForward();
-			forward.setPath("/basket/BasketTestLogin.jsp");
-		} else if(command.equals("/LoginAction.basket")) { // 로그인(나중에 지울 부분)
-			action = new BasketTestLoginAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/productDetail.basket")) { // 상품상세보기창(나중에 지울 부분)
+		if(command.equals("/productDetail.basket")) { // 상품상세보기창(나중에 지울 부분)
 			forward = new ActionForward();
 			forward.setPath("/basket/BasketTestItemDetail.jsp");
 		} else if(command.equals("/insertBasket.basket")) {
@@ -73,14 +63,12 @@ public class BasketFrontController extends HttpServlet {
 		
 		// ActionForward 객체 내의 포워딩 방식에 따라 각각의 포워딩 작업 수행
 		if(forward != null) {
-			
 			if(forward.isRedirect()) { // redirect 방식
 				response.sendRedirect(forward.getPath());
 			}else { // dispatcher 방식
 				RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
 				dispatcher.forward(request, response);
 			}
-			
 		}
 	}
 

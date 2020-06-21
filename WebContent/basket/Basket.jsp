@@ -114,7 +114,7 @@ $(document).ready(function(){
 	});
 
 	// 상품 주문
-	$(".btn-basket").click(function(){ // 주문버튼 클릭 시
+	$(".btn-order").click(function(){ // 주문버튼 클릭 시
 		var arrBasket = new Array();
 		$("input[name='BasketIdx']:checked").each(function(){
 			arrBasket.push($(this).attr("data-basketNum"));
@@ -131,7 +131,7 @@ $(document).ready(function(){
 });
 </script>
 <style type="text/css">
-.btn-basket {background-color:black; border: 1px solid #424242; color: white; font-size: 22px; font-weight: bold; padding: 15px 80px; border-radius: 5px;}
+.btn-order {background-color:black; border: 1px solid #424242; color: white; font-size: 22px; font-weight: bold; padding: 15px 80px; border-radius: 5px;}
 .btn-basketDelete {border: 1px solid #424242; background-color:white;  margin:0 7px 0 0; color: #424242; font-size: 15px; padding: 8.5px 25px 8.8px 25px; border-radius: 5px;}
 </style>
 </head>
@@ -221,10 +221,6 @@ $(document).ready(function(){
 					<dt>총 상품금액</dt>
 					<dd><span id="TotalPriceSum">0</span> 원</dd>
 				</dl>
-<!-- 				<dl class="trBasketPrice"  style="display:none;"> -->
-<!-- 					<dt>회원등급 할인금액</dt> -->
-<!-- 					<dd class="grade5"><span id="TotalPriceMemberLevelDiscount">0</span> 원 [<img src="../Images/Ver1/Common/pc_top_grade5.png">0%]</dd> -->
-<!-- 				</dl> -->
 				<dl class="trBasketPrice">
 					<dt>배송비</dt>
 					<dd><span id="TotalPriceDelivery">0</span> 원</dd>
@@ -237,7 +233,7 @@ $(document).ready(function(){
 		<div class="clear"></div>
 	</div>
 	<div class="BasketBottom">
-		<div class="BasketBuyButton"><input type="button" value="주문버튼" class="btn-basket"></div>
+		<div class="BasketBuyButton"><input type="button" value="주문버튼" class="btn-order"></div>
 <!-- 		<a href="javascript:fnBasketArray('ARRAYBUY');">주문하기</a> -->
 		<div class="BasketComment">
 			장바구니에 담긴 상품은 30일 이후 자동으로 위시리스트로 이동됩니다.<br>
