@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 헤더 -->
 <script src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
  <script type="text/javascript" src="${pageContext.request.contextPath}/js/home.js"></script>
@@ -39,11 +40,12 @@
 			
 			
 			<li class="MyPage">
-			
-				<a href="#" title="로그인" onclick="GA_event('HEAD', '최상단 메뉴', '로그인');"><img src="${pageContext.request.contextPath}/Images/common/top_icon_login.png" id="MyInfoSummaryIcon"></a>
-<!-- 				<a href="javascript:location.href='https://www.artboxmall.com:443/Home/Member/Login.asp?rtnURL=%2FHome%2Findex%2Easp';" id="LoginBalloon" onclick="GA_event('HEAD', '최상단 메뉴', '팝업로그인');" style="visibility: hidden;"><img src="/Images/common/login_balloon.png?v=2"></a> -->
-				<a class="btnBallon" href="javascript:fnLoginBalloon();"></a>
-			
+				<c:if test="${!empty sessionScope.id }">
+					<a href="myPageOrders.member" title="마이페이지" onclick="GA_event('HEAD', '최상단 메뉴', '마이페이지');"><img src="${pageContext.request.contextPath}/Images/common/top_icon_login.png" id="MyInfoSummaryIcon"></a>
+				</c:if>
+				<c:if test="${empty sessionScope.id }">
+					<a href="loginForm.member" title="로그인" onclick="GA_event('HEAD', '최상단 메뉴', '로그인');"><img src="${pageContext.request.contextPath}/Images/common/top_icon_login.png" id="MyInfoSummaryIcon"></a>
+				</c:if>
 			</li>
 			<li class="Search">
 				<div id="CommonSearch">

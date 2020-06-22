@@ -1,0 +1,64 @@
+@charset "UTF-8";
+
+.formbody {
+	width: auto;
+	max-width: 600px;
+	margin: 50px auto 70px;
+    padding: 0;
+}
+
+.title {
+	text-align: center;
+	font-size: 25px;
+}
+
+.formbody input[type="text"]{
+	width: 99.8%;
+    padding: 0 22px;
+    margin: 10px 0 0 0;
+    line-height: 56px;
+    height: 56px;
+    color: #777777;
+    font-size: 15px;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.formbody input[type="password"]{
+	width: 100%;
+    padding: 0 22px;
+    margin: 10px 0 0 0;
+    line-height: 56px;
+    height: 56px;
+    color: #777777;
+    font-size: 15px;
+    border: 0;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.formbody span{
+	font-size: 14px;
+	color: #999999;
+}
+
+.formbody input[type="submit"]{
+	width: 107.5%;
+    padding: 0 22px;
+    margin: 10px 0 0 0;
+    line-height: 56px;
+    height: 56px;
+    color: #ffffff;
+    font-size: 15px;
+    border: 0;
+    background-color: #000000;
+    border-radius: 5px;
+    margin-top: 40px;
+}
+
+
+
+
+
+

@@ -82,12 +82,13 @@ public class MemberDAO {
 		} catch (SQLException e) {
 			System.out.println("DAO - idcheck 실패!"+e.getMessage());
 		} finally {
+			close(rs);
 			close(pstmt);
 		}
 		return idcheck;
 	}
 
-	public int LoginSuccess(String id, String pw) {
+	public int idpwSuccess(String id, String pw) {
 		int LoginSuccess = -1; // 아이디 존재안함
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -107,6 +108,9 @@ public class MemberDAO {
 			}
 		} catch (SQLException e) {
 			System.out.println("LoginSuccess오류 - "+e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
 		}
 		return LoginSuccess;
 	}
@@ -145,11 +149,13 @@ public class MemberDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
 		}
 		return bb;
 		
 		
 	}
-	
-	
+
 }

@@ -16,7 +16,7 @@ public class MemberBeanService {
 	
 	
 	MemberBean bb = dao.myName(id);
-	
+	close(con);
 	return bb;
 	}
 }
