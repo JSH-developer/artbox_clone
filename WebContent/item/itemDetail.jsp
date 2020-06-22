@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,36 +69,97 @@
 		$('.delivery-overlay').css('display','none');
 		$('.share-overlay').css('display','none');
 	})
+// 		// 버튼 클릭시 수량 변동
+// 	$(document).on("click", ".btnStockQty", function(){
+// 		var obj = $(this).parent().find("input[type=tel]");
+// 		if('${productBean.product_stock_count}' == 0){
+// 			obj.val(0);
+// 			alert("현재 재고량이 0개 입니다.");
+// 		}else if ($(this).hasClass("Minus")) {
+// 			if (parseInt(obj.val(),10)-1 <= 0) {
+// 				obj.val(1);
+// 				alert("주문수량은 1 이상이어야 합니다.");
+// 			} else {
+// 				obj.val(parseInt(obj.val(),10)-1);
+// 			}
+// 		}else if ($(this).hasClass("Plus")) {
+// 			if (parseInt(obj.val(),10)+1 > '${productBean.product_stock_count}') {
+// 				obj.val('${productBean.product_stock_count}');
+// 				alert('현재 재고량이 '+'${productBean.product_stock_count}'+'개 입니다.');
+// 			} else {
+// 				obj.val(parseInt(obj.val(),10)+1);
+// 			}
+// 		}
+
+// 		fnCheckPriseSum();
+// 	});
+// 	//수량 변동시 가격 변동
+// 	$(document).on("blur", "[name=stockqty]", function(){//포커스 없어졌을때
+// 		if('${productBean.product_stock_count}' == 0){
+// 			$(this).val("0");
+// // 			alert("현재 재고량이 0개 입니다.");
+// 		}else if ($.isNumeric($(this).val()) == false){
+// 			$(this).val("1");
+// 		}else if ($(this).val() > '${productBean.product_stock_count}'){
+// 			$(this).val('${productBean.product_stock_count}');
+// 			alert('현재 재고량이 '+'${productBean.product_stock_count}'+'개 입니다.');
+// 		}
+// 		fnCheckPriseSum();
+// 	});
+// 	$(document).on("keyup", "[name=stockqty]", function(){//키 눌렀을때
+// 		if('${productBean.product_stock_count}' == 0){
+// 			$(this).val(0);
+// // 			alert("현재 재고량이 0개 입니다.");
+// 		}else if ($.isNumeric($(this).val()) == false){
+// 			$(this).val(1);
+// 		}else if ($(this).val() > '${productBean.product_stock_count}'){
+// 			$(this).val('${productBean.product_stock_count}');
+// 			alert('현재 재고량이 '+'${productBean.product_stock_count}'+'개 입니다.');
+// 		}
+// 		fnCheckPriseSum();
+// 	});
 	// 버튼 클릭시 수량 변동
 	$(document).on("click", ".btnStockQty", function(){
 		var obj = $(this).parent().find("input[type=tel]");
 		if ($(this).hasClass("Minus")) {
-			if (parseInt(obj.val(),10)-1 <= 0) {
-				alert("주문수량은 1 이상이어야 합니다.");
-				obj.val("1");
-			} else {
-				obj.val(parseInt(obj.val(),10)-1);
-			}
+			obj.val(parseInt(obj.val(),10)-1);
 		}
 		if ($(this).hasClass("Plus")) {
 			obj.val(parseInt(obj.val(),10)+1);
 		}
-
+		fnCheckStock();
 		fnCheckPriseSum();
 	});
-	//수량 변동시 가격 변동
 	$(document).on("blur", "[name=stockqty]", function(){//포커스 없어졌을때
 		if ($.isNumeric($(this).val()) == false){
-			$(this).val(1);
+			$("[name=stockqty]").val(1);
+		}else if($(this).val()){
+			
 		}
 		fnCheckPriseSum();
 	});
 	$(document).on("keyup", "[name=stockqty]", function(){//키 눌렀을때
+		alert('키눌렀을때')
 		if ($.isNumeric($(this).val()) == false){
-			$(this).val(1);
+			$("[name=stockqty]").val(1);
 		}
+		fnCheckStock();
 		fnCheckPriseSum();
 	});
+	//현재 재고 반영하여 수량 조정
+	function fnCheckStock(){
+		if('${productBean.product_stock_count}' <= 0){
+			$("[name=stockqty]").val(0);
+			alert('현재 재고량이 0개 입니다.');
+		}else if($("[name=stockqty]").val() <= 0){
+			$("[name=stockqty]").val(1);
+			alert('주문수량은 1 이상이어야 합니다.');
+		}else if($("[name=stockqty]").val() > '${productBean.product_stock_count}'){
+			$("[name=stockqty]").val('${productBean.product_stock_count}');
+			alert('현재 재고량이 '+'${productBean.product_stock_count}'+'개 입니다.');
+		}
+	}
+	//수량 변동시 가격 변동
 	function fnCheckPriseSum(){
 		var returnValue = parseInt('${productBean.product_price}',10)* parseInt($("[name=stockqty]").val(),10);
 		$(".pdt-totalprice").html(commas(returnValue) + " 원");
@@ -214,7 +276,7 @@
 				<div class="text-info">
 					<div class="pdt-name">${productBean.product_name }</div>
 					<div class="pdt-category">
-						<a href="${pageContext.request.contextPath}/itemList.item?major=${productBean.product_code}" class="major">${category_sup }</a>
+						<a href="${pageContext.request.contextPath}/itemList.item?major=${fn:substring(productBean.product_code,0,2)}" class="major">${category_sup }</a>
 						&gt;
 						<a href="${pageContext.request.contextPath}/itemList.item?minor=${productBean.product_category_code}" class="minor">${category_sub }</a>
 					</div>
