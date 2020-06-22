@@ -1,4 +1,4 @@
-package event.action;
+package action.event;
 
 import java.io.PrintWriter;
 

@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import event.action.EventDeleteProAction;
-import event.action.EventDetailAction;
-import event.action.EventListAction;
-import event.action.EventModifyFormAction;
-import event.action.EventModifyProAction;
-import event.action.EventWriteProAction;
-import event.action.EventproductviewAction;
+import action.event.EventDeleteProAction;
+import action.event.EventDetailAction;
+import action.event.EventListAction;
+import action.event.EventModifyFormAction;
+import action.event.EventModifyProAction;
+import action.event.EventWriteProAction;
+import action.event.EventproductviewAction;
 import svc.ProductWriteService;
 import vo.ActionForward;
 

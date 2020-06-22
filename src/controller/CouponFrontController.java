@@ -10,12 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import event.action.CouponAllListAction;
-import event.action.CouponCheckAction;
-import event.action.CouponIssuedAction;
-import event.action.CouponOrderPayFormAction;
-import event.action.CouponWriteProAction;
-import event.action.MypageCouponListAction;
+import action.event.CouponAllListAction;
+import action.event.CouponCheckAction;
+import action.event.CouponIssuedAction;
+import action.event.CouponOrderPayFormAction;
+import action.event.CouponSelectAction;
+import action.event.CouponWriteProAction;
+import action.event.MypageCouponListAction;
 import vo.ActionForward;
 
 
@@ -88,6 +89,14 @@ public class CouponFrontController extends HttpServlet {
 		}else if(command.equals("/CouponCheck.coupon")) {	// 쿠폰 갖고 있는지 확인
 			System.out.println("/CouponCheck.coupon");
 			action = new CouponCheckAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/CouponSelect.coupon")) {	// 쿠폰 갖고 있는지 확인
+			System.out.println("/CouponSelect.coupon");
+			action = new CouponSelectAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
