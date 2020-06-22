@@ -57,7 +57,6 @@ function changeStatus(){
 <div class="wrapView">
 
 <div class="wrapTbl">
-<img class="admin_deco" src="${pageContext.request.contextPath}/Images/admin/otto.png" />
 <table class="viewTable vt_child1">
 <tr><td colspan="2"><h1 class="viewTitle">주문 상세보기</h1></td></tr>
 <tr><th>주문 인덱스</th><td><c:out value="${ordersBean.orders_num}"/></td></tr>
@@ -73,7 +72,6 @@ function changeStatus(){
 <tr><th>주문날짜</th><td><c:out value="${ordersBean.orders_regdate}"/></td></tr>
 </table>
 
-<img class="admin_deco" src="${pageContext.request.contextPath}/Images/admin/october.png" />
 <table class="viewTable vt_child2">
 <tr><td colspan="2"><h1 class="viewTitle">수신자 상세보기</h1></td></tr>
 <tr><th>수신자 인덱스</th><td><c:out value="${receiverBean.receiver_num}"/></td></tr>

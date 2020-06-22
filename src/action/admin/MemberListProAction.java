@@ -26,9 +26,22 @@ public class MemberListProAction implements Action {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 		
+		String opt = request.getParameter("opt");
+		String kwd = "";
+		if(request.getParameter("kwd") != null) {
+			kwd = request.getParameter("kwd");
+		}
+		
 		MemberListService memberListService = new MemberListService();
-		int listCount = memberListService.getListCount();
-		ArrayList<MemberBean> memberList =memberListService.getMemberList(page, limit);
+		int listCount = 0;
+		ArrayList<MemberBean> memberList = null;
+		if(kwd.equals("")) {
+			listCount = memberListService.getListCount();
+			memberList = memberListService.getMemberList(page, limit);
+		}else {
+			listCount = memberListService.getListCount(opt, kwd);
+			memberList = memberListService.getMemberList(page, limit, opt, kwd);
+		}
 		
 		int maxPage = (int)((double)listCount / limit + 0.95);
 		int startPage = (((int)((double)page / 10 + 0.9))-1)*10 +1 ;
@@ -39,14 +52,10 @@ public class MemberListProAction implements Action {
 		
 		PageInfo pageInfo = new PageInfo(page, maxPage, startPage, endPage, listCount);
 		
-		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("memberList", memberList);
 		
-		
 		forward.setPath("/admin/listMember.jsp");
-		
-		
 		
 		return forward;
 	}

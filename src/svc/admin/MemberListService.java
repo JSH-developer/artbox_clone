@@ -34,6 +34,27 @@ public class MemberListService {
 		return listCount;
 		
 	}
+	
+	public int getListCount(String opt, String kwd) {
+		int listCount=0;
+		
+		Connection con = getConnection();
+		
+		AdminDAO adminDAO = AdminDAO.getInstance();
+		adminDAO.setConnection(con);
+		listCount = adminDAO.memberCount(opt, kwd);
+		
+		if(listCount>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return listCount;
+		
+	}
 
 	public ArrayList<MemberBean> getMemberList(int page, int limit) {
 		ArrayList<MemberBean> memberList = null;
@@ -44,6 +65,27 @@ public class MemberListService {
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
 		memberList=adminDAO.toListMember(page, limit);
+		
+		if(!memberList.isEmpty()) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return memberList;
+	}
+	
+	public ArrayList<MemberBean> getMemberList(int page, int limit, String opt, String kwd) {
+		ArrayList<MemberBean> memberList = null;
+		
+		
+		Connection con = getConnection();
+		
+		AdminDAO adminDAO = AdminDAO.getInstance();
+		adminDAO.setConnection(con);
+		memberList=adminDAO.toListMember(page, limit, opt, kwd);
 		
 		if(!memberList.isEmpty()) {
 			commit(con);

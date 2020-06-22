@@ -54,7 +54,7 @@ function deleteMember(){
 <tr><th>회원 등록일</th><td><c:out value="${memberBean.regdate}"/></td></tr>
 </table>
 <button onclick="deleteMember()" class="viewBtn deleteBtn">회원삭제하기</button>
-<button onclick="location.href='MemberList.admin?page=${param.page}'" class="viewBtn">목록가기</button>
+<button onclick="location.href='MemberList.admin?page=${param.page}&opt=${param.opt}&kwd=${param.kwd}'" class="viewBtn">목록가기</button>
 </div>
 
 <h1>orders 테이블 활용</h1>

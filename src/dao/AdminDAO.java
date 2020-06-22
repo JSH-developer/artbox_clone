@@ -171,6 +171,57 @@ public class AdminDAO {
 		return productList;
 	}
 	
+	public ArrayList<ProductBean> toListProduct(int page, int limit, String opt, String kwd) {
+		ArrayList<ProductBean> productList = new ArrayList<ProductBean>();
+		
+		int startRow = (page-1)*limit;
+		
+		try {
+			String sql = "";
+			if(opt.equals("name")) {
+				sql="SELECT * FROM product WHERE name LIKE ? ORDER BY num DESC limit ?,?";
+			}else if(opt.equals("code")){
+				sql="SELECT * FROM product WHERE code LIKE ? ORDER BY num DESC limit ?,?";
+			}else if(opt.equals("keywords")){
+				sql="SELECT * FROM product WHERE keywords LIKE ? ORDER BY num DESC limit ?,?";
+			}
+			
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, "%"+kwd+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, limit);
+			
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ProductBean productBean = new ProductBean();
+				productBean = new ProductBean();
+				productBean.setProduct_num(rs.getInt("num"));
+				productBean.setProduct_code(rs.getString("code"));
+				productBean.setProduct_name(rs.getString("name"));
+				productBean.setProduct_image(rs.getString("image"));
+				productBean.setProduct_description(rs.getString("description"));
+				productBean.setProduct_price(rs.getInt("price"));
+				productBean.setProduct_brand(rs.getString("brand"));
+				productBean.setProduct_stock_count(rs.getInt("stock_count"));
+				productBean.setProduct_sale_price(rs.getInt("sale_price"));
+				productBean.setProduct_keywords(rs.getString("keywords"));
+				productBean.setProduct_regdate(rs.getTimestamp("regdate"));
+				productBean.setProduct_category_code(rs.getString("category_code"));
+				productBean.setProduct_option_code(rs.getString("option_code"));
+				productList.add(productBean);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return productList;
+	}
+	
 	// 상품 갯수 세기
 	public int productCount() {
 		int listCount = 0;
@@ -178,6 +229,37 @@ public class AdminDAO {
 		try {
 			String sql ="SELECT COUNT(num) FROM product";
 			pstmt=con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	public int productCount(String opt, String kwd) {
+		int listCount = 0;
+		
+		try {
+			String sql = "";
+			if(opt.equals("name")) {
+				sql ="SELECT COUNT(num) FROM product WHERE name LIKE ?";
+			}else if(opt.equals("code")){
+				sql ="SELECT COUNT(num) FROM product WHERE code LIKE ?";
+			}else if(opt.equals("keywords")){
+				sql ="SELECT COUNT(num) FROM product WHERE keywords LIKE ?";
+			}
+			
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1,"%"+kwd+"%");
 			
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -590,6 +672,34 @@ public class AdminDAO {
 		
 		return listCount;
 	}
+	
+	public int memberCount(String opt, String kwd) {
+		int listCount = 0;
+		
+		try {
+			String sql = "";
+			if(opt.equals("id")) {
+				sql ="SELECT COUNT(num) FROM member WHERE id LIKE ?";
+			}else if(opt.equals("name")){
+				sql ="SELECT COUNT(num) FROM member WHERE name LIKE ?";
+			}
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, "%"+kwd+"%");
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
 
 	
 	// 멤버 리스트를 출력하기 위한 함수
@@ -603,6 +713,55 @@ public class AdminDAO {
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, limit);
+			
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				MemberBean memberBean = new MemberBean();
+				memberBean.setNum(rs.getInt("num"));
+				memberBean.setId(rs.getString("id"));
+				memberBean.setPw(rs.getString("pw"));
+				memberBean.setName(rs.getString("name"));
+				memberBean.setPostcode(rs.getString("postcode"));
+				memberBean.setAddr_basic(rs.getString("addr_basic"));
+				memberBean.setAddr_detail(rs.getString("addr_detail"));
+				memberBean.setEmail(rs.getString("email"));
+				memberBean.setPhone(rs.getString("phone"));
+				memberBean.setGender(rs.getString("gender"));
+				memberBean.setPoint(rs.getInt("point"));
+				memberBean.setBirth(rs.getString("birth"));
+				memberBean.setGrade(rs.getString("grade"));
+				memberBean.setRegdate(rs.getDate("regdate"));
+				
+				memberList.add(memberBean);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return memberList;
+	}
+	
+	public ArrayList<MemberBean> toListMember(int page, int limit, String opt, String kwd) {
+		ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
+		
+		int startRow = (page-1)*limit;
+		
+		try {
+			String sql = "";
+			if(opt.equals("id")) {
+				sql ="SELECT * FROM member WHERE id LIKE ? ORDER BY num DESC limit ?,?";
+			}else if(opt.equals("name")){
+				sql ="SELECT * FROM member WHERE name LIKE ? ORDER BY num DESC limit ?,?";
+			}
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, "%"+kwd+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, limit);
 			
 			rs= pstmt.executeQuery();
 			
