@@ -50,3 +50,18 @@ a {text-decoration:none}
 .paging .box a {line-height: 35px; font-size: 15px; padding: 0 15px 0 15px;float: left;}
 .paging .box .btn_pageon {color: #df2e38; font-size: 16px;}
 .paging .box .opacity {opacity: 0.3;}
+
+.full-screen label {
+	display: inline-block;
+	width:40px;
+	height:40px;
+	background-color: #fdfdfd;
+	background-image: url(../../Images/item/img_arrow_left.png);
+	cursor: pointer;
+	border: 1px solid #ebebeb;
+	border-radius: .25em;
+}
+
+.full-screen input[type="file"] { /* 파일 필드 숨기기 */
+	display: none;
+}
