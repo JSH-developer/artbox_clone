@@ -1,4 +1,4 @@
-package item.action;
+package action.item;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import item.svc.QuestionListSVC;
+import svc.item.QuestionListSVC;
 import vo.ActionForward;
 import vo.QuestionBean;
 import vo.QuestionPageInfo;

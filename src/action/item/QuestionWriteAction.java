@@ -1,4 +1,4 @@
-package item.action;
+package action.item;
 
 import java.io.PrintWriter;
 
@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import item.svc.QuestionWriteSVC;
+import svc.item.QuestionWriteSVC;
 import vo.ActionForward;
 import vo.QuestionBean;
 

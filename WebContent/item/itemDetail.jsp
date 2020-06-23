@@ -256,10 +256,26 @@
 						<span class="ipt_layer">
 							<input type="button" class="btnStockQty Minus" value="-">
 							<input type="button" class="btnStockQty Plus" value="+">
-							<input type="tel" name="stockqty" value="1" maxlength="4">
+							<c:choose>
+								<c:when test="${productBean.product_stock_count == 0 }">
+									<input type="tel" name="stockqty" value="0" maxlength="4">
+								</c:when>
+								<c:otherwise>
+									<input type="tel" name="stockqty" value="1" maxlength="4">
+								</c:otherwise>
+							</c:choose>
 						</span>
 					</div>
-					<div class="pdt-right pdt-totalprice"><fmt:formatNumber value="${productBean.product_price}" type="number" /> 원</div>
+					<div class="pdt-right pdt-totalprice">
+						<c:choose>
+							<c:when test="${productBean.product_stock_count == 0 }">
+								0 원
+							</c:when>
+							<c:otherwise>
+								<fmt:formatNumber value="${productBean.product_price}" type="number" /> 원
+							</c:otherwise>
+						</c:choose>
+					</div>
 					<div class="pdt-btnlist">
 						<span class="btnCart"><input type="button" value="장바구니 담기" onclick="cartCheck()"></span>
 						<span class="btnOrder"><input type="button" value="바로 구매하기"></span>
@@ -332,7 +348,7 @@
 		</section>
 		<section class="item_content">
 			<div class="item_review">
-			<input class="btn-review" type="button" value="후기작성" onclick="location.href='itemReview.jsp'">
+			<input class="btn-review" type="button" value="후기작성" onclick="location.href='${pageContext.request.contextPath}/itemReview.itme'">
 		<div class="table">
 				<div class="tr">
 					<span class="td">★★★★★</span>
@@ -423,8 +439,8 @@
 			<div class="share-overlay">
 				<div class="overlay-header">공유하기<input class="overlay-close" type="button" value=""></div>
 				<div class="share-contents">
-					<img src="${pageContext.request.contextPath}/Images/item/sns_fb.png">
-					<img src="${pageContext.request.contextPath}/Images/item/sns_tw.png">
+					<a href="http://www.facebook.com/"><img src="${pageContext.request.contextPath}/Images/item/sns_fb.png"></a>
+					<a href="http://twitter.com/"><img src="${pageContext.request.contextPath}/Images/item/sns_tw.png"></a>
 				</div>
 			</div>
 		</section>

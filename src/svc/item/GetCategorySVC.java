@@ -1,4 +1,4 @@
-package item.svc;
+package svc.item;
 
 import static db.jdbcUtil.*;
 

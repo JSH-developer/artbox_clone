@@ -1,4 +1,4 @@
-package item.action;
+package action.item;
 
 import java.util.ArrayList;
 
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
-import item.svc.SearchSVC;
+import svc.item.SearchSVC;
 import vo.ActionForward;
 import vo.ProductBean;
 

@@ -1,4 +1,4 @@
-package item.action;
+package action.item;
 
 import java.util.ArrayList;
 
@@ -6,10 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 import action.Action;
-import item.svc.CategoryMajorLinkSVC;
-import item.svc.CategoryMinorLinkSVC;
+import svc.item.CategoryMajorLinkSVC;
+import svc.item.CategoryMinorLinkSVC;
 import vo.ActionForward;
 import vo.MajorCategory;
 import vo.PrintCategory;

@@ -5,9 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>ARTBOX(포트폴리오)</title>
-    <link href="../css/item/itemReview.css" rel="stylesheet" type="text/css">
-    <link href="../css/front.css" rel="stylesheet" type="text/css">
-	<script src="../js/jquery-3.5.0.js"></script>
+    <link href="${pageContext.request.contextPath}/css/item/itemReview.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
+	<script src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 </head>
 <body>
 <% %>
@@ -115,13 +115,6 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
-<<<<<<< HEAD
-		<div>
-			<input type="checkbox" id="popup">
-		
-		</div>
-=======
->>>>>>> refs/remotes/origin/item
 	</div>
 	<!-- /메인 콘텐츠  -->
 	<!--  푸터 -->
