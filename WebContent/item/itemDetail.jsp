@@ -69,55 +69,6 @@
 		$('.delivery-overlay').css('display','none');
 		$('.share-overlay').css('display','none');
 	})
-// 		// 버튼 클릭시 수량 변동
-// 	$(document).on("click", ".btnStockQty", function(){
-// 		var obj = $(this).parent().find("input[type=tel]");
-// 		if('${productBean.product_stock_count}' == 0){
-// 			obj.val(0);
-// 			alert("현재 재고량이 0개 입니다.");
-// 		}else if ($(this).hasClass("Minus")) {
-// 			if (parseInt(obj.val(),10)-1 <= 0) {
-// 				obj.val(1);
-// 				alert("주문수량은 1 이상이어야 합니다.");
-// 			} else {
-// 				obj.val(parseInt(obj.val(),10)-1);
-// 			}
-// 		}else if ($(this).hasClass("Plus")) {
-// 			if (parseInt(obj.val(),10)+1 > '${productBean.product_stock_count}') {
-// 				obj.val('${productBean.product_stock_count}');
-// 				alert('현재 재고량이 '+'${productBean.product_stock_count}'+'개 입니다.');
-// 			} else {
-// 				obj.val(parseInt(obj.val(),10)+1);
-// 			}
-// 		}
-
-// 		fnCheckPriseSum();
-// 	});
-// 	//수량 변동시 가격 변동
-// 	$(document).on("blur", "[name=stockqty]", function(){//포커스 없어졌을때
-// 		if('${productBean.product_stock_count}' == 0){
-// 			$(this).val("0");
-// // 			alert("현재 재고량이 0개 입니다.");
-// 		}else if ($.isNumeric($(this).val()) == false){
-// 			$(this).val("1");
-// 		}else if ($(this).val() > '${productBean.product_stock_count}'){
-// 			$(this).val('${productBean.product_stock_count}');
-// 			alert('현재 재고량이 '+'${productBean.product_stock_count}'+'개 입니다.');
-// 		}
-// 		fnCheckPriseSum();
-// 	});
-// 	$(document).on("keyup", "[name=stockqty]", function(){//키 눌렀을때
-// 		if('${productBean.product_stock_count}' == 0){
-// 			$(this).val(0);
-// // 			alert("현재 재고량이 0개 입니다.");
-// 		}else if ($.isNumeric($(this).val()) == false){
-// 			$(this).val(1);
-// 		}else if ($(this).val() > '${productBean.product_stock_count}'){
-// 			$(this).val('${productBean.product_stock_count}');
-// 			alert('현재 재고량이 '+'${productBean.product_stock_count}'+'개 입니다.');
-// 		}
-// 		fnCheckPriseSum();
-// 	});
 	// 버튼 클릭시 수량 변동
 	$(document).on("click", ".btnStockQty", function(){
 		var obj = $(this).parent().find("input[type=tel]");
@@ -125,21 +76,14 @@
 			obj.val(parseInt(obj.val(),10)-1);
 		}
 		if ($(this).hasClass("Plus")) {
-			obj.val(parseInt(obj.val(),10)+1);
+			if(parseInt(obj.val(),10)+1 < 10000){
+				obj.val(parseInt(obj.val(),10)+1);
+			}
 		}
 		fnCheckStock();
 		fnCheckPriseSum();
 	});
-	$(document).on("blur", "[name=stockqty]", function(){//포커스 없어졌을때
-		if ($.isNumeric($(this).val()) == false){
-			$("[name=stockqty]").val(1);
-		}else if($(this).val()){
-			
-		}
-		fnCheckPriseSum();
-	});
 	$(document).on("keyup", "[name=stockqty]", function(){//키 눌렀을때
-		alert('키눌렀을때')
 		if ($.isNumeric($(this).val()) == false){
 			$("[name=stockqty]").val(1);
 		}
@@ -148,17 +92,38 @@
 	});
 	//현재 재고 반영하여 수량 조정
 	function fnCheckStock(){
-		if('${productBean.product_stock_count}' <= 0){
+		var stock_count = Number('${productBean.product_stock_count}');
+		var stockqty = Number($("[name=stockqty]").val());
+		if(stock_count <= 0){
 			$("[name=stockqty]").val(0);
 			alert('현재 재고량이 0개 입니다.');
-		}else if($("[name=stockqty]").val() <= 0){
+		}else if(stockqty < 1){
 			$("[name=stockqty]").val(1);
 			alert('주문수량은 1 이상이어야 합니다.');
-		}else if($("[name=stockqty]").val() > '${productBean.product_stock_count}'){
-			$("[name=stockqty]").val('${productBean.product_stock_count}');
-			alert('현재 재고량이 '+'${productBean.product_stock_count}'+'개 입니다.');
+		}else if(stockqty > stock_count){
+			$("[name=stockqty]").val(stock_count);
+			alert('현재 재고량이 '+stock_count+'개 입니다.');
+		}else{
+			$("[name=stockqty]").val(parseInt(stockqty,10));
 		}
 	}
+	//포커스 이탈 방지
+	$(document).on("blur", "[name=stockqty]", function(){//포커스 없어졌을때
+		var stock_count = Number('${productBean.product_stock_count}');
+		var stockqty = Number($(this).val());
+		if(stock_count <= 0){
+			$(this).val(0);
+		}else if ($.isNumeric($(this).val()) == false){
+			$(this).val(1);
+		}else if (stockqty < 1){
+			$(this).val(1);
+		}else if (stockqty > stock_count){
+			$(this).val(stock_count);
+		}else{
+			$(this).val(parseInt(stockqty,10));
+		}
+		fnCheckPriseSum();
+	});
 	//수량 변동시 가격 변동
 	function fnCheckPriseSum(){
 		var returnValue = parseInt('${productBean.product_price}',10)* parseInt($("[name=stockqty]").val(),10);
@@ -291,10 +256,10 @@
 						<span class="ipt_layer">
 							<input type="button" class="btnStockQty Minus" value="-">
 							<input type="button" class="btnStockQty Plus" value="+">
-							<input type="tel" name="stockqty" value="1" maxlength="3">
+							<input type="tel" name="stockqty" value="1" maxlength="4">
 						</span>
 					</div>
-					<div class="pdt-right pdt-totalprice"><fmt:formatNumber value="${productBean.product_price}" type="number" />원</div>
+					<div class="pdt-right pdt-totalprice"><fmt:formatNumber value="${productBean.product_price}" type="number" /> 원</div>
 					<div class="pdt-btnlist">
 						<span class="btnCart"><input type="button" value="장바구니 담기" onclick="cartCheck()"></span>
 						<span class="btnOrder"><input type="button" value="바로 구매하기"></span>
