@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import vo.CategoryBean;
 import vo.ProductBean;
 import vo.QuestionBean;
+import vo.ReviewBean;
 
 public class ItemDAO {
 	
@@ -151,6 +152,50 @@ public class ItemDAO {
 		return listProduct;
 	}
 	
+	public int insertReview(ReviewBean reviewBean) {
+		int insertCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			int num = 1;
+			
+			String sql = "SELECT MAX(num) FROM review";
+			
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				num = rs.getInt(1) + 1;
+			} 
+			
+			sql = "INSERT INTO review(num,skill,design,price,quality,regdate,content,re_check,member_id,product_num) VALUES (?,?,?,?,?,now(),?,?,?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num); // 계산된 새 글 번호 사용
+			pstmt.setInt(2, reviewBean.getReview_skill());
+			pstmt.setInt(3, reviewBean.getReview_design());
+			pstmt.setInt(4, reviewBean.getReview_price());
+			pstmt.setInt(5, reviewBean.getReview_quality());
+			pstmt.setString(6, reviewBean.getReview_content());
+			pstmt.setInt(7, 0);
+			pstmt.setString(8, reviewBean.getReview_member_id());
+			pstmt.setInt(9, reviewBean.getReview_product_num());
+			
+			// INSERT 구문 실행 후 리턴되는 결과값을 insertCount 변수에 저장
+			insertCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - insertReview() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return insertCount;
+	}
+	
 	public int insertQuestion(QuestionBean questionBean) {
 		int insertCount = 0;
 		
@@ -279,6 +324,6 @@ public class ItemDAO {
 		}
 		System.out.println(categoryBean.getCategory_sub());
 		return categoryBean;
-	}	
+	}
 
 }
