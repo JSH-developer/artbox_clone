@@ -41,13 +41,17 @@ function selectCouponMember(s,v){
 
 // 	 alert(ch);
 
- var sum = 0;
- var values = document.getElementById("f_coupongroup");
- for(var i=0;i<values.length;i++){
-	 if(values[i].checked){
-		 alert(values[i].value);
-	 }
- }
+//  var sum = 0;
+//  var values = document.getElementById("f_coupongroup");
+//  for(var i=0;i<values.length;i++){
+// 	 if(values[i].checked){
+// 		 alert(values[i].value);
+// 	 }
+//  }
+
+ $("input[name=f_coupongroup]:checked").each(function() { 
+        console.log( 'checkbox값 : '+$(this).val() );
+    });
  
  
  
