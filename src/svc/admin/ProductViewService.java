@@ -24,4 +24,18 @@ public class ProductViewService {
 		return productBean;
 	}
 
+	public ProductBean infoProduct(String product_code) {
+		ProductBean productBean = null;
+		
+		Connection con = getConnection();
+		AdminDAO adminDAO = AdminDAO.getInstance();
+		adminDAO.setConnection(con);
+
+		productBean = adminDAO.toViewProduct(product_code);
+		
+		close(con);
+		
+		return productBean;
+	}
+	
 }

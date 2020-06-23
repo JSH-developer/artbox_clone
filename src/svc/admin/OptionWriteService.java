@@ -31,14 +31,14 @@ public class OptionWriteService {
 		return result;
 	}
 	
-	public String makeOptionCode(String product_index) {
+	public String makeOptionCode(String product_code_base) {
 		String result="";
 		
 		Connection con = getConnection();
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
 		
-		result = adminDAO.toMakeOptionCode(product_index);
+		result = adminDAO.toMakeOptionCode(product_code_base);
 		
 		if(result.length()>0) {
 			commit(con);

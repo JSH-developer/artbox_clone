@@ -128,6 +128,33 @@ public class AdminDAO {
 		return productBean;
 	}
 	
+	// 상품 정보를 뽑아서 옵션등록 페이지에서 사용하기
+	public ProductBean toViewProduct(String product_code) {
+		ProductBean productBean = null;
+		
+		try {
+			String sql="SELECT * FROM product WHERE code=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, product_code);
+			
+			rs= pstmt.executeQuery();
+			
+			if(rs.next()) {
+				productBean = new ProductBean();
+				productBean.setProduct_price(rs.getInt("price"));
+				productBean.setProduct_brand(rs.getString("brand"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return productBean;
+	}
+	
 	// 상품 리스트를 출력하기 위한 함수
 	public ArrayList<ProductBean> toListProduct(int page, int limit) {
 		ArrayList<ProductBean> productList = new ArrayList<ProductBean>();
@@ -425,18 +452,19 @@ public class AdminDAO {
 	}
 
 	// 옵션코드를 만들기 위한 함수
-	public String toMakeOptionCode(String product_index) {
+	public String toMakeOptionCode(String product_code_base) {
 		String result ="";
+		String opt_base = product_code_base.substring(4);
 		
 		try {
 			String sql = "SELECT LPAD(COUNT(num),2,'0') 'option_num' FROM product_option WHERE option_code LIKE ?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, product_index+"%");
+			pstmt.setString(1, opt_base+"%");
 			
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {
-				result = product_index + rs.getString("option_num");
+				result = opt_base + rs.getString("option_num");
 			}
 			
 			
@@ -579,7 +607,7 @@ public class AdminDAO {
 		String result ="";
 		
 		try {
-			String sql="SELECT LEFT(option_code,3) 'num2', name, code FROM product WHERE code LIKE '%00'";
+			String sql="SELECT CONCAT(category_code,LEFT(option_code,3)) 'num2', name, code FROM product WHERE code LIKE '%00'";
 			pstmt=con.prepareStatement(sql);
 			
 			rs= pstmt.executeQuery();

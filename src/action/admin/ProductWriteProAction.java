@@ -1,5 +1,6 @@
 package action.admin;
 
+import java.io.PrintWriter;
 import java.util.Enumeration;
 
 import javax.servlet.ServletContext;
@@ -67,10 +68,12 @@ public class ProductWriteProAction implements Action{
 			// dispatch 방식으로 이동
 			forward.setPath("ProductList.admin");
 		}else {
-			// redirect 방식으로 이동
-			forward.setRedirect(true);
-			forward.setPath("home.admin");
-			System.out.println("글 등록 실패!");
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script type=\"text/javascript\">");
+			out.println("alert('등록에 실패하였습니다!!')");
+			out.println("history.back();");
+			out.println("</script>");
 		}
 		
 		return forward;
