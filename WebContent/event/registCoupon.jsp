@@ -71,7 +71,7 @@ $(document).ready(function(){
 <!-- 쿠폰 등록 -->
 <h1>쿠폰 등록</h1>
 <!-- 나중에 admin으로 바꿔야하는 부분 -->
-<form action="CouponWritePro.event" method="post" >
+<form action="CouponWritePro.coupon" method="post" >
 <table class="reg_tab">
 	<tr><th>쿠폰이름</th><td><input type="text" name="coupon_name"></td></tr>
 	<tr><th>할인가격</th><td><input type="text" name="coupon_price"></td></tr>

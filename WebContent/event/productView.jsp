@@ -39,7 +39,7 @@
 		
 
 	} else {
-			var url = "CouponIssued.event?getid=" + getId + "&couponNum="+ coup_Num;
+			var url = "CouponIssued.coupon?getid=" + getId + "&couponNum="+ coup_Num;
 			alert("쿠폰 저장함" + url);
 
 			moveCheck = confirm("쿠폰을 확인하시겠습니까?" + getId);

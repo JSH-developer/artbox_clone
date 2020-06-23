@@ -37,7 +37,7 @@ public class CouponIssuedAction implements Action {
 			System.out.println("쿠폰 발급받기 성공");
 
 			forward = new ActionForward();
-			forward.setPath("MypageCouponList.event");
+			forward.setPath("MypageCouponList.coupon");
 		}
 		
 		return forward;

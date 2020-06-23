@@ -36,7 +36,7 @@ public class CouponWriteProAction implements Action {
 			System.out.println("쿠폰 등록 성공 -"+request.getParameter("coupon_name"));
 
 			forward = new ActionForward();
-			forward.setPath("/CouponWriteForm.event");
+			forward.setPath("/CouponWriteForm.coupon");
 
 
 		}else {
@@ -49,7 +49,7 @@ public class CouponWriteProAction implements Action {
 
 			forward = new ActionForward();
 			forward.setRedirect(true);
-			forward.setPath("registCouponWrite.event");
+			forward.setPath("registCouponWrite.coupon");
 			System.out.println("쿠폰 등록 실패!");
 		}
 

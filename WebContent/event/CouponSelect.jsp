@@ -37,7 +37,8 @@
 						
 			<!-- 		for문 -->
 			<c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
-			<c:set var="myCoupon" value="${mycouponList[i].coupon_category}" />
+			 <c:set var="myCoupon" value="${mycouponList[i].coupon_category}" />
+			 
 			<c:if test="${myCoupon eq 'bonuscoupon' }">
 				<tr>
 					<td rowspan="2" align="left" valign="top"
@@ -47,18 +48,20 @@
 						<font color="#696969"><b>보너스쿠폰</b></font></label></td>
 					<td width="270" align="left" class="odr_txt11_a">
 					<input type="checkbox" name="f_couponmemberno_1_1" id="f_couponmemberno_1_1" value="TI20060493648306" onclick="selectCouponMember(1, 1)" style="display: none;">
-						<input type="hidden" name="f_coupongroup_1_1" id="f_coupongroup_1_1" value="BO"> 
-						<input type="hidden" name="f_coupondc_1_1" id="f_coupondc_1_1" value="3000">
-						<input type="hidden" name="f_coupontitle_1_1" id="f_coupontitle_1_1" value="3,000원 할인 쿠폰"> 
-						<input type="hidden" name="f_couponcartseq_1_1" id="f_couponcartseq_1_1" value="49846788,49458290,49846795">
-						<input type="hidden" name="f_couponpaylist_1_1" id="f_couponpaylist_1_1" value=""> 
-						<input type="hidden" name="f_coupontype_1_1" id="f_coupontype_1_1" value="N">
+<!-- 						<input type="hidden" name="f_coupongroup_1_1" id="f_coupongroup_1_1" value="BO">  -->
+<!-- 						<input type="hidden" name="f_coupondc_1_1" id="f_coupondc_1_1" value="3000"> -->
+<!-- 						<input type="hidden" name="f_coupontitle_1_1" id="f_coupontitle_1_1" value="3,000원 할인 쿠폰">  -->
+<!-- 						<input type="hidden" name="f_couponcartseq_1_1" id="f_couponcartseq_1_1" value="49846788,49458290,49846795"> -->
+<!-- 						<input type="hidden" name="f_couponpaylist_1_1" id="f_couponpaylist_1_1" value="">  -->
+<!-- 						<input type="hidden" name="f_coupontype_1_1" id="f_coupontype_1_1" value="N"> -->
+						
 						<label for="f_couponmemberno_1_1" style="cursor: pointer; cursor: hand;">3,000원 할인 쿠폰</label></td>
 					<td width="120" align="center"><font color="#9e9e9e">50,000원 이상 구매</font></td>
 					<td width="70" align="right" class="odr_txt11_a" style="padding-right: 10px"><font color="#64ab32"><b>3,000원</b></font></td>
 					<td width="70" align="center" class="odr_txt11_a"><font color="#9e9e9e">2020.06.30</font></td>
 				</tr>
 				</c:if>
+				
 				</c:forEach>
 							
 						</tbody>
@@ -105,60 +108,30 @@
 								<td height="5" colspan="4" align="left"></td>
 							</tr>
 
-
-
+			<c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
+			<c:set var="myCoupon" value="${mycouponList[i].coupon_category}" />
+			<c:if test="${myCoupon eq 'bonuscoupon' }">
 							<tr>
 								<td width="270" align="left" class="odr_txt11_a">
 								<input type="checkbox" name="f_couponmemberno_3_1" id="f_couponmemberno_3_1" value="TI20062259064942" onclick="selectCouponMember(3, 1)" style="display: inline;">
-								<input type="hidden" name="f_coupongroup_3_1" id="f_coupongroup_3_1" value="GD"> <input type="hidden" name="f_coupondc_3_1" id="f_coupondc_3_1" value="875">
-								<input type="hidden" name="f_coupontitle_3_1" id="f_coupontitle_3_1" value="『플라워 용돈박스 (장미 목화 2종)』상품 5% 할인 쿠폰">
-								<input type="hidden" name="f_couponcartseq_3_1" id="f_couponcartseq_3_1" value="49846795"> 
-								<input hidden" name="f_couponpaylist_3_1" id="f_couponpaylist_3_1" value=""> 
-								<input type="hidden" ntype_3_1" id="f_coupontype_3_1" value="G">
+<!-- 								<input type="hidden" name="f_coupongroup_3_1" id="f_coupongroup_3_1" value="GD"> <input type="hidden" name="f_coupondc_3_1" id="f_coupondc_3_1" value="875"> -->
+<!-- 								<input type="hidden" name="f_coupontitle_3_1" id="f_coupontitle_3_1" value="『플라워 용돈박스 (장미 목화 2종)』상품 5% 할인 쿠폰"> -->
+<!-- 								<input type="hidden" name="f_couponcartseq_3_1" id="f_couponcartseq_3_1" value="49846795">  -->
+<!-- 								<input hidden" name="f_couponpaylist_3_1" id="f_couponpaylist_3_1" value="">  -->
+<!-- 								<input type="hidden" ntype_3_1" id="f_coupontype_3_1" value="G"> -->
 								<label for="f_couponmemberno_3_1" style="cursor: pointer; cursor: hand;">
-								<font color="#696969">『플라워 용돈박스 (장미 목화 2종)』상품<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5% 할인 쿠폰
+								<font color="#696969">『${mycouponList[i].coupon_name}』상품<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 할인 쿠폰
 									</font></label></td>
 								<td width="120" align="center">
-								 <font color="#9e9e9e">해당 상품 구매</font></td>
+								 <font color="#9e9e9e">${mycouponList[i].coupon_condition}</font></td>
 								<td width="70" align="right" class="odr_txt11_a" style="padding-right: 10px">
-								<font color="#64ab32"><b>875원</b></font>
+								<font color="#64ab32"><b>${mycouponList[i].coupon_price}</b></font>
 								</td>
 								<td width="70" align="center" class="odr_txt11_a"><font
-									color="#9e9e9e">2020.06.23</font></td>
+									color="#9e9e9e">${mycouponList[i].coupon_limit}</font></td>
 							</tr>
-
-
-
-
-							<tr>
-								<td width="270" align="left" class="odr_txt11_a"><input
-									type="checkbox" name="f_couponmemberno_3_2"
-									id="f_couponmemberno_3_2" value="TI20062284752311"
-									onclick="selectCouponMember(3, 2)" style="display: inline;">
-									<input type="hidden" name="f_coupongroup_3_2"
-									id="f_coupongroup_3_2" value="GD"> <input type="hidden"
-									name="f_coupondc_3_2" id="f_coupondc_3_2" value="518">
-									<input type="hidden" name="f_coupontitle_3_2"
-									id="f_coupontitle_3_2"
-									value="『세이지 캔들워머 무드등 [우드 타입] 화이트(전구포함)』상품 2% 할인 쿠폰"> <input
-									type="hidden" name="f_couponcartseq_3_2"
-									id="f_couponcartseq_3_2" value="49846788"> <input
-									type="hidden" name="f_couponpaylist_3_2"
-									id="f_couponpaylist_3_2" value=""> <input type="hidden"
-									name="f_coupontype_3_2" id="f_coupontype_3_2" value="G">
-									<label for="f_couponmemberno_3_2"
-									style="cursor: pointer; cursor: hand;"><font
-										color="#696969">『세이지 캔들워머 무드등 [우드 타입] 화이트(전구포함)』상품<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											2% 할인 쿠폰
-									</font></label></td>
-								<td width="120" align="center"><font color="#9e9e9e">해당
-										상품 구매</font></td>
-								<td width="70" align="right" class="odr_txt11_a"
-									style="padding-right: 10px"><font color="#64ab32"><b>518원</b></font>
-								</td>
-								<td width="70" align="center" class="odr_txt11_a"><font
-									color="#9e9e9e">2020.06.23</font></td>
-							</tr>
+			</c:if>
+			</c:forEach>
 
 						</tbody>
 					</table>
