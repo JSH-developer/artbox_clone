@@ -34,6 +34,7 @@ public class OrderOneListAction implements Action {
 			return forward;
 		}
 		
+		// 내 쿠폰 불러옴
 		CouponService couponService = new CouponService();
 		ArrayList<CouponBean> mycouponList= couponService.getmycouponlist(id);
 		
@@ -50,6 +51,19 @@ public class OrderOneListAction implements Action {
 		// => 파라미터 : id , 리턴타입 : Vector
 		OrderOneListService orderOneListService = new OrderOneListService();
 		List orderList = orderOneListService.getOrderOneList(id, arrBasket);
+		
+//		ArrayList<String> existCate = new ArrayList<String> ();
+//		// 
+//		for(int i=0;i<mycouponList.size();i++) {
+//		if(orderList.contains(mycouponList.get(i).getCoupon_category())){
+//			existCate.add(mycouponList.get(i).getCoupon_category());
+//		
+//		}
+//		}
+//		
+//		System.out.println(""+existCate.toString());
+		
+		
 		
 		System.out.println("이건 사이즈" +orderList.size());
 		forward = new ActionForward();
