@@ -8,7 +8,6 @@ public class ReceiverBean {
 	private String receiver_postcode; // 수신자 우편번호
 	private String receiver_addr; // 수신자 기본주소
 	private String receiver_addr_detail; // 수신자 상세주소
-	private String receiver_msg; // 배송메세지
 	private String receiver_date; // 배송지 저장날짜
 	private String receiver_member_id; // member 테이블의 id(아이디)
 	private int receiver_basic_num; // 기본배송지 여부
@@ -54,12 +53,6 @@ public class ReceiverBean {
 	}
 	public void setReceiver_addr_detail(String receiver_addr_detail) {
 		this.receiver_addr_detail = receiver_addr_detail;
-	}
-	public String getReceiver_msg() {
-		return receiver_msg;
-	}
-	public void setReceiver_msg(String receiver_msg) {
-		this.receiver_msg = receiver_msg;
 	}
 	public String getReceiver_date() {
 		return receiver_date;

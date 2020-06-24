@@ -17,629 +17,503 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-   
-//    IMP.init('imp92896832'); // 가맹점식별코드
-   
-//    IMP.request_pay({
-//        pg : 'inicis', // version 1.1.0부터 지원.
-//        pay_method : 'card',
-//        merchant_uid : 'merchant_' + new Date().getTime(),
-//        name : '주문명:결제테스트',
-//        amount : 14000,
-//        buyer_email : 'iamport@siot.do',
-//        buyer_name : '구매자이름',
-//        buyer_tel : '010-1234-5678',
-//        buyer_addr : '서울특별시 강남구 삼성동',
-//        buyer_postcode : '123-456',
-//        m_redirect_url : 'https://www.yourdomain.com/payments/complete'
-//    }, function(rsp) {
-//        if ( rsp.success ) {
-//            var msg = '결제가 완료되었습니다.';
-//            msg += '고유ID : ' + rsp.imp_uid;
-//            msg += '상점 거래ID : ' + rsp.merchant_uid;
-//            msg += '결제 금액 : ' + rsp.paid_amount;
-//            msg += '카드 승인번호 : ' + rsp.apply_num;
-//        } else {
-//            var msg = '결제에 실패하였습니다.';
-//            msg += '에러내용 : ' + rsp.error_msg;
-//        }
-//        alert(msg);
-//    });
+	
 
-	function setComma(number) //asp의 formatnumber 사용법 -> var xxx = setComma(parseInt(변수));
-	{
-		var minusYN = "N";
-		if (parseInt(number,10)<0)
-		{
-			minusYN = "Y";
-			number = parseInt(number,10)*-1;
+// 	$.ajax({
+
+// 		url:"/basket/inicis.jsp",
+// 		method:"POST",
+// 		data: {name : "홍길동"},
+// 		dataType:"JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨
+
+// 		success : function(data) {
+			
+// 		}
+
+// 	});
+
+
+    $("input[type=tel]").keyup(function(e){
+		if (!Check_Number(e.currentTarget.value)) {
+			alert("숫자값만 입력가능합니다.");
+			this.value="";
+		}
+		if (this.id=="i_memcpnum1"&&this.value.length>=3) {
+			document.getElementById("i_memcpnum2").focus();
+		}
+		if (this.id=="i_memcpnum2"&&this.value.length>=4) {
+			document.getElementById("i_memcpnum3").focus();
+		}
+	});
+
+	/* 배송지 입력 - 직접입력 - 주문고객과 동일 클릭시 자동완성 */
+	$("#i_copyorderinfo").click(function(){
+		if ($(this).prop("checked")) {
+			var ShipName,ShipCpNum1,ShipCpNum2,ShipCpNum3;
+
+			ShipName = $("#i_memname").val();
+			ShipCpNum1 = $("#i_memcpnum1").val();
+			ShipCpNum2 = $("#i_memcpnum2").val();
+			ShipCpNum3 = $("#i_memcpnum3").val();
+
+			$("#i_shipname").val(ShipName);
+			$("#i_shipzipcode").val("");
+			$("#i_shipaddr").val("");
+			$("#i_shipaddrD").val("");
+			$("#i_shipcpnum1").val(ShipCpNum1);
+			$("#i_shipcpnum2").val(ShipCpNum2);
+			$("#i_shipcpnum3").val(ShipCpNum3);
+		}
+	});
+
+	/* 쿠폰 선택 <- 이벤트 페이지랑 연동 */
+	$("input[name=CouponType]").click(function(){
+		if ($("#CouponTypeNull").prop("checked")) {
+			$("#CouponIdxSelect_Null").attr("class","");
+			$("#CouponIdxSelect_Bonus").attr("class","none");
+			$("#CouponIdxSelect_Goods").attr("class","none");
+		} else if ($("#CouponTypeBonus").prop("checked")) {
+			$("#CouponIdxSelect_Null").attr("class","none");
+			$("#CouponIdxSelect_Bonus").attr("class","");
+			$("#CouponIdxSelect_Goods").attr("class","none");
+		} else if ($("#CouponTypeGoods").prop("checked")) {
+			$("#CouponIdxSelect_Null").attr("class","none");
+			$("#CouponIdxSelect_Bonus").attr("class","none");
+			$("#CouponIdxSelect_Goods").attr("class","");
+		}
+	fnCouponType();
+	});
+
+	$("input[name=UseMileagePrice]").focus(function(){
+		TempScrollTop = $(window).scrollTop();
+
+		var inputValue = parseInt($(this).val(),10);
+
+		if (inputValue == 0) {
+			$(this).val("");
+		}
+		$(window).scrollTop(TempScrollTop);
+	});
+
+	$("input[name=UseMileagePrice]").blur(function(){
+
+		var Event_350won = $("[name=Event_350won]").val();
+
+		if (Event_350won == "Y") {
+			alert("이벤트 상품은 마일리지 사용이 불가합니다.");
+			$(this).val("0");
+			return false;
 		}
 
-		var nArr = String(number).split("").join(",").split("");
-		for (var i=nArr.length-1, j=1; i>=0; i--, j++)
-		{
-			 if( j%6 != 0 && j%2 == 0)
-			 {
-				 nArr[i] = "";
-			 }
+		var inputValue = parseInt($(this).val(),10);
+
+		if (!inputValue) {
+			inputValue = 0;
 		}
-		if (minusYN=="Y")
-		{
-			return "-"+nArr.join("");
+
+		$(this).val(parseInt(inputValue,10));
+
+		var maxValue = parseInt($("input[id=UseMileageAll]").attr("alt"),10);
+		var minValue = 0;
+
+		if (inputValue > maxValue) {
+			alert("현재 주문에서 사용 가능한 꿈캔디 갯수는 " + setComma(maxValue) + "개 입니다.");
+			if (maxValue <= 0) {
+				maxValue = 0;
+			}
+			$(this).val(maxValue);
 		}
-		else
-		{
-			return nArr.join("");
+
+		$("input[name=TotalUseMileage]").val($(this).val());
+		$("#TotalUseMileage").text("- " + setComma(parseInt($(this).val(),10)));
+
+		fnTotalPriceAmount();
+	});
+
+	$("#i_OrderPayAgree").click(function(){ // 약관동의 전체선택/해제
+		if ($(this).prop("checked")) {
+			$("#i_OrderPayAgree").prop("checked",true);
+
+			$("input[name=OrderAgreeThird]").prop("checked",true);
+			$("input[name=OrderAgreePayment]").prop("checked",true);
+			$("input[name=OrderAgreeRule]").prop("checked",true);
+
+		} else {
+			$("#i_OrderPayAgree").prop("checked",false);
+
+			$("input[name=OrderAgreeThird]").prop("checked",false);
+			$("input[name=OrderAgreePayment]").prop("checked",false);
+			$("input[name=OrderAgreeRule]").prop("checked",false);
+		}
+	});
+
+	fnOrderInfoTitle = function(obj,obj2,obj3){
+
+		var PayTypeText;
+
+		if ($("#"+obj).css("display")=="block" ) {
+			$("#"+obj).css("display","none");
+			$("#"+obj+"Summary").css("display","block");
+			$("#"+obj+"Arrow").attr("class","Close");
+
+			if (obj2!=""&&obj3!="") {
+				$("#"+obj3).val($("#"+obj2).val());
+			}
+
+		} else {
+			$("#"+obj).css("display","block");
+			$("#"+obj+"Summary").css("display","none");
+			$("#"+obj+"Arrow").attr("class","Open");
 		}
 	}
-   
-   $("input[type=tel]").keyup(function(e){
-      if (!Check_Number(e.currentTarget.value)) {
-         alert("숫자값만 입력가능합니다.");
-         this.value="";
-      }
-      if (this.id=="i_memcpnum1"&&this.value.length>=3) {
-         document.getElementById("i_memcpnum2").focus();
-      }
-      if (this.id=="i_memcpnum2"&&this.value.length>=4) {
-         document.getElementById("i_memcpnum3").focus();
-      }
-   });
 
-    /* 배송지 입력 - 직접입력 - 주문고객과 동일 클릭시 자동완성 */
-   $("#i_copyorderinfo").click(function(){
-      if ($(this).prop("checked")) {
-         var ShipName,ShipCpNum1,ShipCpNum2,ShipCpNum3;
+	fnTotalDiscountPriceSum = function(){
+		var obj = "DiscountPriceInfo";
+		if ($("#"+obj).css("display")=="block" ) {
+			$("#"+obj).css("display","none");
+			$("#"+obj+"Arrow").attr("class","Close");
+		} else {
+			$("#"+obj).css("display","block");
+			$("#"+obj+"Arrow").attr("class","Open");
+		}
 
-         ShipName = $("#i_memname").val();
-         ShipCpNum1 = $("#i_memcpnum1").val();
-         ShipCpNum2 = $("#i_memcpnum2").val();
-         ShipCpNum3 = $("#i_memcpnum3").val();
+	}
 
-         $("#i_shipname").val(ShipName);
-         $("#i_shipzipcode").val("");
-         $("#i_shipaddr").val("");
-         $("#i_shipaddrD").val("");
-         $("#i_shipcpnum1").val(ShipCpNum1);
-         $("#i_shipcpnum2").val(ShipCpNum2);
-         $("#i_shipcpnum3").val(ShipCpNum3);
-      }
-   });
+	fnDeliveryInfo = function(x){
+		if (x==1) {
+			$("#DeliveryInfo1").attr("class","On");
+			$("#DeliveryInfo2").attr("class","Off");
+			$("#DeliveryInfo3").attr("class","Off");
+			$("#MyDelivery1").css("display","block");
+			$("#MyDelivery2").css("display","none");
+			$("#MyDelivery3").css("display","none");
+		} else if (x==2) {
+			$("#DeliveryInfo1").attr("class","Off");
+			$("#DeliveryInfo2").attr("class","On");
+			$("#DeliveryInfo3").attr("class","Off");
+			$("#MyDelivery1").css("display","none");
+			$("#MyDelivery2").css("display","block");
+			$("#MyDelivery3").css("display","none");
+		} else if (x==3) {
+			$("#DeliveryInfo1").attr("class","Off");
+			$("#DeliveryInfo2").attr("class","Off");
+			$("#DeliveryInfo3").attr("class","On");
+			$("#MyDelivery1").css("display","none");
+			$("#MyDelivery2").css("display","none");
+			$("#MyDelivery3").css("display","block");
+		}
+	}
 
-   /* 쿠폰 선택 <- 이벤트 페이지랑 연동 */
-   $("input[name=CouponType]").click(function(){
-      if ($("#CouponTypeNull").prop("checked")) {
-         $("#CouponIdxSelect_Null").attr("class","");
-         $("#CouponIdxSelect_Bonus").attr("class","none");
-         $("#CouponIdxSelect_Goods").attr("class","none");
-      } else if ($("#CouponTypeBonus").prop("checked")) {
-         $("#CouponIdxSelect_Null").attr("class","none");
-         $("#CouponIdxSelect_Bonus").attr("class","");
-         $("#CouponIdxSelect_Goods").attr("class","none");
-      } else if ($("#CouponTypeGoods").prop("checked")) {
-         $("#CouponIdxSelect_Null").attr("class","none");
-         $("#CouponIdxSelect_Bonus").attr("class","none");
-         $("#CouponIdxSelect_Goods").attr("class","");
-      }
-      fnCouponType();
-   });
+	fnSelectMyDelivery = function (obj) {
+		if (obj.value) {
+			var receiverArr = obj.value.split("||");
+			var ShipName,ShipPostcode,ShipAddr,ShipAddrD;
+			var ShipPhoneArr = receiverArr[1].split("-");
+			var ShipPhone1,ShipPhone2,ShipPhone3
 
-   $("input[name=UseMileagePrice]").focus(function(){
+			ShipName = receiverArr[0];
+			ShipPhone1 = ShipPhoneArr[0];
+			ShipPhone2 = ShipPhoneArr[1];
+			ShipPhone3 = ShipPhoneArr[2];
+			ShipPostcode = receiverArr[2];
+			ShipAddr = receiverArr[3];
+			ShipAddrD = receiverArr[4];
 
-      TempScrollTop = $(window).scrollTop();
+			$("#i_shipname").val(ShipName);
+			$("#i_shipzipcode").val(ShipPostcode);
+			$("#i_shipaddr").val(ShipAddr);
+			$("#i_shipaddrD").val(ShipAddrD);
+			$("#i_shipcpnum1").val(ShipPhone1);
+			$("#i_shipcpnum2").val(ShipPhone2);
+			$("#i_shipcpnum3").val(ShipPhone3);
 
-      var inputValue = parseInt($(this).val(),10);
-
-      if (inputValue == 0) {
-         $(this).val("");
-      }
-      $(window).scrollTop(TempScrollTop);
-   });
-
-   $("input[name=UseMileagePrice]").blur(function(){
-
-      var Event_350won = $("[name=Event_350won]").val();
-
-      if (Event_350won == "Y") {
-         alert("이벤트 상품은 마일리지 사용이 불가합니다.");
-         $(this).val("0");
-         return false;
-      }
-
-      var inputValue = parseInt($(this).val(),10);
-
-      if (!inputValue) {
-         inputValue = 0;
-      }
-
-      $(this).val(parseInt(inputValue,10));
-      
-      var maxValue = parseInt($("input[id=UseMileageAll]").attr("alt"),10);
-      var minValue = 0;
-      
-      if (inputValue > maxValue) {
-         alert("현재 주문에서 사용 가능한 꿈캔디 갯수는 " + setComma(maxValue) + "개 입니다.");
-         if (maxValue <= 0) {
-            maxValue = 0;
-         }
-         $(this).val(maxValue);
-      }
-
-      $("input[name=TotalUseMileage]").val($(this).val());
-      $("#TotalUseMileage").text("- " + setComma(parseInt($(this).val(),10)));
-
-      fnTotalPriceAmount();
-   });
-
-   $("#i_OrderPayAgree, #i_OrderPayAgree2").click(function(){
-
-      var PayType = $("input[name=PayType]:checked").val();
-
-      if ($(this).prop("checked")) {
-         $("#i_OrderPayAgree").prop("checked",true);
-         $("#i_OrderPayAgree2").prop("checked",true);
-
-         $("input[name=OrderAgreeThird]").prop("checked",true);
-         $("input[name=OrderAgreePayment]").prop("checked",true);
-         $("input[name=OrderAgreeRule]").prop("checked",true);
-
-
-      } else {
-         $("#i_OrderPayAgree").prop("checked",false);
-         $("#i_OrderPayAgree2").prop("checked",false);
-
-         $("input[name=OrderAgreeThird]").prop("checked",false);
-         $("input[name=OrderAgreePayment]").prop("checked",false);
-         $("input[name=OrderAgreeRule]").prop("checked",false);
-      }
-
-   });
-
-
-   fnOrderInfoTitle = function(obj,obj2,obj3){
-
-      var PayTypeText;
-
-      if ($("#"+obj).css("display")=="block" ) {
-         $("#"+obj).css("display","none");
-         $("#"+obj+"Summary").css("display","block");
-         $("#"+obj+"Arrow").attr("class","Close");
-
-         if (obj2!=""&&obj3!="") {
-            $("#"+obj3).val($("#"+obj2).val());
-         }
-
-      } else {
-         $("#"+obj).css("display","block");
-         $("#"+obj+"Summary").css("display","none");
-         $("#"+obj+"Arrow").attr("class","Open");
-      }
+			$("#i_copyorderinfo").prop("checked",false);
+		} else {
+			$("#i_shipname").val('');
+			$("#i_shipzipcode").val('');
+			$("#i_shipaddr").val('');
+			$("#i_shipaddrD").val('');
+			$("#i_shipcpnum1").val('');
+			$("#i_shipcpnum2").val('');
+			$("#i_shipcpnum3").val('');
+		}
    }
 
+	fnShipAlertDesc = function (obj) {
+		if (obj.value) {
+			document.Order.shipalertdesc.value='';
+			document.Order.shipalertdesc.value+=obj.value+"\n";
+		} else {
+			document.Order.shipalertdesc.value='';
+		}
+	}
 
-   fnTotalDiscountPriceSum = function(){
-      var obj = "DiscountPriceInfo";
-      if ($("#"+obj).css("display")=="block" ) {
-         $("#"+obj).css("display","none");
-         $("#"+obj+"Arrow").attr("class","Close");
-      } else {
-         $("#"+obj).css("display","block");
-         $("#"+obj+"Arrow").attr("class","Open");
-      }
+	fnCouponSelect = function(obj) {
 
-   }
+		var DcNumber = $(obj).find(":selected").attr("alt");
+		var MemberCouponIdx = $(obj).find(":selected").val();
 
-   fnDeliveryInfo = function(x){
-      if (x==1) {
-         $("#DeliveryInfo1").attr("class","On");
-         $("#DeliveryInfo2").attr("class","Off");
-         $("#DeliveryInfo3").attr("class","Off");
-         $("#MyDelivery1").css("display","block");
-         $("#MyDelivery2").css("display","none");
-         $("#MyDelivery3").css("display","none");
-      } else if (x==2) {
-         $("#DeliveryInfo1").attr("class","Off");
-         $("#DeliveryInfo2").attr("class","On");
-         $("#DeliveryInfo3").attr("class","Off");
-         $("#MyDelivery1").css("display","none");
-         $("#MyDelivery2").css("display","block");
-         $("#MyDelivery3").css("display","none");
-      } else if (x==3) {
-         $("#DeliveryInfo1").attr("class","Off");
-         $("#DeliveryInfo2").attr("class","Off");
-         $("#DeliveryInfo3").attr("class","On");
-         $("#MyDelivery1").css("display","none");
-         $("#MyDelivery2").css("display","none");
-         $("#MyDelivery3").css("display","block");
-      }
-   }
+		if ($(obj).attr("name")=="BonusCouponIdx") {
 
-   fnSelectMyDelivery = function (obj) {
-      if (obj.value) {
-         var arr = obj.value.split("||");
-         var ShipName,ShipZipCode,ShipAddr,ShipAddrD,ShipCpNum1,ShipCpNum2,ShipCpNum3;
+			if (DcNumber=="0"&&MemberCouponIdx!="") { // DcNumber=0 이면 꿈캔디 적립쿠폰으로 인식
+				alert("꿈캔디는 상품 구매 확정 시 자동으로 적립됩니다.");
+			}
 
-         ShipName = arr[0];
-         ShipZipCode = arr[1];
-         ShipAddr = arr[2];
-         ShipAddrD = arr[3];
-         ShipCpNum1 = arr[4];
-         ShipCpNum2 = arr[5];
-         ShipCpNum3 = arr[6];
+			$("input[name=TotalUseBonusCoupon]").val(DcNumber);
+			$("#TotalUseBonusCoupon").text("- " + setComma(parseInt(DcNumber,10)));
+			fnTotalPriceAmount();
 
-         $("#i_shipname").val(ShipName);
-         $("#i_shipzipcode").val(ShipZipCode);
-         $("#i_shipaddr").val(ShipAddr);
-         $("#i_shipaddrD").val(ShipAddrD);
-         $("#i_shipcpnum1").val(ShipCpNum1);
-         $("#i_shipcpnum2").val(ShipCpNum2);
-         $("#i_shipcpnum3").val(ShipCpNum3);
+		} else if ($(obj).attr("name")=="FreeCouponIdx") {
 
-         $("#i_copyorderinfo").prop("checked",false);
-      } else {
-         $("#i_shipname").val('');
-         $("#i_shipzipcode").val('');
-         $("#i_shipaddr").val('');
-         $("#i_shipaddrD").val('');
-         $("#i_shipcpnum1").val('');
-         $("#i_shipcpnum2").val('');
-         $("#i_shipcpnum3").val('');
-      }
+			$("input[name=TotalUseFreeCoupon]").val(DcNumber);
+			$("#TotalUseFreeCoupon").text(setComma(parseInt(DcNumber,10)));
+			fnTotalPriceAmount();
+		}
+	}
 
-   }
+	fnUseMileageAll = function(x) {
 
-   fnShipAlertDesc = function (obj) {
-      if (obj.value) {
-         document.Order.shipalertdesc.value='';
-         document.Order.shipalertdesc.value+=obj.value+"\n";
-      } else {
-         document.Order.shipalertdesc.value='';
-      }
-   }
+		var UsableMileage;
 
-   fnCouponSelect = function(obj) {
+		if (x==1) {
+			if (parseInt($("input[name=MemMileage]").val(),10) >= parseInt($("input[id=UseMileageAll]").val(),10)) {
+				UsableMileage = $("input[id=UseMileageAll]").val();
+			} else {
+				UsableMileage = $("input[name=MemMileage]").val();
+			}
 
-      var DcNumber = $(obj).find(":selected").attr("alt");
-      var MemberCouponIdx = $(obj).find(":selected").val();
+			if ( parseInt(UsableMileage,10) <= 0 ) {
+				UsableMileage = 0;
+			}
+
+			$("input[name=UseMileagePrice]").val(UsableMileage);
+			$("input[name=TotalUseMileage]").val(UsableMileage);
+			$("#TotalUseMileage").text("-" + setComma(UsableMileage));
+		} else {
+			$("input[name=UseMileagePrice]").val("0");
+			$("input[name=TotalUseMileage]").val("0");
+			$("#TotalUseMileage").text("-" + setComma("0"));
+		}
+
+	fnTotalPriceAmount();
+
+	}
 
 
-      if ($(obj).attr("name")=="BonusCouponIdx") {
+	fnInitDiscountTable = function(){
 
-         if (DcNumber=="0"&&MemberCouponIdx!="") { // DcNumber=0 이면 꿈캔디 적립쿠폰으로 인식
-            alert("꿈캔디는 상품 구매 확정 시 자동으로 적립됩니다.");
-         }
+		$("select[name=BonusCouponIdx] option:eq(0)").prop("selected",true); // 보너스쿠폰 초기화, 상품쿠폰 추가시 상품쿠폰 초기화 추가해야 함
+		$("select[name=FreeCouponIdx] option:eq(0)").prop("selected",true); // 무료배송쿠폰 초기화
 
-         $("input[name=TotalUseBonusCoupon]").val(DcNumber);
-         $("#TotalUseBonusCoupon").text("- " + setComma(parseInt(DcNumber,10)));
-         fnTotalPriceAmount();
+		$("#UseMileageAll").prop("checked",false); // 꿈캔디 모두사용
 
-      } else if ($(obj).attr("name")=="FreeCouponIdx") {
+		$("input[name=TotalUseMileage]").val(0); // 실제값들
+		$("input[name=TotalUseBonusCoupon]").val(0);
+		$("input[name=TotalUseGoodsCoupon]").val(0);
+		$("input[name=TotalUseFreeCoupon]").val(0);
 
-         $("input[name=TotalUseFreeCoupon]").val(DcNumber);
-         $("#TotalUseFreeCoupon").text(setComma(parseInt(DcNumber,10)));
-         fnTotalPriceAmount();
-      }
+		$("#CouponTypeNull").prop("checked",true);
+		$("#CouponIdxSelect_Null").attr("class","");
+		$("#CouponIdxSelect_Bonus").attr("class","none");
+		$("#CouponIdxSelect_Goods").attr("class","none");
 
-   }
+		fnCouponType();
+	}
 
-   fnUseMileageAll = function(x) {
+	fnCouponType = function() {
+		var x = document.Order.CouponType;
+		var GoodsCouponPrice = document.Order.TotalUseGoodsCoupon.alt;
 
-      var UsableMileage;
+		if (x[1].checked) { // 보너스 쿠폰
 
-      if (x==1) {
-         if (parseInt($("input[name=MemMileage]").val(),10) >= parseInt($("input[id=UseMileageAll]").val(),10)) {
-            UsableMileage = $("input[id=UseMileageAll]").val();
-         } else {
-            UsableMileage = $("input[name=MemMileage]").val();
-         }
+			// 상품쿠폰 초기화
+			$("input[name=TotalUseGoodsCoupon]").val(0);         
+			$("#TotalUseGoodsCoupon").text("- 0");
+			fnTotalPriceAmount();
 
-         if ( parseInt(UsableMileage,10) <= 0 ) {
-            UsableMileage = 0;
-         }
+			// 보너스쿠폰 회귀
+			fnCouponSelect(document.getElementById("CouponIdxSelect_Bonus"));
 
-         $("input[name=UseMileagePrice]").val(UsableMileage);
-         $("input[name=TotalUseMileage]").val(UsableMileage);
-         $("#TotalUseMileage").text("-" + setComma(UsableMileage));
-      } else {
-         $("input[name=UseMileagePrice]").val("0");
-         $("input[name=TotalUseMileage]").val("0");
-         $("#TotalUseMileage").text("-" + setComma("0"));
-      }
+			$("#CouponIdxSelect_Bonus").css("display","block");
+			$("#CouponIdxSelect_Goods").css("display","none");
+		} else if (x[2].checked) { // 상품 쿠폰 
+			// 보너스쿠폰 초기화
+			$("input[name=TotalUseBonusCoupon]").val(0);
+			$("#TotalUseBonusCoupon").text("- 0");
+			// 상품쿠폰 초기화
+			$("input[name=TotalUseGoodsCoupon]").val(GoodsCouponPrice);
+			$("#TotalUseGoodsCoupon").text("- "+setComma(GoodsCouponPrice));
 
-      fnTotalPriceAmount();
+			$("[name=BonusCouponIdx] option:eq(0)").prop("selected", true);
 
-   }
+			fnTotalPriceAmount();
 
-	fnTotalPriceAmount = function(){
+			$("#CouponIdxSelect_Bonus").css("display","none");
+			$("#CouponIdxSelect_Goods").css("display","block");
+		} else { // 사용안함
+			// 보너스쿠폰 초기화
+			$("input[name=TotalUseBonusCoupon]").val(0);
+			$("#TotalUseBonusCoupon").text("- 0");
+			// 상품쿠폰 초기화
+			$("input[name=TotalUseGoodsCoupon]").val(0);
+			$("#TotalUseGoodsCoupon").text("- 0");
 
-		var TotalPriceSum                 = parseInt($("input[name=TotalPriceSum]").val(),10);
-		var TotalPriceDelivery            = parseInt($("input[name=TotalPriceDelivery]").val(),10);
-		var TotalPriceMemberLevelDiscount = parseInt($("input[name=TotalPriceMemberLevelDiscount]").val(),10);
-		var TotalUseMileage               = parseInt($("input[name=TotalUseMileage]").val(),10);
-		var TotalUseBonusCoupon           = parseInt($("input[name=TotalUseBonusCoupon]").val(),10);
-		var TotalUseGoodsCoupon           = parseInt($("input[name=TotalUseGoodsCoupon]").val(),10);
-		var TotalUseFreeCoupon            = parseInt($("input[name=TotalUseFreeCoupon]").val(),10);
+			$("[name=BonusCouponIdx] option:eq(0)").prop("selected", true);
 
-		var TotalPriceAmount = TotalPriceSum+TotalPriceDelivery-TotalPriceMemberLevelDiscount-TotalUseMileage-TotalUseBonusCoupon-TotalUseGoodsCoupon-TotalUseFreeCoupon;
-		var TotalMileageAmount = Math.ceil((TotalPriceAmount/100)*parseFloat($("#MemMileageSaveRate").val()));
+			fnTotalPriceAmount();
 
+			$("#CouponIdxSelect_Bonus").css("display","none");
+			$("#CouponIdxSelect_Goods").css("display","none");
+		}
+	}
 
+	$(".btn_order").click(function(){
 
+		var fr = document.Order;
 
-		if (TotalPriceAmount < 0)
-		{
-			alert("총 합계금액은 0원 이상이어야 합니다.");
-			fnInitDiscountTable();
+		if (!$.trim(fr.memname.value)) {
+			alert("주문자명을 입력해주세요.");
+			fr.memname.focus();
 			return;
 		}
 
+		if (!fr.mememail.value) {
+			alert("이메일 주소를 입력해주세요.");
+			fr.mememail.focus();
+			return;
+		}
 
-		$("#i_TotalDiscountPriceInfo_summary").val("- " + setComma(TotalUseMileage+TotalUseBonusCoupon+TotalUseGoodsCoupon+TotalUseFreeCoupon) + " 원"); //접혔을 때 할인금액
-		$("#i_TotalDiscountPriceInfo").val("- " + setComma(TotalUseMileage+TotalUseBonusCoupon+TotalUseGoodsCoupon+TotalUseFreeCoupon) + " 원"); //펼쳤을 때 할인금액
+		if (!fr.memcpnum1.value||!fr.memcpnum2.value||!fr.memcpnum3.value) {
+			alert("휴대폰 번호를 입력해주세요.");
+			fr.memcpnum.focus();
+			return;
+		}
+
+		if (!$.trim(fr.shipname.value)) {
+			alert("수령인명을 입력해주세요.");
+			fr.shipname.focus();
+			return;
+		}
+
+		if (!fr.shipcpnum1.value||!fr.shipcpnum2.value||!fr.shipcpnum3.value) {
+			alert("휴대폰 번호를 입력해주세요.");
+			fr.shipcpnum3.focus();
+			return;
+		}
+
+		var ExceptNumber = "000-0000||111-1111||222-2222||333-3333||444-4444||555-5555||666-6666||777-7777||888-8888||999-9999||0000-0000||1111-1111||2222-2222||3333-3333||4444-4444||5555-5555||6666-6666||7777-7777||8888-8888||9999-9999||000-1234||123-1234||1234-1234||0000-1234||";
+		var findStr = fr.shipcpnum2.value + "-" + fr.shipcpnum3.value;
+
+		if (ExceptNumber.indexOf(findStr) != -1) {
+			alert("연락 가능한 번호로 기재해주세요.");
+			fr.shipcpnum3.focus();
+			return false;
+		}
+
+		if (!fr.shipzipcode.value||!fr.shipaddr.value||!fr.shipaddrd.value) {
+			alert("주소를 입력해주세요.");
+			fr.shipaddrd.focus();
+			return;
+		}
+
+		if (!$("input:checkbox[name=OrderAgreeThird]").is(":checked")) {
+			alert("개인정보 제3자 제공에 동의해주세요.");
+			$("input[name=OrderAgreeThird]").focus();
+			return;
+		}
+
+		if (!$("input:checkbox[name=OrderAgreePayment]").is(":checked")) {
+			alert("결제대행서비스 이용약관에 동의해주세요.");
+			$("input[name=OrderAgreePayment]").focus();
+			return;
+		}
+
+		if (!$("input:checkbox[name=OrderAgreeRule]").is(":checked")) {
+			alert("상품설명/취소/환불규정에 동의해주세요.");
+			$("input[name=OrderAgreeRule]").focus();
+			return;
+		}
 		
-		$("#TotalDiscountPriceSum").text(setComma(TotalUseMileage+TotalUseBonusCoupon+TotalUseGoodsCoupon+TotalUseFreeCoupon+TotalPriceMemberLevelDiscount));
-
-		$("input[name=TotalPriceAmount]").val(TotalPriceAmount);
-		$("#TotalPriceAmount").text(setComma(TotalPriceAmount));
-		$("#TotalPriceAmount2").text(setComma(TotalPriceAmount));
-		$("#UseMileageAll").val(TotalPriceAmount);
-
-// 		if (TotalPriceAmount<=0) { //논페이 열기
-// 			$("#OrderPayInfoNonPay").css("display","block");
-// 			$("#OrderPayInfoArrow").css("display","none");
-// 			$("#OrderPayInfoSummary").css("display","none");
-// 			$("#OrderPayInfo").css("display","none");
-
-// 			$("#gaPayTypeText").val("포인트 결제");
-
-// 		} else { //논페이 닫기
-// 			$("#OrderPayInfoNonPay").css("display","none");
-// 			$("#OrderPayInfoArrow").css("display","block");
-// 			$("#OrderPayInfoArrow").attr("class","Open");
-// 			$("#OrderPayInfoSummary").css("display","none");
-// 			$("#OrderPayInfo").css("display","block");
-
-// 			$("#gaPayTypeText").val($("#gaPayTypeTextTemp").val());
-// 		}
-	}
-
-   fnInitDiscountTable = function(){
-
-      $("select[name=BonusCouponIdx] option:eq(0)").prop("selected",true); // 보너스쿠폰 초기화, 상품쿠폰 추가시 상품쿠폰 초기화 추가해야 함
-      $("select[name=FreeCouponIdx] option:eq(0)").prop("selected",true); // 무료배송쿠폰 초기화
-
-      $("#UseMileageAll").prop("checked",false); // 꿈캔디 모두사용
-
-      $("input[name=TotalUseMileage]").val(0); // 실제값들
-      $("input[name=TotalUseBonusCoupon]").val(0);
-      $("input[name=TotalUseGoodsCoupon]").val(0);
-      $("input[name=TotalUseFreeCoupon]").val(0);
-
-      $("#CouponTypeNull").prop("checked",true);
-      $("#CouponIdxSelect_Null").attr("class","");
-      $("#CouponIdxSelect_Bonus").attr("class","none");
-      $("#CouponIdxSelect_Goods").attr("class","none");
-
-      fnCouponType();
-   }
-
-   fnCouponType = function() {
-      var x = document.Order.CouponType;
-      var GoodsCouponPrice = document.Order.TotalUseGoodsCoupon.alt;
-
-      if (x[1].checked) // 보너스 쿠폰
-      {
-         
-         // 상품쿠폰 초기화
-         $("input[name=TotalUseGoodsCoupon]").val(0);         
-         $("#TotalUseGoodsCoupon").text("- 0");
-         fnTotalPriceAmount();
-
-         // 보너스쿠폰 회귀
-         fnCouponSelect(document.getElementById("CouponIdxSelect_Bonus"));
-
-         $("#CouponIdxSelect_Bonus").css("display","block");
-         $("#CouponIdxSelect_Goods").css("display","none");
-      } else if (x[2].checked) { // 상품 쿠폰 
-         // 보너스쿠폰 초기화
-         $("input[name=TotalUseBonusCoupon]").val(0);
-         $("#TotalUseBonusCoupon").text("- 0");
-         // 상품쿠폰 초기화
-         $("input[name=TotalUseGoodsCoupon]").val(GoodsCouponPrice);
-         $("#TotalUseGoodsCoupon").text("- "+setComma(GoodsCouponPrice));
-
-         $("[name=BonusCouponIdx] option:eq(0)").prop("selected", true);
-
-         fnTotalPriceAmount();
-
-         $("#CouponIdxSelect_Bonus").css("display","none");
-         $("#CouponIdxSelect_Goods").css("display","block");
-      } else { // 사용안함
-         // 보너스쿠폰 초기화
-         $("input[name=TotalUseBonusCoupon]").val(0);
-         $("#TotalUseBonusCoupon").text("- 0");
-         // 상품쿠폰 초기화
-         $("input[name=TotalUseGoodsCoupon]").val(0);
-         $("#TotalUseGoodsCoupon").text("- 0");
-
-         $("[name=BonusCouponIdx] option:eq(0)").prop("selected", true);
-
-         fnTotalPriceAmount();
-
-         $("#CouponIdxSelect_Bonus").css("display","none");
-         $("#CouponIdxSelect_Goods").css("display","none");
-      }
-   }
-
-   fnOrderReady = function() {
-
-      var f = document.Order;
-
-      if (!$.trim(f.memname.value)) {
-         alert("주문자명을 입력해주세요.");
-         f.memname.focus();
-         return;
-      }
-
-      re = /^[가-힣a-zA-Z0-9\s]+$/;
-      var temp=$("[name=memname]").val();
-      if(temp.length >= 2) {
-         if(!re.test(temp)) { 
-            alert("주문자명에 특수문자는 입력하실 수 없습니다."); 
-            f.memname.focus();
-            return;
-         }
-      } else {
-         alert("주문자명을 2자 이상 입력해주세요."); 
-         f.memname.focus();
-         return;
-      }
-
-      if (!f.mememail.value) {
-         alert("이메일 주소를 입력해주세요.");
-         f.mememail.focus();
-         return;
-      }
-
-      f.mememail1.value = f.mememail.value.split("@")[0];
-      f.mememail2.value = f.mememail.value.split("@")[1];
-
-      if (!f.memcpnum1.value||!f.memcpnum2.value||!f.memcpnum3.value) {
-         alert("휴대폰 번호를 입력해주세요.");
-         f.memcpnum.focus();
-         return;
-      }
+		$.ajax({
+			type: "GET",
+			url: "/orderCheck.order", // 최종 결제전에 마지막으로 해당 상품 구매가능한 상태인지 확인 요청(재고)
+			data: {'arrBasket': '${arrBasket}', // 구매하려는 상품 번호
+					'quantity': '${quantity}' // 상품 수량
+					},
+				success: function(data) {
+					if (data) {
+						var IMP = window.IMP; // 생략가능
+						IMP.init('imp92896832');// 아임포트 라이브러리를 통해서 가맹점정보를 불러옴
+						IMP.request_pay({
+								pg : 'inicis', // version 1.1.0부터 지원.
+								pay_method : 'card',
+								merchant_uid : 'merchant_' + new Date().getTime(),
+								name : '주문명:결제테스트',
+								amount : 14000,
+								buyer_email : 'iamport@siot.do',
+								buyer_name : '구매자이름',
+								buyer_tel : '010-1234-5678',
+								buyer_addr : '서울특별시 강남구 삼성동',
+								buyer_postcode : '123-456',
+						}, function(rsp) { // 콜백 함수
+							if (rsp.success) {
+								// 결제 정보를 form 에 담음
+								$('#checkSeat').val('${pInfo.checkSeat}');
+								$('#merchant_uid').val(rsp.merchant_uid);
+								$('#paid_amount').val(rsp.paid_amount);
+								$('#pay_method').val(rsp.pay_method);
+								$.ajax({ type: "post",
+								url: "OrderComplete.order", //최종 결제정보를 서버로 전달
+								data: queryString,
+								success: function(data) {
+								}
+							})
+						} else {
+							alert('결제 실패하셨습니다.');
+						}
+					});
+				} else {
+					alert('결제 오류');
+				}
+			}
+		});
       
-      if (!$.trim(f.shipname.value)) {
-         alert("수령인명을 입력해주세요.");
-         f.shipname.focus();
-         return;
-      }
-
-      temp=$("[name=shipname]").val();
-      if(temp.length >= 2) {   
-         if(!re.test(temp)) { 
-            alert("수령인명에 특수문자는 입력하실 수 없습니다."); 
-            f.shipname.focus();
-            return;
-         }
-      } else {
-         alert("수령인명을 2자 이상 입력해주세요."); 
-         f.shipname.focus();
-         return;
-      }
-
-      if (!f.shipcpnum1.value||!f.shipcpnum2.value||!f.shipcpnum3.value) {
-         alert("휴대폰 번호를 입력해주세요.");
-         f.shipcpnum3.focus();
-         return;
-      }
-
-      var ExceptNumber = "000-0000||111-1111||222-2222||333-3333||444-4444||555-5555||666-6666||777-7777||888-8888||999-9999||0000-0000||1111-1111||2222-2222||3333-3333||4444-4444||5555-5555||6666-6666||7777-7777||8888-8888||9999-9999||000-1234||123-1234||1234-1234||0000-1234||";
-      var findStr = f.shipcpnum2.value + "-" + f.shipcpnum3.value;
-   
-      if (ExceptNumber.indexOf(findStr) != -1) {
-         alert("연락 가능한 번호로 기재해주세요.");
-         f.shipcpnum3.focus();
-         return false;
-      }
-
-      if (!f.shipzipcode.value||!f.shipaddr.value||!f.shipaddrd.value) {
-         alert("주소를 입력해주세요.");
-         f.shipaddrd.focus();
-         return;
-      }
+//       if (!$("input:checkbox[name=BasicAddr]").is(":checked")) {
+//     	  $("input:checkbox[name=BasicAddr]").val(1);
+//       }
       
-      if (!$("input:checkbox[name=OrderAgreeThird]").is(":checked")) {
-         alert("개인정보 제3자 제공에 동의해주세요.");
-         $("input[name=OrderAgreeThird]").focus();
-         return;
-      }
-      
-      if (!$("input:checkbox[name=OrderAgreePayment]").is(":checked")) {
-         alert("결제대행서비스 이용약관에 동의해주세요.");
-         $("input[name=OrderAgreePayment]").focus();
-         return;
-      }
-      
-      if (!$("input:checkbox[name=OrderAgreeRule]").is(":checked")) {
-         alert("상품설명/취소/환불규정에 동의해주세요.");
-         $("input[name=OrderAgreeRule]").focus();
-         return;
-      }
-      
-//       IMP.init('imp92896832'); // 가맹점식별코드
-      
-//       IMP.request_pay({
-//           pg : 'inicis', // version 1.1.0부터 지원.
-//           pay_method : 'card',
-//           merchant_uid : 'merchant_' + new Date().getTime(),
-//           name : '주문명:결제테스트',
-//           amount : 14000,
-//           buyer_email : 'iamport@siot.do',
-//           buyer_name : '구매자이름',
-//           buyer_tel : '010-1234-5678',
-//           buyer_addr : '서울특별시 강남구 삼성동',
-//           buyer_postcode : '123-456',
-//           m_redirect_url : 'OrderComplete.complete'
-//       }, function(rsp) {
-//           if ( rsp.success ) {
-//               var msg = '결제가 완료되었습니다.';
-//               msg += '고유ID : ' + rsp.imp_uid;
-//               msg += '상점 거래ID : ' + rsp.merchant_uid;
-//               msg += '결제 금액 : ' + rsp.paid_amount;
-//               msg += '카드 승인번호 : ' + rsp.apply_num;
-//           } else {
-//               var msg = '결제에 실패하였습니다.';
-//               msg += '에러내용 : ' + rsp.error_msg;
-//           }
-//           alert(msg);
-//       })
-      
-      f.submit();
-      
-   }
-   
-   fnDeliveryInfo(1); //배송지 정보 - 기본 배송지로 설정
-   $("#MyDelivery1 select option:eq(1)").prop("selected",true);
-   $("#MyDelivery1 select").trigger("change");
-   //fnSelectMyDelivery($("#MyDelivery1 select"));
-   $("#SectionNonMember").css("display","none");
+	})
+	
+    fnDeliveryInfo(3); // 배송지정보 '직접 입력'을 기본으로 설정
 
 });
 
-function Check_Number(str) { // only number
-   var reg = /^[0-9]*$/;
-   return reg.test(str);
-}
-
 function execDaumPostCode() { // 우편번호
-   new daum.Postcode({
-      oncomplete: function(data) {
-      // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+	new daum.Postcode({
+		oncomplete: function(data) {
+		// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-      // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-      // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-      var addr = ''; // 주소 변수
-      var extraAddr = ''; // 참고항목 변수
+		var addr = ''; // 주소 변수
 
-      //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-      if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-         addr = data.roadAddress;
-      } else { // 사용자가 지번 주소를 선택했을 경우(J)
-         addr = data.jibunAddress;
-      }
+		if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+			addr = data.roadAddress;
+		} else { // 사용자가 지번 주소를 선택했을 경우(J)
+			addr = data.jibunAddress;
+		}
 
-      // 우편번호와 주소 정보를 해당 필드에 넣는다.
-      document.getElementById("i_shipzipcode").value = data.zonecode;
-      document.getElementById("i_shipaddr").value = addr;
-      // 커서를 상세주소 필드로 이동한다.
-      document.getElementById("i_shipaddrD").focus();
-      }
-   }).open();
+		// 우편번호와 주소 정보를 해당 필드에 넣는다.
+		document.getElementById("i_shipzipcode").value = data.zonecode;
+		document.getElementById("i_shipaddr").value = addr;
+		// 커서를 상세주소 필드로 이동한다.
+		document.getElementById("i_shipaddrD").focus();
+		}
+	}).open();
 }
 </script>
-
+<style type="text/css">
+/* .btn_order {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:56px; height:56px; color:#ffffff; font-size:21px; border:0; background-color:#000000; border-radius:5px; font-weight:bold; } */
+/* .btn_basket {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:54px; height:56px; color:#000000; font-size:21px; border:1px solid #646464; background-color:#ffffff; border-radius:5px;} */
+</style>
 </head>
 <body>
 <div class="page">
@@ -754,7 +628,7 @@ function execDaumPostCode() { // 우편번호
       <div class="gap20px"></div>
       <div class="gap20px"></div>
       <div class="OrderInfoTitle">
-         <h2>배송지 정보<a class="Open" id="OrderShipInfoArrow" href="javascript:fnOrderInfoTitle('OrderShipInfo','i_shipname','i_shipname_summary');"></a><div class="clear"></div></h2>
+         <h2>배송지 정보<a class="Open clear" id="OrderShipInfoArrow" href="javascript:fnOrderInfoTitle('OrderShipInfo','i_shipname','i_shipname_summary');"></a></h2>
       </div>
       <div id="OrderShipInfoSummary" class="OrderInfoSummary">
          <div class="gap20px"></div>
@@ -777,18 +651,30 @@ function execDaumPostCode() { // 우편번호
             <div class="clear"></div>
          </div>
          <div class="DeliverySelect" id="MyDelivery1">
-            <select onchange="fnSelectMyDelivery(this);">
-               <option value="" selected="selected">선택</option>
-               
-<!--                <option value="||">자택</option> -->
-               
-            </select>
+			<select onchange="fnSelectMyDelivery(this);">
+				<option value="" selected="selected">선택</option>
+				<c:forEach var="receiverBasicList" items="${receiverBasicList }" varStatus="status">
+               		<option value="${receiverBasicList.receiver_name }||${receiverBasicList.receiver_phone }||${receiverBasicList.receiver_postcode }||${receiverBasicList.receiver_addr }||${receiverBasicList.receiver_addr_detail }">${receiverBasicList.receiver }</option>
+				</c:forEach>
+<!-- 					<option value="김땡땡||06257||서울특별시 강남구 논현로 311 (역삼동)||101-101||010||1234||5678||||||">자택</option> -->
+			</select>
             <p class="null"></p>
          </div>
          <div class="DeliverySelect" id="MyDelivery2">
-         
-            <select><option value="" selected="selected">최근 배송지가 없습니다.</option></select>
-               
+         	<select onchange="fnSelectMyDelivery(this);">
+         	<c:choose>
+  				<c:when test="${empty receiverLastList }">
+            		<option value="" selected="selected">최근 배송지가 없습니다.</option>
+				</c:when>
+
+				<c:otherwise>
+               	<c:forEach var="receiverLastList" items="${receiverLastList }" varStatus="status">
+               		<option value="" selected="selected">선택</option>
+               		<option value="${receiverLastList.receiver_name }||${receiverLastList.receiver_phone }||${receiverLastList.receiver_postcode }||${receiverLastList.receiver_addr }||${receiverLastList.receiver_addr_detail }">${receiverLastList.receiver_addr }</option>
+				</c:forEach>
+				</c:otherwise>
+			</c:choose>
+			</select>
             <p class="null"></p>
          </div>
          <div class="DeliverySelect" id="MyDelivery3">
@@ -868,7 +754,7 @@ function execDaumPostCode() { // 우편번호
          </div>
          
          <div class="ModifyShipAddr">
-            <input type="checkbox" id="i_modifyshipaddr" name="modifyshipaddr" value="Y" /> 현재 입력된 배송지를 기본 배송지로 설정<span class="MobileBr"><p class="null"></p></span>
+            <input type="checkbox" id="BasicAddr" name="BasicAddr" value="0"/> 현재 입력된 배송지를 기본 배송지로 설정
          </div>
          
       </div>
@@ -877,7 +763,7 @@ function execDaumPostCode() { // 우편번호
 
    <div class="SectionDiscount" id="SectionDiscount">
       <div class="OrderInfoTitle">
-         <h2>쿠폰/할인/꿈캔디 정보<a class="Open" id="OrderDiscountInfoArrow" href="javascript:fnOrderInfoTitle('OrderDiscountInfo','i_TotalDiscountPriceInfo','i_TotalDiscountPriceInfo_summary');"></a><div class="clear"></div></h2>
+         <h2>쿠폰/할인/꿈캔디 정보<a class="Open clear" id="OrderDiscountInfoArrow" href="javascript:fnOrderInfoTitle('OrderDiscountInfo','i_TotalDiscountPriceInfo','i_TotalDiscountPriceInfo_summary');"></a></h2>
       </div>
       <div id="OrderDiscountInfoSummary" class="OrderInfoSummary">
          <div class="gap20px"></div>
@@ -920,28 +806,10 @@ function execDaumPostCode() { // 우편번호
                   <select id="CouponIdxSelect_Null">
                      <option value="" selected="selected">사용안함</option>
                   </select>
-
-						<c:if test="${empty mycouponList}"> <!-- 쿠폰 없을때 -->
-						<select name="BonusCouponIdx" id="CouponIdxSelect_Bonus" disabled="disabled" class="none">
-							<option value="" alt="0" selected="selected">해당 쿠폰이 없습니다.</option>
-						</select>
-						</c:if>
-						
-						<c:if test="${!empty mycouponList}">  <!-- 쿠폰 있을때 -->
-						<select name="BonusCouponIdx" id="CouponIdxSelect_Bonus" onchange="fnCouponSelect(this);" class="none" >
-<!-- 						style="display: block;"> -->
-
-							<option value="" alt="0" selected="selected">선택</option>
-							
-							<c:forEach  var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
-							<c:set var="Coupon" value="${mycouponList[i].coupon_category}"/>
-							<c:if test="${'bonuscoupon' == Coupon }">
-							<option value="53146604" alt="${mycouponList[i].coupon_price }">
-							${mycouponList[i].coupon_name}</option>
-							</c:if>
-						</c:forEach>
-						</select>
-							</c:if>
+                  
+                  <select name="BonusCouponIdx" id="CouponIdxSelect_Bonus" disabled="disabled" class="none">
+                     <option value="" alt="0" selected="selected">해당 쿠폰이 없습니다.</option>
+                  </select>
                   
                   <input type="hidden" id="NotCoupon" value="N" />
 
@@ -1009,7 +877,7 @@ function execDaumPostCode() { // 우편번호
          <div class="tableDiv">
             <dl class="trPrice"  style="display:none;">
                <dt>회원등급 할인금액</dt>
-               <dd class="grade5"><span id="TotalPriceMemberLevelDiscount">- 0</span> 원 [<img src="../Images/order/pc_top_grade5.png" />0%]<input type="hidden" name="TotalPriceMemberLevelDiscount" value="0" /></dd>
+               <dd class="grade"><span id="TotalPriceMemberLevelDiscount">- 0</span> 원 [<img src="../Images/order/pc_top_grade5.png" />0%]<input type="hidden" name="TotalPriceMemberLevelDiscount" value="0" /></dd>
             </dl>
             <dl class="trPrice">
                <dt>보너스 쿠폰</dt>
@@ -1036,36 +904,6 @@ function execDaumPostCode() { // 우편번호
          <input type="hidden" name="TotalMileageAmount" value="250" />
       </div>
 
-
-      <script>
-         $(document).on("click",".TermsInform li", function(){
-            var x = $(this).attr("alt");
-
-            $(".TermsInform li").removeClass("on");
-            $(this).addClass("on");
-
-            $("#bnbn1").css("display", "none");
-            $("#bnbn2").css("display", "none");
-            $("#bnbn3").css("display", "none");
-
-            $("#bnbn"+x).css("display", "block");
-         });
-
-         $(document).on("mouseleave",".TermsInform", function(){
-            if ($(window).width() >= 1200) {
-               $(".TermsInform").css("display","none");
-            }
-         });
-
-         $(document).on("mouseover",".AgreeDetail", function(){
-            if ($(window).width() >= 1200) {
-               var x = $(this).attr("alt");
-               $("#AgreeDetail_"+x).css("display","block");
-            }
-         });
-      </script>
-
-
       <div class="OrderAgree">
          <div class="OrderAgreeAll"><input type="checkbox" id="i_OrderPayAgree" name="OrderPayAgree" value="Y" />&nbsp;&nbsp;&nbsp;약관 전체 동의하기</div>
          <div class="OrderAgreeTable">
@@ -1090,11 +928,13 @@ function execDaumPostCode() { // 우편번호
 		<div class="tableDiv">
 			<dl class="trOrder">
 				<dd class="twoBtn">
-					<a class="btnCancel" href="listBasket.basket">장바구니</a>
+<!-- 					<a class="btnCancel" href="listBasket.basket">장바구니</a> -->
+					<input type="button" class="btn_basket" value="장바구니" onclick="location.href='listBasket.basket'">
 				</dd>
 				<dd>&nbsp;</dd>
 				<dd class="twoBtn" id="OrderBuyButton1">
-					<a class="btnModify" href="javascript:fnOrderReady();">결제하기</a>
+					<input type="button" value="결제하기" class="btn_order">
+<!-- 					<a class="btnModify" href="javascript:fnOrderReady();">결제하기</a> -->
 <!-- 					<a class="btnModify" href="OrderComplete.complete">결제하기</a> -->
 				</dd>
 			</dl>
@@ -1107,6 +947,7 @@ function execDaumPostCode() { // 우편번호
 
 <input type="hidden" name="phone123" value="${orderListOne[0].phone}"/>
 <input type="hidden" name="TotalPriceAmount" value="${tps+tpd}"/>
+<input type="hidden" name="arrBasket" value="${arrBasket}"/>
 
 </form>
 

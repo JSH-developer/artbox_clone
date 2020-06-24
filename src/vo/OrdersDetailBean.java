@@ -13,6 +13,7 @@ public class OrdersDetailBean {
 	private String image; // 대표이미지 파일명
 	private int price; // 상품가격
 	// ---------------------------------------------------
+	private String orders_msg; // 배송메세지
 	private Timestamp orders_regdate; // 승인(결제)날짜
 	private int orders_total_price; // 결제(최종)금액
 	private String orders_payMethod; // 결제수단
@@ -21,7 +22,6 @@ public class OrdersDetailBean {
 	private String receiver_postcode; // 수신자 우편번호
 	private String receiver_addr; // 수신자 기본주소
 	private String receiver_addr_detail; // 수신자 상세주소
-	private String receiver_msg; // 배송메세지
 	
 	public int getNum() {
 		return num;
@@ -77,6 +77,12 @@ public class OrdersDetailBean {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	public String getOrders_msg() {
+		return orders_msg;
+	}
+	public void setOrders_msg(String orders_msg) {
+		this.orders_msg = orders_msg;
+	}
 	public Timestamp getOrders_regdate() {
 		return orders_regdate;
 	}
@@ -124,12 +130,6 @@ public class OrdersDetailBean {
 	}
 	public void setReceiver_addr_detail(String receiver_addr_detail) {
 		this.receiver_addr_detail = receiver_addr_detail;
-	}
-	public String getReceiver_msg() {
-		return receiver_msg;
-	}
-	public void setReceiver_msg(String receiver_msg) {
-		this.receiver_msg = receiver_msg;
 	}
 	
 }

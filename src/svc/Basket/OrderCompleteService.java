@@ -1,4 +1,4 @@
-package svc;
+package svc.Basket;
 
 import static db.jdbcUtil.*;
 
@@ -10,7 +10,7 @@ import vo.OrdersBean;
 import vo.ReceiverBean;
 
 public class OrderCompleteService {
-	public boolean insertOrder(OrdersBean ordersbean, ReceiverBean receiverBean, List basketList, List itemList, String id) {
+	public boolean insertOrder(OrdersBean ordersbean, ReceiverBean receiverBean, List orderList, String id) {
 		System.out.println("OrderCompleteService - insertOrder()");
 		
 		boolean isOrderInsertSuccess = false; // 장바구니 추가 성공여부를 리턴
@@ -31,10 +31,10 @@ public class OrderCompleteService {
 		int isInsertCount = orderDAO.insertOrder(ordersbean);
 		// OrderInsert 가 성공했을 때
 		if(isInsertCount > 0) {
-			isInsertCount = orderDAO.insertReceiver(receiverBean, id);
+			isInsertCount = orderDAO.insertReceiver(receiverBean);
 			// ReceiverInsert 가 성공했을 때
 			if(isInsertCount > 0) {
-				isInsertCount = orderDAO.insertDetail(basketList, itemList, id);
+				isInsertCount = orderDAO.insertDetail(orderList, id);
 				// OrderDetailInsert 가 성공했을 때
 				// => insertCount 가 0보다 크면 commit() 실행, isBasketAddSuccess 를 true 로 변경
 				if(isInsertCount > 0) {
