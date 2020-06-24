@@ -1,17 +1,15 @@
-package action;
+package action.event;
 
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import action.Action;
 import svc.CouponService;
-import svc.EventService;
 import svc.ProductWriteService;
 import vo.ActionForward;
 import vo.CouponBean;
-import vo.EventBean;
-import vo.PageInfo;
 
 public class CouponAllListAction implements Action {
 

@@ -1,6 +1,7 @@
-package action;
+package action.event;
 
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -9,15 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import action.Action;
 import svc.EventService;
 import vo.ActionForward;
 import vo.EventBean;
 
-public class EventModifyProAction implements Action {
+public class EventWriteProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
+		Timestamp reg_date = new Timestamp(System.currentTimeMillis());
 		
 		ServletContext context = request.getServletContext();
 		
@@ -42,9 +45,10 @@ public class EventModifyProAction implements Action {
 				new DefaultFileRenamePolicy()); // 파일명 중복 시 중복 파일 명을 처리할 객체
 		
 		EventBean eventBean = new EventBean();
-		eventBean.setEvent_num(Integer.parseInt(multi.getParameter("event_num")));
 		eventBean.setEvent_titie(multi.getParameter("event_title"));
+		System.out.println(multi.getParameter("event_title"));
 		eventBean.setEvent_content(multi.getParameter("event_content"));
+		eventBean.setEvent_time(reg_date);
 		eventBean.setEvent_condition(multi.getParameter("event_condition"));
 		eventBean.setEvent_discount(Integer.parseInt(multi.getParameter("event_discount")));
 		eventBean.setEvent_start(multi.getParameter("event_start"));
@@ -53,19 +57,19 @@ public class EventModifyProAction implements Action {
 		eventBean.setEvent_img(multi.getOriginalFileName((String)multi.getFileNames().nextElement()));
 		
 		
-		EventService eventService = new EventService();
-		boolean isModifySuccess = eventService.updateEvent(eventBean);
+		EventService eventWriteProService = new EventService();
+		boolean isWriteSuccess = eventWriteProService.registEvent(eventBean);
 		
-		if(!isModifySuccess){
+		if(!isWriteSuccess){
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>"); // 자바스크립트 시작 태그
-			out.println("alert('이벤트 수정 실패')"); // 다이얼로그 메세지 출력
+			out.println("alert('이벤트 등록실패')"); // 다이얼로그 메세지 출력
 			out.println("history.back()"); // 이전 페이지로 돌아가기
 			out.println("</script>"); // 자바스크립트 끝 태그
 			
 		}else {
-			System.out.println("글수정성공!");
+			System.out.println("글등록성공!");
 			
 			
 			forward = new ActionForward();
@@ -73,6 +77,14 @@ public class EventModifyProAction implements Action {
 			forward.setPath("EventList.event?event_category=sale_event");
 			
 		}
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

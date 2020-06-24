@@ -1,10 +1,11 @@
-package action;
+package action.event;
 
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import action.Action;
 import svc.EventService;
 import vo.ActionForward;
 import vo.EventBean;

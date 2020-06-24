@@ -1,10 +1,9 @@
-package action;
-
-import java.util.ArrayList;
+package action.event;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import action.Action;
 import svc.CouponService;
 import svc.ProductViewService;
 import vo.ActionForward;
@@ -21,7 +20,6 @@ public class EventproductviewAction implements Action {
 		// 조건 불러오기
 		String condition = request.getParameter("condition");
 		
-		System.out.println("condition"+condition);
 		
 		// 상품에 맞는 쿠폰
 		CouponService couponService = new CouponService();

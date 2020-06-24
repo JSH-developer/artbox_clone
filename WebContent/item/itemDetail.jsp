@@ -102,6 +102,34 @@
 		alert("서브밋");
 		return true;
 	}
+	
+	// 쿠폰 클릭시 로그인 유무
+	function cpClick(){
+		var moveCheck;
+		var getId  = document.getElementById("loginId").value;
+		var coup_Num  = document.getElementById("coupNum").value;
+
+		alert(getId+" : "+coup_Num);
+		
+		if(getId == "null" || getId == ""){
+
+			moveCheck = confirm("로그인하시겠습니까?"+getId);
+			
+			if(moveCheck){
+				alert("로그인창으로 이동");
+			}else{
+				alert("그대로 유지");
+			}
+			
+		
+	}else{
+		var url = "CouponIssued.event?getid="+getId+"&couponNum="+coup_Num;
+		alert("쿠폰 저장함"+url);
+		location.href=url;
+		
+	}
+		
+	}
 	</script>
 </head>
 	<!-- 헤더 -->
@@ -135,8 +163,37 @@
 				<div class="text-info">
 					<div class="pdt-name">${productBean.product_name }</div>
 					<div class="pdt-category"><a href="#">인형/토이</a> > <a href="#">FUN/TOY</a></div>
-					<div class="pdt-right pdt-price"><fmt:formatNumber value="${productBean.product_price}" type="number" />원</div>
-					<div class="pdt-right pdt-delivery">2,500원
+					
+					
+					
+					<span id="realprice" class="pdt-right pdt-price"><fmt:formatNumber value="${productBean.product_price}" type="number" />원</span>
+
+				<!-- 			할인 있거나 쿠폰 있을때    || item.product_sale_price > 0-->
+				<c:if test="${productBean.product_sale_price > 0}">
+					<!-- 			realprice 스타일바꿈 -->
+					<style>
+							span#realprice {
+								text-decoration: line-through;
+								color: grey;
+							}
+							</style>
+
+					<!-- 			할인 있을때 -->
+					<c:if test="${empty itemcoupon.coupon_name}">
+						<span>이벤트 할인가격 : ${productBean.product_sale_price}원</span>
+					</c:if>
+
+					<!-- 				쿠폰 있을때 -->
+					<c:if test="${not empty itemcoupon.coupon_name}">
+						<span>쿠폰 할인가격 : ${productBean.product_sale_price}원</span>
+						<input type="hidden" id="coupNum" value="${itemcoupon.coupon_num }">
+						<input type="button" id="coup_btn" value="쿠폰받기" onclick="cpClick();">
+						<br>
+					</c:if>
+				</c:if>
+
+
+				<div class="pdt-right pdt-delivery">2,500원
 						<input type="button" class="btn-delivery modal" value="배송비 안내">
 					</div>
 					<div class="pdt-right pdt-candy"><fmt:formatNumber value="${productBean.product_price / 100}" type="number" />개</div>

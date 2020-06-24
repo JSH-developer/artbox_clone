@@ -1,10 +1,11 @@
-package action;
+package action.event;
 
 import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import action.Action;
 import svc.CouponService;
 import vo.ActionForward;
 import vo.CouponBean;
@@ -35,7 +36,7 @@ public class CouponWriteProAction implements Action {
 			System.out.println("쿠폰 등록 성공 -"+request.getParameter("coupon_name"));
 
 			forward = new ActionForward();
-			forward.setPath("/CouponWriteForm.event");
+			forward.setPath("/CouponWriteForm.coupon");
 
 
 		}else {
@@ -48,7 +49,7 @@ public class CouponWriteProAction implements Action {
 
 			forward = new ActionForward();
 			forward.setRedirect(true);
-			forward.setPath("registCouponWrite.event");
+			forward.setPath("registCouponWrite.coupon");
 			System.out.println("쿠폰 등록 실패!");
 		}
 

@@ -828,7 +828,7 @@ function execDaumPostCode() { // 우편번호
                
                   
                <c:if test="${empty mycouponList}"> <!-- 쿠폰 없을때 -->
-				<select name="FreeCouponIdx" id="CouponIdxSelect_Null" onchange="fnCouponSelect(this);" disabled="disabled" class="none">
+				<select name="FreeCouponIdx" id="CouponIdxSelect_Null" onchange="fnCouponSelect(this);" class="block">
 							<option value="" alt="0" selected="selected">해당 쿠폰이 없습니다.</option>
 						</select>
 				</c:if>

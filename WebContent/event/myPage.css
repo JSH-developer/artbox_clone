@@ -17,7 +17,7 @@
 @media (min-width:720px) {html{font-size:26px;}}
 
 
-html, body {width:100%; margin:0; padding:0;}
+/* html, body {width:100%; margin:0; padding:0;} */
 
 body {background-color:#ffffff; position:relative; min-width:320px;}
 

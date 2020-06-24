@@ -1,4 +1,4 @@
-package action;
+package action.event;
 
 import java.util.ArrayList;
 
@@ -7,8 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.Session;
-
+import action.Action;
 import svc.CouponService;
 import vo.ActionForward;
 import vo.CouponBean;
