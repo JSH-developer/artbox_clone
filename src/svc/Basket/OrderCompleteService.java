@@ -1,4 +1,4 @@
-package svc;
+package svc.Basket;
 
 import static db.jdbcUtil.*;
 
@@ -31,7 +31,7 @@ public class OrderCompleteService {
 		int isInsertCount = orderDAO.insertOrder(ordersbean);
 		// OrderInsert 가 성공했을 때
 		if(isInsertCount > 0) {
-			isInsertCount = orderDAO.insertReceiver(receiverBean, id);
+			isInsertCount = orderDAO.insertReceiver(receiverBean);
 			// ReceiverInsert 가 성공했을 때
 			if(isInsertCount > 0) {
 				isInsertCount = orderDAO.insertDetail(orderList, id);

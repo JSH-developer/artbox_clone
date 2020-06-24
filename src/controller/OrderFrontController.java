@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import action.OrderCompleteAction;
-import action.OrderDetailListAction;
-import action.OrderOneListAction;
+import action.Basket.OrderCompleteAction;
+import action.Basket.OrderDetailListAction;
+import action.Basket.OrderOneListAction;
 import vo.ActionForward;
 
 @WebServlet("*.order")
@@ -44,6 +44,13 @@ public class OrderFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else if(command.equals("/listOrderDetail.order")) {
+			action = new OrderDetailListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(command.equals("/orderCheck.order")) {
 			action = new OrderDetailListAction();
 			try {
 				forward = action.execute(request, response);

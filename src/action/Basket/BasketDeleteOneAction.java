@@ -1,4 +1,4 @@
-package action;
+package action.Basket;
 
 import java.io.PrintWriter;
 import java.util.List;
@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import svc.BasketDeleteOneService;
+import action.Action;
+import svc.Basket.BasketDeleteOneService;
 import vo.ActionForward;
 
 // 장바구니에서 선택된 물품을 삭제하는 BasketDeleteOneAction 클래스 정의

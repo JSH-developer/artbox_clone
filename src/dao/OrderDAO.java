@@ -127,7 +127,7 @@ public class OrderDAO {
 	}
 
 	// 배송지 테이블 INSERT (마이페이지 사용)
-	public int insertReceiver(ReceiverBean receiverBean, String id) {
+	public int insertReceiver(ReceiverBean receiverBean) {
 		System.out.println("OrderDAO - insertReceiver");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -139,7 +139,7 @@ public class OrderDAO {
 			String sql="SELECT num FROM receiver WHERE member_id=? && receiver_name=? && receiver_phone=? "
 					+ "&& receiver_postcode=? && receiver_addr=? && receiver_addr_detail=?;";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, id);
+			pstmt.setString(1, receiverBean.getReceiver_member_id());
 			pstmt.setString(2, receiverBean.getReceiver_name());
 			pstmt.setString(3, receiverBean.getReceiver_phone());
 			pstmt.setString(4, receiverBean.getReceiver_postcode());
@@ -151,7 +151,7 @@ public class OrderDAO {
 				sql="UPDATE receiver SET receiver_date=now() WHERE member_id=? &&"
 						+ " receiver_name=? && receiver_phone=? && receiver_postcode=? && receiver_addr=? && receiver_addr_detail=?";
 				pstmt=con.prepareStatement(sql);
-				pstmt.setString(1, id);
+				pstmt.setString(1, receiverBean.getReceiver_member_id());
 				pstmt.setString(2, receiverBean.getReceiver_name());
 				pstmt.setString(3, receiverBean.getReceiver_phone());
 				pstmt.setString(4, receiverBean.getReceiver_postcode());
@@ -175,7 +175,7 @@ public class OrderDAO {
 					pstmt.setString(5, receiverBean.getReceiver_postcode());
 					pstmt.setString(6, receiverBean.getReceiver_addr());
 					pstmt.setString(7, receiverBean.getReceiver_addr_detail());
-					pstmt.setString(8, id);
+					pstmt.setString(8, receiverBean.getReceiver_member_id());
 					pstmt.setInt(9, basic_num);
 					insertReceiverCount = pstmt.executeUpdate();
 				}

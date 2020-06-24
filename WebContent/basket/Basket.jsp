@@ -104,7 +104,7 @@ $(document).ready(function(){
 	}
 	
 	// 상품 삭제
-	$(".btn-basketDelete").click(function(){ // 삭제버튼 클릭 시
+	$(".btn_basketDelete").click(function(){ // 삭제버튼 클릭 시
 		var arrBasket = new Array();
 		$("input[name='BasketIdx']:checked").each(function(){
 			arrBasket.push($(this).attr("data-basketNum"));
@@ -114,7 +114,7 @@ $(document).ready(function(){
 	});
 
 	// 상품 주문
-	$(".btn-order").click(function(){ // 주문버튼 클릭 시
+	$(".btn_basketOrder").click(function(){ // 주문버튼 클릭 시
 		var arrBasket = new Array();
 		$("input[name='BasketIdx']:checked").each(function(){
 			arrBasket.push($(this).attr("data-basketNum"));
@@ -130,10 +130,6 @@ $(document).ready(function(){
 	fnBasketCalculate();
 });
 </script>
-<style type="text/css">
-.btn-order {background-color:black; border: 1px solid #424242; color: white; font-size: 22px; font-weight: bold; padding: 15px 80px; border-radius: 5px;}
-.btn-basketDelete {border: 1px solid #424242; background-color:white;  margin:0 7px 0 0; color: #424242; font-size: 15px; padding: 8.5px 25px 8.8px 25px; border-radius: 5px;}
-</style>
 </head>
 <body>
 
@@ -212,7 +208,7 @@ $(document).ready(function(){
 	</div>
 	<a class="BasketButton" href="javascript:fnCheckAll();">전체선택</a>
 <!-- 	<a class="BasketButton" href="javascript:fnBasketArray('ARRAYDEL');">선택삭제</a> -->
-	<input type="button" value="선택삭제" class="btn-basketDelete">
+	<input type="button" value="선택삭제" class="btn_basketDelete">
 	<a class="BasketButton" href="javascript:GA_event('장바구니', '하단', '위시리스트'); fnBasketArray('ARRAYWISH');">위시리스트</a>
 	<div class="BasketPrice">
 		<div class="PriceDetail">
@@ -233,7 +229,7 @@ $(document).ready(function(){
 		<div class="clear"></div>
 	</div>
 	<div class="BasketBottom">
-		<div class="BasketBuyButton"><input type="button" value="주문버튼" class="btn-order"></div>
+		<div class="BasketBuyButton"><input type="button" value="주문하기" class="btn_basketOrder"></div>
 <!-- 		<a href="javascript:fnBasketArray('ARRAYBUY');">주문하기</a> -->
 		<div class="BasketComment">
 			장바구니에 담긴 상품은 30일 이후 자동으로 위시리스트로 이동됩니다.<br>

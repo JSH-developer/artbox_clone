@@ -17,6 +17,8 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+	
+
 // 	$.ajax({
 
 // 		url:"/basket/inicis.jsp",
@@ -164,7 +166,6 @@ $(document).ready(function(){
 			$("#"+obj+"Arrow").attr("class","Open");
 		}
 	}
-
 
 	fnTotalDiscountPriceSum = function(){
 		var obj = "DiscountPriceInfo";
@@ -366,7 +367,7 @@ $(document).ready(function(){
 		}
 	}
 
-	fnOrderReady = function() {
+	$(".btn_order").click(function(){
 
 		var fr = document.Order;
 
@@ -432,14 +433,56 @@ $(document).ready(function(){
 			$("input[name=OrderAgreeRule]").focus();
 			return;
 		}
+		
+		$.ajax({
+			type: "GET",
+			url: "/orderCheck.order", // 최종 결제전에 마지막으로 해당 상품 구매가능한 상태인지 확인 요청(재고)
+			data: {'arrBasket': '${arrBasket}', // 구매하려는 상품 번호
+					'quantity': '${quantity}' // 상품 수량
+					},
+				success: function(data) {
+					if (data) {
+						var IMP = window.IMP; // 생략가능
+						IMP.init('imp92896832');// 아임포트 라이브러리를 통해서 가맹점정보를 불러옴
+						IMP.request_pay({
+								pg : 'inicis', // version 1.1.0부터 지원.
+								pay_method : 'card',
+								merchant_uid : 'merchant_' + new Date().getTime(),
+								name : '주문명:결제테스트',
+								amount : 14000,
+								buyer_email : 'iamport@siot.do',
+								buyer_name : '구매자이름',
+								buyer_tel : '010-1234-5678',
+								buyer_addr : '서울특별시 강남구 삼성동',
+								buyer_postcode : '123-456',
+						}, function(rsp) { // 콜백 함수
+							if (rsp.success) {
+								// 결제 정보를 form 에 담음
+								$('#checkSeat').val('${pInfo.checkSeat}');
+								$('#merchant_uid').val(rsp.merchant_uid);
+								$('#paid_amount').val(rsp.paid_amount);
+								$('#pay_method').val(rsp.pay_method);
+								$.ajax({ type: "post",
+								url: "OrderComplete.order", //최종 결제정보를 서버로 전달
+								data: queryString,
+								success: function(data) {
+								}
+							})
+						} else {
+							alert('결제 실패하셨습니다.');
+						}
+					});
+				} else {
+					alert('결제 오류');
+				}
+			}
+		});
       
 //       if (!$("input:checkbox[name=BasicAddr]").is(":checked")) {
 //     	  $("input:checkbox[name=BasicAddr]").val(1);
 //       }
       
-      fr.submit();
-      
-	}
+	})
 	
     fnDeliveryInfo(3); // 배송지정보 '직접 입력'을 기본으로 설정
 
@@ -451,7 +494,6 @@ function execDaumPostCode() { // 우편번호
 		// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
 		var addr = ''; // 주소 변수
-		var extraAddr = ''; // 참고항목 변수
 
 		if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
 			addr = data.roadAddress;
@@ -468,6 +510,10 @@ function execDaumPostCode() { // 우편번호
 	}).open();
 }
 </script>
+<style type="text/css">
+/* .btn_order {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:56px; height:56px; color:#ffffff; font-size:21px; border:0; background-color:#000000; border-radius:5px; font-weight:bold; } */
+/* .btn_basket {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:54px; height:56px; color:#000000; font-size:21px; border:1px solid #646464; background-color:#ffffff; border-radius:5px;} */
+</style>
 </head>
 <body>
 <div class="page">
@@ -882,11 +928,13 @@ function execDaumPostCode() { // 우편번호
 		<div class="tableDiv">
 			<dl class="trOrder">
 				<dd class="twoBtn">
-					<a class="btnCancel" href="listBasket.basket">장바구니</a>
+<!-- 					<a class="btnCancel" href="listBasket.basket">장바구니</a> -->
+					<input type="button" class="btn_basket" value="장바구니" onclick="location.href='listBasket.basket'">
 				</dd>
 				<dd>&nbsp;</dd>
 				<dd class="twoBtn" id="OrderBuyButton1">
-					<a class="btnModify" href="javascript:fnOrderReady();">결제하기</a>
+					<input type="button" value="결제하기" class="btn_order">
+<!-- 					<a class="btnModify" href="javascript:fnOrderReady();">결제하기</a> -->
 <!-- 					<a class="btnModify" href="OrderComplete.complete">결제하기</a> -->
 				</dd>
 			</dl>

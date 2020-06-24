@@ -1,4 +1,4 @@
-package action;
+package action.Basket;
 
 import java.util.List;
 
@@ -6,7 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import svc.BasketListService;
+import action.Action;
+import svc.Basket.BasketListService;
 import vo.ActionForward;
 
 // 장바구니 목록을 보여주는 BasketListAction 클래스 정의

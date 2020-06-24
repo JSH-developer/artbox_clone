@@ -1,11 +1,12 @@
-package action;
+package action.Basket;
 
 import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import svc.BasketQuantityUpdateService;
+import action.Action;
+import svc.Basket.BasketQuantityUpdateService;
 import vo.ActionForward;
 
 // 장바구니 수량 옵션 변경하는 BasketQuantityUpdateAction 클래스 정의
