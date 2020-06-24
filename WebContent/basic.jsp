@@ -19,7 +19,6 @@
 			<h2>
 				<a href="CouponWriteForm.coupon">쿠폰 등록 페이지</a>
 			</h2>
-
 			<h2>
 				<a href="MypageCouponList.coupon">마이페이지 - 쿠폰</a>
 			</h2>
