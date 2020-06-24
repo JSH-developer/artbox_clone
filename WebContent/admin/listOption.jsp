@@ -45,17 +45,15 @@ function deleteOption(num){
 
 <h1 class="list_title">옵션 리스트</h1>
 <table class="table_content">
-<tr><th>코드</th><th>옵션이름</th><th>추가가격</th><th>삭제버튼</th></tr>
+<tr><th>코드</th><th>옵션이름</th><th>추가가격</th></tr>
 <c:forEach var="i" begin="0" end="${fn:length(optionList)-1}" step="1">
 	<tr>
 	<td>${optionList[i].option_code}</td>
 	<td>${optionList[i].option_name}</td>
 	<td>${optionList[i].add_price}</td>
-	<td><button onclick='deleteOption(${optionList[i].option_num})'>옵션삭제</button></td>
 	</tr>
 </c:forEach>
 </table>
-<a href="OptionWriteForm.admin"><button class="table_btn">옵션 등록</button></a>
 
 <section id="pageList">
 	<c:choose>

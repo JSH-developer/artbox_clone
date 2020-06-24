@@ -55,7 +55,7 @@ function deleteProduct(){
 </table>
 <br><br>
 <button onclick="location.href='ProductList.admin?page=${param.page}&opt=${param.opt}&kwd=${param.kwd}'" class="viewBtn">목록가기</button>
-<button onclick="location.href='ProductModifyForm.admin?num=${productBean.product_num}&page=${param.page}'"  class="viewBtn">수정하기</button>
+<button onclick="location.href='ProductModifyForm.admin?num=${productBean.product_num}&page=${param.page}&opt=${param.opt}&kwd=${param.kwd}'"  class="viewBtn">수정하기</button>
 <button onclick="deleteProduct()"  class="viewBtn deleteBtn">삭제하기</button>
 </div>
 </div>

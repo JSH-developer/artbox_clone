@@ -81,8 +81,8 @@ public class AdminFrontController extends HttpServlet {
 			
 			String categorySelectList = productWriteService.categorySelectList();
 			request.setAttribute("categorySelectList", categorySelectList);
-			String optionSelectList = productWriteService.optionSelectList();
-			request.setAttribute("optionSelectList", optionSelectList);
+//			String optionSelectList = productWriteService.optionSelectList();
+//			request.setAttribute("optionSelectList", optionSelectList);
 			
 			forward.setPath("/admin/registProduct.jsp");
 			

@@ -33,20 +33,41 @@ $(document).ready(function(){
 		
 		});
 	
+	
+	// 검색 기능 추가
+	$(".search_space").css("display","none");
+	$(".search_btn1").click(function(){
+		$(".search_space").toggle();
+	});
+	
 	var search = "";
-	$("#search_product").keypress(function() { 
+	$("#search_product").keydown(function(key) { 
 		search = $(this).val();
+		if (key.keyCode == 13) {
 		$('#prod_list option').each(function(){
 			if(search == ""){
 				$(this).css('display','block');
 			}else if (!$(this).text().match(search)) {
 				$(this).css('display','none');
 			} 
-		});
+		});	
+		}else if(search.length <= 1){
+			$('#prod_list option').each(function(){
+				$(this).css('display','block');
+			});	
+		}
 	});
 	
-	
-	
+	$(".search_btn2").click(function(){
+		search = $("#search_product").val();
+		$('#prod_list option').each(function(){
+			if(search == ""){
+				$(this).css('display','block');
+			}else if (!$(this).text().match(search)) {
+				$(this).css('display','none');
+			} 
+		});	
+	});
 	
 	 
 })
@@ -139,8 +160,8 @@ $(document).ready(function() {
 <h1 class="registTitle">옵션 상품 등록</h1>
 <form action="OptionWritePro.admin" method="post" enctype="multipart/form-data">
 <table class="reg_tab">
-	<tr><th>상품 검색</th><td><select name="product_code_base" id="prod_list"><option value="">상품을 선택해주세요</option><c:out value="${productSelectList}" escapeXml="false"/></select></td></tr>
-	<tr><th>&nbsp;</th><td><input type="text" id="search_product"></td></tr>
+	<tr><th>상품 검색</th><td><select name="product_code_base" id="prod_list"><option value="">상품을 선택해주세요</option><c:out value="${productSelectList}" escapeXml="false"/></select><input type="button" class="search_btn1" value="검색사용"></td></tr>
+	<tr class="search_space"><th>&nbsp;</th><td><input type="text" id="search_product" placeholder="검색어를 입력해주세요"><input type="button" class="search_btn2" value="검색하기"></td></tr>
 	<tr><th>상품명</th><td><input type="text" name="product_name"></td></tr>
 	<tr><th>옵션 설명</th><td><input name="option_name" type="text" placeholder="옵션명을 입력해주세요" style="padding-left:5px "></td></tr>
 	<tr><th>추가 가격</th><td><input name="add_price" type="text" placeholder="추가금액을 입력해주세요" style="padding-left:5px "></td></tr>

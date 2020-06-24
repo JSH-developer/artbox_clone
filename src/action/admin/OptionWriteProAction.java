@@ -52,7 +52,7 @@ public class OptionWriteProAction implements Action {
 		ProductViewService productViewService = new ProductViewService();
 		ProductBean pb_base = productViewService.infoProduct(multi.getParameter("product_code_base")+"00");
 		
-		productBean.setProduct_code(multi.getParameter("product_category_code") + productWriteService.countProduct() + multi.getParameter("product_option_code"));
+		productBean.setProduct_code(multi.getParameter("product_code_base").substring(0, 4) + option_code);
 		 
 		productBean.setProduct_name(multi.getParameter("product_name"));
 		Enumeration images = multi.getFileNames();

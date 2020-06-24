@@ -207,4 +207,20 @@ padding: 0;
 	 width: 200px;
 }
 
+#prod_list, #search_product{
+	width:90%; 
+}
+
+input[type="button"]{
+	margin-left: 10px;
+	padding: 10px;
+	background: white;
+	border:1px solid black;
+}
+
+.search_space input[type=text]{
+	border: 0px solid white;
+	border-radius: 0px;
+	border-bottom: 1px solid gray;
+}
 

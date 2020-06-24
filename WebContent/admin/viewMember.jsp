@@ -12,7 +12,7 @@
 function deleteMember(){
 	var del = confirm('회원을 삭제 하시겠습니까?');
 	if(del){
-		location.href = "MemberDeletePro.admin?num=${memberBean.num}&page=${page}";
+		location.href = "MemberDeletePro.admin?num=${memberBean.num}&page=${param.page}&opt=${param.opt}&kwd=&${param.kwd}";
 	}
 	
 }

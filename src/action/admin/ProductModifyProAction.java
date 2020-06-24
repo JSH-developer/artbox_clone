@@ -20,6 +20,16 @@ public class ProductModifyProAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = new ActionForward();
 		
+		String opt = "";
+		if(request.getParameter("opt") != null) {
+			opt = request.getParameter("opt");
+		}
+				
+		String kwd = "";
+		if(request.getParameter("kwd") != null) {
+			opt = request.getParameter("kwd");
+		}
+		
 		ServletContext context = request.getServletContext();
 		
 		String saveFolder="/upload";
@@ -38,11 +48,7 @@ public class ProductModifyProAction implements Action {
 		ProductModifyService productModifyService = new ProductModifyService();
 		ProductBean productBean = new ProductBean();
 		productBean.setProduct_num(Integer.parseInt(multi.getParameter("num")));
-		if(multi.getParameter("product_option_code").equals("00")) {
-			productBean.setProduct_code(multi.getParameter("product_category_code") + multi.getParameter("product_option_code_origin")); // 상품코드 = 카테고리 + 옵션
-		}else {
-			productBean.setProduct_code(multi.getParameter("product_category_code") + multi.getParameter("product_option_code")); // 상품코드 = 카테고리 + 옵션
-		}
+		productBean.setProduct_code(multi.getParameter("product_category_code") + multi.getParameter("product_option_code_origin")); // 상품코드 = 카테고리 + 옵션
 		productBean.setProduct_name(multi.getParameter("product_name"));
 //		Enumeration images = multi.getFileNames();
 //		productBean.setProduct_image2(multi.getFilesystemName((String) images.nextElement()));
@@ -56,18 +62,15 @@ public class ProductModifyProAction implements Action {
 		productBean.setProduct_sale_price(Integer.parseInt(multi.getParameter("product_sale_price")));
 		productBean.setProduct_keywords(multi.getParameter("product_keywords"));
 		productBean.setProduct_category_code(multi.getParameter("product_category_code"));
-		if(multi.getParameter("product_option_code").equals("00")) { // 기본옵션일 경우 기본옵션코드를 생성해서 등록
-			productBean.setProduct_option_code(multi.getParameter("product_option_code_origin"));
-		}else {
-			productBean.setProduct_option_code(multi.getParameter("product_option_code"));
-		}
+		productBean.setProduct_option_code(multi.getParameter("product_option_code_origin"));
+		productBean.setProduct_option_code(multi.getParameter("product_option_code"));
 		
 		
 		boolean isUpdate = productModifyService.modifyProduct(productBean);
 		
 		if(isUpdate) {
 			// dispatch 방식으로 이동
-			forward.setPath("ProductView.admin?num="+Integer.parseInt(multi.getParameter("num"))+"&page="+multi.getParameter("page"));
+			forward.setPath("ProductView.admin?num="+Integer.parseInt(multi.getParameter("num"))+"&page="+multi.getParameter("page")+"&opt="+opt+"&kwd="+kwd);
 		}else {
 			// redirect 방식으로 이동
 			forward.setRedirect(true);

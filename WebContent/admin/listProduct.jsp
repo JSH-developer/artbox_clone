@@ -75,6 +75,7 @@ $(document).ready(function(){
 </table>
 <a href="ProductWriteForm.admin"><button class="table_btn">기본상품 등록</button></a>
 <a href="OptionWriteForm.admin"><button class="table_btn">옵션상품 등록</button></a>
+<br>
 <section id="pageList">
 	<c:choose>
 	<c:when test="${pageInfo.page <= 1}">

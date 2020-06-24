@@ -123,7 +123,7 @@ $(document).ready(function() {
 <form action="ProductWritePro.admin" method="post" enctype="multipart/form-data">
 <table class="reg_tab">
 	<tr><th>상품카테고리</th><td><select id="product_category_code" name="product_category_code"><option>카테고리를 선택해주세요</option><c:out value="${categorySelectList}" escapeXml="false"/></select></td></tr>
-	<tr><th>상품옵션</th><td><select id="product_option_code" name="product_option_code"><option value="00">기본옵션(+0)</option><c:out value="${optionSelectList}" escapeXml="false"/></select></td></tr>
+	<tr><th>상품옵션</th><td><select id="product_option_code" name="product_option_code" ><option value="00">기본옵션(+0)</option></select></td></tr>
 	<tr><th>상품명</th><td><input type="text" name="product_name"></td></tr>
 	<tr><th>브랜드</th><td><input type="text" name="product_brand"></td></tr>
 	<tr><th>상품가격</th><td><input type="text" name="product_price"></td></tr>
