@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import action.BasketInsertAction;
-import action.BasketDeleteOneAction;
-import action.BasketListAction;
-import action.BasketQuantityUpdateAction;
-import action.BasketTestLoginAction;
+import action.Basket.BasketDeleteOneAction;
+import action.Basket.BasketInsertAction;
+import action.Basket.BasketListAction;
+import action.Basket.BasketQuantityUpdateAction;
+import action.Basket.BasketTestLoginAction;
 import vo.ActionForward;
 
 @WebServlet("*.basket")
@@ -28,17 +28,7 @@ public class BasketFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		if(command.equals("/login.basket")) {
-			forward = new ActionForward();
-			forward.setPath("/basket/BasketTestLogin.jsp");
-		} else if(command.equals("/LoginAction.basket")) {
-			action = new BasketTestLoginAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/productDetail.basket")) {
+		if(command.equals("/productDetail.basket")) { // 상품상세보기창(나중에 지울 부분)
 			forward = new ActionForward();
 			forward.setPath("/basket/BasketTestItemDetail.jsp");
 		} else if(command.equals("/insertBasket.basket")) {
@@ -73,14 +63,12 @@ public class BasketFrontController extends HttpServlet {
 		
 		// ActionForward 객체 내의 포워딩 방식에 따라 각각의 포워딩 작업 수행
 		if(forward != null) {
-			
 			if(forward.isRedirect()) { // redirect 방식
 				response.sendRedirect(forward.getPath());
 			}else { // dispatcher 방식
 				RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
 				dispatcher.forward(request, response);
 			}
-			
 		}
 	}
 

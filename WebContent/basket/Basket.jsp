@@ -15,16 +15,15 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-	fnCheckAll = function(){ // 체크
+	// 체크 제어
+	fnCheckAll = function(){
 		var i = 0
-
 		$("input[name=BasketIdx]").each(function(){
 			if (!$(this).prop("checked")) {
 				i = i + 1;
 			}
 		});
-
-		if (i==0) { // 전부 체크되있으면 전체 체크해제
+		if (i == 0) { // 전부 체크되있으면 전체 체크해제
 			$("input[name=BasketIdx]").prop("checked",false);
 		} else { // 전체 체크
 			$("input[name=BasketIdx]").prop("checked",true);
@@ -32,72 +31,44 @@ $(document).ready(function(){
 		fnBasketCalculate();
 	}
 	
-	$("input[name=BasketIdx]").change(function(){ // 체크버튼 클릭시 총합계 계산
+	// 상품 체크버튼(추가) 클릭 시 총금액 다시 계산(fnBasketCalculate() 메서드 호출)
+	$("input[name=BasketIdx]").change(function(){
 		fnBasketCalculate();
 	});
 
-	fnChangeOption = function(basketidx){ // 옵션변경 창 나타나기
-		if ($("#ItemListChangeOption"+basketidx).css("display")=="none") {
-			$("#ItemListChangeOption"+basketidx).css("display","block");
+	// 옵션변경 창 나타내기 / 숨기기
+	fnChangeOption = function(basketIdx){
+		if ($("#ItemListChangeOption"+basketIdx).css("display")=="none") {
+			$("#ItemListChangeOption"+basketIdx).css("display","block");
 		} else {
-			$("#ItemListChangeOption"+basketidx).css("display","none");
+			$("#ItemListChangeOption"+basketIdx).css("display","none");
 		}
 	}
 	
-	fnBasketArray = function(actiontype){
-		var count = 0;
-		var arrBasketidx = 0;
+	// 선택 주문 / 삭제 / 옵션변경
+	fnBasketOne = function(actiontype,basketIdx,qty,optionidx){
+// 		alert(actiontype+"\n"+basketIdx+"\n"+qty+"\n"+optionidx);
 
-		$("input[name=BasketIdx]").each(function(){
-			if ($(this).prop("checked")){
-				count = count + 1;
-				arrBasketidx = arrBasketidx + "," + $(this).val();
-				var basketidx = $(this).parent().find("[name=BasketIdx]").val();
-// 				var basketArr = $("input[name=BasketIdx]").get();
-// 				var basketArr = new Array();
-// 				basketidx = basketidx + "," + $(this).val()
-				alert(actiontype+"\n"+basketidx+"\n"+arrBasketidx);
-
-				if (actiontype == "ARRAYDEL") { // 선택삭제
-// 					location.href = "deleteOne.basket?basketidx="+basketidx;
-// 					alert('삭제되었습니다.');
-				} else if (actiontype == "ARRAYBUY") { // 선택주문
-					location.href = "orderAll.order?basketidx="+basketidx;
-				}
-			}
-		});
-		
-		if (count<1) { // 체크된 상품 없이 버튼 클릭시
-			alert("선택된 상품이 없습니다.");
-			return;
-		}
-
-	}
-	
-	
-	fnBasketOne = function(actiontype,basketidx,qty,optionidx){
-// 		alert(actiontype+"\n"+basketidx+"\n"+qty+"\n"+optionidx);
-		
 		if (actiontype == "BUY") { // 바로주문하기 버튼 클릭시
-			location.href = "orderOne.order?arrBasket=" + basketidx  + "&optionidx=" + optionidx;
+			location.href = "orderOne.order?arrBasket=" + basketIdx  + "&optionidx=" + optionidx;
 		} else if (actiontype == "QTY" && optionidx == 0) { // X(특정 상품 삭제) 버튼 클릭시
-			location.href = "deleteOne.basket?basketidx=" + basketidx;
+			location.href = "deleteOne.basket?basketIdx=" + basketIdx;
 			alert('삭제되었습니다.');
 		} else if (actiontype == "QTY" && optionidx != 0) { // 옵션변경 버튼 클릭시
-			location.href = "updateQuantity.basket?basketidx=" + basketidx + "&qty=" + qty;
+			location.href = "updateQuantity.basket?basketIdx=" + basketIdx + "&qty=" + qty;
 			alert('변경되었습니다.');
 		}
-
 	}
 	
-	fnSetQty = function(basketidx,add){ // 수량 변경 옵션
-		var qty = parseInt($("#Qty"+basketidx).val(),10)+parseInt(add,10);
+	// 상품 수량 변경 옵션
+	fnSetQty = function(basketIdx,add){
+		var qty = parseInt($("#Qty"+basketIdx).val(),10)+parseInt(add,10);
 
-		if (qty<0) {
+		if (qty<=0) {
 			alert("0 이상의 값을 입력해야 합니다.");
 			return;
 		}
-		$("#Qty"+basketidx).val(qty);
+		$("#Qty"+basketIdx).val(qty);
 	}
 	
 	// 숫자 3자리 수마다 콤마찍기
@@ -112,6 +83,7 @@ $(document).ready(function(){
 	    return str.replace(/[^\d]+/g, '');
 	}
 	
+	// 장바구니 금액 계산
 	fnBasketCalculate = function(){
 		var TotalPriceSum = 0; //총 상품금액
 		var TotalPriceDelivery = 0; //총 배송비
@@ -129,40 +101,35 @@ $(document).ready(function(){
 		$("#TotalPriceSum").text(comma(TotalPriceSum)); // 값변경
 		$("#TotalPriceDelivery").text(comma(TotalPriceDelivery));
 		$("#TotalPriceAmount").text(comma(TotalPriceAmount));
-
 	}
 	
-		$(".btn-basketDelete").click(function(){
-			var checkArr = new Array();
-
-			$("input[name='BasketIdx']:checked").each(function(){
-				checkArr.push($(this).attr("data-basketNum"));
-			});
-
-			alert('삭제되었습니다.');
-
-			location.href = "deleteOne.basket?arrBasket=" + checkArr;
+	// 상품 삭제
+	$(".btn_basketDelete").click(function(){ // 삭제버튼 클릭 시
+		var arrBasket = new Array();
+		$("input[name='BasketIdx']:checked").each(function(){
+			arrBasket.push($(this).attr("data-basketNum"));
 		});
+		alert('삭제되었습니다.');
+		location.href = "deleteOne.basket?arrBasket="+arrBasket;
+	});
 
-		$(".btn-basket").click(function(){ // 주문버튼 클릭 시
-			var checkArr = new Array();
-
-			$("input[name='BasketIdx']:checked").each(function(){
-				checkArr.push($(this).attr("data-basketNum"));
-			});
-
-			location.href = "orderOne.order?arrBasket="+checkArr;
+	// 상품 주문
+	$(".btn_basketOrder").click(function(){ // 주문버튼 클릭 시
+		var arrBasket = new Array();
+		$("input[name='BasketIdx']:checked").each(function(){
+			arrBasket.push($(this).attr("data-basketNum"));
 		});
-	
-	
+		if(arrBasket=="") { // 체크된 상품이 없을 경우
+			alert("선택된 상품이 없습니다.");
+			return;
+		} else {
+			location.href = "orderOne.order?arrBasket="+arrBasket;
+		}
+	});
 
 	fnBasketCalculate();
 });
 </script>
-<style type="text/css">
-.btn-basket {background-color:black; border: 1px solid #424242; color: white; font-size: 22px; font-weight: bold; padding: 15px 80px; border-radius: 5px;}
-.btn-basketDelete {border: 1px solid #424242; background-color:white;  margin:0 7px 0 0; color: #424242; font-size: 15px; padding: 8.5px 25px 8.8px 25px; border-radius: 5px;}
-</style>
 </head>
 <body>
 
@@ -241,7 +208,7 @@ $(document).ready(function(){
 	</div>
 	<a class="BasketButton" href="javascript:fnCheckAll();">전체선택</a>
 <!-- 	<a class="BasketButton" href="javascript:fnBasketArray('ARRAYDEL');">선택삭제</a> -->
-	<input type="button" value="선택삭제" class="btn-basketDelete">
+	<input type="button" value="선택삭제" class="btn_basketDelete">
 	<a class="BasketButton" href="javascript:GA_event('장바구니', '하단', '위시리스트'); fnBasketArray('ARRAYWISH');">위시리스트</a>
 	<div class="BasketPrice">
 		<div class="PriceDetail">
@@ -250,10 +217,6 @@ $(document).ready(function(){
 					<dt>총 상품금액</dt>
 					<dd><span id="TotalPriceSum">0</span> 원</dd>
 				</dl>
-<!-- 				<dl class="trBasketPrice"  style="display:none;"> -->
-<!-- 					<dt>회원등급 할인금액</dt> -->
-<!-- 					<dd class="grade5"><span id="TotalPriceMemberLevelDiscount">0</span> 원 [<img src="../Images/Ver1/Common/pc_top_grade5.png">0%]</dd> -->
-<!-- 				</dl> -->
 				<dl class="trBasketPrice">
 					<dt>배송비</dt>
 					<dd><span id="TotalPriceDelivery">0</span> 원</dd>
@@ -266,7 +229,7 @@ $(document).ready(function(){
 		<div class="clear"></div>
 	</div>
 	<div class="BasketBottom">
-		<div class="BasketBuyButton"><input type="button" value="주문버튼" class="btn-basket"></div>
+		<div class="BasketBuyButton"><input type="button" value="주문하기" class="btn_basketOrder"></div>
 <!-- 		<a href="javascript:fnBasketArray('ARRAYBUY');">주문하기</a> -->
 		<div class="BasketComment">
 			장바구니에 담긴 상품은 30일 이후 자동으로 위시리스트로 이동됩니다.<br>

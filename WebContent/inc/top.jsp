@@ -31,12 +31,10 @@
 			<li class="CategoryMiddle"><a href="index.event" onclick="GA_event('HEAD', '최상단 메뉴', '여행');">베스트</a></li>
 			<li class="CategoryMiddle"><a href="EventList.event?event_category=sale_event" onclick="GA_event('HEAD', '최상단 메뉴', '뷰티');">이벤트</a></li>
 			<li class="Cart">
-				<a href="${pageContext.request.contextPath}/cart/Cart.jsp" title="장바구니" onclick="GA_event('HEAD', '최상단 메뉴 PC', '장바구니');">
-						
+				<a href="${pageContext.request.contextPath}/productDetail.basket" title="장바구니">
 					<img src="${pageContext.request.contextPath}/Images/common/top_icon_cart.png">
 				</a>
 			</li>
-			
 			
 			<li class="MyPage">
 			

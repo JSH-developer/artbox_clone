@@ -49,7 +49,7 @@
 	수신자 우편번호 : ${list[0].receiver_postcode}<br>
 	수신자 기본주소 : ${list[0].receiver_addr}<br>
 	수신자 상세주소 : ${list[0].receiver_addr_detail}<br>
-	배송메세지 : ${list[0].receiver_msg}
+	배송메세지 : ${list[0].orders_msg}
 		
 		&nbsp;<br />
 		&nbsp;<br />

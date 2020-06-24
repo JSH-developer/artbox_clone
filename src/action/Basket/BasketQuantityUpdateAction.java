@@ -1,11 +1,12 @@
-package action;
+package action.Basket;
 
 import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import svc.BasketQuantityUpdateService;
+import action.Action;
+import svc.Basket.BasketQuantityUpdateService;
 import vo.ActionForward;
 
 // 장바구니 수량 옵션 변경하는 BasketQuantityUpdateAction 클래스 정의
@@ -15,10 +16,11 @@ public class BasketQuantityUpdateAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("BasketQuantityUpdateAction");
 		ActionForward forward = new ActionForward();
-		int basketidx = Integer.parseInt(request.getParameter("basketidx"));
+		
+		int basketIdx = Integer.parseInt(request.getParameter("basketIdx"));
 		int quantity = Integer.parseInt(request.getParameter("qty"));
 		
-		boolean isUpdateSuccess = BasketQuantityUpdateService.updateBasket(basketidx, quantity);
+		boolean isUpdateSuccess = BasketQuantityUpdateService.updateBasket(basketIdx, quantity);
 		
 		// 수량 변경 결과에 따른 처리
 		// => isUpdateSuccess 가 false 일 경우

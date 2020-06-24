@@ -1,4 +1,4 @@
-package svc;
+package svc.Basket;
 
 import static db.jdbcUtil.*;
 
@@ -36,19 +36,48 @@ public class OrderOneListService {
 			list.add(basketList);
 		}
 		
-		
 /*
 		// 4. orderDAO 클래스의 selectOrderList() 메서드를 호출하여
 		//    파라미터 : member_id
 		//    리턴타입 : List
 		List list = orderDAO.OrderOneList(member_id, product_num);
  */
-
+		
 		// 5. Connection 객체 반환
 		close(con);
 		
 		// 6. 작업 결과 리턴
 		return list;
 	}
+	
+	public List getBasicReceiverList(String member_id) {
+		System.out.println("ReceiverListService - getReceiverList()");
+		
+		Connection con = getConnection();
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		orderDAO.setConnection(con);
+		
+		List list = new ArrayList();
+		list = orderDAO.getBasicReceiverList(member_id);
+		
+		close(con);
+		
+		return list;
+	}
+	
+	public List getLastReceiverList(String member_id) {
+		System.out.println("ReceiverListService - getLastReceiverList()");
+		
+		Connection con = getConnection();
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		orderDAO.setConnection(con);
+		
+		List list = new ArrayList();
+		list = orderDAO.getLastReceiverList(member_id);
 
+		close(con);
+		
+		return list;
+	}
+	
 }
