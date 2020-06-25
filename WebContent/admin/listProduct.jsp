@@ -47,6 +47,7 @@ $(document).ready(function(){
 <div class="admin_nav_wrap">
 <ul class="admin_nav">
 	<li><a href="home.admin">관리자 홈</a></li>
+	<li><a href="ProductList.admin">상품 목록</a></li>
  	<li><a href="CategoryList.admin">카테고리 목록</a></li>
 	<li><a href="OptionList.admin">옵션 목록</a></li>
 </ul>

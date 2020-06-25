@@ -12,7 +12,7 @@
 function deleteProduct(){
 	var del = confirm('상품을 삭제 하시겠습니까?');
 	if(del){
-		location.href = "ProductDeletePro.admin?num=${productBean.product_num}&page=${page}";
+		location.href = "ProductDeletePro.admin?num=${productBean.product_num}&page=${param.page}&option_code=${productBean.product_option_code}";
 	}
 	
 }
@@ -33,8 +33,6 @@ function deleteProduct(){
     <jsp:include page="/inc/top.jsp"></jsp:include>
  <!-- 헤더 -->
  
- <input type = "hidden" name = "page" value = "${page}"/>
- 
  
 <div class="pageContent">
 <h1 class="viewTitle">상품상세보기</h1>
@@ -44,6 +42,7 @@ function deleteProduct(){
 <tr><th>상품 카테고리</th><td><c:out value="${productBean.product_category_code}"/></td></tr>
 <tr><th>상품 옵션</th><td><c:out value="${productBean.product_option_code}"/></td></tr>
 <tr><th>상품 이름</th><td><c:out value="${productBean.product_name}"/></td></tr>
+<tr><th>상품 브랜드</th><td><c:out value="${productBean.product_brand}"/></td></tr>
 <tr><th>상품 코드</th><td><c:out value="${productBean.product_code}"/></td></tr>
 <tr><th>상품 대표 이미지</th><td><img src="${pageContext.request.contextPath}/upload/<c:out value="${productBean.product_image}"/>" width="200px" height="200px"/></td></tr>
 <tr><th>상품 대표 이미지2</th><td><img src="${pageContext.request.contextPath}/upload/<c:out value="${productBean.product_image2}"/>" width="200px" height="200px"/></td></tr>

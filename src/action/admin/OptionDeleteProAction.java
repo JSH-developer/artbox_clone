@@ -19,9 +19,9 @@ public class OptionDeleteProAction implements Action {
 		String page = request.getParameter("page");
 		
 		OptionDeleteService optionDeleteService = new OptionDeleteService();
-		boolean isDelete = optionDeleteService.deleteOption(num);
+//		boolean isDelete = optionDeleteService.deleteOption(num);
 		
-		if(isDelete) {
+		if(1 == 2) {
 			
 			forward = new ActionForward();
 			forward.setPath("/OptionList.admin?page="+page);

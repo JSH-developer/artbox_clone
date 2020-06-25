@@ -40,6 +40,8 @@ function deleteOption(num){
 <ul class="admin_nav">
 	<li><a href="home.admin">관리자 홈</a></li>
 	<li><a href="ProductList.admin">상품 목록</a></li>
+ 	<li><a href="CategoryList.admin">카테고리 목록</a></li>
+	<li><a href="OptionList.admin">옵션 목록</a></li>
 </ul>
 </div>
 
@@ -61,7 +63,7 @@ function deleteOption(num){
 	◁&nbsp;
 	</c:when>
 	<c:when test="${pageInfo.page > 1}">
-	<a href="CategoryList.admin?page=${pageInfo.page-1}">◁</a>&nbsp;
+	<a href="OptionList.admin?page=${pageInfo.page-1}">◁</a>&nbsp;
 	</c:when>
 	</c:choose>
 	<c:forEach var="a" begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1">
@@ -70,7 +72,7 @@ function deleteOption(num){
 			[${a}]
 		</c:when>
 		<c:otherwise>
-			<a href="CategoryList.admin?page=${a}">[${a}]
+			<a href="OptionList.admin?page=${a}">[${a}]
 			</a>&nbsp;
 		</c:otherwise>
 		</c:choose>
@@ -80,7 +82,7 @@ function deleteOption(num){
 		▷
 	</c:when>
 	<c:otherwise>
-		<a href="CategoryList.admin?page=${pageInfo.page+1}">▷</a>
+		<a href="OptionList.admin?page=${pageInfo.page+1}">▷</a>
 	</c:otherwise>
 	</c:choose>
 </section>

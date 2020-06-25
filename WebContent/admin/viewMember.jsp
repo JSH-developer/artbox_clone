@@ -14,10 +14,7 @@ function deleteMember(){
 	if(del){
 		location.href = "MemberDeletePro.admin?num=${memberBean.num}&page=${param.page}&opt=${param.opt}&kwd=&${param.kwd}";
 	}
-	
 }
-
-
 </script>
 
 <!-- 구글 폰트  -->
@@ -56,12 +53,6 @@ function deleteMember(){
 <button onclick="deleteMember()" class="viewBtn deleteBtn">회원삭제하기</button>
 <button onclick="location.href='MemberList.admin?page=${param.page}&opt=${param.opt}&kwd=${param.kwd}'" class="viewBtn">목록가기</button>
 </div>
-
-<h1>orders 테이블 활용</h1>
-구글차트활용<br>
-누적금액: => 회원등급 반영 5만원/ 50만원/ 100만원
-
-
 
 
 </div>

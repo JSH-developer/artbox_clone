@@ -45,7 +45,7 @@ public class ProductModifyProAction implements Action {
 				"UTF-8",  // 파일명에 대한 인코딩 방식
 				new DefaultFileRenamePolicy()); // 파일명 중복 시 중복 파일명을 처리할 객체
 		
-		ProductWriteService productWriteService = new ProductWriteService();
+//		ProductWriteService productWriteService = new ProductWriteService();
 		ProductModifyService productModifyService = new ProductModifyService();
 		ProductBean productBean = new ProductBean();
 		productBean.setProduct_num(Integer.parseInt(multi.getParameter("num")));
@@ -65,7 +65,6 @@ public class ProductModifyProAction implements Action {
 		productBean.setProduct_category_code(multi.getParameter("product_category_code"));
 		productBean.setProduct_option_code(multi.getParameter("product_option_code_origin"));
 		productBean.setProduct_option_code(multi.getParameter("product_option_code"));
-		
 		
 		boolean isUpdate = productModifyService.modifyProduct(productBean);
 		

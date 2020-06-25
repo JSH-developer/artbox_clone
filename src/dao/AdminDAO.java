@@ -535,14 +535,13 @@ public class AdminDAO {
 	}
 	
 	// 옵션 기능 삭제 수행
-	public int deleteOption(int num) {
+	public int deleteOption(String option_code) {
 		int deleteCount = 0;
-		
 		try {
 //			String sql="DELETE FROM product_option WHERE num=?";
-			String sql="UPDATE product_option SET option_code = concat(option_code,'XX') WHERE num=?";
+			String sql="UPDATE product_option SET option_code = concat(option_code,'XX') WHERE option_code=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, num);
+			pstmt.setString(1, option_code);
 			
 			deleteCount = pstmt.executeUpdate();
 		}catch(SQLException e) {
@@ -631,7 +630,8 @@ public class AdminDAO {
 		int updateCount = 0;
 		
 		try {
-			String sql="UPDATE product SET code=?, name=?, image=?, image2=?, description=?, price=?, brand=?, stock_count=?, sale_price=?, keywords=?, category_code=?, option_code=? WHERE num=?";
+//			String sql="UPDATE product SET code=?, name=?, image=?, image2=?, description=?, price=?, brand=?, stock_count=?, sale_price=?, keywords=?, category_code=?, option_code=? WHERE num=?";
+			String sql="UPDATE product SET code=?, name=?, image=?, image2=?, description=?, price=?, brand=?, stock_count=?, sale_price=?, keywords=?, category_code=? WHERE num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, productBean.getProduct_code());
 			pstmt.setString(2, productBean.getProduct_name());
@@ -644,8 +644,8 @@ public class AdminDAO {
 			pstmt.setInt(9, productBean.getProduct_sale_price());
 			pstmt.setString(10, productBean.getProduct_keywords());
 			pstmt.setString(11, productBean.getProduct_category_code());
-			pstmt.setString(12, productBean.getProduct_option_code());
-			pstmt.setInt(13, productBean.getProduct_num());
+//			pstmt.setString(12, productBean.getProduct_option_code());
+			pstmt.setInt(12, productBean.getProduct_num());
 			
 			updateCount = pstmt.executeUpdate();
 			

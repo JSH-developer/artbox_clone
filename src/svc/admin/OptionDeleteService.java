@@ -11,14 +11,14 @@ import dao.AdminDAO;
 
 public class OptionDeleteService {
 
-	public boolean deleteOption(int num) {
+	public boolean deleteOption(String option_code) {
 		boolean isDelete = false;
 		
 		Connection con = getConnection(); 
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
 		
-		int deleteCount = adminDAO.deleteOption(num);
+		int deleteCount = adminDAO.deleteOption(option_code);
 		
 		if(deleteCount>0) {
 			commit(con);
