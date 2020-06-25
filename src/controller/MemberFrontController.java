@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
-import action.Action;
+import action.member.Action;
 import action.member.MemberJoinAction;
 import action.member.MemberJoinCheckAction;
 import action.member.MemberLoginAction;
@@ -36,7 +36,7 @@ public class MemberFrontController extends HttpServlet {
     		
     	}else if(command.equals("/joinPro.member")) {
     		
-//    		action = new MemberJoinAction(); /// 여기 오류가 계속떠서 일단 주석처리
+    		action = new MemberJoinAction(); /// 여기 오류가 계속떠서 일단 주석처리
     		try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
