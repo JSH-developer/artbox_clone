@@ -5,11 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import vo.CategoryBean;
 import vo.MemberBean;
 import vo.OptionBean;
 import vo.OrdersBean;
+import vo.OrdersDetailBean;
 import vo.ProductBean;
 import vo.ReceiverBean;
 
@@ -126,6 +128,33 @@ public class AdminDAO {
 		return productBean;
 	}
 	
+	// 상품 정보를 뽑아서 옵션등록 페이지에서 사용하기
+	public ProductBean toViewProduct(String product_code) {
+		ProductBean productBean = null;
+		
+		try {
+			String sql="SELECT * FROM product WHERE code=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, product_code);
+			
+			rs= pstmt.executeQuery();
+			
+			if(rs.next()) {
+				productBean = new ProductBean();
+				productBean.setProduct_price(rs.getInt("price"));
+				productBean.setProduct_brand(rs.getString("brand"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return productBean;
+	}
+	
 	// 상품 리스트를 출력하기 위한 함수
 	public ArrayList<ProductBean> toListProduct(int page, int limit) {
 		ArrayList<ProductBean> productList = new ArrayList<ProductBean>();
@@ -169,6 +198,57 @@ public class AdminDAO {
 		return productList;
 	}
 	
+	public ArrayList<ProductBean> toListProduct(int page, int limit, String opt, String kwd) {
+		ArrayList<ProductBean> productList = new ArrayList<ProductBean>();
+		
+		int startRow = (page-1)*limit;
+		
+		try {
+			String sql = "";
+			if(opt.equals("name")) {
+				sql="SELECT * FROM product WHERE name LIKE ? ORDER BY num DESC limit ?,?";
+			}else if(opt.equals("code")){
+				sql="SELECT * FROM product WHERE code LIKE ? ORDER BY num DESC limit ?,?";
+			}else if(opt.equals("keywords")){
+				sql="SELECT * FROM product WHERE keywords LIKE ? ORDER BY num DESC limit ?,?";
+			}
+			
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, "%"+kwd+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, limit);
+			
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ProductBean productBean = new ProductBean();
+				productBean = new ProductBean();
+				productBean.setProduct_num(rs.getInt("num"));
+				productBean.setProduct_code(rs.getString("code"));
+				productBean.setProduct_name(rs.getString("name"));
+				productBean.setProduct_image(rs.getString("image"));
+				productBean.setProduct_description(rs.getString("description"));
+				productBean.setProduct_price(rs.getInt("price"));
+				productBean.setProduct_brand(rs.getString("brand"));
+				productBean.setProduct_stock_count(rs.getInt("stock_count"));
+				productBean.setProduct_sale_price(rs.getInt("sale_price"));
+				productBean.setProduct_keywords(rs.getString("keywords"));
+				productBean.setProduct_regdate(rs.getTimestamp("regdate"));
+				productBean.setProduct_category_code(rs.getString("category_code"));
+				productBean.setProduct_option_code(rs.getString("option_code"));
+				productList.add(productBean);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return productList;
+	}
+	
 	// 상품 갯수 세기
 	public int productCount() {
 		int listCount = 0;
@@ -176,6 +256,37 @@ public class AdminDAO {
 		try {
 			String sql ="SELECT COUNT(num) FROM product";
 			pstmt=con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	public int productCount(String opt, String kwd) {
+		int listCount = 0;
+		
+		try {
+			String sql = "";
+			if(opt.equals("name")) {
+				sql ="SELECT COUNT(num) FROM product WHERE name LIKE ?";
+			}else if(opt.equals("code")){
+				sql ="SELECT COUNT(num) FROM product WHERE code LIKE ?";
+			}else if(opt.equals("keywords")){
+				sql ="SELECT COUNT(num) FROM product WHERE keywords LIKE ?";
+			}
+			
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1,"%"+kwd+"%");
 			
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -341,18 +452,19 @@ public class AdminDAO {
 	}
 
 	// 옵션코드를 만들기 위한 함수
-	public String toMakeOptionCode(String product_index) {
+	public String toMakeOptionCode(String product_code_base) {
 		String result ="";
+		String opt_base = product_code_base.substring(4);
 		
 		try {
 			String sql = "SELECT LPAD(COUNT(num),2,'0') 'option_num' FROM product_option WHERE option_code LIKE ?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, product_index+"%");
+			pstmt.setString(1, opt_base+"%");
 			
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {
-				result = product_index + rs.getString("option_num");
+				result = opt_base + rs.getString("option_num");
 			}
 			
 			
@@ -423,14 +535,13 @@ public class AdminDAO {
 	}
 	
 	// 옵션 기능 삭제 수행
-	public int deleteOption(int num) {
+	public int deleteOption(String option_code) {
 		int deleteCount = 0;
-		
 		try {
 //			String sql="DELETE FROM product_option WHERE num=?";
-			String sql="UPDATE product_option SET option_code = concat(option_code,'XX') WHERE num=?";
+			String sql="UPDATE product_option SET option_code = concat(option_code,'XX') WHERE option_code=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, num);
+			pstmt.setString(1, option_code);
 			
 			deleteCount = pstmt.executeUpdate();
 		}catch(SQLException e) {
@@ -495,7 +606,7 @@ public class AdminDAO {
 		String result ="";
 		
 		try {
-			String sql="SELECT LEFT(option_code,3) 'num2', name, code FROM product WHERE code LIKE '%00'";
+			String sql="SELECT CONCAT(category_code,LEFT(option_code,3)) 'num2', name, code FROM product WHERE code LIKE '%00'";
 			pstmt=con.prepareStatement(sql);
 			
 			rs= pstmt.executeQuery();
@@ -519,7 +630,8 @@ public class AdminDAO {
 		int updateCount = 0;
 		
 		try {
-			String sql="UPDATE product SET code=?, name=?, image=?, image2=?, description=?, price=?, brand=?, stock_count=?, sale_price=?, keywords=?, category_code=?, option_code=? WHERE num=?";
+//			String sql="UPDATE product SET code=?, name=?, image=?, image2=?, description=?, price=?, brand=?, stock_count=?, sale_price=?, keywords=?, category_code=?, option_code=? WHERE num=?";
+			String sql="UPDATE product SET code=?, name=?, image=?, image2=?, description=?, price=?, brand=?, stock_count=?, sale_price=?, keywords=?, category_code=? WHERE num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, productBean.getProduct_code());
 			pstmt.setString(2, productBean.getProduct_name());
@@ -532,8 +644,8 @@ public class AdminDAO {
 			pstmt.setInt(9, productBean.getProduct_sale_price());
 			pstmt.setString(10, productBean.getProduct_keywords());
 			pstmt.setString(11, productBean.getProduct_category_code());
-			pstmt.setString(12, productBean.getProduct_option_code());
-			pstmt.setInt(13, productBean.getProduct_num());
+//			pstmt.setString(12, productBean.getProduct_option_code());
+			pstmt.setInt(12, productBean.getProduct_num());
 			
 			updateCount = pstmt.executeUpdate();
 			
@@ -588,6 +700,34 @@ public class AdminDAO {
 		
 		return listCount;
 	}
+	
+	public int memberCount(String opt, String kwd) {
+		int listCount = 0;
+		
+		try {
+			String sql = "";
+			if(opt.equals("id")) {
+				sql ="SELECT COUNT(num) FROM member WHERE id LIKE ?";
+			}else if(opt.equals("name")){
+				sql ="SELECT COUNT(num) FROM member WHERE name LIKE ?";
+			}
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, "%"+kwd+"%");
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
 
 	
 	// 멤버 리스트를 출력하기 위한 함수
@@ -601,6 +741,55 @@ public class AdminDAO {
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, limit);
+			
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				MemberBean memberBean = new MemberBean();
+				memberBean.setNum(rs.getInt("num"));
+				memberBean.setId(rs.getString("id"));
+				memberBean.setPw(rs.getString("pw"));
+				memberBean.setName(rs.getString("name"));
+				memberBean.setPostcode(rs.getString("postcode"));
+				memberBean.setAddr_basic(rs.getString("addr_basic"));
+				memberBean.setAddr_detail(rs.getString("addr_detail"));
+				memberBean.setEmail(rs.getString("email"));
+				memberBean.setPhone(rs.getString("phone"));
+				memberBean.setGender(rs.getString("gender"));
+				memberBean.setPoint(rs.getInt("point"));
+				memberBean.setBirth(rs.getString("birth"));
+				memberBean.setGrade(rs.getString("grade"));
+				memberBean.setRegdate(rs.getDate("regdate"));
+				
+				memberList.add(memberBean);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return memberList;
+	}
+	
+	public ArrayList<MemberBean> toListMember(int page, int limit, String opt, String kwd) {
+		ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
+		
+		int startRow = (page-1)*limit;
+		
+		try {
+			String sql = "";
+			if(opt.equals("id")) {
+				sql ="SELECT * FROM member WHERE id LIKE ? ORDER BY num DESC limit ?,?";
+			}else if(opt.equals("name")){
+				sql ="SELECT * FROM member WHERE name LIKE ? ORDER BY num DESC limit ?,?";
+			}
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, "%"+kwd+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, limit);
 			
 			rs= pstmt.executeQuery();
 			
@@ -716,6 +905,29 @@ public class AdminDAO {
 		
 		return listCount;
 	}
+	
+	public int orderCount(int state) {
+		int listCount = 0;
+		
+		try {
+			String sql ="SELECT COUNT(num) FROM orders WHERE state=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, state);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
 
 	// order 리스트 만들기
 	public ArrayList<OrdersBean> toListOrder(int page, int limit) {
@@ -728,6 +940,40 @@ public class AdminDAO {
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, limit);
+			
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				OrdersBean ordersBean = new OrdersBean();
+				ordersBean.setOrders_num(rs.getInt("num"));
+				ordersBean.setOrders_order_num(rs.getInt("order_num"));
+				ordersBean.setOrders_member_id(rs.getString("member_id"));
+				ordersBean.setOrders_regdate(rs.getTimestamp("regdate"));
+				ordersBean.setOrders_state(rs.getInt("state"));
+				orderList.add(ordersBean);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return orderList;
+	}
+	
+	public ArrayList<OrdersBean> toListOrder(int page, int limit, int state) {
+		ArrayList<OrdersBean> orderList = new ArrayList<OrdersBean>();
+		
+		int startRow = (page-1)*limit;
+		
+		try {
+			String sql="SELECT * FROM orders WHERE state = ? ORDER BY regdate DESC limit ?,?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, state);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, limit);
 			
 			rs= pstmt.executeQuery();
 			
@@ -770,7 +1016,6 @@ public class AdminDAO {
 				ordersBean.setOrders_order_name(rs.getString("order_name"));
 				ordersBean.setOrders_order_email(rs.getString("order_email"));
 				ordersBean.setOrders_order_phone(rs.getString("order_phone"));
-				ordersBean.setOrders_msg(rs.getString("msg"));
 				ordersBean.setOrders_point(rs.getInt("point"));
 				ordersBean.setOrders_total_price(rs.getInt("total_price"));
 				ordersBean.setOrders_payMethod(rs.getString("pay_method"));
@@ -807,6 +1052,7 @@ public class AdminDAO {
 				receiverBean.setReceiver_postcode(rs.getString("receiver_postcode"));
 				receiverBean.setReceiver_addr(rs.getString("receiver_addr"));
 				receiverBean.setReceiver_addr_detail(rs.getString("receiver_addr_detail"));
+//				receiverBean.setReceiver_msg(rs.getString("receiver_msg"));
 				receiverBean.setReceiver_date(rs.getTimestamp("receiver_date").toString());
 			}
 			
@@ -820,5 +1066,59 @@ public class AdminDAO {
 		return receiverBean;
 	}
 
+	// 주문상품상세 출력해오기
+	public ArrayList<OrdersDetailBean> toViewOrdersDetail(int orders_order_num) {
+		ArrayList<OrdersDetailBean> ordersDetailBeans = new ArrayList<OrdersDetailBean>();
+		
+		try {
+			String sql="SELECT * FROM orders_detail WHERE orders_order_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, orders_order_num);
+			
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				OrdersDetailBean ordersDetailBean = new OrdersDetailBean();
+				ordersDetailBean.setNum(rs.getInt("num"));
+				ordersDetailBean.setQuantity(rs.getInt("quantity"));
+				ordersDetailBean.setOrders_order_num(rs.getString("orders_order_num"));
+				ordersDetailBean.setProduct_num(rs.getInt("product_num"));
+				ordersDetailBean.setReceiver_num(rs.getInt("receiver_num"));
+				ordersDetailBean.setCode(rs.getString("code"));
+				ordersDetailBean.setName(rs.getString("name"));
+				ordersDetailBean.setImage(rs.getString("image"));
+				ordersDetailBean.setPrice(rs.getInt("price"));
+				ordersDetailBeans.add(ordersDetailBean);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return ordersDetailBeans;
+	}
+
+	// 주문 배송상태 변경하기
+	public int changeState(int state, int num) {
+		int changeCount = 0;
+		
+		try {
+			String sql="UPDATE orders SET state = ? WHERE num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, state);
+			pstmt.setInt(2, num);
+			
+			changeCount = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return changeCount;
+	}
 
 }
