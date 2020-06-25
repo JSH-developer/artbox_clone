@@ -30,13 +30,13 @@ public class OrderCompleteAction implements Action {
 		ActionForward forward = null;
 		
 		String arrBasket = request.getParameter("arrBasket");
-		System.out.println("가져온값" + arrBasket);
+		System.out.println("OrderCompleteAction 가져온값" + arrBasket);
 
 		// 세션값 없으면 로그인페이지로 돌아가기
 		if(id == null) {
 			forward = new ActionForward();
 			forward.setRedirect(true);
-			forward.setPath("/artbox_clone/login.basket");
+			forward.setPath("/artbox_clone/memberLoginForm.member");
 			return forward;
 		}
 		
@@ -59,33 +59,44 @@ public class OrderCompleteAction implements Action {
 //		System.out.println("사이즈~~~!" + orderList.size());
 		
 		System.out.println("아이디 : " + id);
-		System.out.println("가격 : " + request.getParameter("TotalPriceAmount"));
+		int BasicAddr =0;
+		System.out.println("들고온 베이직넘버" + request.getParameter("BasicAddr"));
+		if(request.getParameter("BasicAddr") != null) {
+			BasicAddr = 1;
+		}
+		System.out.println("기본 배송지 여부" + BasicAddr);
+		System.out.println("포인트 : " + request.getParameter("point"));
+		System.out.println("가격 : " + request.getParameter("Total"));
 		System.out.println("이름 : " + request.getParameter("memname"));
 		System.out.println("이메일 : " + request.getParameter("mememail"));
-		System.out.println("폰번호 : " + request.getParameter("phone123"));
-		System.out.println("배송이름 : " + request.getParameter("i_shipname"));
-		System.out.println("배송우편 : " + request.getParameter("i_shipzipcode"));
-		System.out.println("배송주소 : " + request.getParameter("i_shipaddr"));
+		System.out.println("폰번호 : " + request.getParameter("tel"));
+		System.out.println("배송이름 : " + request.getParameter("shipname"));
+		System.out.println("배송우편 : " + request.getParameter("shipzipcode"));
+		System.out.println("배송주소 : " + request.getParameter("shipaddr"));
+		System.out.println("배송메세지 : " + request.getParameter("shipalertdesc"));
+		System.out.println("배송전화번호 : " + request.getParameter("shipcpnum1")+"-"+request.getParameter("shipcpnum2")+"-"+request.getParameter("shipcpnum3"));
+		System.out.println("페이방버ㅂ: " +  request.getParameter("pay_method"));
 		
 		// 폼 => 자바빈 저장
 		// 상품결제 Bean 저장
 		ordersbean.setOrders_member_id(id);
 		ordersbean.setOrders_order_name(request.getParameter("memname"));
 		ordersbean.setOrders_order_email(request.getParameter("mememail"));
-		ordersbean.setOrders_order_phone(request.getParameter("phone123"));
-		ordersbean.setOrders_msg("배송지연습");
-		ordersbean.setOrders_point(Integer.parseInt("1"));
-		ordersbean.setOrders_total_price(Integer.parseInt(request.getParameter("TotalPriceAmount")));
-		ordersbean.setOrders_payMethod("페이방법");
-		ordersbean.setOrders_state(Integer.parseInt("1"));
+		ordersbean.setOrders_order_phone(request.getParameter("tel"));
+		ordersbean.setOrders_msg(request.getParameter("shipalertdesc"));
+		ordersbean.setOrders_point(Integer.parseInt(request.getParameter("point")));
+		ordersbean.setOrders_total_price(Integer.parseInt(request.getParameter("Total")));
+		ordersbean.setOrders_payMethod("card");
+		ordersbean.setOrders_state(0);
 		
 		// 배송지 Bean 저장
-		receiverBean.setReceiver("회사");
-		receiverBean.setReceiver_name(request.getParameter("memname"));
-		receiverBean.setReceiver_phone(request.getParameter("phone123"));
-		receiverBean.setReceiver_postcode("12345");
-		receiverBean.setReceiver_addr("주소연습");
-		receiverBean.setReceiver_addr_detail("주소디테일연습");
+		receiverBean.setReceiver_basic_num(BasicAddr);
+		receiverBean.setReceiver(request.getParameter("receiver"));
+		receiverBean.setReceiver_name(request.getParameter("shipname"));
+		receiverBean.setReceiver_phone(request.getParameter("shipcpnum1")+"-"+request.getParameter("shipcpnum2")+"-"+request.getParameter("shipcpnum3"));
+		receiverBean.setReceiver_postcode(request.getParameter("shipzipcode"));
+		receiverBean.setReceiver_addr(request.getParameter("shipaddr"));
+		receiverBean.setReceiver_addr_detail(request.getParameter("shipaddrd"));
 		receiverBean.setReceiver_member_id(id);
 		
 		// 주문상세보기 Bean 저장
@@ -117,8 +128,9 @@ public class OrderCompleteAction implements Action {
 			out.println("history.back();");
 			out.println("</script>");
 		} else {
-//			boolean isDeleteSuccess = BasketDeleteOneService.deleteBasket(arrBasket);
-//			if(!isDeleteSuccess) {
+//			boolean isDeleteSuccess = BasketDeleteOneService.deleteBasket(arrBasket); // 장바구니 삭제
+//			boolean isUpdateItemQuantity = itemdao.updateAmount(arrBasket); // 상품개수 수정
+//			if(!isDeleteSuccess || !isUpdateItemQuantity) {
 //				System.out.println("isDeleteSuccess 주문 실패!");
 //				out.println("<script>");
 //				out.println("alert('주문 실패!')");

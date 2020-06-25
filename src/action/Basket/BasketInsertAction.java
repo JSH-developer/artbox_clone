@@ -29,7 +29,7 @@ public class BasketInsertAction implements Action {
 		if(id == null){
 			forward = new ActionForward();
 			forward.setRedirect(true);
-			forward.setPath("/basket/login.basket");
+			forward.setPath("/artbox_clone/memberLoginForm.member");
 			return forward;
 		}
 		String result = request.getParameter("result");

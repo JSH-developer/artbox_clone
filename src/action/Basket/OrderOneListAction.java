@@ -22,13 +22,13 @@ public class OrderOneListAction implements Action {
 		ActionForward forward = null;
 		
 		String arrBasket = request.getParameter("arrBasket");
-		System.out.println("가져온값" + arrBasket);
+		System.out.println("OrderOneListAction 가져온값" + arrBasket);
 		
 		// 세션값 없으면 로그인페이지로 돌아가기
 		if(id == null){
 			forward = new ActionForward();
 			forward.setRedirect(true);
-			forward.setPath("/artbox_clone/login.basket");
+			forward.setPath("/artbox_clone/memberLoginForm.member");
 			return forward;
 		}
 		
