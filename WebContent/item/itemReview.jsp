@@ -117,109 +117,108 @@
 		</div>
 		<div class="full-screen">
 			<div class="full-screen-close"></div>
-			<div>
-				<input type="file" id='upload' name='upload'>
-				<label id="la" for="upload"></label>
-				<div id='preview'> </div>
+			<div class="review-overlay">
+				<div class="overlay-header">상품후기 작성하기<input class="overlay-close" type="button" value=""></div>
+				<div class="overlay-body">
+					<img class="candy-img" src="${pageContext.request.contextPath}/Images/item/img_epilogue_bg.png">
+					<div class="input">
+						<span class="tt">별점</span>
+						<span class="score"><span>기능</span><b value="1">★</b> <b value="2">★</b> <b value="3">★</b> <b value="4">★</b> <b value="5">★</b></span>
+						<span class="score"><span>디자인</span><b value="1">★</b> <b value="2">★</b> <b value="3">★</b> <b value="4">★</b> <b value="5">★</b></span>
+						<span class="score"><span>가격</span><b value="1">★</b> <b value="2">★</b> <b value="3">★</b> <b value="4">★</b> <b value="5">★</b></span>
+						<span class="score"><span>품질</span><b value="1">★</b> <b value="2">★</b> <b value="3">★</b> <b value="4">★</b> <b value="5">★</b></span>
+					</div>
+					<script type="text/javascript">
+			        $('.input b').click(function(){
+			            $(this).parent().children("b").removeClass("on");  /* 별점의 on 클래스 전부 제거 */ 
+			            $(this).addClass("on").prevAll("b").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
+			            alert($(this).attr("value"));
+			            return false;
+			        });
+					</script>
+					<div class="input">
+						<span class="tt">내용</span>
+						<textarea placeholder="- 구매/취소/반품하신 상품과 무관한 내용이나 이미지, 비방, 도배성 글 등 부적합한 내용일 때는 통보없이 삭제 및 지급된 꿈캔디가 회수될 수 있습니다."></textarea>
+					</div>
+					<div class="input">
+						<span class="tt">이미지 파일</span>
+						&nbsp;&nbsp;&nbsp;${sessionScope.id }
+					</div>
+					<span class="tt">이메일 주소</span>
+					<input type="text" name="email" value="" maxlength="30">
+				</div>
+				<div class="input">
+					<span class="tt">문의분야</span>
+					<select name="fild">
+						<option value="" selected="selected">선택하세요</option>
+						<option value="입고">입고</option>
+						<option value="재고">재고</option>
+						<option value="기타">기타</option>
+					</select>
+				</div>
+				<div class="input">
+					<span class="tt">제목</span>
+					<input type="text" name="title" value="" maxlength="30">
+				</div>
+				<div class="input">
+					<span class="tt">문의내용</span>
+					<textarea name="content"></textarea>
+					<span class="etc">*주문/배송/반품 등 일반 문의는 '고객감동센터 &gt; 1:1 문의/상담'으로 해주시기 바랍니다.</span>
+				</div>
+				<div class="PrivacyCheck">
+					<b>개인정보 수집 및 이용에 동의합니다. <input type="checkbox" name="privacycheck1"></b>
+					<p>(주)아트박스에서는 고객상담을 목적으로 개인정보(이름, 휴대폰번호, 이메일)를 수집하며, 수집한 개인정보는 전자상거래 등에서의 소비자보호에 관한 법률에 의거 상담 접수일로부터 3년 또는 5년간 보관 후 파기 합니다. 동의 거부 시 상담이 제한되거나 거부될 수 있습니다.</p>
+					<b>제 3자 정보 제공에 동의합니다. <input type="checkbox" name="privacycheck2"></b>
+					<p>(주)아트박스에서 고객상담을 목적으로 (주)웅진에 개인정보(이름, 휴대폰번호, 이메일)를 제공하며, 제공한 개인정보는 전자상거래 등에서의 소비자보호에 관한 법률에 의거 상담 접수일로 부터 3년 또는 5년간 보관 후 파기 합니다. 동의 거부 시 상담이 제한되거나 거부될 수 있습니다.</p>
+				</div>
+				<div class="button">
+					<input class="btnRegProductQna" type="submit" value="등록하기">
+				</div>
+				<div class="clear"></div>
+				<label>
+					<img id="blah1" src="../Images/item/img_arrow_left.png" alt="" class="im" title="선택된 파일 없음"/>
+					<input type='file' onchange="readURL(this,1);" />
+				</label>
+				<label>
+					<img id="blah2" src="../Images/item/img_arrow_left.png" alt="" class="im" title="선택된 파일 없음"/>
+					<input type='file' onchange="readURL(this,2);" />
+				</label>
+				<label>
+					<img id="blah3" src="../Images/item/img_arrow_left.png" alt="" class="im" title="선택된 파일 없음"/>
+					<input type='file' onchange="readURL(this,3);" />
+				</label>
+				<label>
+					<img id="blah4" src="../Images/item/img_arrow_left.png" alt="" class="im" title="선택된 파일 없음"/>
+					<input type='file' onchange="readURL(this,4);" />
+				</label>
 			</div>
 		</div>
-		<script type="text/javascript">
-    		var upload = document.querySelector('#upload');
-   			var preview = document.querySelector('#preview');
- 
-    		upload.addEventListener('change',function (e) {
-        		var get_file = e.target.files;
- 
-        		var image = document.createElement('img');
- 
-        		/* FileReader 객체 생성 */
-        		var reader = new FileReader();
- 
-        		/* reader 시작시 함수 구현 */
-        		reader.onload = (function (aImg) {
-            		console.log(1);
- 
-            		return function (e) {
-                		console.log(3);
-                		/* base64 인코딩 된 스트링 데이터 */
-                		aImg.src = e.target.result
-            		}
-        		})(image)
- 
-        		if(get_file){
-            /*  get_file[0] 을 읽어서 read 행위가 종료되면 loadend 이벤트가 트리거 되고 
-                onload 에 설정했던 return 으로 넘어간다.
-				이와 함게 base64 인코딩 된 스트링 데이터가 result 속성에 담겨진다.
-            */
-            reader.readAsDataURL(get_file[0]);
-            console.log(2);
-        }
- 
-        preview.appendChild(image);
-
-    })
-	</script>
 	<script type="text/javascript">
-// 		$(document).ready(function(){
-// 			function readURL(input) {
-// 				if (input.files && input.files[0]){
-// 					var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
-// 					reader.onload = function (e) {
-// 					//파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
-// 						$('#blah').attr('src', e.target.result);
-// 						//이미지 Tag의 SRC속성에 읽어들인 File내용을 지정
-// 						//(아래 코드에서 읽어들인 dataURL형식)
-// 					}
-// 					reader.readAsDataURL(input.files[0]);
-// 					//File내용을 읽어 dataURL형식의 문자열로 저장
-// 				}
-// 			}//readURL()--
-			
-// 			//file 양식으로 이미지를 선택(값이 변경) 되었을때 처리하는 코드
-// 			$("#imgInp").change(function(){
-// 				//alert(this.value); //선택한 이미지 경로 표시
-// 				readURL(this);
-// 			});
-// 		});
-	</script>
+		function readURL(input,x) {
+			alert(input.value);
+			strArray = input.value.split(".");
+			strArrayLength = strArray.length -1;
+			FileType = strArray[strArrayLength].toLowerCase();
 	
-	<script type="text/javascript">
-// 		$(document).ready(function(){
-// 			function readURL(input) {
-// 				if (input.files && input.files[0]){
-// 					var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
-// 					reader.onload = function (e) {
-// 					//파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
-// 						$('#blah').attr('src', e.target.result);
-// 						//이미지 Tag의 SRC속성에 읽어들인 File내용을 지정
-// 						//(아래 코드에서 읽어들인 dataURL형식)
-// 					}
-// 					reader.readAsDataURL(input.files[0]);
-// 					//File내용을 읽어 dataURL형식의 문자열로 저장
-// 				}
-// 			}//readURL()--
-			
-// 			//file 양식으로 이미지를 선택(값이 변경) 되었을때 처리하는 코드
-// 			$("#imgInp").change(function(){
-// 				//alert(this.value); //선택한 이미지 경로 표시
-// 				readURL(this);
-// 			});
-// 		});
-		$(document).on('change','#upload',function(){
-			alert('바뀜');
-			alert(this.value); //선택한 이미지 경로 표시
-			if (this.files && this.files[0]){
-				var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
-				reader.onload = function (e) {
-				//파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
-					$('#la').attr('src', e.target.result);
-					//이미지 Tag의 SRC속성에 읽어들인 File내용을 지정
-					//(아래 코드에서 읽어들인 dataURL형식)
+			if (input.files && input.files[0]) {
+				if (FileType != "jpg" && FileType != "png" && FileType != "jpeg"){
+					alert("jpg 또는 png파일만 업로드 가능합니다." + FileType);
+					$("#blah"+x).attr('src', "../Images/item/img_arrow_left.png");
+					$("#blah"+x).attr('title', "선택된 파일 없음");
+					input.value="";	
+				}else{
+					var reader = new FileReader();
+					reader.onload = function (e) {
+						$("#blah"+x).attr('src', e.target.result);
+						$("#blah"+x).attr('title', "");
+					}
+					reader.readAsDataURL(input.files[0]);
 				}
-				reader.readAsDataURL(this.files[0]);
-				//File내용을 읽어 dataURL형식의 문자열로 저장
+			}else{
+					$("#blah"+x).attr('src', "../Images/item/img_arrow_left.png");
+				$("#blah"+x).attr('title', "선택된 파일 없음");
 			}
-		})
+		}
 	</script>
 
 	</div>

@@ -51,17 +51,112 @@ a {text-decoration:none}
 .paging .box .btn_pageon {color: #df2e38; font-size: 16px;}
 .paging .box .opacity {opacity: 0.3;}
 
-.full-screen label {
+.full-screen{
+/* 	display: none; */
+	position:fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+	background: rgba(0,0,0,0.4);
+    z-index: 4;
+}
+
+.review-overlay{
+/* 	display: none; */
+    position: absolute;
+	left: 50%;
+	top: 50%;
+	transform:translate(-50%,-50%);
+	width: 680px;
+	background-color: #ffffff;
+    padding: 0 13px;
+    z-index: 1;
+}
+.overlay-header{
+    line-height: 62px;
+    font-size: 20px;
+    color: #000000;
+    border-bottom: 1px solid #d2d2d2;
+}
+.overlay-close {
+    border: 0;
+    margin-right: 10px;
+    float: right;
+    width: 20px;
+    height: 62px;
+    background: url("../../Images/item/cart_x.png") no-repeat center;
+    background-size: 20px 20px;
+    cursor: pointer;
+}
+.overlay-body {
+	padding-top: 25px;
+}
+.candy-img{
+	width: 100%;
+	height: 134px;
+}
+.input {
+    padding: 15px 0 0 145px;
+    line-height: 30px;
+    color: #000000;
+}
+.input .tt {
+    position: absolute;
+    left: 30px;
+    line-height: 57px;
+    font-size: 16px;
+    color: #6d6d6d;
+}
+.input .score{
 	display: inline-block;
+	width: 200px;
+}
+.input .score span{
+	display: inline-block;
+	width: 60px;
+	text-align: center;
+}
+.input .score b{
+	text-decoration: none;
+	color: #d0d0d0;
+}
+.input .score b:hover{
+	cursor: pointer;
+} 
+.input .score b.on{
+	color: black;
+}
+.input textarea {
+	font-family: 'Spoqa Han Sans', 'Malgun Gothic', Dotum, Gulim, Tahoma, Helvetica, AppleGothic, Helvetica, Sans-serif;
+    height: 170px;
+    border: 0;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    width: 100%;
+    padding: 20px;
+    font-size: 16px;
+    line-height: 22px;
+    color: #000000;
+    outline: none;
+    resize: none;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+
+
+.full-screen .im {
 	width:40px;
 	height:40px;
-	background-color: #fdfdfd;
-	background-image: url(../../Images/item/img_arrow_left.png);
 	cursor: pointer;
 	border: 1px solid #ebebeb;
 	border-radius: .25em;
+	
 }
-
 .full-screen input[type="file"] { /* 파일 필드 숨기기 */
-	display: none;
+/* 	display: none; */
 }
