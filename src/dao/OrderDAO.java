@@ -64,7 +64,8 @@ public class OrderDAO {
 				bean.setItemImage(rs.getString("image"));
 				bean.setItemprice(rs.getInt("price"));
 				bean.setQuantity(rs.getInt("quantity"));
-				bean.setItemCategory("category_code");
+				bean.setItemCategory(rs.getString("category_code"));
+				System.out.println(rs.getString("category_code"));
 				OrderList.add(bean);
 			}
 		} catch (SQLException e) {

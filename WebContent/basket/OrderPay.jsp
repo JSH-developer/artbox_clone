@@ -1136,7 +1136,7 @@ span.scoup { /*     쿠폰 팝업 창  */
 					<table width="750" border="0" cellspacing="0" cellpadding="0">
 						<tbody>
 							<tr>
-								<td  class="c_select_td" rowspan="${fn:length(mycouponList)+4}" align="left" valign="top"
+								<td  class="c_select_td" rowspan="${fn:length(mycouponList)+10}" align="left" valign="top"
 									style="padding-left: 10px; letter-spacing: -1px;">
 									<input type="radio" name="f_coupongroup" id="f_coupongroup_3" value="bonus" onclick="selectCouponGroup('bonus')"> 
 									<label
@@ -1149,22 +1149,36 @@ span.scoup { /*     쿠폰 팝업 창  */
 								<td height="5" colspan="4"></td>
 							</tr>
 							<tr>
-								<td height="1" colspan="4" align="left"
-									background="https://img.1300k.com/order/order_bg_dot.gif"></td>
+								<td height="1" colspan="4" align="left"></td>
 							</tr>
 							<tr>
 								<td height="5" colspan="4" align="left"></td>
 							</tr>
 
-			<c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
-			<c:set var="orderList_condition" value="${fn:contains(orderList, mycouponList[i].coupon_condition)}" />
-			<c:set var="orderListOne_condition" value="${fn:contains(orderListOne, mycouponList[i].coupon_condition)}" />
-			 <c:if test="${ orderList_condition eq 'true' || orderListOne_condition eq 'true'}"> 
-			 ${orderList_condition}
-			<c:set var="myCoupon1" value="${mycouponList[i].coupon_category}" />
-				${myCoupon1}
-			<c:if test="${myCoupon1 eq 'goodscoupon'}">
-		
+			<c:forEach var="i" begin="0" end="${fn:length(mycouponList)-1}" step="1">
+<%-- 			<c:set var="myCoupon" value="false" /> --%>
+			${i }카테고리 : ${mycouponList[i].coupon_category }
+			${i }카테고리 : ${mycouponList[i].coupon_condition }
+			${i }조건 : ${fn:contains(orderList, mycouponList[i].coupon_condition)}
+<%-- 			${orderList[0].itemCategory }  --%>
+
+				
+			<c:forEach items="${orderList}" var="list">
+			
+			<c:forEach items="${list}" var="map">
+			<c:set var="myCoupon" value="${fn:contains(map, mycouponList[i].coupon_condition)}"/>
+				${myCoupon} <br>
+			</c:forEach>
+			
+			</c:forEach>
+
+
+
+				
+				
+			 <c:if test="${fn:contains(orderList, mycouponList[i].coupon_condition)}"> 
+			<c:if test="${myCoupon eq 'goodscoupon' }">
+	
 					<tr>
 						<td  align="left"  class="c_select_td_name">
 						<input type="checkbox" name="f_couponmemberno" id="f_couponmemberno_3_${i}" value="${mycouponList[i].coupon_price}" onclick="selectCouponMember('bonus', ${i})" >
@@ -1182,11 +1196,17 @@ span.scoup { /*     쿠폰 팝업 창  */
 			</c:if>
 			</c:if>
 			</c:forEach>
-
+			
 						</tbody>
 					</table>
 				</td>
+				<td>
+
+
+
+
 				
+				</td>
 				
 				
 			</tr>
