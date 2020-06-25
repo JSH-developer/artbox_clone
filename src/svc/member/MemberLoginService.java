@@ -1,4 +1,4 @@
-package svc;
+package svc.member;
 
 import java.sql.Connection;
 
@@ -17,7 +17,7 @@ public class MemberLoginService {
 		MemberDAO dao = MemberDAO.getInstance();
 		dao.setConnection(con);
 		
-		id_pw_check = dao.LoginSuccess(id, pw);
+		id_pw_check = dao.idpwSuccess(id, pw);
 		
 		close(con);
 		

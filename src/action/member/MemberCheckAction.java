@@ -1,14 +1,12 @@
-package action;
+package action.member;
 
+import svc.member.MemberCheckService;
 
-
-import svc.MemberJoinCheckService;
-
-public class MemberJoinCheckAction{
+public class MemberCheckAction{
 
 	public boolean execute(String id) {
 		System.out.println("MemberJoinCheckAction");
-		MemberJoinCheckService MemberJoinCheckService = new MemberJoinCheckService();
+		MemberCheckService MemberJoinCheckService = new MemberCheckService();
 		
 //		System.out.println("action에 id값 왔냐?"+id);
 		

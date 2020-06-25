@@ -1,4 +1,4 @@
-package svc;
+package svc.member;
 
 import java.sql.Connection;
 

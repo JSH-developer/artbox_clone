@@ -1,10 +1,10 @@
-package action;
+package action.member;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import svc.MemberBeanService;
-import svc.MemberLoginService;
+import svc.member.MemberBeanService;
+import svc.member.MemberLoginService;
 import vo.MemberBean;
 
 public class MemberLoginAction {

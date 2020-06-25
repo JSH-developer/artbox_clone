@@ -16,7 +16,6 @@
     <jsp:include page="../inc/top.jsp"></jsp:include>
     <!-- 헤더 -->
 
-<!-- <form/action="" method="post" onsubmit="return check()"> -->
 <form action="joinPro.member" method="post" onsubmit="return check()">
 <div class="JoinWrap">
 	<h1>회원가입</h1>
@@ -305,6 +304,7 @@
 				<div class="post">
 					<input type="text" id="sample6_detailAddress" placeholder="상세주소" name="addr_detail"
 						class="detail" style="width: 90%;">
+					<input type="text" id="sample6_extraAddress" placeholder="참고항목" style="display: none;">
 				</div>
 			</div>
 			<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
