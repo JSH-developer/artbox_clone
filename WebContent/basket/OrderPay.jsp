@@ -226,7 +226,7 @@ $(document).ready(function(){
 			$("#i_shipcpnum2").val('');
 			$("#i_shipcpnum3").val('');
 		}
-   }
+	}
 
 	fnShipAlertDesc = function (obj) {
 		if (obj.value) {
@@ -823,7 +823,6 @@ function execDaumPostCode() { // 우편번호
 
 <input type="hidden" id="pd_name" name="pd_name" value="${orderListOne[0].itemName }"/>
 <input type="hidden" id="Total" name="Total" value="${tps+tpd}"/>
-<input type="hidden" id="point" name="point" value="${tps/100}"/>
 <input type="hidden" name="arrBasket" value="${arrBasket}"/>
 
 </form>

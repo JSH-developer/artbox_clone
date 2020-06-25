@@ -84,7 +84,7 @@ public class OrderCompleteAction implements Action {
 		ordersbean.setOrders_order_email(request.getParameter("mememail"));
 		ordersbean.setOrders_order_phone(request.getParameter("tel"));
 		ordersbean.setOrders_msg(request.getParameter("shipalertdesc"));
-		ordersbean.setOrders_point(Integer.parseInt(request.getParameter("point")));
+		ordersbean.setOrders_point(0);
 		ordersbean.setOrders_total_price(Integer.parseInt(request.getParameter("Total")));
 		ordersbean.setOrders_payMethod("card");
 		ordersbean.setOrders_state(0);
