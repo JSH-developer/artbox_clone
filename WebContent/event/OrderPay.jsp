@@ -72,327 +72,274 @@ $(document).ready(function(){
 		}
 	}
    
-   $("input[type=tel]").keyup(function(e){
-      if (!Check_Number(e.currentTarget.value)) {
-         alert("숫자값만 입력가능합니다.");
-         this.value="";
-      }
-      if (this.id=="i_memcpnum1"&&this.value.length>=3) {
-         document.getElementById("i_memcpnum2").focus();
-      }
-      if (this.id=="i_memcpnum2"&&this.value.length>=4) {
-         document.getElementById("i_memcpnum3").focus();
-      }
-   });
-    /* 배송지 입력 - 직접입력 - 주문고객과 동일 클릭시 자동완성 */
-   $("#i_copyorderinfo").click(function(){
-      if ($(this).prop("checked")) {
-         var ShipName,ShipCpNum1,ShipCpNum2,ShipCpNum3;
-         ShipName = $("#i_memname").val();
-         ShipCpNum1 = $("#i_memcpnum1").val();
-         ShipCpNum2 = $("#i_memcpnum2").val();
-         ShipCpNum3 = $("#i_memcpnum3").val();
-         $("#i_shipname").val(ShipName);
-         $("#i_shipzipcode").val("");
-         $("#i_shipaddr").val("");
-         $("#i_shipaddrD").val("");
-         $("#i_shipcpnum1").val(ShipCpNum1);
-         $("#i_shipcpnum2").val(ShipCpNum2);
-         $("#i_shipcpnum3").val(ShipCpNum3);
-      }
-   });
-   /* 쿠폰 선택 <- 이벤트 페이지랑 연동 */
-   $("input[name=CouponType]").click(function(){
-      if ($("#CouponTypeNull").prop("checked")) {
-         $("#CouponIdxSelect_Null").attr("class","");
-         $("#CouponIdxSelect_Bonus").attr("class","none");
-         $("#CouponIdxSelect_Goods").attr("class","none");
-      } else if ($("#CouponTypeBonus").prop("checked")) {
-         $("#CouponIdxSelect_Null").attr("class","none");
-         $("#CouponIdxSelect_Bonus").attr("class","");
-         $("#CouponIdxSelect_Goods").attr("class","none");
-      } else if ($("#CouponTypeGoods").prop("checked")) {
-         $("#CouponIdxSelect_Null").attr("class","none");
-         $("#CouponIdxSelect_Bonus").attr("class","none");
-         $("#CouponIdxSelect_Goods").attr("class","");
-      }
-      fnCouponType();
-   });
-   
-   $("input[name=UseMileagePrice]").focus(function(){
-      TempScrollTop = $(window).scrollTop();
-      var inputValue = parseInt($(this).val(),10);
-      if (inputValue == 0) {
-         $(this).val("");
-      }
-      $(window).scrollTop(TempScrollTop);
-   });
-   $("input[name=UseMileagePrice]").blur(function(){
-      var Event_350won = $("[name=Event_350won]").val();
-      if (Event_350won == "Y") {
-         alert("이벤트 상품은 마일리지 사용이 불가합니다.");
-         $(this).val("0");
-         return false;
-      }
-      var inputValue = parseInt($(this).val(),10);
-      if (!inputValue) {
-         inputValue = 0;
-      }
-      $(this).val(parseInt(inputValue,10));
-      
-      var maxValue = parseInt($("input[id=UseMileageAll]").attr("alt"),10);
-      var minValue = 0;
-      
-      if (inputValue > maxValue) {
-         alert("현재 주문에서 사용 가능한 꿈캔디 갯수는 " + setComma(maxValue) + "개 입니다.");
-         if (maxValue <= 0) {
-            maxValue = 0;
-         }
-         $(this).val(maxValue);
-      }
-      $("input[name=TotalUseMileage]").val($(this).val());
-      $("#TotalUseMileage").text("- " + setComma(parseInt($(this).val(),10)));
-      fnTotalPriceAmount();
-   });
-   
-   
-   $("#i_OrderPayAgree, #i_OrderPayAgree2").click(function(){
-      var PayType = $("input[name=PayType]:checked").val();
-      if ($(this).prop("checked")) {
-         $("#i_OrderPayAgree").prop("checked",true);
-         $("#i_OrderPayAgree2").prop("checked",true);
-         $("input[name=OrderAgreeThird]").prop("checked",true);
-         $("input[name=OrderAgreePayment]").prop("checked",true);
-         $("input[name=OrderAgreeRule]").prop("checked",true);
-      } else {
-         $("#i_OrderPayAgree").prop("checked",false);
-         $("#i_OrderPayAgree2").prop("checked",false);
-         $("input[name=OrderAgreeThird]").prop("checked",false);
-         $("input[name=OrderAgreePayment]").prop("checked",false);
-         $("input[name=OrderAgreeRule]").prop("checked",false);
-      }
-   });
-   
-   fnOrderInfoTitle = function(obj,obj2,obj3){
-      var PayTypeText;
-      if ($("#"+obj).css("display")=="block" ) {
-         $("#"+obj).css("display","none");
-         $("#"+obj+"Summary").css("display","block");
-         $("#"+obj+"Arrow").attr("class","Close");
-         if (obj2!=""&&obj3!="") {
-            $("#"+obj3).val($("#"+obj2).val());
-         }
-      } else {
-         $("#"+obj).css("display","block");
-         $("#"+obj+"Summary").css("display","none");
-         $("#"+obj+"Arrow").attr("class","Open");
-      }
-   }
-   
-   fnTotalDiscountPriceSum = function(){
-      var obj = "DiscountPriceInfo";
-      if ($("#"+obj).css("display")=="block" ) {
-         $("#"+obj).css("display","none");
-         $("#"+obj+"Arrow").attr("class","Close");
-      } else {
-         $("#"+obj).css("display","block");
-         $("#"+obj+"Arrow").attr("class","Open");
-      }
-   }
-   fnDeliveryInfo = function(x){
-      if (x==1) {
-         $("#DeliveryInfo1").attr("class","On");
-         $("#DeliveryInfo2").attr("class","Off");
-         $("#DeliveryInfo3").attr("class","Off");
-         $("#MyDelivery1").css("display","block");
-         $("#MyDelivery2").css("display","none");
-         $("#MyDelivery3").css("display","none");
-      } else if (x==2) {
-         $("#DeliveryInfo1").attr("class","Off");
-         $("#DeliveryInfo2").attr("class","On");
-         $("#DeliveryInfo3").attr("class","Off");
-         $("#MyDelivery1").css("display","none");
-         $("#MyDelivery2").css("display","block");
-         $("#MyDelivery3").css("display","none");
-      } else if (x==3) {
-         $("#DeliveryInfo1").attr("class","Off");
-         $("#DeliveryInfo2").attr("class","Off");
-         $("#DeliveryInfo3").attr("class","On");
-         $("#MyDelivery1").css("display","none");
-         $("#MyDelivery2").css("display","none");
-         $("#MyDelivery3").css("display","block");
-      }
-   }
-   fnSelectMyDelivery = function (obj) {
-      if (obj.value) {
-         var arr = obj.value.split("||");
-         var ShipName,ShipZipCode,ShipAddr,ShipAddrD,ShipCpNum1,ShipCpNum2,ShipCpNum3;
-         ShipName = arr[0];
-         ShipZipCode = arr[1];
-         ShipAddr = arr[2];
-         ShipAddrD = arr[3];
-         ShipCpNum1 = arr[4];
-         ShipCpNum2 = arr[5];
-         ShipCpNum3 = arr[6];
-         $("#i_shipname").val(ShipName);
-         $("#i_shipzipcode").val(ShipZipCode);
-         $("#i_shipaddr").val(ShipAddr);
-         $("#i_shipaddrD").val(ShipAddrD);
-         $("#i_shipcpnum1").val(ShipCpNum1);
-         $("#i_shipcpnum2").val(ShipCpNum2);
-         $("#i_shipcpnum3").val(ShipCpNum3);
-         $("#i_copyorderinfo").prop("checked",false);
-      } else {
-         $("#i_shipname").val('');
-         $("#i_shipzipcode").val('');
-         $("#i_shipaddr").val('');
-         $("#i_shipaddrD").val('');
-         $("#i_shipcpnum1").val('');
-         $("#i_shipcpnum2").val('');
-         $("#i_shipcpnum3").val('');
-      }
-   }
-   fnShipAlertDesc = function (obj) {
-      if (obj.value) {
-         document.Order.shipalertdesc.value='';
-         document.Order.shipalertdesc.value+=obj.value+"\n";
-      } else {
-         document.Order.shipalertdesc.value='';
-      }
-   }
-   fnCouponSelect = function(obj) {
-      var DcNumber = $(obj).find(":selected").attr("alt");
-      var MemberCouponIdx = $(obj).find(":selected").val();
-      if ($(obj).attr("name")=="BonusCouponIdx") {
-         if (DcNumber=="0"&&MemberCouponIdx!="") { // DcNumber=0 이면 꿈캔디 적립쿠폰으로 인식
-            alert("꿈캔디는 상품 구매 확정 시 자동으로 적립됩니다.");
-         }
-         $("input[name=TotalUseBonusCoupon]").val(DcNumber);
-         $("#TotalUseBonusCoupon").text("- " + setComma(parseInt(DcNumber,10)));
-         fnTotalPriceAmount();
-      } else if ($(obj).attr("name")=="FreeCouponIdx") {
-         $("input[name=TotalUseFreeCoupon]").val(DcNumber);
-         $("#TotalUseFreeCoupon").text(setComma(parseInt(DcNumber,10)));
-         fnTotalPriceAmount();
-      }
-   }
-   fnUseMileageAll = function(x) {
-      var UsableMileage;
-      if (x==1) {
-         if (parseInt($("input[name=MemMileage]").val(),10) >= parseInt($("input[id=UseMileageAll]").val(),10)) {
-            UsableMileage = $("input[id=UseMileageAll]").val();
-         } else {
-            UsableMileage = $("input[name=MemMileage]").val();
-         }
-         if ( parseInt(UsableMileage,10) <= 0 ) {
-            UsableMileage = 0;
-         }
-         $("input[name=UseMileagePrice]").val(UsableMileage);
-         $("input[name=TotalUseMileage]").val(UsableMileage);
-         $("#TotalUseMileage").text("-" + setComma(UsableMileage));
-      } else {
-         $("input[name=UseMileagePrice]").val("0");
-         $("input[name=TotalUseMileage]").val("0");
-         $("#TotalUseMileage").text("-" + setComma("0"));
-      }
-      fnTotalPriceAmount();
-   }
-	fnTotalPriceAmount = function(){
-		var TotalPriceSum                 = parseInt($("input[name=TotalPriceSum]").val(),10);
-		var TotalPriceDelivery            = parseInt($("input[name=TotalPriceDelivery]").val(),10);
-		var TotalPriceMemberLevelDiscount = parseInt($("input[name=TotalPriceMemberLevelDiscount]").val(),10);
-		var TotalUseMileage               = parseInt($("input[name=TotalUseMileage]").val(),10);
+	   $("input[type=tel]").keyup(function(e){
+			if (!Check_Number(e.currentTarget.value)) {
+				alert("숫자값만 입력가능합니다.");
+				this.value="";
+			}
+			if (this.id=="i_memcpnum1"&&this.value.length>=3) {
+				document.getElementById("i_memcpnum2").focus();
+			}
+			if (this.id=="i_memcpnum2"&&this.value.length>=4) {
+				document.getElementById("i_memcpnum3").focus();
+			}
+		});
+		/* 배송지 입력 - 직접입력 - 주문고객과 동일 클릭시 자동완성 */
+		$("#i_copyorderinfo").click(function(){
+			if ($(this).prop("checked")) {
+				var ShipName,ShipCpNum1,ShipCpNum2,ShipCpNum3;
+				ShipName = $("#i_memname").val();
+				ShipCpNum1 = $("#i_memcpnum1").val();
+				ShipCpNum2 = $("#i_memcpnum2").val();
+				ShipCpNum3 = $("#i_memcpnum3").val();
+				$("#i_shipname").val(ShipName);
+				$("#i_shipzipcode").val("");
+				$("#i_shipaddr").val("");
+				$("#i_shipaddrD").val("");
+				$("#i_shipcpnum1").val(ShipCpNum1);
+				$("#i_shipcpnum2").val(ShipCpNum2);
+				$("#i_shipcpnum3").val(ShipCpNum3);
+			}
+		});
+		/* 쿠폰 선택 <- 이벤트 페이지랑 연동 */
+		$("input[name=CouponType]").click(function(){
+			if ($("#CouponTypeNull").prop("checked")) {
+				$("#CouponIdxSelect_Null").attr("class","");
+				$("#CouponIdxSelect_Bonus").attr("class","none");
+				$("#CouponIdxSelect_Goods").attr("class","none");
+			} else if ($("#CouponTypeBonus").prop("checked")) {
+				$("#CouponIdxSelect_Null").attr("class","none");
+				$("#CouponIdxSelect_Bonus").attr("class","");
+				$("#CouponIdxSelect_Goods").attr("class","none");
+			} else if ($("#CouponTypeGoods").prop("checked")) {
+				$("#CouponIdxSelect_Null").attr("class","none");
+				$("#CouponIdxSelect_Bonus").attr("class","none");
+				$("#CouponIdxSelect_Goods").attr("class","");
+			}
+		fnCouponType();
+		});
 		
-		var TotalUseBonusCoupon           = parseInt($("input[name=TotalUseBonusCoupon]").val(),10);
-		var TotalUseGoodsCoupon           = parseInt($("input[name=TotalUseGoodsCoupon]").val(),10);
-		var TotalUseFreeCoupon            = parseInt($("input[name=TotalUseFreeCoupon]").val(),10);
-		
-		var TotalPriceAmount = TotalPriceSum+TotalPriceDelivery-TotalPriceMemberLevelDiscount-TotalUseMileage-TotalUseBonusCoupon-TotalUseGoodsCoupon-TotalUseFreeCoupon;
-		var TotalMileageAmount = Math.ceil((TotalPriceAmount/100)*parseFloat($("#MemMileageSaveRate").val()));
-		if (TotalPriceAmount < 0)
-		{
-			alert("총 합계금액은 0원 이상이어야 합니다.");
-			fnInitDiscountTable();
-			return;
+		$("input[name=UseMileagePrice]").focus(function(){
+			TempScrollTop = $(window).scrollTop();
+			var inputValue = parseInt($(this).val(),10);
+			if (inputValue == 0) {
+				$(this).val("");
+			}
+			$(window).scrollTop(TempScrollTop);
+		});
+		$("input[name=UseMileagePrice]").blur(function(){
+			var Event_350won = $("[name=Event_350won]").val();
+			if (Event_350won == "Y") {
+				alert("이벤트 상품은 마일리지 사용이 불가합니다.");
+				$(this).val("0");
+				return false;
+			}
+			var inputValue = parseInt($(this).val(),10);
+			if (!inputValue) {
+				inputValue = 0;
+			}
+			$(this).val(parseInt(inputValue,10));
+			var maxValue = parseInt($("input[id=UseMileageAll]").attr("alt"),10);
+			var minValue = 0;
+			if (inputValue > maxValue) {
+				alert("현재 주문에서 사용 가능한 꿈캔디 갯수는 " + setComma(maxValue) + "개 입니다.");
+				if (maxValue <= 0) {
+					maxValue = 0;
+				}
+				$(this).val(maxValue);
+			}
+			$("input[name=TotalUseMileage]").val($(this).val());
+			$("#TotalUseMileage").text("- " + setComma(parseInt($(this).val(),10)));
+			fnTotalPriceAmount();
+		});
+		$("#i_OrderPayAgree").click(function(){ // 약관동의 전체선택/해제
+			if ($(this).prop("checked")) {
+				$("#i_OrderPayAgree").prop("checked",true);
+				$("input[name=OrderAgreeThird]").prop("checked",true);
+				$("input[name=OrderAgreePayment]").prop("checked",true);
+				$("input[name=OrderAgreeRule]").prop("checked",true);
+			} else {
+				$("#i_OrderPayAgree").prop("checked",false);
+				$("input[name=OrderAgreeThird]").prop("checked",false);
+				$("input[name=OrderAgreePayment]").prop("checked",false);
+				$("input[name=OrderAgreeRule]").prop("checked",false);
+			}
+		});
+		fnOrderInfoTitle = function(obj,obj2,obj3){
+			var PayTypeText;
+			if ($("#"+obj).css("display")=="block" ) {
+				$("#"+obj).css("display","none");
+				$("#"+obj+"Summary").css("display","block");
+				$("#"+obj+"Arrow").attr("class","Close");
+				if (obj2!=""&&obj3!="") {
+					$("#"+obj3).val($("#"+obj2).val());
+				}
+			} else {
+				$("#"+obj).css("display","block");
+				$("#"+obj+"Summary").css("display","none");
+				$("#"+obj+"Arrow").attr("class","Open");
+			}
 		}
-		
-		$("#TotalDiscountPriceSum").text(TotalUseBonusCoupon+TotalUseGoodsCoupon+TotalUseFreeCoupon+TotalPriceMemberLevelDiscount);
-// 		alert(typeof tt);
-// 		alert("TotalDiscountPriceSum"+$("#TotalDiscountPriceSum").value);
-		
-		$("input[name=TotalPriceAmount]").val(TotalPriceAmount);
-		$("#TotalPriceAmount").text(TotalPriceAmount);
-		$("#TotalPriceAmount2").text(TotalPriceAmount);
-		$("#UseMileageAll").val(TotalPriceAmount);
-// 		if (TotalPriceAmount<=0) { //논페이 열기
-// 			$("#OrderPayInfoNonPay").css("display","block");
-// 			$("#OrderPayInfoArrow").css("display","none");
-// 			$("#OrderPayInfoSummary").css("display","none");
-// 			$("#OrderPayInfo").css("display","none");
-// 			$("#gaPayTypeText").val("포인트 결제");
-// 		} else { //논페이 닫기
-// 			$("#OrderPayInfoNonPay").css("display","none");
-// 			$("#OrderPayInfoArrow").css("display","block");
-// 			$("#OrderPayInfoArrow").attr("class","Open");
-// 			$("#OrderPayInfoSummary").css("display","none");
-// 			$("#OrderPayInfo").css("display","block");
-// 			$("#gaPayTypeText").val($("#gaPayTypeTextTemp").val());
-// 		}
-	}
-   fnInitDiscountTable = function(){
-      $("select[name=BonusCouponIdx] option:eq(0)").prop("selected",true); // 보너스쿠폰 초기화, 상품쿠폰 추가시 상품쿠폰 초기화 추가해야 함
-      $("select[name=FreeCouponIdx] option:eq(0)").prop("selected",true); // 무료배송쿠폰 초기화
-      $("#UseMileageAll").prop("checked",false); // 꿈캔디 모두사용
-      $("input[name=TotalUseMileage]").val(0); // 실제값들
-      $("input[name=TotalUseBonusCoupon]").val(0);
-      $("input[name=TotalUseGoodsCoupon]").val(0);
-      $("input[name=TotalUseFreeCoupon]").val(0);
-      $("#CouponTypeNull").prop("checked",true);
-      $("#CouponIdxSelect_Null").attr("class","");
-      $("#CouponIdxSelect_Bonus").attr("class","none");
-      $("#CouponIdxSelect_Goods").attr("class","none");
-      fnCouponType();
-   }
-   
-   
-   fnCouponType = function() {
-      var x = document.Order.CouponType;
-      var GoodsCouponPrice = document.Order.TotalUseGoodsCoupon.alt;
-      if (x[1].checked) // 보너스 쿠폰
-      {
-         
-         // 상품쿠폰 초기화
-         $("input[name=TotalUseGoodsCoupon]").val(0);         
-         $("#TotalUseGoodsCoupon").text("- 0");
-         fnTotalPriceAmount();
-         // 보너스쿠폰 회귀
-         fnCouponSelect(document.getElementById("CouponIdxSelect_Bonus"));
-         $("#CouponIdxSelect_Bonus").css("display","block");
-         $("#CouponIdxSelect_Goods").css("display","none");
-      } else if (x[2].checked) { // 상품 쿠폰 
-         // 보너스쿠폰 초기화
-         $("input[name=TotalUseBonusCoupon]").val(0);
-         $("#TotalUseBonusCoupon").text("- 0");
-         // 상품쿠폰 초기화
-         $("input[name=TotalUseGoodsCoupon]").val(GoodsCouponPrice);
-         $("#TotalUseGoodsCoupon").text("- "+setComma(GoodsCouponPrice));
-         $("[name=BonusCouponIdx] option:eq(0)").prop("selected", true);
-         fnTotalPriceAmount();
-         $("#CouponIdxSelect_Bonus").css("display","none");
-         $("#CouponIdxSelect_Goods").css("display","block");
-      } else { // 사용안함
-         // 보너스쿠폰 초기화
-         $("input[name=TotalUseBonusCoupon]").val(0);
-         $("#TotalUseBonusCoupon").text("- 0");
-         // 상품쿠폰 초기화
-         $("input[name=TotalUseGoodsCoupon]").val(0);
-         $("#TotalUseGoodsCoupon").text("- 0");
-         $("[name=BonusCouponIdx] option:eq(0)").prop("selected", true);
-         fnTotalPriceAmount();
-         $("#CouponIdxSelect_Bonus").css("display","none");
-         $("#CouponIdxSelect_Goods").css("display","none");
-      }
-   }
+		fnTotalDiscountPriceSum = function(){
+			var obj = "DiscountPriceInfo";
+			if ($("#"+obj).css("display")=="block" ) {
+				$("#"+obj).css("display","none");
+				$("#"+obj+"Arrow").attr("class","Close");
+			} else {
+				$("#"+obj).css("display","block");
+				$("#"+obj+"Arrow").attr("class","Open");
+			}
+		}
+		fnDeliveryInfo = function(x){
+			if (x==1) {
+				$("#DeliveryInfo1").attr("class","On");
+				$("#DeliveryInfo2").attr("class","Off");
+				$("#DeliveryInfo3").attr("class","Off");
+				$("#MyDelivery1").css("display","block");
+				$("#MyDelivery2").css("display","none");
+				$("#MyDelivery3").css("display","none");
+			} else if (x==2) {
+				$("#DeliveryInfo1").attr("class","Off");
+				$("#DeliveryInfo2").attr("class","On");
+				$("#DeliveryInfo3").attr("class","Off");
+				$("#MyDelivery1").css("display","none");
+				$("#MyDelivery2").css("display","block");
+				$("#MyDelivery3").css("display","none");
+			} else if (x==3) {
+				$("#DeliveryInfo1").attr("class","Off");
+				$("#DeliveryInfo2").attr("class","Off");
+				$("#DeliveryInfo3").attr("class","On");
+				$("#MyDelivery1").css("display","none");
+				$("#MyDelivery2").css("display","none");
+				$("#MyDelivery3").css("display","block");
+			}
+		}
+		fnSelectMyDelivery = function (obj) {
+			if (obj.value) {
+				var receiverArr = obj.value.split("||");
+				var ShipName,ShipPostcode,ShipAddr,ShipAddrD;
+				var ShipPhoneArr = receiverArr[1].split("-");
+				var ShipPhone1,ShipPhone2,ShipPhone3
+				ShipName = receiverArr[0];
+				ShipPhone1 = ShipPhoneArr[0];
+				ShipPhone2 = ShipPhoneArr[1];
+				ShipPhone3 = ShipPhoneArr[2];
+				ShipPostcode = receiverArr[2];
+				ShipAddr = receiverArr[3];
+				ShipAddrD = receiverArr[4];
+				$("#i_shipname").val(ShipName);
+				$("#i_shipzipcode").val(ShipPostcode);
+				$("#i_shipaddr").val(ShipAddr);
+				$("#i_shipaddrD").val(ShipAddrD);
+				$("#i_shipcpnum1").val(ShipPhone1);
+				$("#i_shipcpnum2").val(ShipPhone2);
+				$("#i_shipcpnum3").val(ShipPhone3);
+				$("#i_copyorderinfo").prop("checked",false);
+			} else {
+				$("#i_shipname").val('');
+				$("#i_shipzipcode").val('');
+				$("#i_shipaddr").val('');
+				$("#i_shipaddrD").val('');
+				$("#i_shipcpnum1").val('');
+				$("#i_shipcpnum2").val('');
+				$("#i_shipcpnum3").val('');
+			}
+	   }
+		fnShipAlertDesc = function (obj) {
+			if (obj.value) {
+				document.Order.shipalertdesc.value='';
+				document.Order.shipalertdesc.value+=obj.value+"\n";
+			} else {
+				document.Order.shipalertdesc.value='';
+			}
+		}
+		fnCouponSelect = function(obj) {
+			var DcNumber = $(obj).find(":selected").attr("alt");
+			var MemberCouponIdx = $(obj).find(":selected").val();
+			if ($(obj).attr("name")=="BonusCouponIdx") {
+				if (DcNumber=="0"&&MemberCouponIdx!="") { // DcNumber=0 이면 꿈캔디 적립쿠폰으로 인식
+					alert("꿈캔디는 상품 구매 확정 시 자동으로 적립됩니다.");
+				}
+				$("input[name=TotalUseBonusCoupon]").val(DcNumber);
+				$("#TotalUseBonusCoupon").text("- " + setComma(parseInt(DcNumber,10)));
+				fnTotalPriceAmount();
+			} else if ($(obj).attr("name")=="FreeCouponIdx") {
+				$("input[name=TotalUseFreeCoupon]").val(DcNumber);
+				$("#TotalUseFreeCoupon").text(setComma(parseInt(DcNumber,10)));
+				fnTotalPriceAmount();
+			}
+		}
+		fnUseMileageAll = function(x) {
+			var UsableMileage;
+			if (x==1) {
+				if (parseInt($("input[name=MemMileage]").val(),10) >= parseInt($("input[id=UseMileageAll]").val(),10)) {
+					UsableMileage = $("input[id=UseMileageAll]").val();
+				} else {
+					UsableMileage = $("input[name=MemMileage]").val();
+				}
+				if ( parseInt(UsableMileage,10) <= 0 ) {
+					UsableMileage = 0;
+				}
+				$("input[name=UseMileagePrice]").val(UsableMileage);
+				$("input[name=TotalUseMileage]").val(UsableMileage);
+				$("#TotalUseMileage").text("-" + setComma(UsableMileage));
+			} else {
+				$("input[name=UseMileagePrice]").val("0");
+				$("input[name=TotalUseMileage]").val("0");
+				$("#TotalUseMileage").text("-" + setComma("0"));
+			}
+		fnTotalPriceAmount();
+		}
+		fnInitDiscountTable = function(){
+			$("select[name=BonusCouponIdx] option:eq(0)").prop("selected",true); // 보너스쿠폰 초기화, 상품쿠폰 추가시 상품쿠폰 초기화 추가해야 함
+			$("select[name=FreeCouponIdx] option:eq(0)").prop("selected",true); // 무료배송쿠폰 초기화
+			$("#UseMileageAll").prop("checked",false); // 꿈캔디 모두사용
+			$("input[name=TotalUseMileage]").val(0); // 실제값들
+			$("input[name=TotalUseBonusCoupon]").val(0);
+			$("input[name=TotalUseGoodsCoupon]").val(0);
+			$("input[name=TotalUseFreeCoupon]").val(0);
+			$("#CouponTypeNull").prop("checked",true);
+			$("#CouponIdxSelect_Null").attr("class","");
+			$("#CouponIdxSelect_Bonus").attr("class","none");
+			$("#CouponIdxSelect_Goods").attr("class","none");
+			fnCouponType();
+		}
+		fnCouponType = function() {
+			var x = document.Order.CouponType;
+			var GoodsCouponPrice = document.Order.TotalUseGoodsCoupon.alt;
+			if (x[1].checked) { // 보너스 쿠폰
+				// 상품쿠폰 초기화
+				$("input[name=TotalUseGoodsCoupon]").val(0);         
+				$("#TotalUseGoodsCoupon").text("- 0");
+				fnTotalPriceAmount();
+				// 보너스쿠폰 회귀
+				fnCouponSelect(document.getElementById("CouponIdxSelect_Bonus"));
+				$("#CouponIdxSelect_Bonus").css("display","block");
+				$("#CouponIdxSelect_Goods").css("display","none");
+			} else if (x[2].checked) { // 상품 쿠폰 
+				// 보너스쿠폰 초기화
+				$("input[name=TotalUseBonusCoupon]").val(0);
+				$("#TotalUseBonusCoupon").text("- 0");
+				// 상품쿠폰 초기화
+				$("input[name=TotalUseGoodsCoupon]").val(GoodsCouponPrice);
+				$("#TotalUseGoodsCoupon").text("- "+setComma(GoodsCouponPrice));
+				$("[name=BonusCouponIdx] option:eq(0)").prop("selected", true);
+				fnTotalPriceAmount();
+				$("#CouponIdxSelect_Bonus").css("display","none");
+				$("#CouponIdxSelect_Goods").css("display","block");
+			} else { // 사용안함
+				// 보너스쿠폰 초기화
+				$("input[name=TotalUseBonusCoupon]").val(0);
+				$("#TotalUseBonusCoupon").text("- 0");
+				// 상품쿠폰 초기화
+				$("input[name=TotalUseGoodsCoupon]").val(0);
+				$("#TotalUseGoodsCoupon").text("- 0");
+				$("[name=BonusCouponIdx] option:eq(0)").prop("selected", true);
+				fnTotalPriceAmount();
+				$("#CouponIdxSelect_Bonus").css("display","none");
+				$("#CouponIdxSelect_Goods").css("display","none");
+			}
+		}
    fnOrderReady = function() {
       var f = document.Order;
       if (!$.trim(f.memname.value)) {

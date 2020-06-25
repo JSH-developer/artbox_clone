@@ -246,56 +246,7 @@ $(document).ready(function(){
 		}
 	fnTotalPriceAmount();
 	}
-	fnInitDiscountTable = function(){
-		$("select[name=BonusCouponIdx] option:eq(0)").prop("selected",true); // 보너스쿠폰 초기화, 상품쿠폰 추가시 상품쿠폰 초기화 추가해야 함
-		$("select[name=FreeCouponIdx] option:eq(0)").prop("selected",true); // 무료배송쿠폰 초기화
-		$("#UseMileageAll").prop("checked",false); // 꿈캔디 모두사용
-		$("input[name=TotalUseMileage]").val(0); // 실제값들
-		$("input[name=TotalUseBonusCoupon]").val(0);
-		$("input[name=TotalUseGoodsCoupon]").val(0);
-		$("input[name=TotalUseFreeCoupon]").val(0);
-		$("#CouponTypeNull").prop("checked",true);
-		$("#CouponIdxSelect_Null").attr("class","");
-		$("#CouponIdxSelect_Bonus").attr("class","none");
-		$("#CouponIdxSelect_Goods").attr("class","none");
-		fnCouponType();
-	}
-	fnCouponType = function() {
-		var x = document.Order.CouponType;
-		var GoodsCouponPrice = document.Order.TotalUseGoodsCoupon.alt;
-		if (x[1].checked) { // 보너스 쿠폰
-			// 상품쿠폰 초기화
-			$("input[name=TotalUseGoodsCoupon]").val(0);         
-			$("#TotalUseGoodsCoupon").text("- 0");
-			fnTotalPriceAmount();
-			// 보너스쿠폰 회귀
-			fnCouponSelect(document.getElementById("CouponIdxSelect_Bonus"));
-			$("#CouponIdxSelect_Bonus").css("display","block");
-			$("#CouponIdxSelect_Goods").css("display","none");
-		} else if (x[2].checked) { // 상품 쿠폰 
-			// 보너스쿠폰 초기화
-			$("input[name=TotalUseBonusCoupon]").val(0);
-			$("#TotalUseBonusCoupon").text("- 0");
-			// 상품쿠폰 초기화
-			$("input[name=TotalUseGoodsCoupon]").val(GoodsCouponPrice);
-			$("#TotalUseGoodsCoupon").text("- "+setComma(GoodsCouponPrice));
-			$("[name=BonusCouponIdx] option:eq(0)").prop("selected", true);
-			fnTotalPriceAmount();
-			$("#CouponIdxSelect_Bonus").css("display","none");
-			$("#CouponIdxSelect_Goods").css("display","block");
-		} else { // 사용안함
-			// 보너스쿠폰 초기화
-			$("input[name=TotalUseBonusCoupon]").val(0);
-			$("#TotalUseBonusCoupon").text("- 0");
-			// 상품쿠폰 초기화
-			$("input[name=TotalUseGoodsCoupon]").val(0);
-			$("#TotalUseGoodsCoupon").text("- 0");
-			$("[name=BonusCouponIdx] option:eq(0)").prop("selected", true);
-			fnTotalPriceAmount();
-			$("#CouponIdxSelect_Bonus").css("display","none");
-			$("#CouponIdxSelect_Goods").css("display","none");
-		}
-	}
+	
 	$(".btn_order").click(function(){
 		var fr = document.Order;
 		if (!$.trim(fr.memname.value)) {
@@ -476,8 +427,38 @@ function execDaumPostCode() { // 우편번호
 		fnTotalPriceAmount();
 		
 		 $('#myModal').hide();
+		
+		
 //	  	var total_sum = document.getElementById("total_sum");
 	};
+	
+	function clear_pop() {
+		$("#i_TotalDiscountPriceInfo_summary").val("- " + 0 + " 원"); //접혔을 때 할인금액
+		$("#i_TotalDiscountPriceInfo").val("- " + 0+ " 원"); //펼쳤을 때 할인금액
+		
+		$("input[name=TotalUseBonusCoupon]").val(parseInt(0));
+		$("#TotalUseBonusCoupon").text("- "+0);
+		
+		$("input[name=TotalUseGoodsCoupon]").val(parseInt(0));
+		$("#TotalUseGoodsCoupon").text("- "+0);
+		
+		var total_sum = document.getElementById("total_sum").value;
+		total_sum = parseInt(0);
+		
+		fnTotalPriceAmount();
+		
+		 $('input:checkbox[name="f_couponmemberno"]').each(function() {
+			 $('input:checkbox[name=f_couponmemberno]').prop('checked', false);
+		 });
+		 
+		 $('input:radio[name="f_coupongroup"]').each(function() {
+			 $('input:radio[name=f_coupongroup]').prop('checked', false);
+		 });
+		
+		
+		 $('#myModal').hide();
+	};
+	
 	
 	// 할인가격 sum
 	function sumCouponTotal(b,g){ // sumCouponTotal(bonus,goods)
@@ -566,8 +547,8 @@ function execDaumPostCode() { // 우편번호
 	}
 </script>
 <style type="text/css">
-/* .btn_order {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:56px; height:56px; color:#ffffff; font-size:21px; border:0; background-color:#000000; border-radius:5px; font-weight:bold; } */
-/* .btn_basket {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:54px; height:56px; color:#000000; font-size:21px; border:1px solid #646464; background-color:#ffffff; border-radius:5px;} */
+ .btn_c_cancle {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:56px; height:56px; color:#ffffff; font-size:21px; border:0; background-color:#000000; border-radius:5px; font-weight:bold; } 
+ .btn_c_use {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:54px; height:56px; color:#000000; font-size:21px; border:1px solid #646464; background-color:#ffffff; border-radius:5px;} 
 .c_select_td {
 	width: 150px;
 	text-align: center;
@@ -613,6 +594,11 @@ span.scoup { /*     쿠폰 팝업 창  */
 	font-size: 16px;
 	border-radius: 5px;
 }
+	.couponTotal{
+	margin: 10px 10%;
+	font-size: 20px;
+	font-weight: bold;
+	}
 </style>
 </head>
 <body>
@@ -1155,47 +1141,30 @@ span.scoup { /*     쿠폰 팝업 창  */
 								<td height="5" colspan="4" align="left"></td>
 							</tr>
 
-			<c:forEach var="i" begin="0" end="${fn:length(mycouponList)-1}" step="1">
-<%-- 			<c:set var="myCoupon" value="false" /> --%>
-			${i }카테고리 : ${mycouponList[i].coupon_category }
-			${i }카테고리 : ${mycouponList[i].coupon_condition }
-			${i }조건 : ${fn:contains(orderList, mycouponList[i].coupon_condition)}
-<%-- 			${orderList[0].itemCategory }  --%>
-
-				
-			<c:forEach items="${orderList}" var="list">
-			
-			<c:forEach items="${list}" var="map">
-			<c:set var="myCoupon" value="${fn:contains(map, mycouponList[i].coupon_condition)}"/>
-				${myCoupon} <br>
-			</c:forEach>
-			
-			</c:forEach>
-
-
-
-				
-				
-			 <c:if test="${fn:contains(orderList, mycouponList[i].coupon_condition)}"> 
-			<c:if test="${myCoupon eq 'goodscoupon' }">
-	
-					<tr>
-						<td  align="left"  class="c_select_td_name">
-						<input type="checkbox" name="f_couponmemberno" id="f_couponmemberno_3_${i}" value="${mycouponList[i].coupon_price}" onclick="selectCouponMember('bonus', ${i})" >
-						<label for="f_couponmemberno_3_${i }" style="cursor: pointer; cursor: hand;">
-						<font color="#696969">『${mycouponList[i].coupon_name}』상품<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 할인 쿠폰
-							</font></label></td>
-						<td  class="c_select_td">
-						 <font color="#9e9e9e">${mycouponList[i].coupon_condition}</font></td>
-						<td  class="c_select_td" style="padding-right: 10px">
-						<font color="#fc2c03"><b>${mycouponList[i].coupon_price}</b></font>
-						</td>
-						<td  class="c_select_td"><font
-							color="#9e9e9e">${mycouponList[i].coupon_limit}</font></td>
-					</tr>
-			</c:if>
-			</c:if>
-			</c:forEach>
+	<c:forEach items="${orderList}" var="orderList">
+         <c:forEach var="i" begin="0" end="${fn:length(mycouponList)-1}" step="1">
+         <c:set var="myCoupon" value="${mycouponList[i].coupon_category }" />
+         
+          <c:if test="${fn:contains(orderList[0].itemCategory, mycouponList[i].coupon_condition)}">
+         <c:if test="${myCoupon == 'goodscoupon' }">
+               <tr>
+                  <td  align="left"  class="c_select_td_name">
+                  <input type="checkbox" name="f_couponmemberno" id="f_couponmemberno_3_${i}" value="${mycouponList[i].coupon_price}" onclick="selectCouponMember('bonus', ${i})" >
+                  <label for="f_couponmemberno_3_${i }" style="cursor: pointer; cursor: hand;">
+                  <font color="#696969">『${mycouponList[i].coupon_name}』상품<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 할인 쿠폰
+                     </font></label></td>
+                  <td  class="c_select_td">
+                   <font color="#9e9e9e">${mycouponList[i].coupon_condition}</font></td>
+                  <td  class="c_select_td" style="padding-right: 10px">
+                  <font color="#fc2c03"><b>${mycouponList[i].coupon_price}</b></font>
+                  </td>
+                  <td  class="c_select_td"><font
+                     color="#9e9e9e">${mycouponList[i].coupon_limit}</font></td>
+               </tr>
+         </c:if>
+         </c:if>
+         </c:forEach>
+         </c:forEach>
 			
 						</tbody>
 					</table>
@@ -1216,14 +1185,28 @@ span.scoup { /*     쿠폰 팝업 창  */
 		</tbody>
 	</table>
 	
-	보너스/상품쿠폰<input id= "bonus_goods" name="bonus_goods" type="text" size="20" value=0 readonly>원 +
-	플러스 쿠폰 <input id= "plus" name="plus" type="text" size="20" value=0 readonly> =
-	<input id= "total_sum" name="total_sum" type="text" size="20" value=0 readonly>
+	<div class="couponTotal">
+	보너스/상품쿠폰 &nbsp;<input id= "bonus_goods" name="bonus_goods" type="text" size="10" value=0 readonly>원 +
+	플러스 쿠폰 &nbsp;<input id= "plus" name="plus" type="text" size="10" value=0 readonly>원 =
+	<input id= "total_sum" name="total_sum" type="text" size="20" value=0 readonly>원
+	</div>
 	
-          <div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;" onClick="close_pop();">
-                <span class="pop_bt" style="font-size: 13pt;" > 닫기</span>
-            </div>
-
+	
+			<div class="tableDiv">
+			<dl class="trOrder">
+				<dd class="twoBtn">
+<!-- 					<a class="btnCancel" href="listBasket.basket">장바구니</a> -->
+					<input type="button" class="btn_c_cancle" value="취소" onclick="clear_pop();">
+				</dd>
+				<dd>&nbsp;</dd>
+				<dd class="twoBtn" id="OrderBuyButton1">
+					<input type="button" value="사용" class="btn_c_use" onclick="close_pop();">
+<!-- 					<a class="btnModify" href="javascript:fnOrderReady();">결제하기</a> -->
+<!-- 					<a class="btnModify" href="OrderComplete.complete">결제하기</a> -->
+				</dd>
+			</dl>
+		</div>
+	
 
 </div>
 </div>

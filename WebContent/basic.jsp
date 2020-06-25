@@ -24,7 +24,7 @@
 			</h2>
 			<!--  <h2><a href="OrderPayForm.event">구매페이지 - 쿠폰</a></h2> -->
 			<h2>
-				<a href="productDetail.basket">장바구니</a>
+				<a href="listBasket.basket">장바구니</a>
 			</h2>
 
 			<h2>
