@@ -79,19 +79,10 @@
 				<dt>이메일</dt>
 				<dd>
 					<input class="conInput" type="text" id="email" name="email" maxlength="50" placeholder="예) example@artbox.co.kr"/>
-					<a class="conButton" href="#">인증번호</a>
 					<div id="emailcheck"></div>
 				</dd>
 			</dl>
 		
-		
-		<dl class="trJoin">
-			<dt>인증번호</dt>
-			<dd>
-				<input class="conInput" type="tel" id="sixnum" name="sixnum" maxlength="6" placeholder="인증번호 6자리" />
-				<a class="conButton" href="#">인증확인</a>
-			</dd>
-		</dl>
 		
 		
 		</div>

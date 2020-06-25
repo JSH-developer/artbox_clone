@@ -101,9 +101,6 @@
 				src="Images/img/facebook.png"></a> <a href=""><img alt="구글"
 				src="Images/img/google.png"></a>
 		</div>
-		<form action="" method="post">
-			<a href="#" class="nonMemberButton">비회원 주문/배송 조회하기</a>
-		</form>
 	</div>
 	<!--  푸터 -->
 	<jsp:include page="../inc/bottom.jsp"></jsp:include>
