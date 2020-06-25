@@ -24,24 +24,49 @@
 			<span class="top">주소</span>
 			<span class="top">휴대전화</span>
 			<span class="top">일반전화	</span>
+			<c:if test="${empty rb }">
+				<div class="middle">
+					등록된 배송지가 없습니다.
+				</div>
+			</c:if>
 			
-			<div class="middle">
-				등록된 배송지가 없습니다.
-			</div>
+			<c:if test="${!empty rb }">
+				<c:forEach var="rb" items="rbList">
+					<div class="middle">
+						<span></span>
+						<span></span>
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+				</c:forEach>
+			</c:if>
+			
 		</div>
 		<div class="button">
-			<span class="modify">수정</span>
-			<span class="delete">삭제</span>
+			<span class="modify" onclick="rModify()">수정</span>
+			<span class="delete" onclick="rDelete()">삭제</span>
 			<span class="basic">기본 배송지로 선택</span>
 			<span class="add" onclick="location.href='MyPageDeliveryAdd.member'">배송지 추가</span>
 		</div>
 		
+	<script type="text/javascript">
+		function rModify() {
+			
+		}
+	</script>
+
+
+
+
+
+
+
+
+
+
 		
 <!-- 		       페이지 구현 				-->
-
-
-
-
 
 	</div>
 	

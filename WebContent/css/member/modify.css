@@ -94,6 +94,7 @@ p{
 	background-color: #ffffff;
 	margin: 2px;
 	display: inline;
+	cursor: pointer;
 }
 
 
@@ -106,6 +107,7 @@ p{
 	color: #ffffff;
 	background-color: #000000;
 	display: inline;
+	cursor: pointer;
 }
 
 
@@ -119,7 +121,20 @@ p{
 	color: #ffffff;
 	background-color: #424242;
 	display: inline;
+	cursor: pointer;
 }
+
+.main input[type="submit"]{
+	width: 333px;
+	height: 56px;
+	font-size: 21px;
+	border: 1px solid;
+	border-radius: 5px;
+	background-color: #000000;
+	color: #ffffff;
+	cursor: pointer;
+}
+
 
 /* -------------------패스워드 변경 CSS ------------------*/
 .main{
@@ -133,6 +148,7 @@ p{
 	font-size: 25px;
 	text-align: center;
 	color: #000000;
+	margin-bottom: 100px;
 }
 
 .main .middle .left {
@@ -157,6 +173,7 @@ p{
 
 .modifybtn{
 	margin-top: 30px;
+	margin-bottom: 150px;
 }
 
 .modifybtn .leftbtn input[type="button"]{
@@ -168,18 +185,18 @@ p{
 	border-radius: 5px;
 	background-color: #ffffff;
 	margin-right: 8px;
+	cursor: pointer;
 }
 
-.modifybtn .rightbtn input[type="submit"]{
-	display:inline-block;
-	width: 333px;
+.memModify input[type="submit"]{
+	width: 217px;
 	height: 56px;
 	font-size: 21px;
 	border: 1px solid;
 	border-radius: 5px;
 	background-color: #000000;
 	color: #ffffff;
-	font-weight: bold;
+	cursor: pointer;
 }
 
 .main .middle #nowpwcheck,#newpwcheck,#newrepwcheck{

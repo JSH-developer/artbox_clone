@@ -57,7 +57,6 @@ public class MemberJoinAction implements Action {
 				out.println("alert('글 등록 실패')");
 				out.println("history.back()");
 				out.println("</script>");
-				//			System.out.println("글 등록 실패");
 
 			}else {
 				response.setContentType("text/html;charset=UTF-8");

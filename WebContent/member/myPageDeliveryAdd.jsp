@@ -18,15 +18,16 @@
 		<p class="title">나의 배송지 추가/수정</p>
 		<p class="message">*자주 쓰는 배송지를 등록하고 관리할 수 있습니다.</p>
 		<div class="main">
-			<form action="" method="post">
+			<form action="deliveryAdd.member" method="post">
 				<div>
-					<span class="left">배송지명</span><input type="text" name="adressName">
+					<span class="left">배송지명</span><input type="text" name="receiver">
+					<input type="hidden" name="id" value="${id }">
 				</div>
 				<div>
-					<span class="left">받는사람</span><input type="text" name="Recipient">
+					<span class="left">받는사람</span><input type="text" name="receiver_name">
 				</div>
 				<div>
-					<span class="left">휴대전화</span><input type="text" name="phone">
+					<span class="left">휴대전화</span><input type="text" name="receiver_phone">
 				</div>
 
 				<!-- 			-------------------------------우편번호 API-----------------------------------          -->
@@ -35,17 +36,17 @@
 						<tr>
 							<td rowspan="3" style="width: 131px; color: #646464;">주소</td>
 							<td><input type="text" id="sample6_postcode"
-								placeholder="우편번호" readonly="readonly" style="width: 285px;"></td>
+								placeholder="우편번호" name="postcode" readonly="readonly" style="width: 285px;"></td>
 							<td><input type="button"
 								onclick="sample6_execDaumPostcode()" value="주소 찾기"></td>
 						</tr>
 						<tr>
 							<td colspan="2"><input type="text" id="sample6_address"
-								placeholder="주소" readonly="readonly"></td>
+								placeholder="주소" name="addr" readonly="readonly"></td>
 						</tr>
 						<tr>
 							<td colspan="2"><input type="text"
-								id="sample6_detailAddress" placeholder="상세주소"
+								id="sample6_detailAddress" name="addr_detail" placeholder="상세주소"
 								style="margin-bottom: 40px;"></td>
 						</tr>
 						<tr>

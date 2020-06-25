@@ -6,16 +6,23 @@
 <meta charset="UTF-8">
 <title>ARTBOX</title>
 <link href="css/member/myPage.css" rel="stylesheet">
+<link href="css/front.css" rel="stylesheet" type="text/css">
+<link href="css/slide.css" rel="stylesheet" type="text/css">
 <script src="../js/jquery-3.5.0.js"></script>
 <script type="text/javascript" src="member/myPage.js"></script>
 </head>
 <body>
+
+	<!-- 헤더 -->
+	<jsp:include page="../inc/top.jsp"></jsp:include>
+	<!-- 헤더 -->
+
 	<div class = "body_box">
 		<div class="top_box">
-		
 			<jsp:include page="../member/myPageHeader.jsp"></jsp:include>
-			
 		</div>
+		
+		
 		<div class="MenuBar_Box">
 			<ul>
 				<li onclick="location.href='myPageOrders.member'" class="on">주문/배송</li>
@@ -37,16 +44,6 @@
 
 			</select>
 		</div>
-
-
-
-
-
-
-
-
-
-
 
 
 		<div class="clear"></div>

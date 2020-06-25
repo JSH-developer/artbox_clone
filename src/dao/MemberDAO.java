@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.security.auth.login.LoginException;
 
 import static db.jdbcUtil.*;
 
@@ -101,7 +100,7 @@ public class MemberDAO {
 			
 			if(rs.next()) {
 				if(rs.getString(1).equals(pw)) {
-					LoginSuccess = 1; // 로그인 성공
+					LoginSuccess = 1; // 패스워드 일치
 				}else {
 					LoginSuccess = 0; // 패스워드 틀림
 				}
@@ -156,6 +155,20 @@ public class MemberDAO {
 		return bb;
 		
 		
+	}
+	public void pwModify(String id, String newpw) {
+		PreparedStatement pstmt = null;
+		try {
+			String sql = "UPDATE member SET pw = ? WHERE id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, newpw);
+			pstmt.setString(2, id);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("pwModify오류 - "+e.getMessage());
+		}finally {
+			close(pstmt);
+		}
 	}
 
 }

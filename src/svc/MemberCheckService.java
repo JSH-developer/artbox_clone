@@ -35,7 +35,7 @@ public class MemberCheckService {
 		int checkSuccess = dao.idpwSuccess(id, pw);
 		if(checkSuccess == 1) {
 			
-			pwcheck = true;
+			pwcheck = true; // 패스워드 일치
 		}
 		
 		close(con);

@@ -10,28 +10,30 @@
 </c:if>
 
 <div class="whoes">
-	<span class="MNmSpan">안녕하세요, <span class="MNm">${name}</span> 님
-	</span> <span class="MInfo" onclick="Pop_Menu()"><label
-		style="cursor: pointer;">회원정보</label>
-		<div class="Pop_Menu" id="Pop_Menu" style="display: none;">
-			<ul>
-				<li><a href="profileChange.member">회원정보 변경</a></li>
-				<li><a href="delivery.member">나의 배송지 관리</a></li>
-				<li><a href="refund.member">나의 환불계좌 관리</a></li>
-				<li><a href="logout.member">로그아웃</a></li>
-			</ul>
-		</div> </span><a href="#" onclick="GA_event('마이페이지_PC', '상단 메뉴', '이벤트 참여/당첨 내역');"><span
-		class="MEvent">이벤트 참여/당첨 내역</span></a>
-
+	<span class="MNmSpan">안녕하세요, <span class="MNm">${name}</span> 님	</span>
+		<span class="MInfo">
+			<span  style="cursor: pointer;">회원정보</span>
+				<div class="Pop_Menu" id="Pop_Menu" style="display: none;">
+					<ul>
+						<li><a href="profileChange.member">회원정보 변경</a></li>
+						<li><a href="delivery.member">나의 배송지 관리</a></li>
+						<li><a href="refund.member">나의 환불계좌 관리</a></li>
+						<li><a href="logout.member">로그아웃</a></li>
+					</ul>	
+				</div>
+		</span>
+		<a href="#" onclick="GA_event('마이페이지_PC', '상단 메뉴', '이벤트 참여/당첨 내역');"><span class="MEvent">이벤트 참여/당첨 내역</span></a>
 </div>
 <div class="three_box">
 	<ul>
 		<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '등급혜택보기');"><li
 			class="Tbox1"><span class="GName grade5">SILVER</span> <img
-				class="GImg" src="Images/img/등급.png" /> <span class="GSee grade5">[등급혜택보기]</span>
+				class="GImg" src="Images/img/silver.png" /> <span class="GSee grade5">[등급혜택보기]</span>
 		</li></a>
+		
+		
 		<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '꿈캔디 내역');"><li
-			class="Tbox2"><img class="CImg" src="Images/img/포인트.png" /> <span
+			class="Tbox2"><img class="CImg" src="Images/img/point.png" /> <span
 				class="CCandy">0</span></li></a>
 		<li class="Tbox3">
 			<ul>

@@ -146,7 +146,7 @@
 			<input type="button" value="회원 탈퇴">
 			<input type="button" value="취소" >
 			<span class="success">
-			<input type="submit" name="submit" value="정보 변경">
+			<input class="submit1" type="submit" name="submit" value="정보 변경">
 			</span>
 		</div>
 	</div>
@@ -159,12 +159,13 @@
 		<p class="title2">비밀번호 변경</p>
 	<div class="main">
 		<form action="pwProModify.member" method="post" onsubmit="return check()">
+		<input type="hidden" name=id value="${id }">
 		<div class="middle">
-			<span class="left">현재 사용중인 비밀번호</span><input type="password" id="nowpw">
+			<span class="left">현재 사용중인 비밀번호</span><input type="password" id="nowpw" name="nowpw">
 			<div id="nowpwcheck"></div>
-			<span class="left">새로운 비밀번호</span><input type="password" id="newpw">
+			<span class="left">새로운 비밀번호</span><input type="password" id="newpw" name="newpw">
 			<div id="newpwcheck"></div>
-			<span class="left">새로운 비밀번호 확인</span><input type="password" id="newrepw">
+			<span class="left">새로운 비밀번호 확인</span><input type="password" id="newrepw" name="newrepw">
 			<div id="newrepwcheck"></div>
 			
 <!--                 			패스워드 체크                        	-->
@@ -179,6 +180,7 @@
 				var newpw = $('#newpw').val();
 				var newrepw = $('#newrepw').val();
 				var pw = $('#nowpw').val();
+				
 				
 				if(newpw == ''){
 					alert('비밀번호를 입력해주세요.');
@@ -241,7 +243,7 @@
 		</div>
 		<div class="modifybtn">
 			<span class="leftbtn"><input type="button" value="취소"></span>
-			<span class="rightbtn"><input type="submit" name="submit" value="확인"></span>
+			<span><input type="submit" name="submit" value="확인" class="temp1"></span>
 		</div>
 			<script type="text/javascript">
 				$('.leftbtn').click(function() {

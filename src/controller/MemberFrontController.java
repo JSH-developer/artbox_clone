@@ -15,8 +15,10 @@ import org.json.simple.JSONObject;
 
 import action.Action;
 import action.MemberCheckAction;
+import action.MemberDeliveryAddAction;
 import action.MemberJoinAction;
 import action.MemberLoginAction;
+import action.MemberPwModifyAction;
 import action.memberProfileAction;
 import vo.ActionForward;
 
@@ -135,6 +137,20 @@ public class MemberFrontController extends HttpServlet {
     	}else if(command.equals("/MyPageDeliveryAdd.member")) {
     		forward = new ActionForward();
     		forward.setPath("/member/myPageDeliveryAdd.jsp");
+    	}else if(command.equals("/pwProModify.member")) {
+    		action = new MemberPwModifyAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/deliveryAdd.member")) {
+    		action = new MemberDeliveryAddAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
     	}
     	
     	

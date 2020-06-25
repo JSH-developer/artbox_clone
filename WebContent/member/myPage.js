@@ -15,7 +15,7 @@ $(document).ready(function(){
 		var pop = document.getElementById("Pop_Menu");
 		if(pop.style.display == 'none'){
 			pop.style.display = 'block';
-		}else{
+		}else if(pop.style.display == 'block'){
 			pop.style.display = 'none';
 		}
 	}
