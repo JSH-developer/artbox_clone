@@ -17,7 +17,6 @@
 					<ul>
 						<li><a href="profileChange.member">회원정보 변경</a></li>
 						<li><a href="delivery.member">나의 배송지 관리</a></li>
-						<li><a href="refund.member">나의 환불계좌 관리</a></li>
 						<li><a href="logout.member">로그아웃</a></li>
 					</ul>	
 				</div>
