@@ -82,7 +82,7 @@ $(document).ready(function(){
 	◁&nbsp;
 	</c:when>
 	<c:when test="${pageInfo.page > 1}">
-	<a href="CategoryList.admin?page=${pageInfo.page-1}&opt=${param.opt}&kwd=${param.kwd}">◁</a>&nbsp;
+	<a href="ProductList.admin?page=${pageInfo.page-1}&opt=${param.opt}&kwd=${param.kwd}">◁</a>&nbsp;
 	</c:when>
 	</c:choose>
 	<c:forEach var="a" begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1">
@@ -91,7 +91,7 @@ $(document).ready(function(){
 			[${a}]
 		</c:when>
 		<c:otherwise>
-			<a href="CategoryList.admin?page=${a}&opt=${param.opt}&kwd=${param.kwd}">[${a}]
+			<a href="ProductList.admin?page=${a}&opt=${param.opt}&kwd=${param.kwd}">[${a}]
 			</a>&nbsp;
 		</c:otherwise>
 		</c:choose>
@@ -101,7 +101,7 @@ $(document).ready(function(){
 		▷
 	</c:when>
 	<c:otherwise>
-		<a href="CategoryList.admin?page=${pageInfo.page+1}&opt=${param.opt}&kwd=${param.kwd}">▷</a>
+		<a href="ProductList.admin?page=${pageInfo.page+1}&opt=${param.opt}&kwd=${param.kwd}">▷</a>
 	</c:otherwise>
 	</c:choose>
 </section>
