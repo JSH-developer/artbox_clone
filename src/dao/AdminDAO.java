@@ -770,6 +770,7 @@ public class AdminDAO {
 				ordersBean.setOrders_order_name(rs.getString("order_name"));
 				ordersBean.setOrders_order_email(rs.getString("order_email"));
 				ordersBean.setOrders_order_phone(rs.getString("order_phone"));
+				ordersBean.setOrders_msg(rs.getString("msg"));
 				ordersBean.setOrders_point(rs.getInt("point"));
 				ordersBean.setOrders_total_price(rs.getInt("total_price"));
 				ordersBean.setOrders_payMethod(rs.getString("pay_method"));
@@ -806,7 +807,6 @@ public class AdminDAO {
 				receiverBean.setReceiver_postcode(rs.getString("receiver_postcode"));
 				receiverBean.setReceiver_addr(rs.getString("receiver_addr"));
 				receiverBean.setReceiver_addr_detail(rs.getString("receiver_addr_detail"));
-				receiverBean.setReceiver_msg(rs.getString("receiver_msg"));
 				receiverBean.setReceiver_date(rs.getTimestamp("receiver_date").toString());
 			}
 			

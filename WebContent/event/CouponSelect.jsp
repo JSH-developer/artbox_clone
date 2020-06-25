@@ -97,7 +97,7 @@ function selectCouponMember(s,v){
 		});
 
 }
-	
+
 </script>
 </head>
 <body>
@@ -198,6 +198,7 @@ function selectCouponMember(s,v){
 
 			<c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
 			<c:set var="myCoupon" value="${mycouponList[i].coupon_category}" />
+			 <c:if test="${fn:contains(orderList, mycouponList[i].coupon_condition)}"> 
 			<c:if test="${myCoupon eq 'goodscoupon' }">
 					<tr>
 						<td  align="left"  class="c_select_td_name">
@@ -213,6 +214,7 @@ function selectCouponMember(s,v){
 						<td  class="c_select_td"><font
 							color="#9e9e9e">${mycouponList[i].coupon_limit}</font></td>
 					</tr>
+			</c:if>
 			</c:if>
 			</c:forEach>
 

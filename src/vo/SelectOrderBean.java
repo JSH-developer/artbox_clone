@@ -12,7 +12,14 @@ public class SelectOrderBean {
 	private String itemImage;
 	private int itemprice;
 	private int quantity;
+	private String itemCategory;
 	
+	public String getItemCategory() {
+		return itemCategory;
+	}
+	public void setItemCategory(String itemCategory) {
+		this.itemCategory = itemCategory;
+	}
 	public String getName() {
 		return name;
 	}
