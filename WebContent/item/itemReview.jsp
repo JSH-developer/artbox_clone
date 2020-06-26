@@ -8,9 +8,29 @@
     <link href="${pageContext.request.contextPath}/css/item/itemReview.css" rel="stylesheet" type="text/css">
     <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 	<script src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
+	<script type="text/javascript">
+		function reviewcheck() {
+			var result = false;
+			
+			if($('input[name=skill]').val() == ""){
+				alert("별점(기능)을 입력해 주세요.");
+			}else if($('input[name=design]').val() == ""){
+				alert("별점(디자인)을 입력해 주세요.");
+			}else if($('input[name=price]').val() == ""){
+				alert("별점(가격)을 입력해 주세요.");
+			}else if($('input[name=quality]').val() == ""){
+				alert("별점(품질)을 입력해 주세요.");
+			}else if($('textarea[name=content]').val() == ""){
+				alert("내용을 입력해 주세요.");
+				$('textarea[name=content]').focus();
+			}else{
+				result = confirm("상품후기를 작성 하시겠습니까?");
+			}
+			return result;
+		}
+	</script>
 </head>
 <body>
-<% %>
 	<!-- 헤더 -->
 	<jsp:include page="../inc/top.jsp"></jsp:include>
 	<!-- /헤더 -->
@@ -118,84 +138,78 @@
 		<div class="full-screen">
 			<div class="full-screen-close"></div>
 			<div class="review-overlay">
+			<form action="reviewWrite" method="post" onsubmit="return reviewcheck()">
 				<div class="overlay-header">상품후기 작성하기<input class="overlay-close" type="button" value=""></div>
 				<div class="overlay-body">
+					<input type="hidden" name="product_num" value="1">
 					<img class="candy-img" src="${pageContext.request.contextPath}/Images/item/img_epilogue_bg.png">
 					<div class="input">
 						<span class="tt">별점</span>
-						<span class="score"><span>기능</span><b value="1">★</b> <b value="2">★</b> <b value="3">★</b> <b value="4">★</b> <b value="5">★</b></span>
-						<span class="score"><span>디자인</span><b value="1">★</b> <b value="2">★</b> <b value="3">★</b> <b value="4">★</b> <b value="5">★</b></span>
-						<span class="score"><span>가격</span><b value="1">★</b> <b value="2">★</b> <b value="3">★</b> <b value="4">★</b> <b value="5">★</b></span>
-						<span class="score"><span>품질</span><b value="1">★</b> <b value="2">★</b> <b value="3">★</b> <b value="4">★</b> <b value="5">★</b></span>
+						<span class="score"><span>기능</span><b value="1">★</b> <b value="2">★</b> <b value="3">★</b> <b value="4">★</b> <b value="5">★</b>
+							<input type="hidden" name="skill" value=""></span>
+						<span class="score"><span>디자인</span><b value="1">★</b> <b value="2">★</b> <b value="3">★</b> <b value="4">★</b> <b value="5">★</b>
+							<input type="hidden" name="design" value=""></span>
+						<span class="score"><span>가격</span><b value="1">★</b> <b value="2">★</b> <b value="3">★</b> <b value="4">★</b> <b value="5">★</b>
+							<input type="hidden" name="price" value=""></span>
+						<span class="score"><span>품질</span><b value="1">★</b> <b value="2">★</b> <b value="3">★</b> <b value="4">★</b> <b value="5">★</b>
+							<input type="hidden" name="quality" value=""></span>
 					</div>
 					<script type="text/javascript">
 			        $('.input b').click(function(){
 			            $(this).parent().children("b").removeClass("on");  /* 별점의 on 클래스 전부 제거 */ 
 			            $(this).addClass("on").prevAll("b").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
+			            $('input[name=skill]').val()
 			            alert($(this).attr("value"));
-			            return false;
+			            if($(this).parent().find("input[name=skill]").length){//.length 존재유무 확인
+			            	$("input[name=skill]").val($(this).attr("value"));
+			            }else if($(this).parent().find("input[name=design]").length){
+			            	$("input[name=design]").val($(this).attr("value"));
+				        }else if($(this).parent().find("input[name=price]").length){
+			            	$("input[name=price]").val($(this).attr("value"));
+				        }else if($(this).parent().find("input[name=quality]").length){
+			            	$("input[name=quality]").val($(this).attr("value"));
+				        }
 			        });
 					</script>
 					<div class="input">
 						<span class="tt">내용</span>
-						<textarea placeholder="- 구매/취소/반품하신 상품과 무관한 내용이나 이미지, 비방, 도배성 글 등 부적합한 내용일 때는 통보없이 삭제 및 지급된 꿈캔디가 회수될 수 있습니다."></textarea>
+						<textarea name="content" placeholder="- 구매/취소/반품하신 상품과 무관한 내용이나 이미지, 비방, 도배성 글 등 부적합한 내용일 때는 통보없이 삭제 및 지급된 꿈캔디가 회수될 수 있습니다."></textarea>
+						<span></span>
 					</div>
 					<div class="input">
 						<span class="tt">이미지 파일</span>
-						&nbsp;&nbsp;&nbsp;${sessionScope.id }
+						<label>
+							<img id="blah1" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt="" class="preview" title="선택된 파일 없음"/>
+							<input type='file' onchange="readURL(this,1);" />
+						</label>
+						<label>
+							<img id="blah2" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt="" class="preview" title="선택된 파일 없음"/>
+							<input type='file' onchange="readURL(this,2);" />
+						</label>
+						<label>
+							<img id="blah3" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt="" class="preview" title="선택된 파일 없음"/>
+							<input type='file' onchange="readURL(this,3);" />
+						</label>
+						<label>
+							<img id="blah4" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt="" class="preview" title="선택된 파일 없음"/>
+							<input type='file' onchange="readURL(this,4);" />
+						</label>
+						<label>
+							<img id="blah5" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt="" class="preview" title="선택된 파일 없음"/>
+							<input type='file' onchange="readURL(this,5);" />
+						</label>
+						<div class="etc">*이미지는 jpg와 png 형식만 가능합니다</div>
 					</div>
-					<span class="tt">이메일 주소</span>
-					<input type="text" name="email" value="" maxlength="30">
 				</div>
-				<div class="input">
-					<span class="tt">문의분야</span>
-					<select name="fild">
-						<option value="" selected="selected">선택하세요</option>
-						<option value="입고">입고</option>
-						<option value="재고">재고</option>
-						<option value="기타">기타</option>
-					</select>
+				<div class="overlay-footer">
+					<input class="regist" type="submit" value="등록하기">
+					<div class="clear"></div>
 				</div>
-				<div class="input">
-					<span class="tt">제목</span>
-					<input type="text" name="title" value="" maxlength="30">
-				</div>
-				<div class="input">
-					<span class="tt">문의내용</span>
-					<textarea name="content"></textarea>
-					<span class="etc">*주문/배송/반품 등 일반 문의는 '고객감동센터 &gt; 1:1 문의/상담'으로 해주시기 바랍니다.</span>
-				</div>
-				<div class="PrivacyCheck">
-					<b>개인정보 수집 및 이용에 동의합니다. <input type="checkbox" name="privacycheck1"></b>
-					<p>(주)아트박스에서는 고객상담을 목적으로 개인정보(이름, 휴대폰번호, 이메일)를 수집하며, 수집한 개인정보는 전자상거래 등에서의 소비자보호에 관한 법률에 의거 상담 접수일로부터 3년 또는 5년간 보관 후 파기 합니다. 동의 거부 시 상담이 제한되거나 거부될 수 있습니다.</p>
-					<b>제 3자 정보 제공에 동의합니다. <input type="checkbox" name="privacycheck2"></b>
-					<p>(주)아트박스에서 고객상담을 목적으로 (주)웅진에 개인정보(이름, 휴대폰번호, 이메일)를 제공하며, 제공한 개인정보는 전자상거래 등에서의 소비자보호에 관한 법률에 의거 상담 접수일로 부터 3년 또는 5년간 보관 후 파기 합니다. 동의 거부 시 상담이 제한되거나 거부될 수 있습니다.</p>
-				</div>
-				<div class="button">
-					<input class="btnRegProductQna" type="submit" value="등록하기">
-				</div>
-				<div class="clear"></div>
-				<label>
-					<img id="blah1" src="../Images/item/img_arrow_left.png" alt="" class="im" title="선택된 파일 없음"/>
-					<input type='file' onchange="readURL(this,1);" />
-				</label>
-				<label>
-					<img id="blah2" src="../Images/item/img_arrow_left.png" alt="" class="im" title="선택된 파일 없음"/>
-					<input type='file' onchange="readURL(this,2);" />
-				</label>
-				<label>
-					<img id="blah3" src="../Images/item/img_arrow_left.png" alt="" class="im" title="선택된 파일 없음"/>
-					<input type='file' onchange="readURL(this,3);" />
-				</label>
-				<label>
-					<img id="blah4" src="../Images/item/img_arrow_left.png" alt="" class="im" title="선택된 파일 없음"/>
-					<input type='file' onchange="readURL(this,4);" />
-				</label>
+			</form>
 			</div>
 		</div>
 	<script type="text/javascript">
 		function readURL(input,x) {
-			alert(input.value);
 			strArray = input.value.split(".");
 			strArrayLength = strArray.length -1;
 			FileType = strArray[strArrayLength].toLowerCase();
@@ -203,7 +217,7 @@
 			if (input.files && input.files[0]) {
 				if (FileType != "jpg" && FileType != "png" && FileType != "jpeg"){
 					alert("jpg 또는 png파일만 업로드 가능합니다." + FileType);
-					$("#blah"+x).attr('src', "../Images/item/img_arrow_left.png");
+					$("#blah"+x).attr('src', "${pageContext.request.contextPath}/Images/item/img_uploadimage.png");
 					$("#blah"+x).attr('title', "선택된 파일 없음");
 					input.value="";	
 				}else{
@@ -215,7 +229,7 @@
 					reader.readAsDataURL(input.files[0]);
 				}
 			}else{
-					$("#blah"+x).attr('src', "../Images/item/img_arrow_left.png");
+				$("#blah"+x).attr('src', "${pageContext.request.contextPath}/Images/item/img_uploadimage.png");
 				$("#blah"+x).attr('title', "선택된 파일 없음");
 			}
 		}

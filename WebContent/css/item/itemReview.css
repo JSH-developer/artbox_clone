@@ -61,7 +61,6 @@ a {text-decoration:none}
 	background: rgba(0,0,0,0.4);
     z-index: 4;
 }
-
 .review-overlay{
 /* 	display: none; */
     position: absolute;
@@ -92,42 +91,42 @@ a {text-decoration:none}
 .overlay-body {
 	padding-top: 25px;
 }
-.candy-img{
+.overlay-body .candy-img{
 	width: 100%;
 	height: 134px;
 }
-.input {
+.overlay-body .input {
     padding: 15px 0 0 145px;
     line-height: 30px;
     color: #000000;
 }
-.input .tt {
+.overlay-body .input .tt {
     position: absolute;
     left: 30px;
     line-height: 57px;
     font-size: 16px;
     color: #6d6d6d;
 }
-.input .score{
+.overlay-body .input .score{
 	display: inline-block;
 	width: 200px;
 }
-.input .score span{
+.overlay-body .input .score span{
 	display: inline-block;
 	width: 60px;
 	text-align: center;
 }
-.input .score b{
+.overlay-body .input .score b{
 	text-decoration: none;
 	color: #d0d0d0;
 }
-.input .score b:hover{
+.overlay-body .input .score b:hover{
 	cursor: pointer;
 } 
-.input .score b.on{
+.overlay-body .input .score b.on{
 	color: black;
 }
-.input textarea {
+.overlay-body .input textarea {
 	font-family: 'Spoqa Han Sans', 'Malgun Gothic', Dotum, Gulim, Tahoma, Helvetica, AppleGothic, Helvetica, Sans-serif;
     height: 170px;
     border: 0;
@@ -145,18 +144,51 @@ a {text-decoration:none}
     -webkit-appearance: none;
     margin: 0;
 }
+.overlay-body .input label{
+	display: inline-block;
+	border: 0;
+	width: 80px;
+	height: 80px;
+	border-radius: .25em;
+	margin-right: 10px;
+}
 
-
-
-
-.full-screen .im {
-	width:40px;
-	height:40px;
+.overlay-body .input label .preview {
+	width:100%;
+	height:100%;
 	cursor: pointer;
 	border: 1px solid #ebebeb;
 	border-radius: .25em;
 	
 }
-.full-screen input[type="file"] { /* 파일 필드 숨기기 */
-/* 	display: none; */
+.overlay-body .input label input[type="file"] { /* 파일 필드 숨기기 */
+	display: none;
+}
+.overlay-body .input .etc{
+	font-size: 13px;
+}
+.overlay-footer {
+    margin: 30px 0 50px ;
+}
+.overlay-footer .regist {
+	display: block;
+    margin: 0 auto;
+    width: 222px;
+    height: 53px;
+    color: #ffffff;
+    font-size: 17px;
+    background-color: #000000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.qna-overlay .button .btnRegProductQna {
+    margin: 0;
+    border: 0;
+    padding: 0 78px;
+    height: 50px;
+    color: #ffffff;
+    font-size: 20px;
+    background-color: #000000;
+    border-radius: 5px;
+    cursor: pointer;
 }

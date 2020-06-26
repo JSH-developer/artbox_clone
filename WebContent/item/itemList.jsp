@@ -12,6 +12,7 @@
 <title>ARTBOX(포트폴리오)</title>
 <link href="${pageContext.request.contextPath}/css/item/itemList.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
 </head>
 <body>
 <div class="page">
@@ -29,7 +30,7 @@
         <div class="category">
             <span><a href="${pageContext.request.contextPath}/itemList.item?major=${code}">전체</a></span>
             	<c:forEach var="minorCategory" items="${printCategory}" varStatus="status">
-            <span class="category_menu"><a href="${pageContext.request.contextPath}/itemList.item?minor=${code}<fmt:formatNumber value="${status.count}" pattern="00" />">${minorCategory}</a></span>
+            <span class="category_menu"><a href="${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${code}<fmt:formatNumber value="${status.count}" pattern="00" />&page=${page}">${minorCategory}</a></span>
             </c:forEach>
         </div>
 
@@ -38,23 +39,27 @@
                 <p>총 <b>${count}</b>개의 상품이 조회되었습니다.</p>
             </span>
             <span class="select_box">
-                <select onchange="selectBox(this)">
-                    <option value="1">
+                <select id="select" onchange="if(this.value)location.href=this.value;">
+                
+					<option>
+					선택하세요 
+					</option>                
+                    <option value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=1&page=1">
                         신상품순
                     </option>
-                    <option value="2">
+                    <option value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=2&page=1">
                         인기상품순
                     </option>
-                    <option value="3">
+                    <option value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=3&page=1">
                         낮은가격순
                     </option>
-                    <option value="4">
+                    <option value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=4&page=1">
                         높은가격순
                     </option>
-                    <option value="5">
+                    <option value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=5&page=1">
                         높은할인율순
                     </option>
-                    <option value="6">
+                    <option value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=6&page=1">
                         상품평순
                     </option>
 
@@ -108,55 +113,26 @@
         </div>
 
         <div class="paging">
+        <c:if test="${startPage-5>0 }">
             <a href=""><span class="pager-left_box"></span></a>
-            <span class="page_num"><a href="">1</a></span>
-            <a href=""><span class="pager-right_box"></span></a>
+        </c:if>
+        <c:forEach var="i" begin="0" end="4" step="1">
+            	<c:if test="${(startPage+i)<=lastPage }">
+            		<span class="page_num"><a href=""></a></span>
+            	</c:if>
+		</c:forEach>
+			<c:if test="${startPage+5<=lastPage }">
+            		<a href=""><span class="pager-right_box"></span></a>
+            	</c:if>
         </div>
     </div>
-    <input type="hidden" value="${select }" id="select">
-    <input type="hidden" value="${nowStatus }" id="status">
  </div>
- <!-- 메인 콘텐츠  -->
+ <!— 메인 콘텐츠  —>
  
-<!--  푸터 -->
+<!—  푸터 —>
  <jsp:include page="../inc/bottom.jsp"></jsp:include>
-<!--  푸터 -->
+<!—  푸터 —>
 </div>
 
-<script type="text/javascript">
-
-function searchfn(){
-	var kwd, url;
-	kwd = document.querySelector("#kwd").value.trim();
-	if(!kwd){
-		alert("검색어를 입력 해 주세요");
-		document.querySelector("#kwd").focus();
-	}else{
-		url = "search.item?kwd="+kwd;
-		location.replace(url);
-	}
-}
-
-function selectBox(e){
-	var result = document.querySelector("#select").value;
-	var status = document.querySelector("#status").value;
-	if(e.value==2){
-		
-		
-	}if(e.value==3){
-		location.href = "/artbox_clone/selectBox.item?select="+result+"&status="+status;
-		
-	}if(e.value==4){
-		
-		
-	}if(e.value==5){
-		
-		
-	}if(e.value==6){
-		
-		
-	}
-}
-</script>
 </body>
 </html>
