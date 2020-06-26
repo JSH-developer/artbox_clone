@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,26 @@
 	<script src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 	
 	<script type="text/javascript">
-	// 후기,qna 테이블 클릭시 토글 오픈
+	// 시작시
+	window.onload = function (){
+		//대분류 카테고리 replace
+// 		replaceMajor();
+		//문의 불러옴
+		goQuestionPage("${questionPageInfo.pageNum}");
+	}
+	//대분류 카테고리 replace
+	function replaceMajor(){
+		var major = '${categoryBean.category_sup }';		
+		if(major == 'DT') {$('.major').html('인형/토이');}
+		else if(major == 'FA') {$('.major').html('문구');}
+		else if(major == 'FS') {$('.major').html('패션');}
+		else if(major == 'KB') {$('.major').html('주방/욕실');}
+		else if(major == 'LD') {$('.major').html('리빙/데코');}
+		else if(major == 'DI') {$('.major').html('디지털/가전');}
+		else if(major == 'TR') {$('.major').html('여행');}
+		else if(major == 'BE') {$('.major').html('뷰티');}
+	}
+	// 후기,문의 테이블 클릭시 토글 오픈
 	$(document).on('click','.tr',function(){
 		if ($(this).parent().find(".ps").hasClass("on"))
 		{
@@ -43,43 +63,81 @@
 		$('.delivery-overlay').css('display','none');
 		$('.share-overlay').css('display','none');
 	})
+	$(document).on('click','.full-screen-close',function(){
+		$('.full-screen').css('display','none');
+		$('.qna-overlay').css('display','none');
+		$('.delivery-overlay').css('display','none');
+		$('.share-overlay').css('display','none');
+	})
 	// 버튼 클릭시 수량 변동
 	$(document).on("click", ".btnStockQty", function(){
 		var obj = $(this).parent().find("input[type=tel]");
 		if ($(this).hasClass("Minus")) {
-			if (parseInt(obj.val(),10)-1 <= 0) {
-				alert("주문수량은 1 이상이어야 합니다.");
-				obj.val("1");
-			} else {
-				obj.val(parseInt(obj.val(),10)-1);
-			}
+			obj.val(parseInt(obj.val(),10)-1);
 		}
 		if ($(this).hasClass("Plus")) {
-			obj.val(parseInt(obj.val(),10)+1);
+			if(parseInt(obj.val(),10)+1 < 10000){
+				obj.val(parseInt(obj.val(),10)+1);
+			}
 		}
-
-		fnCheckPriseSum();
-	});
-	//수량 변동시 가격 변동
-	$(document).on("blur", "[name=stockqty]", function(){//포커스 없어졌을때
-		if ($.isNumeric($(this).val()) == false){
-			$(this).val(1);
-		}
+		fnCheckStock();
 		fnCheckPriseSum();
 	});
 	$(document).on("keyup", "[name=stockqty]", function(){//키 눌렀을때
 		if ($.isNumeric($(this).val()) == false){
+			$("[name=stockqty]").val(1);
+		}
+		fnCheckStock();
+		fnCheckPriseSum();
+	});
+	//현재 재고 반영하여 수량 조정
+	function fnCheckStock(){
+		var stock_count = Number('${productBean.product_stock_count}');
+		var stockqty = Number($("[name=stockqty]").val());
+		if(stock_count <= 0){
+			$("[name=stockqty]").val(0);
+			alert('현재 재고량이 0개 입니다.');
+		}else if(stockqty < 1){
+			$("[name=stockqty]").val(1);
+			alert('주문수량은 1 이상이어야 합니다.');
+		}else if(stockqty > stock_count){
+			$("[name=stockqty]").val(stock_count);
+			alert('현재 재고량이 '+stock_count+'개 입니다.');
+		}else{
+			$("[name=stockqty]").val(parseInt(stockqty,10));
+		}
+	}
+	//포커스 이탈 방지
+	$(document).on("blur", "[name=stockqty]", function(){//포커스 없어졌을때
+		var stock_count = Number('${productBean.product_stock_count}');
+		var stockqty = Number($(this).val());
+		if(stock_count <= 0){
+			$(this).val(0);
+		}else if ($.isNumeric($(this).val()) == false){
 			$(this).val(1);
+		}else if (stockqty < 1){
+			$(this).val(1);
+		}else if (stockqty > stock_count){
+			$(this).val(stock_count);
+		}else{
+			$(this).val(parseInt(stockqty,10));
 		}
 		fnCheckPriseSum();
 	});
+	//수량 변동시 가격 변동
 	function fnCheckPriseSum(){
-		var returnValue = parseInt(${productBean.product_price},10)* parseInt($("[name=stockqty]").val(),10);
+		var returnValue = parseInt('${productBean.product_price}',10)* parseInt($("[name=stockqty]").val(),10);
 		$(".pdt-totalprice").html(commas(returnValue) + " 원");
 	}
 	function commas(x) {
 	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
+	// 장바구니 버튼 눌렀을때
+	function cartCheck(){
+		var result = confirm("선택하신 상품이 장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?");
+		document.gfr.action = "addCart.cart?result=" + result;
+		document.gfr.submit();
+	}	
 	// 위시 버튼 눌렀을때
 	$(document).on("click",".btn-wish", function(){
 		var isId = false;
@@ -98,40 +156,60 @@
 			}
 		}
 	});
+	//문의 등록하기버튼 클릭시
 	function qnacheck() {
-		alert("서브밋");
-		return true;
-	}
-	
-	// 쿠폰 클릭시 로그인 유무
-	function cpClick(){
-		var moveCheck;
-		var getId  = document.getElementById("loginId").value;
-		var coup_Num  = document.getElementById("coupNum").value;
-
-		alert(getId+" : "+coup_Num);
+		var result = false;
 		
-		if(getId == "null" || getId == ""){
-
-			moveCheck = confirm("로그인하시겠습니까?"+getId);
-			
-			if(moveCheck){
-				alert("로그인창으로 이동");
-			}else{
-				alert("그대로 유지");
+		if($('input[name=email]').val() == ""){
+			alert("이메일을 입력하세요.");
+			$('input[name=email]').focus();
+		}else if($('select[name=fild]').val() == ""){
+			alert("문의분야를 선택하세요.");
+			$('select[name=fild]').focus();
+		}else if($('input[name=title]').val() == ""){
+			alert("제목 선택하세요.");
+			$('input[name=title]').focus();
+		}else if($('textarea[name=content]').val() == ""){
+			alert("문의내용을 입력하세요.");
+			$('textarea[name=content]').focus();
+		}else if(!$('input[name=privacycheck1]').is(':checked')){
+			alert("개인정보 수집 및 이용에 동의해 주세요.");
+			$('input[name=privacycheck1]').focus();
+		}else if(!$('input[name=privacycheck2]').is(':checked')){
+			alert("제 3자 정보 제공에 동의해 주세요.");
+			$('input[name=privacycheck2]').focus();
+		}else{
+			result = confirm("상품문의를 등록 하시겠습니까?");
+		}
+		return result;
+	}
+	//페이징 처리
+	function prev(){
+		alert("첫 페이지 입니다");
+	}
+	function next(){
+		alert("마지막 페이지 입니다");
+	}
+	function goQuestionPage(pageNum){
+		$.ajax({
+			url:'questionList.item',
+			type:"POST",
+			dataType : 'html',
+			data:{
+				product_num:"${productBean.product_num}",
+				pageNum:pageNum,
+				pageSize:"${questionPageInfo.pageSize}",
+				pageBlock:"${questionPageInfo.pageBlock}",
+			},
+			success:function(rdata){
+				$('.question_content').html("");
+				$('.question_content').html(rdata);
 			}
-			
-		
-	}else{
-		var url = "CouponIssued.event?getid="+getId+"&couponNum="+coup_Num;
-		alert("쿠폰 저장함"+url);
-		location.href=url;
-		
-	}
-		
+		});
 	}
 	</script>
 </head>
+<body>
 	<!-- 헤더 -->
 	<jsp:include page="../inc/top.jsp"></jsp:include>
 	<!-- /헤더 -->
@@ -162,38 +240,13 @@
 				</div>
 				<div class="text-info">
 					<div class="pdt-name">${productBean.product_name }</div>
-					<div class="pdt-category"><a href="#">인형/토이</a> > <a href="#">FUN/TOY</a></div>
-					
-					
-					
-					<span id="realprice" class="pdt-right pdt-price"><fmt:formatNumber value="${productBean.product_price}" type="number" />원</span>
-
-				<!-- 			할인 있거나 쿠폰 있을때    || item.product_sale_price > 0-->
-				<c:if test="${productBean.product_sale_price > 0}">
-					<!-- 			realprice 스타일바꿈 -->
-					<style>
-							span#realprice {
-								text-decoration: line-through;
-								color: grey;
-							}
-							</style>
-
-					<!-- 			할인 있을때 -->
-					<c:if test="${empty itemcoupon.coupon_name}">
-						<span>이벤트 할인가격 : ${productBean.product_sale_price}원</span>
-					</c:if>
-
-					<!-- 				쿠폰 있을때 -->
-					<c:if test="${not empty itemcoupon.coupon_name}">
-						<span>쿠폰 할인가격 : ${productBean.product_sale_price}원</span>
-						<input type="hidden" id="coupNum" value="${itemcoupon.coupon_num }">
-						<input type="button" id="coup_btn" value="쿠폰받기" onclick="cpClick();">
-						<br>
-					</c:if>
-				</c:if>
-
-
-				<div class="pdt-right pdt-delivery">2,500원
+					<div class="pdt-category">
+						<a href="${pageContext.request.contextPath}/itemList.item?major=${fn:substring(productBean.product_code,0,2)}" class="major">${category_sup }</a>
+						&gt;
+						<a href="${pageContext.request.contextPath}/itemList.item?minor=${productBean.product_category_code}" class="minor">${category_sub }</a>
+					</div>
+					<div class="pdt-right pdt-price"><fmt:formatNumber value="${productBean.product_price}" type="number" />원</div>
+					<div class="pdt-right pdt-delivery">2,500원
 						<input type="button" class="btn-delivery modal" value="배송비 안내">
 					</div>
 					<div class="pdt-right pdt-candy"><fmt:formatNumber value="${productBean.product_price / 100}" type="number" />개</div>
@@ -203,12 +256,28 @@
 						<span class="ipt_layer">
 							<input type="button" class="btnStockQty Minus" value="-">
 							<input type="button" class="btnStockQty Plus" value="+">
-							<input type="tel" name="stockqty" value="1" maxlength="3">
+							<c:choose>
+								<c:when test="${productBean.product_stock_count == 0 }">
+									<input type="tel" name="stockqty" value="0" maxlength="4">
+								</c:when>
+								<c:otherwise>
+									<input type="tel" name="stockqty" value="1" maxlength="4">
+								</c:otherwise>
+							</c:choose>
 						</span>
 					</div>
-					<div class="pdt-right pdt-totalprice"><fmt:formatNumber value="${productBean.product_price}" type="number" />원</div>
+					<div class="pdt-right pdt-totalprice">
+						<c:choose>
+							<c:when test="${productBean.product_stock_count == 0 }">
+								0 원
+							</c:when>
+							<c:otherwise>
+								<fmt:formatNumber value="${productBean.product_price}" type="number" /> 원
+							</c:otherwise>
+						</c:choose>
+					</div>
 					<div class="pdt-btnlist">
-						<span class="btnCart"><input type="button" value="장바구니 담기"></span>
+						<span class="btnCart"><input type="button" value="장바구니 담기" onclick="cartCheck()"></span>
 						<span class="btnOrder"><input type="button" value="바로 구매하기"></span>
 						<span class="btn-share modal"></span>
 						<span class="btn-wish off"></span>
@@ -266,33 +335,20 @@
 		<div class="clear"></div>
 		<section class="item_content_bar">
 			<div class="tabBar">
-				<span>상품상세</span> <span>상품후기(2)</span> <span>상품Q&amp;A(2)</span>
+				<span>상품상세</span> <span>상품후기(2)</span> <span>상품Q&amp;A(${questionPageInfo.boardCount})</span>
 			</div>
 		</section>
 		<div class="clear"></div>
 		<!-- <article class="warp_content"> -->
 		<section class="item_content">
-<!-- 			<div class="contentsTopTop">클래식 캔디머신 (베이비핑크)(53008340)</div> -->
-<!-- 			<div style="margin: 0 auto; width: 37px; height: 3px; background-color: #000000;"></div> -->
-<!-- 			<div class="contentsTopBottom"> -->
-<!-- 				사탕이나 초코볼 등을 가득 담아놓고 뽑아 먹는 재미가 쏠쏠한 베이비 캔디머신입니다.<br> -->
-<!-- 				연인, 친구, 가족 등 사랑하는 사람들에게 사탕, 초코볼, 젤리 등 달콤함을 가득 담아 선물해보세요!<br> -->
-<!-- 			</div> -->
 			<div class="content">
-<!-- 				<img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503601355265.jpg"> -->
-<!-- 				<img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503602276476.jpg"> -->
-<!-- 				<img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503600209719.jpg"> -->
-<!-- 				<img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503599165375.jpg"> -->
-<!-- 				<img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503597933043.jpg"> -->
-<!-- 				<img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503595754264.jpg"> -->
-<!-- 				<img src="http://www.poom.co.kr/Upload2/Event/Img/poom18530503596887597.jpg"> -->
 				${productBean.product_description}
 				<span class="copyright">Copyright ⓒ ARTBOX ALL rights reserved.</span>
 			</div>
 		</section>
 		<section class="item_content">
 			<div class="item_review">
-			<input class="btn-review" type="button" value="후기작성" onclick="location.href='itemReview.jsp'">
+			<input class="btn-review" type="button" value="후기작성" onclick="location.href='${pageContext.request.contextPath}/itemReview.itme'">
 		<div class="table">
 				<div class="tr">
 					<span class="td">★★★★★</span>
@@ -328,64 +384,15 @@
 		</section>
 		<section class="item_content">
 			<input class="btn-QnA modal" type="button" value="Q&amp;A작성">
-			<div class="table">
-				<div class="tr">
-					<span class="td">답변완료</span>
-					<span class="td type2">배송 언제 되나요?</span>
-					<span class="td">2020-04-28</span>
-					<span class="td">saemi03**</span>
-				</div>
-				<div class="ps">
-					<div class="qna">
-						<span>Q</span> 운송장번호 조회하면 배송이 완료되었다고 하는데..물건이 오지 않았습니다. 아직 택배가 오지
-						않은 건지, 혹은 오배송인지 걱정이 되네요.
-					</div>
-					<div class="qna">
-						<span>A</span> 고객님 안녕하세요. 문의하신 내용 관련하여 [1:1 문의/상담]란에 글 남겨주시어 답변으로
-						자세한 안내를 드렸습니다. 안내드린 답변 참조를 부탁드립니다. 감사합니다.
-					</div>
-				</div>
-			</div>
-			<div class="table">
-				<div class="tr">
-					<span class="td">답변완료</span>
-					<span class="td type2">상품문의</span>
-					<span class="td">2020-04-21</span>
-					<span class="td">gmark**</span>
-				</div>
-				<div class="ps">
-					<div class="qna">
-						<span>Q</span> 안녕하세요. 저번에 구매했다 작동 불량으로 반품하고 재구매입니다. 상태 정상적인 제품으로
-						부탁드립니다.
-					</div>
-					<div class="qna">
-						<span>A</span> 고객님 안녕하세요, 상품 출고시 최대한 하자없는 상품으로 출고를 도와드리고는 있으나 수많은
-						주문량으로 인해 개별 검수 확인은 어려울 수 있는 점 참조 부탁드리며~ 상품 수령 후 문제가 있는 경우 구매처 혹은
-						[고객감동센터 1577-9081]로 문의를 부탁드리겠습니다. 감사합니다.
-					</div>
-				</div>
-			</div>
-			<div class="paging">
-				<span class="box">
-					<a href="#"> <img class="opacity" src="${pageContext.request.contextPath}/Images/order/btn_board_prev.gif"> </a>
-					<a href="#" class="btn_pageon">1</a>
-					<a href="#">2</a>
-					<a href="#"> <img class="paging_pc" src="${pageContext.request.contextPath}/Images/order/btn_board_next.gif"> </a>
-				</span>
+			<div class="question_content">
+				<!--후기목록 -->
 			</div>
 		</section>
 		<!-- </article> -->
 		<section class="full-screen">
-<%-- 			<c:choose> --%>
-<%-- 				<c:when test="${empty sessionScope.id }"> --%>
-<%-- 					<c:set var="id" value="아이디없음"/> --%>
-<%-- 				</c:when> --%>
-<%-- 				<c:otherwise> --%>
-<%-- 					<c:set var="id" value="${sessionScope.id }"/> --%>
-<%-- 				</c:otherwise> --%>
-<%-- 			</c:choose> --%>
+			<div class="full-screen-close"></div>
 			<div class="qna-overlay">
-			<form action="questionWrite.item" method="post" onsubmit="return qnacheck()">
+			<form action="questionWrite.item" name="questionForm" method="post" onsubmit="return qnacheck()">
 				<input type="hidden" name="product_num" value="${productBean.product_num}">
 				<div class="overlay-header">상품문의하기<input class="overlay-close" type="button" value=""></div>
 				<span class="input">
@@ -432,8 +439,8 @@
 			<div class="share-overlay">
 				<div class="overlay-header">공유하기<input class="overlay-close" type="button" value=""></div>
 				<div class="share-contents">
-					<img src="${pageContext.request.contextPath}/Images/item/sns_fb.png">
-					<img src="${pageContext.request.contextPath}/Images/item/sns_tw.png">
+					<a href="http://www.facebook.com/"><img src="${pageContext.request.contextPath}/Images/item/sns_fb.png"></a>
+					<a href="http://twitter.com/"><img src="${pageContext.request.contextPath}/Images/item/sns_tw.png"></a>
 				</div>
 			</div>
 		</section>

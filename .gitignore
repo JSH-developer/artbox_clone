@@ -7,3 +7,4 @@
 .deployables
 .project
 .settings/
+/build/
