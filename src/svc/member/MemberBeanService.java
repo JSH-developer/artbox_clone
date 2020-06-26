@@ -1,4 +1,4 @@
-package svc;
+package svc.member;
 
 import static db.jdbcUtil.*;
 
@@ -16,7 +16,7 @@ public class MemberBeanService {
 	
 	
 	MemberBean bb = dao.myName(id);
-	
+	close(con);
 	return bb;
 	}
 }

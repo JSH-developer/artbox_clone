@@ -1,11 +1,11 @@
-package action;
+package action.member;
 
 import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import svc.MemberJoinService;
+import svc.member.MemberJoinService;
 import vo.ActionForward;
 import vo.MemberBean;
 
@@ -13,7 +13,7 @@ public class MemberJoinAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("ArtBoxJoinAction");
+		System.out.println("MemberJoinAction");
 
 		ActionForward forward = null;
 
@@ -57,7 +57,6 @@ public class MemberJoinAction implements Action {
 				out.println("alert('글 등록 실패')");
 				out.println("history.back()");
 				out.println("</script>");
-				//			System.out.println("글 등록 실패");
 
 			}else {
 				response.setContentType("text/html;charset=UTF-8");
