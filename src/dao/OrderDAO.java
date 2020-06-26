@@ -126,14 +126,18 @@ public class OrderDAO {
 		return insertOrderCount;
 	}
 
-	// 기본 배송지 여부 0 으로 초기화(Receiver 테이블 공통부분)
-	public void basicReceiver(String member_id) {
+	// 기본 배송지 설정 (Receiver 테이블 공통부분)
+	public void basicReceiver(String member_id, int num) {
 		System.out.println("OrderDAO - basicReceiver");
 		PreparedStatement pstmt = null;
 		try {
 			String sql="UPDATE receiver SET basic_num=0 WHERE member_id=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, member_id);
+			pstmt.executeUpdate();
+			sql="UPDATE receiver SET basic_num=1 WHERE num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, num);
 			pstmt.executeUpdate();
 		}  catch (SQLException e) {
 //			e.printStackTrace();
@@ -154,8 +158,8 @@ public class OrderDAO {
 		int basic_num = receiverBean.getReceiver_basic_num(); // 기본배송지 여부
 		try {
 			// 기본배송지
-			if(basic_num==1) { // 기본배송지 체크해서 가져오면 나머지 다 0으로 만들기
-				basicReceiver(receiverBean.getReceiver_member_id());
+			if(basic_num==1) { // 기본배송지 체크해서 가져오면 기본배송지 업데이트
+				basicReceiver(receiverBean.getReceiver_member_id(), receiverBean.getReceiver_num());
 			}
 			// receiver 중복 여부 판별
 			sql="SELECT num FROM receiver WHERE member_id=? && receiver_name=? && receiver_phone=? "
@@ -224,8 +228,8 @@ public class OrderDAO {
 		int basic_num = receiverBean.getReceiver_basic_num(); // 기본배송지 여부
 		try {
 			// 기본배송지
-			if(basic_num==1) {
-				basicReceiver(receiverBean.getReceiver_member_id());
+			if(basic_num==1) { // 기본배송지 체크해서 가져오면 기본배송지 업데이트
+				basicReceiver(receiverBean.getReceiver_member_id(), receiverBean.getReceiver_num());
 			}
 			// receiver 수정
 			sql="UPDATE receiver SET receiver=?, receiver_name=?, receiver_phone=?, receiver_postcode=?,"
