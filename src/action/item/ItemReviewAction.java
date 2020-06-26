@@ -23,12 +23,6 @@ public class ItemReviewAction implements Action {
 		}
 		
 		
-		
-		
-		
-		
-		
-		
 		forward = new ActionForward();
 		forward.setPath("/item/itemReview.jsp");
 		return forward;

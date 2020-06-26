@@ -183,7 +183,6 @@ public class ItemDAO {
 			if(rs.next()) {
 				num = rs.getInt(1) + 1;
 			} 
-			
 			sql = "INSERT INTO review(num,skill,design,price,quality,regdate,content,re_check,member_id,product_num) VALUES (?,?,?,?,?,now(),?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num); // 계산된 새 글 번호 사용
@@ -195,7 +194,7 @@ public class ItemDAO {
 			pstmt.setInt(7, 0);
 			pstmt.setString(8, reviewBean.getReview_member_id());
 			pstmt.setInt(9, reviewBean.getReview_product_num());
-			
+
 			// INSERT 구문 실행 후 리턴되는 결과값을 insertCount 변수에 저장
 			insertCount = pstmt.executeUpdate();
 			

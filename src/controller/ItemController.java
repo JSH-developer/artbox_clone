@@ -16,8 +16,6 @@ import action.item.ItemReviewAction;
 import action.item.QuestionListAction;
 import action.item.QuestionWriteAction;
 import action.item.ReviewWriteAction;
-import action.item.SearchAction;
-import action.item.SelectBoxAction;
 import vo.ActionForward;
 
 
@@ -75,21 +73,8 @@ public class ItemController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/search.item")) {
-			action = new SearchAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}else if(command.equals("/selectBox.item")) {
-			action = new SelectBoxAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
+		
 		
 		if(forward != null) {
 			if(forward.isRedirect()) { 

@@ -52,7 +52,7 @@ a {text-decoration:none}
 .paging .box .opacity {opacity: 0.3;}
 
 .full-screen{
-/* 	display: none; */
+	display: none;
 	position:fixed;
     top: 0;
     left: 0;
@@ -62,7 +62,7 @@ a {text-decoration:none}
     z-index: 4;
 }
 .review-overlay{
-/* 	display: none; */
+	display: none;
     position: absolute;
 	left: 50%;
 	top: 50%;

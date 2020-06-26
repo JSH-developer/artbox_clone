@@ -9,25 +9,45 @@
     <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 	<script src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 	<script type="text/javascript">
-		function reviewcheck() {
-			var result = false;
-			
-			if($('input[name=skill]').val() == ""){
-				alert("별점(기능)을 입력해 주세요.");
-			}else if($('input[name=design]').val() == ""){
-				alert("별점(디자인)을 입력해 주세요.");
-			}else if($('input[name=price]').val() == ""){
-				alert("별점(가격)을 입력해 주세요.");
-			}else if($('input[name=quality]').val() == ""){
-				alert("별점(품질)을 입력해 주세요.");
-			}else if($('textarea[name=content]').val() == ""){
-				alert("내용을 입력해 주세요.");
-				$('textarea[name=content]').focus();
-			}else{
-				result = confirm("상품후기를 작성 하시겠습니까?");
-			}
-			return result;
+	
+	// modal버튼 클릭시 팝업
+	$(document).on('click','.modal',function(){
+		$('.full-screen').css('display','block');
+		if($(this).hasClass('btnWrite')){
+			$('.review-overlay').css('display','block');
 		}
+	})
+	// 닫기버튼 클릭시 종료
+	$(document).on('click','.overlay-close',function(){
+		$('.full-screen').css('display','none');
+		$('.review-overlay').css('display','none');
+	})
+	$(document).on('click','.full-screen-close',function(){
+		$('.full-screen').css('display','none');
+		$('.review-overlay').css('display','none');
+	})
+	
+	
+	
+	function reviewcheck() {
+		var result = false;
+		
+		if($('input[name=skill]').val() == ""){
+			alert("별점(기능)을 입력해 주세요.");
+		}else if($('input[name=design]').val() == ""){
+			alert("별점(디자인)을 입력해 주세요.");
+		}else if($('input[name=price]').val() == ""){
+			alert("별점(가격)을 입력해 주세요.");
+		}else if($('input[name=quality]').val() == ""){
+			alert("별점(품질)을 입력해 주세요.");
+		}else if($('textarea[name=content]').val() == ""){
+			alert("내용을 입력해 주세요.");
+			$('textarea[name=content]').focus();
+		}else{
+			result = confirm("상품후기를 작성 하시겠습니까?");
+		}
+		return result;
+	}
 	</script>
 </head>
 <body>
@@ -59,7 +79,7 @@
 					<span class="itemamt">
 						<span class="itemprice sale_N">600원</span>
 					</span>
-					<a class="btnWrite" href="#">구매후기 쓰기</a>
+					<a class="btnWrite modal" href="#">구매후기 쓰기</a>
 					<span class="deadline">작성기한: 2020.12.02까지</span>
 				</li>
 				<li>
@@ -71,7 +91,7 @@
 					<span class="itemamt">
 						<span class="itemprice sale_N">600원</span>
 					</span>
-					<a class="btnWrite" href="#">구매후기 쓰기</a>
+					<a class="btnWrite modal" href="#">구매후기 쓰기</a>
 					<span class="deadline">작성기한: 2020.12.02까지</span>
 				</li>
 				<li>
@@ -83,7 +103,7 @@
 					<span class="itemamt">
 						<span class="itemprice sale_N">600원</span>
 					</span>
-					<a class="btnWrite" href="#">구매후기 쓰기</a>
+					<a class="btnWrite modal" href="#">구매후기 쓰기</a>
 					<span class="deadline">작성기한: 2020.12.02까지</span>
 				</li>
 				<li>
@@ -95,7 +115,7 @@
 					<span class="itemamt">
 						<span class="itemprice sale_N">600원</span>
 					</span>
-					<a class="btnWrite" href="#">구매후기 쓰기</a>
+					<a class="btnWrite modal" href="#">구매후기 쓰기</a>
 					<span class="deadline">작성기한: 2020.12.02까지</span>
 				</li>
 				<li>
@@ -107,7 +127,7 @@
 					<span class="itemamt">
 						<span class="itemprice sale_N">600원</span>
 					</span>
-					<a class="btnWrite" href="#">구매후기 쓰기</a>
+					<a class="btnWrite modal" href="#">구매후기 쓰기</a>
 					<span class="deadline">작성기한: 2020.12.02까지</span>
 				</li>
 				<li>
@@ -119,7 +139,7 @@
 					<span class="itemamt">
 						<span class="itemprice sale_N">600원</span>
 					</span>
-					<a class="btnWrite" href="#">구매후기 쓰기</a>
+					<a class="btnWrite modal" href="#">구매후기 쓰기</a>
 					<span class="deadline">작성기한: 2020.12.02까지</span>
 				</li>
 				<li>
@@ -138,7 +158,7 @@
 		<div class="full-screen">
 			<div class="full-screen-close"></div>
 			<div class="review-overlay">
-			<form action="reviewWrite" method="post" onsubmit="return reviewcheck()">
+			<form action="reviewWrite.item" method="post" onsubmit="return reviewcheck()">
 				<div class="overlay-header">상품후기 작성하기<input class="overlay-close" type="button" value=""></div>
 				<div class="overlay-body">
 					<input type="hidden" name="product_num" value="1">
@@ -203,7 +223,6 @@
 				</div>
 				<div class="overlay-footer">
 					<input class="regist" type="submit" value="등록하기">
-					<div class="clear"></div>
 				</div>
 			</form>
 			</div>
