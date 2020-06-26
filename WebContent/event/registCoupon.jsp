@@ -84,6 +84,7 @@ $(document).ready(function(){
 		<td><select name="coupon_category">
     	<option value="">쿠폰종류 선택</option>
     	<option value="bonuscoupon">보너스 쿠폰</option>
+    	<option value="goodscoupon">상품 쿠폰</option>
    		<option value="freecoupon">무료배송 쿠폰</option></select></td></tr>
 	<tr class="btn_tr"><td colspan="2"><input type="submit" value="쿠폰등록"></td></tr>
 </table>

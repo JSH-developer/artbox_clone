@@ -116,14 +116,14 @@
 			
 <!-- 			할인 있을때 -->
 				<c:if test="${empty itemcoupon.coupon_name}">
-						<span>이벤트 할인가격 :  ${saleprice }</span> 
+						<span>이벤트 할인가격 :  ${realprice - saleprice }</span> 
 				</c:if>
 				
 <!-- 				쿠폰 있을때 -->
 			<c:if test="${not empty itemcoupon.coupon_name}">
 <%-- 			<c:set var="coup_discount" value="${itemcoupon.coupon_price }"/> --%>
 <%-- 			<c:set var="c_sale_price" value="${realprice - itemcoupon.coupon_price }"/> --%>
-				<span>쿠폰 할인가격 :  ${saleprice }</span> 
+				<span>쿠폰 할인가격 :  ${realprice - saleprice }</span> 
 					<input type="hidden" id="coupNum" value="${couponNum }">
 					<input type="button" id="coup_btn" value="${couponName }" onclick= "cpClick();" ><br>
 				</c:if>

@@ -69,16 +69,15 @@ public class EventDAO {
 			int ediscount = eventBean.getEvent_discount();
 			
 			if(eventBean.getEvent_category().equals("coup_event")) {
-				String discount="price - "+ediscount;
 					
-				sql = "UPDATE product SET sale_price="+discount+" WHERE category_code=?";
+				sql = "UPDATE product SET sale_price="+ediscount+" WHERE category_code=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, eventBean.getEvent_condition());
 				
 			}
 			
 			if(eventBean.getEvent_category().equals("sale_event")) {
-			String discount="price - ((price * "+ediscount+")/100)";
+			String discount="(price * "+ediscount+")/100";
 				
 			sql = "UPDATE product SET sale_price="+discount+" WHERE category_code=?";
 			pstmt = con.prepareStatement(sql);
@@ -175,17 +174,17 @@ public class EventDAO {
 				int limitdate1 = Integer.parseInt(limitdate);
 				int nowwDate = Integer.parseInt(sf.format(nowDate));
 				
-				if(nowwDate>limitdate1 ) {
-					sql = "UPDATE product SET sale_price=0 WHERE category_code=?";
-					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, rs.getString("event_condition"));
-					
-					updateCount = pstmt.executeUpdate();
-					
-					if(updateCount>0) {
-						System.out.println("상품 할인 내리기 성공");
-					}
-				}
+//				if(nowwDate>limitdate1 ) {
+//					sql = "UPDATE product SET sale_price=0 WHERE category_code=?";
+//					pstmt = con.prepareStatement(sql);
+//					pstmt.setString(1, rs.getString("event_condition"));
+//					
+//					updateCount = pstmt.executeUpdate();
+//					
+//					if(updateCount>0) {
+//						System.out.println("상품 할인 내리기 성공");
+//					}
+//				}
 				
 			}
 		} catch (SQLException e) {
@@ -363,14 +362,28 @@ public class EventDAO {
 	// 이벤트 삭제
 	public int deleteEvent(String board_num) {
 		int deleteCount = 0;
+		int updateCount =0;
 		
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
 		
 		try {
 			String sql = "DELETE FROM event_board WHERE num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, board_num);
 			deleteCount = pstmt.executeUpdate();
+			
+			
+			sql = "UPDATE product SET sale_price=0 WHERE category_code=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, rs.getString("event_condition"));
+			
+			updateCount = pstmt.executeUpdate();
+			
+			if(updateCount>0) {
+				System.out.println("상품 할인 내리기 성공");
+			}
 			
 			
 		} catch (SQLException e) {

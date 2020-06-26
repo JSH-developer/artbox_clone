@@ -119,7 +119,7 @@
 				<style>
 				span#rprice{text-decoration: line-through;color: grey;}
 				</style>
-				&nbsp; <span style="color: black;">${saleprice}원</span>
+				&nbsp; <span style="color: black;">${realprice - saleprice}원</span>
 				</c:if>
 				
 				</p>

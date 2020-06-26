@@ -121,6 +121,29 @@ ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute(
 						</c:forEach>
 						</ul>
 					</div>
+					
+				<div class="detail_tab">상품 쿠폰 (${bonusCouponCount }장)</div>
+					<div class="CouponList">
+						<ul>
+		<c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
+		<c:set var="myCoupon" value="${mycouponList[i].coupon_category}" />
+		<c:if test="${myCoupon eq 'goodscoupon' }">
+							<li>
+								<div class="CouponImage">
+									<img
+										src="http://www.poom.co.kr/Images/Ver2/Mypoom/sale2000.jpg">
+								</div>
+									<div class="CouponName" title= "${ mycouponList[i].coupon_name}">
+								${mycouponList[i].coupon_name}</div>
+								<div class="CouponInfo">
+									<span>${mycouponList[i].coupon_start} ~ ${mycouponList[i].coupon_limit}</span>
+									<span>${mycouponList[i].coupon_reason}</span>
+								</div>
+							</li>
+						</c:if>
+						</c:forEach>
+						</ul>
+					</div>
 
 
 					<div class="detail_tab">
