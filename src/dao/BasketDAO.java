@@ -32,7 +32,7 @@ public class BasketDAO {
 		this.con = con; // 이름이 똑같기 때문에 this. 적음
 	}
 	
-	// 장바구니 추가
+	// 장바구니 INSERT
 	public int insertBasket(BasketBean basketBean) {
 		// Service 클래스로부터 BasketBean 객체를 전달받아 DB 에 INSERT 작업 수행
 		// => 수행 결과 값으로 int형 insertCount 를 리턴받아 다시 Service 클래스로 리턴
@@ -73,7 +73,7 @@ public class BasketDAO {
 		return insertCount;
 	}
 	
-	// 장바구니 목록
+	// 장바구니 목록 출력 (Basket.jsp)
 	public List selectBasketList(String member_id) {
 		// member_id 에 해당하는 장바구니 목록 전체 조회
 		
@@ -166,7 +166,7 @@ public class BasketDAO {
 		return check;
 	}
 	
-	// 수량 변경
+	// 상품 수량 변경
 	public int updateQuantity(int quantity, int num) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -196,7 +196,7 @@ public class BasketDAO {
 		return updateCount;
 	}
 	
-	// 선택 삭제
+	// 상품 삭제
 	public int deleteBasket(int basket_num){
 		PreparedStatement pstmt = null;
 		int deleteCount = 0;
@@ -215,23 +215,23 @@ public class BasketDAO {
 		return deleteCount;
 	}
 	
-	// 전체 삭제(주문페이지로 넘어갈 경우 장바구니 전체삭제)
-	public int deleteAllBasket(String member_id){
-		PreparedStatement pstmt = null;
-		int deleteCount = 0;
-		try {
-			String sql = "DELETE FROM basket WHERE member_id=?";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, member_id);
-			
-			deleteCount = pstmt.executeUpdate();
-		} catch (SQLException e) {
-//			e.printStackTrace();
-			System.out.println("BasketDAO - deleteAllBasket() 실패! : " + e.getMessage());
-		} finally {
-			close(pstmt);
-		}
-		return deleteCount;
-	}
+	// 전체 삭제(주문페이지로 넘어갈 경우 장바구니 전체삭제) ==> 선택삭제 해야하므로,, 안쓸듯
+//	public int deleteAllBasket(String member_id){
+//		PreparedStatement pstmt = null;
+//		int deleteCount = 0;
+//		try {
+//			String sql = "DELETE FROM basket WHERE member_id=?";
+//			pstmt=con.prepareStatement(sql);
+//			pstmt.setString(1, member_id);
+//			
+//			deleteCount = pstmt.executeUpdate();
+//		} catch (SQLException e) {
+////			e.printStackTrace();
+//			System.out.println("BasketDAO - deleteAllBasket() 실패! : " + e.getMessage());
+//		} finally {
+//			close(pstmt);
+//		}
+//		return deleteCount;
+//	}
 	
 }

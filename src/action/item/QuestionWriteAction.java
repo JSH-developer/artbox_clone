@@ -1,4 +1,4 @@
-package item.action;
+package action.item;
 
 import java.io.PrintWriter;
 
@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import item.svc.QuestionWriteSVC;
+import svc.item.QuestionWriteSVC;
 import vo.ActionForward;
 import vo.QuestionBean;
 
@@ -14,7 +14,7 @@ public class QuestionWriteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ActionForward forward = null;
+		ActionForward forward = new ActionForward();
 		
 		request.setCharacterEncoding("UTF-8");
 		QuestionBean questionBean = new QuestionBean();
@@ -37,7 +37,6 @@ public class QuestionWriteAction implements Action {
 			out.println("</script>");
 		} else {
 			System.out.println("qna 등록 성공!");
-			forward = new ActionForward();
 			request.setAttribute("product_num", request.getParameter("product_num"));
 			forward.setRedirect(true);
 			forward.setPath("itemDetail.item?product_num="+request.getParameter("product_num"));

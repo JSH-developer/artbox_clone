@@ -6,3 +6,6 @@
 .classpath
 .deployables
 .project
+.project
+.settings/
+/build/

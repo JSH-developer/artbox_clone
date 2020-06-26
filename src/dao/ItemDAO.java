@@ -9,8 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import vo.CategoryBean;
 import vo.ProductBean;
 import vo.QuestionBean;
+import vo.ReviewBean;
 
 public class ItemDAO {
 	
@@ -36,7 +38,7 @@ public class ItemDAO {
 	
 
 	public ArrayList<ProductBean> selectMajorLink(String majorCategory) {
-		String sql = "select * from product where category_code like ?";
+		String sql = "select * from count where category_code like ? order by num desc";
 		ProductBean productBean = null;
 		ArrayList<ProductBean> listProduct = new ArrayList<ProductBean>();
 		try {
@@ -60,6 +62,8 @@ public class ItemDAO {
 				productBean.setProduct_regdate(rs.getTimestamp("regdate"));
 				productBean.setProduct_category_code(rs.getString("category_code"));
 				productBean.setProduct_option_code(rs.getString("option_code"));
+				productBean.setProduct_cnt_order(rs.getString("cnt_order"));
+				productBean.setProduct_cnt_review(rs.getString("cnt_review"));
 				listProduct.add(productBean);
 			}
 		} catch (SQLException e) {
@@ -72,12 +76,12 @@ public class ItemDAO {
 		System.out.println(listProduct);
 		return 	listProduct;
 		
-	}	
+	}
 	
 	
 	
 	public ArrayList<ProductBean> selectMinorLink(String minorCategory) {
-		String sql = "select * from product where category_code=?";
+		String sql = "select * from count where category_code=? order by num desc";
 		ProductBean productBean = null;
 		ArrayList<ProductBean> listProduct = new ArrayList<ProductBean>();
 		try {
@@ -100,6 +104,8 @@ public class ItemDAO {
 				productBean.setProduct_regdate(rs.getTimestamp("regdate"));
 				productBean.setProduct_category_code(rs.getString("category_code"));
 				productBean.setProduct_option_code(rs.getString("option_code"));
+				productBean.setProduct_cnt_order(rs.getString("cnt_order"));
+				productBean.setProduct_cnt_review(rs.getString("cnt_review"));
 				listProduct.add(productBean);
 			}
 		} catch (SQLException e) {
@@ -113,53 +119,12 @@ public class ItemDAO {
 		
 	}
 
-	public int insertQuestion(QuestionBean questionBean) {
-		int insertCount = 0;
-		
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			
-			int num = 1;
-			
-			String sql = "SELECT MAX(num) FROM question";
-			
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				num = rs.getInt(1) + 1;
-			} 
-			
-			sql = "INSERT INTO question(num,email,field,title,content,member_id,product_num) VALUES (?,?,?,?,?,?,?)";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, num); // 계산된 새 글 번호 사용
-			pstmt.setString(2, questionBean.getQuestion_email());
-			pstmt.setString(3, questionBean.getQuestion_field());
-			pstmt.setString(4, questionBean.getQuestion_title());
-			pstmt.setString(5, questionBean.getQuestion_content());
-			pstmt.setString(6, questionBean.getQuestion_member_id());
-			pstmt.setInt(7, questionBean.getQuestion_product_num());
-			
-			// INSERT 구문 실행 후 리턴되는 결과값을 insertCount 변수에 저장
-			insertCount = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			System.out.println("ItemDAO - insertQuestion() 실패! : " + e.getMessage());
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-		
-		return insertCount;
-	}
-
 
 	public ArrayList<ProductBean> search(String kwd) {
-		String sql = "select * from product where keywords like ? "
+		String sql = "select * from count where keywords like ? "
 				+ "or name like ? "
-				+ "or brand like ?";
+				+ "or brand like ? "
+				+ "order by num desc";
 		ProductBean productBean = null;
 		ArrayList<ProductBean> listProduct = new ArrayList<ProductBean>();
 		try {
@@ -184,13 +149,193 @@ public class ItemDAO {
 				productBean.setProduct_regdate(rs.getTimestamp("regdate"));
 				productBean.setProduct_category_code(rs.getString("category_code"));
 				productBean.setProduct_option_code(rs.getString("option_code"));
+				productBean.setProduct_cnt_order(rs.getString("cnt_order"));
+				productBean.setProduct_cnt_review(rs.getString("cnt_review"));
 				listProduct.add(productBean);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+			close(con);
 		}
 		
 		return listProduct;
 	}	
+
+	
+	public int insertReview(ReviewBean reviewBean) {
+		int insertCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			int num = 1;
+			
+			String sql = "SELECT MAX(num) FROM review";
+			
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				num = rs.getInt(1) + 1;
+			} 
+			sql = "INSERT INTO review(num,skill,design,price,quality,regdate,content,re_check,member_id,product_num) VALUES (?,?,?,?,?,now(),?,?,?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num); // 계산된 새 글 번호 사용
+			pstmt.setInt(2, reviewBean.getReview_skill());
+			pstmt.setInt(3, reviewBean.getReview_design());
+			pstmt.setInt(4, reviewBean.getReview_price());
+			pstmt.setInt(5, reviewBean.getReview_quality());
+			pstmt.setString(6, reviewBean.getReview_content());
+			pstmt.setInt(7, 0);
+			pstmt.setString(8, reviewBean.getReview_member_id());
+			pstmt.setInt(9, reviewBean.getReview_product_num());
+
+			// INSERT 구문 실행 후 리턴되는 결과값을 insertCount 변수에 저장
+			insertCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - insertReview() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return insertCount;
+	}
+	
+	public int insertQuestion(QuestionBean questionBean) {
+		int insertCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			int num = 1;
+			
+			String sql = "SELECT MAX(num) FROM question";
+			
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				num = rs.getInt(1) + 1;
+			} 
+			
+			sql = "INSERT INTO question(num,email,field,title,content,regdate,member_id,product_num) VALUES (?,?,?,?,?,now(),?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num); // 계산된 새 글 번호 사용
+			pstmt.setString(2, questionBean.getQuestion_email());
+			pstmt.setString(3, questionBean.getQuestion_field());
+			pstmt.setString(4, questionBean.getQuestion_title());
+			pstmt.setString(5, questionBean.getQuestion_content());
+			pstmt.setString(6, questionBean.getQuestion_member_id());
+			pstmt.setInt(7, questionBean.getQuestion_product_num());
+			
+			// INSERT 구문 실행 후 리턴되는 결과값을 insertCount 변수에 저장
+			insertCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - insertQuestion() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return insertCount;
+	}
+
+
+	public ArrayList<QuestionBean> selectQuestionList(int product_num, int q_startRow, int q_pageSize) {
+		System.out.println("selectQuestionList");
+		ArrayList<QuestionBean> questionList = new ArrayList<QuestionBean>();
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT * FROM question WHERE product_num=? ORDER BY num desc LIMIT ?,?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, product_num);
+			pstmt.setInt(2, q_startRow);
+			pstmt.setInt(3, q_pageSize);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				QuestionBean article = new QuestionBean();
+				article.setQuestion_title(rs.getString("title"));
+				article.setQuestion_content(rs.getString("content"));
+				article.setQuestion_answer(rs.getString("answer"));
+				article.setQuestion_member_id(rs.getString("member_id"));
+				article.setQuestion_regdate(rs.getTimestamp("regdate"));
+				questionList.add(article);
+			}
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - selectQuestionList() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return questionList;
+	}
+
+
+	public int getQuestionCount(int product_num) {
+		System.out.println("getQuestionCount");
+		int count = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT count(num) FROM question WHERE product_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, product_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt("count(num)");
+			}
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - getQuestionCount() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return count;
+	}
+
+
+	public CategoryBean getCategory(String product_category_code) {
+		System.out.println("getCategory");
+		CategoryBean categoryBean = new CategoryBean();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT * FROM category WHERE category_code=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, product_category_code);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				categoryBean.setCategory_code(rs.getString("category_code"));
+				categoryBean.setCategory_sup(rs.getString("category_sup"));
+				categoryBean.setCategory_sub(rs.getString("category_sub"));
+			}
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - getCategory() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		System.out.println(categoryBean.getCategory_sub());
+		return categoryBean;
+	}
 
 }

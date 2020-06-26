@@ -1,4 +1,4 @@
-package item.svc;
+package svc.item;
 
 import java.sql.Connection;
 
