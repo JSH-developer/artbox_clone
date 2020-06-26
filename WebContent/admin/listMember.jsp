@@ -14,7 +14,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-
+	
 	$(".search_btn").on("click",function(){
 		location.href="./MemberList.admin?opt="+$("#searchOpt").val()+"&kwd="+$("#searchKwd").val();
 	});
@@ -26,6 +26,7 @@ $(document).ready(function(){
 	});
 	
 });
+
 </script>
 
 
@@ -63,7 +64,16 @@ $(document).ready(function(){
 	<td>${memberList[i].num}</td>
 	<td><a href='MemberView.admin?num=${memberList[i].num}&page=${pageInfo.page}&opt=${param.opt}&kwd=${param.kwd}'>${memberList[i].id}</a></td>
 	<td>${memberList[i].grade}</td>
-	<td>${memberList[i].status}</td>
+	<td>
+	<span class="member_state">
+		<c:if test="${memberList[i].status eq 0}">
+		비활성
+		</c:if>
+		<c:if test="${memberList[i].status eq 1}">
+		활성
+		</c:if>
+		</span>
+	<br><button onclick="window.open('./changeMemState.admin?num='+${memberList[i].num}+'&status='+${memberList[i].status}, '', 'width=700,height=250,left=250,top=250');">회원상태 변경</button></td>
 	</tr>
 </c:forEach>
 </table>
@@ -81,10 +91,10 @@ $(document).ready(function(){
 	<c:forEach var="a" begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1">
 		<c:choose>
 		<c:when test="${a == pageInfo.page}">
-			[${a}]
+			${a}
 		</c:when>
 		<c:otherwise>
-			<a href="MemberList.admin?page=${a}&opt=${param.opt}&kwd=${param.kwd}">[${a}]
+			<a href="MemberList.admin?page=${a}&opt=${param.opt}&kwd=${param.kwd}">${a}
 			</a>&nbsp;
 		</c:otherwise>
 		</c:choose>

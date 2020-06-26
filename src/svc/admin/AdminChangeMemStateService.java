@@ -9,9 +9,9 @@ import java.sql.Connection;
 
 import dao.AdminDAO;
 
-public class AdminChangeStateService {
+public class AdminChangeMemStateService {
 
-	public boolean changeState(int state, int num) {
+	public boolean changeMemState(int state, int num) {
 		boolean isChange = false;
 		
 		Connection con = getConnection(); 
@@ -28,9 +28,8 @@ public class AdminChangeStateService {
 		}
 		
 		close(con);
-		
+		System.out.println("Service에서 isChange : " + isChange);
 		return isChange;
 	}
-	
-	
+
 }

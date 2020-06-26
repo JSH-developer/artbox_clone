@@ -73,12 +73,8 @@ $(document).ready(function(){
 })
 </script>
 
-
-
 <!-- 구글 폰트  -->
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-
-<link href="${pageContext.request.contextPath}/css/admin/adminRegist.css" rel="stylesheet" type="text/css">
 
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
@@ -141,6 +137,7 @@ $(document).ready(function() {
 
 </script>
 
+<link href="${pageContext.request.contextPath}/css/admin/adminRegist.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -149,29 +146,22 @@ $(document).ready(function() {
  <!-- 헤더 -->
 
 <div class="pageContent">
-<div class="admin_nav_wrap">
-<ul class="admin_nav">
-	<li><a href="home.admin">관리자 홈</a></li>
-	<li><a href="ProductList.admin">상품 목록</a></li>
-</ul>
-</div>
-<br>
 
 <h1 class="registTitle">옵션 상품 등록</h1>
 <form action="OptionWritePro.admin" method="post" enctype="multipart/form-data">
 <table class="reg_tab">
-	<tr><th>상품 검색</th><td><select name="product_code_base" id="prod_list"><option value="">상품을 선택해주세요</option><c:out value="${productSelectList}" escapeXml="false"/></select><input type="button" class="search_btn1" value="검색사용"></td></tr>
+	<tr><th>상품 검색</th><td><select name="product_code_base" id="prod_list"><c:out value="${productSelectList}" escapeXml="false"/></select><input type="button" class="search_btn1" value="검색사용"></td></tr>
 	<tr class="search_space"><th>&nbsp;</th><td><input type="text" id="search_product" placeholder="검색어를 입력해주세요"><input type="button" class="search_btn2" value="검색하기"></td></tr>
-	<tr><th>상품명</th><td><input type="text" name="product_name"></td></tr>
-	<tr><th>옵션 설명</th><td><input name="option_name" type="text" placeholder="옵션명을 입력해주세요" style="padding-left:5px "></td></tr>
-	<tr><th>추가 가격</th><td><input name="add_price" type="text" placeholder="추가금액을 입력해주세요" style="padding-left:5px "></td></tr>
-	<tr><th>상품상세</th><td style="margin-left:100px"><textarea id="summernote" name="product_description"></textarea></td></tr>
-	<tr><th>재고수량</th><td><input type="number" name="product_stock_count"></td></tr>
-	<tr><th>세일가격</th><td><input type="text" name="product_sale_price"></td></tr>
-	<tr><th>대표 이미지</th><td><input type="file" name="product_image" accept="image/*" multiple="multiple"></td></tr>
-	<tr><th>대표 이미지2</th><td><input type="file" name="product_image2" accept="image/*"></td></tr>
-	<tr><th>키워드 입력</th><td><input type="text" name="product_keywords" placeholder=" ex) #키워드1 #키워드2"></td></tr>
-	<tr class="btn_tr"><td colspan="2"><input type="submit" value="옵션 등록"></td></tr>
+	<tr><th>상품명</th><td><input type="text" name="product_name" required></td></tr>
+	<tr><th>옵션 설명</th><td><input name="option_name" type="text" placeholder="옵션명을 입력해주세요" style="padding-left:5px " required></td></tr>
+	<tr><th>추가 가격</th><td><input name="add_price" type="text" placeholder="추가금액을 입력해주세요" style="padding-left:5px " required></td></tr>
+	<tr><th>상품상세</th><td style="margin-left:100px"><textarea id="summernote" name="product_description" required></textarea></td></tr>
+	<tr><th>재고수량</th><td><input type="number" name="product_stock_count" required></td></tr>
+	<tr><th>세일가격</th><td><input type="text" name="product_sale_price" required></td></tr>
+	<tr><th>대표 이미지</th><td><input type="file" name="product_image" accept="image/*" required></td></tr>
+	<tr><th>대표 이미지2</th><td><input type="file" name="product_image2" accept="image/*" required></td></tr>
+	<tr><th>키워드 입력</th><td><input type="text" name="product_keywords" placeholder=" ex) #키워드1 #키워드2" required></td></tr>
+	<tr class="btn_tr"><td colspan="2"><input type="button" value="돌아가기" onclick="history.back();"><input type="submit" value="옵션 등록"></td></tr>
 </table>
 </form>
 </div>

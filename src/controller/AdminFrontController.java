@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.admin.Action;
+import action.admin.AdminChangeStateProAction;
 import action.admin.CategoryDeleteProAction;
 import action.admin.CategoryListProAction;
 import action.admin.CategoryWriteProAction;
@@ -190,6 +191,34 @@ public class AdminFrontController extends HttpServlet {
 			}
 		}else if(command.equals("/OrderView.admin")) { // 주문 상세보기 페이지
 			action = new AdminOrderViewProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/changeState.admin")) { // 배송 상태변경 페이지 연결
+			try {
+				forward=new ActionForward();
+				forward.setPath("/admin/changeStateOfOrder.jsp");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/changeStatePro.admin")) { // 배송 상태변경 수행 
+			action = new AdminChangeStateProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/changeMemState.admin")) { // 회원 상태변경 페이지 연결
+			try {
+				forward=new ActionForward();
+				forward.setPath("/admin/changeStateOfMember.jsp");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/changeMemStatePro.admin")) { // 배송 상태변경 수행 
+//			action = new AdminChangeMemStateProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

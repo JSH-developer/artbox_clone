@@ -54,9 +54,10 @@ select, .reg_tab input[type=text], .reg_tab input[type=number], textarea{
 .reg_tab th{width:200px; text-align:center;}
 
 .btn_tr{text-align: right;}
-.btn_tr input[type=submit]{
+.btn_tr input[type=submit], .btn_tr input[type=button]{
 	padding:10px;
 	margin-bottom:10px;
+	margin-left:10px;
 	background-color: white;
 	border: 1px solid black;
 	color:black;
@@ -70,7 +71,6 @@ a.privacy {/*font-weight:bold;*/color:#3a4b59;}
 BODY {
 	margin: 20px 0px 20px 0px;
 	background-color: white;
-/* 	font-family: arial; */
 	font-size: 12pt;
 	display: block;
 	position: relative;
@@ -80,50 +80,78 @@ BODY {
 
 	
 .pageHeader{
-	
 	width: 100%;
-    margin: 50px auto 50px;
+	height: 170px;
 	display: block;
     border-bottom: 1px solid #e4e4e4;
+    
+    
+    background-color: #ffffff;
+	opacity: 0.9;
+	z-index: 2;
 	}
 .logo{
-	min-height: 120px;
+/* 	min-height: 120px; */
+text-align: center;
 	
 }
 
-.admin_deco{vertical-align: bottom;width:50px; height:50px;}
-
 .pageNavigationBar{
-
-	min-height: 57px;
-	}
+	background-color: #ffffff;
+	opacity: 0.9;
+	z-index: 2;
+}
 	
 .pageContent{
+	width: 1200px;
+    margin: 0 auto 30px;
+}
+	
+	
+.pageHeader.fixed{position: fixed; left: 0; top: 0; width: 100%; height: 100px;}
+#orilogo img{margin: 30px auto;}
+#scrlogo img{margin: 14px auto;height: 30px;}
 
-	
-	width: 1100px;
-    margin: 30px auto 30px;
-    padding: 0;
-	
-	}
-	
+
 
 #top_menu ul{list-style:none;
 font-family: verdana,Geneba,sans-serif;
 font-size: 13px;font-weight: 100;
 display:block; height:57px; width:1200px; margin:0 auto; position:relative;
+    padding-inline-start: 0;
  }
 
 #top_menu li{float: left;margin: 0 5px;}
 
 #top_menu .CategoryMiddle a{display: block; height: 20px;
-padding: 10px; text-decoration: none;color: black;}
+padding: 10px; text-decoration: none;color: black;
+outline:none; -webkit-appearance: none; -moz-appearance: none; border-radius:0;}
 
 #top_menu .Cart{float: right;}
 #top_menu .MyPage{float: right;width: 40px;height: 40px;}
-#top_menu .Search{float: right;}
 
-#top_menu input {border:none;border-bottom:1px solid gray;padding: 1px 0px; }
+#top_menu li.Search {
+    float: right;
+/*     width: 185px; */
+    height: 40px;
+    border-bottom: 2px solid #787878;
+}
+
+#top_menu #kwd {border:none;border-bottom:1px solid gray;
+font-family: 'Spoqa Han Sans', 'Malgun Gothic', Dotum, Gulim, Tahoma, Helvetica, AppleGothic, Helvetica, Sans-serif;
+    color: #808080;
+    line-height: 100%;
+        display: inline-block;
+    background-color: #ffffff;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    width: 145px;
+    height: 35px;
+    line-height: 35px;
+    vertical-align: top;
+    font-size: 16px;
+    color: #000000;}
 
 nav#top_menu a:hover{
 	background-repeat: repeat-x;

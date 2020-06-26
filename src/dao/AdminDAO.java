@@ -759,6 +759,7 @@ public class AdminDAO {
 				memberBean.setPoint(rs.getInt("point"));
 				memberBean.setBirth(rs.getString("birth"));
 				memberBean.setGrade(rs.getString("grade"));
+				memberBean.setStatus(rs.getInt("status"));
 				memberBean.setRegdate(rs.getDate("regdate"));
 				
 				memberList.add(memberBean);
@@ -1107,6 +1108,25 @@ public class AdminDAO {
 		
 		try {
 			String sql="UPDATE orders SET state = ? WHERE num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, state);
+			pstmt.setInt(2, num);
+			
+			changeCount = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return changeCount;
+	}
+
+	public int changeMemState(int state, int num) {
+		int changeCount = 0;
+		
+		try {
+			String sql="UPDATE member SET status = ? WHERE num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, state);
 			pstmt.setInt(2, num);

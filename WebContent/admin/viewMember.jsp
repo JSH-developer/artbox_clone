@@ -47,7 +47,10 @@ function deleteMember(){
 <tr><th>회원 포인트</th><td><c:out value="${memberBean.point}"/></td></tr>
 <tr><th>회원 생일</th><td><c:out value="${memberBean.birth}"/></td></tr>
 <tr><th>회원 등급</th><td><c:out value="${memberBean.grade}"/></td></tr>
-<tr><th>회원 상태</th><td><c:out value="${memberBean.status}"/></td></tr>
+<tr><th>회원 상태</th><td><span class="member_state">
+	<c:if test="${memberBean.status eq 0}">비활성</c:if>
+	<c:if test="${memberBean.status eq 1}">활성</c:if></span><br>
+<button onclick="window.open('./changeMemState.admin?num='+${memberBean.num}+'&status='+${memberBean.status}, '', 'width=700,height=250,left=250,top=250');">회원상태 변경</button></td></tr>
 <tr><th>회원 등록일</th><td><c:out value="${memberBean.regdate}"/></td></tr>
 </table>
 <button onclick="deleteMember()" class="viewBtn deleteBtn">회원삭제하기</button>

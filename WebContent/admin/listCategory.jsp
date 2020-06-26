@@ -75,10 +75,10 @@ function deleteCategory(num){
 	<c:forEach var="a" begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1">
 		<c:choose>
 		<c:when test="${a == pageInfo.page}">
-			[${a}]
+			${a}
 		</c:when>
 		<c:otherwise>
-			<a href="CategoryList.admin?page=${a}">[${a}]
+			<a href="CategoryList.admin?page=${a}">${a}
 			</a>&nbsp;
 		</c:otherwise>
 		</c:choose>
