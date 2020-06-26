@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import svc.CouponService;
-import svc.ProductWriteService;
+import svc.admin.ProductWriteService;
 import vo.ActionForward;
 import vo.CouponBean;
 

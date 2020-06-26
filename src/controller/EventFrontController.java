@@ -17,7 +17,7 @@ import action.event.EventModifyFormAction;
 import action.event.EventModifyProAction;
 import action.event.EventWriteProAction;
 import action.event.EventproductviewAction;
-import svc.ProductWriteService;
+import svc.admin.ProductWriteService;
 import vo.ActionForward;
 
 @WebServlet("*.event")
