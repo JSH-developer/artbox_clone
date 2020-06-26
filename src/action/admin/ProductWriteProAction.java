@@ -60,9 +60,8 @@ public class ProductWriteProAction implements Action{
 			productBean.setProduct_option_code(multi.getParameter("product_option_code"));
 		}
 		
-		
-		
 		boolean isRegist = productWriteService.registProduct(productBean);
+		
 		
 		if(isRegist) {
 			// dispatch 방식으로 이동

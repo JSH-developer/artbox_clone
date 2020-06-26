@@ -249,7 +249,7 @@ public class AdminDAO {
 		return productList;
 	}
 	
-	// 상품 갯수 세기
+	// 상품 최대 갯수 세기
 	public int productCount() {
 		int listCount = 0;
 		
@@ -308,7 +308,7 @@ public class AdminDAO {
 		String listCount = "";
 		
 		try {
-			String sql ="SELECT LPAD(COUNT(num)+1,3,'0') FROM product";
+			String sql ="SELECT LPAD(MAX(num)+1,3,'0') FROM product";
 			pstmt=con.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
