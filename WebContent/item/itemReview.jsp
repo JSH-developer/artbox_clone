@@ -158,7 +158,7 @@
 		<div class="full-screen">
 			<div class="full-screen-close"></div>
 			<div class="review-overlay">
-			<form action="reviewWrite.item" method="post" onsubmit="return reviewcheck()">
+			<form action="reviewWrite.item" method="post" enctype="multipart/form-data" onsubmit="return reviewcheck()">
 				<div class="overlay-header">상품후기 작성하기<input class="overlay-close" type="button" value=""></div>
 				<div class="overlay-body">
 					<input type="hidden" name="product_num" value="1">
@@ -200,23 +200,23 @@
 						<span class="tt">이미지 파일</span>
 						<label>
 							<img id="blah1" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt="" class="preview" title="선택된 파일 없음"/>
-							<input type='file' onchange="readURL(this,1);" />
+							<input type='file' name="review_img1" onchange="readURL(this,1);" />
 						</label>
 						<label>
 							<img id="blah2" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt="" class="preview" title="선택된 파일 없음"/>
-							<input type='file' onchange="readURL(this,2);" />
+							<input type='file' name="review_img2" onchange="readURL(this,2);" />
 						</label>
 						<label>
 							<img id="blah3" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt="" class="preview" title="선택된 파일 없음"/>
-							<input type='file' onchange="readURL(this,3);" />
+							<input type='file' name="review_img3" onchange="readURL(this,3);" />
 						</label>
 						<label>
 							<img id="blah4" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt="" class="preview" title="선택된 파일 없음"/>
-							<input type='file' onchange="readURL(this,4);" />
+							<input type='file' name="review_img4" onchange="readURL(this,4);" />
 						</label>
 						<label>
 							<img id="blah5" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt="" class="preview" title="선택된 파일 없음"/>
-							<input type='file' onchange="readURL(this,5);" />
+							<input type='file' name="review_img5" onchange="readURL(this,5);" />
 						</label>
 						<div class="etc">*이미지는 jpg와 png 형식만 가능합니다</div>
 					</div>

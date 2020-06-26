@@ -14,6 +14,11 @@ public class ReviewBean {
 	private String review_re_name;
 	private Timestamp review_re_regdate;
 	private String review_re_content;
+	private String review_img1;
+	private String review_img2;
+	private String review_img3;
+	private String review_img4;
+	private String review_img5;
 	private String review_member_id;
 	private int review_product_num;
 	
@@ -83,6 +88,36 @@ public class ReviewBean {
 	public void setReview_re_content(String review_re_content) {
 		this.review_re_content = review_re_content;
 	}
+	public String getReview_img1() {
+		return review_img1;
+	}
+	public void setReview_img1(String review_img1) {
+		this.review_img1 = review_img1;
+	}
+	public String getReview_img2() {
+		return review_img2;
+	}
+	public void setReview_img2(String review_img2) {
+		this.review_img2 = review_img2;
+	}
+	public String getReview_img3() {
+		return review_img3;
+	}
+	public void setReview_img3(String review_img3) {
+		this.review_img3 = review_img3;
+	}
+	public String getReview_img4() {
+		return review_img4;
+	}
+	public void setReview_img4(String review_img4) {
+		this.review_img4 = review_img4;
+	}
+	public String getReview_img5() {
+		return review_img5;
+	}
+	public void setReview_img5(String review_img5) {
+		this.review_img5 = review_img5;
+	}
 	public String getReview_member_id() {
 		return review_member_id;
 	}
@@ -95,4 +130,5 @@ public class ReviewBean {
 	public void setReview_product_num(int review_product_num) {
 		this.review_product_num = review_product_num;
 	}
+	
 }

@@ -348,7 +348,7 @@
 		</section>
 		<section class="item_content">
 			<div class="item_review">
-			<input class="btn-review" type="button" value="후기작성" onclick="location.href='${pageContext.request.contextPath}/itemReview.itme'">
+			<input class="btn-review" type="button" value="후기작성" onclick="location.href='${pageContext.request.contextPath}/itemReview.item'">
 		<div class="table">
 				<div class="tr">
 					<span class="td">★★★★★</span>
