@@ -35,8 +35,8 @@ public class OrderDAO {
 	public void setConnection(Connection con) {
 		this.con = con; // 이름이 똑같기 때문에 this. 적음
 	}
-
-	// 선택 주문
+	
+	// 주문 목록 출력(OrderPay.jsp)
 	public List<SelectOrderBean> OrderOneList(String member_id, int basket_num) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -100,7 +100,7 @@ public class OrderDAO {
 			sql="INSERT INTO orders VALUES(?,?,?,?,?,?,?,?,?,?,?,now())";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
-			pstmt.setString(2, sdf.format(cal.getTime()).toString()+String.format("%06d", orders_num));//주문번호
+			pstmt.setString(2, sdf.format(cal.getTime()).toString()+String.format("%06d", orders_num)); // 주문번호
 			pstmt.setString(3, ordersbean.getOrders_member_id());
 			pstmt.setString(4, ordersbean.getOrders_order_name());
 			pstmt.setString(5, ordersbean.getOrders_order_email());
@@ -126,17 +126,43 @@ public class OrderDAO {
 		return insertOrderCount;
 	}
 
-	// 배송지 테이블 INSERT (마이페이지 사용)
+	// 기본 배송지 설정 (Receiver 테이블 공통부분)
+	public void basicReceiver(String member_id, int num) {
+		System.out.println("OrderDAO - basicReceiver");
+		PreparedStatement pstmt = null;
+		try {
+			String sql="UPDATE receiver SET basic_num=0 WHERE member_id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, member_id);
+			pstmt.executeUpdate();
+			sql="UPDATE receiver SET basic_num=1 WHERE num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+		}  catch (SQLException e) {
+//			e.printStackTrace();
+			System.out.println("OrderDAO - basicReceiver() 실패! : " + e.getMessage());
+		} finally {
+			close(pstmt);
+		}
+	}
+
+	// 배송지 테이블 INSERT (주문 및 마이페이지 사용)
 	public int insertReceiver(ReceiverBean receiverBean) {
 		System.out.println("OrderDAO - insertReceiver");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		String sql = null;
 		int insertReceiverCount = 0;
 		int num = 1; // 번호
-		int basic_num = 0; // 기본배송지 여부(1:기본배송지)
+		int basic_num = receiverBean.getReceiver_basic_num(); // 기본배송지 여부
 		try {
+			// 기본배송지
+			if(basic_num==1) { // 기본배송지 체크해서 가져오면 기본배송지 업데이트
+				basicReceiver(receiverBean.getReceiver_member_id(), receiverBean.getReceiver_num());
+			}
 			// receiver 중복 여부 판별
-			String sql="SELECT num FROM receiver WHERE member_id=? && receiver_name=? && receiver_phone=? "
+			sql="SELECT num FROM receiver WHERE member_id=? && receiver_name=? && receiver_phone=? "
 					+ "&& receiver_postcode=? && receiver_addr=? && receiver_addr_detail=?;";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, receiverBean.getReceiver_member_id());
@@ -148,15 +174,17 @@ public class OrderDAO {
 			rs=pstmt.executeQuery();
 			if(rs.next()) { // 값이 있으면 중복
 				System.out.println("값이 있음");
-				sql="UPDATE receiver SET receiver_date=now() WHERE member_id=? &&"
-						+ " receiver_name=? && receiver_phone=? && receiver_postcode=? && receiver_addr=? && receiver_addr_detail=?";
+				sql="UPDATE receiver SET receiver_date=now(), basic_num=? WHERE member_id=? &&"
+						+ " receiver_name=? && receiver_phone=? && receiver_postcode=? && receiver_addr=?"
+						+ " && receiver_addr_detail=?";
 				pstmt=con.prepareStatement(sql);
-				pstmt.setString(1, receiverBean.getReceiver_member_id());
-				pstmt.setString(2, receiverBean.getReceiver_name());
-				pstmt.setString(3, receiverBean.getReceiver_phone());
-				pstmt.setString(4, receiverBean.getReceiver_postcode());
-				pstmt.setString(5, receiverBean.getReceiver_addr());
-				pstmt.setString(6, receiverBean.getReceiver_addr_detail());
+				pstmt.setInt(1,basic_num);
+				pstmt.setString(2, receiverBean.getReceiver_member_id());
+				pstmt.setString(3, receiverBean.getReceiver_name());
+				pstmt.setString(4, receiverBean.getReceiver_phone());
+				pstmt.setString(5, receiverBean.getReceiver_postcode());
+				pstmt.setString(6, receiverBean.getReceiver_addr());
+				pstmt.setString(7, receiverBean.getReceiver_addr_detail());
 				insertReceiverCount = pstmt.executeUpdate();
 			} else { // 값이 없으면 새배송지 추가
 				sql="SELECT MAX(num) FROM receiver";
@@ -169,7 +197,7 @@ public class OrderDAO {
 					sql="INSERT INTO receiver VALUES(?,?,?,?,?,?,?,now(),?,?)";
 					pstmt=con.prepareStatement(sql);
 					pstmt.setInt(1, num);
-					pstmt.setString(2, receiverBean.getReceiver());
+					pstmt.setString(2, basic_num==1?"기본":receiverBean.getReceiver());
 					pstmt.setString(3, receiverBean.getReceiver_name());
 					pstmt.setString(4, receiverBean.getReceiver_phone());
 					pstmt.setString(5, receiverBean.getReceiver_postcode());
@@ -190,12 +218,68 @@ public class OrderDAO {
 		return insertReceiverCount;
 	}
 	
-	// Orders_Detail 테이블 INSERT
+	// 배송지 수정 (마이페이지 사용)
+	public int updateReceiver(ReceiverBean receiverBean) {
+		System.out.println("OrderDAO - updateReceiver");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int updateReceiverCount = 0;
+		int basic_num = receiverBean.getReceiver_basic_num(); // 기본배송지 여부
+		try {
+			// 기본배송지
+			if(basic_num==1) { // 기본배송지 체크해서 가져오면 기본배송지 업데이트
+				basicReceiver(receiverBean.getReceiver_member_id(), receiverBean.getReceiver_num());
+			}
+			// receiver 수정
+			sql="UPDATE receiver SET receiver=?, receiver_name=?, receiver_phone=?, receiver_postcode=?,"
+					+ " receiver_addr=?, receiver_addr_detail=?, basic_num=? WHERE num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, receiverBean.getReceiver());
+			pstmt.setString(2, receiverBean.getReceiver_name());
+			pstmt.setString(3, receiverBean.getReceiver_phone());
+			pstmt.setString(4, receiverBean.getReceiver_postcode());
+			pstmt.setString(5, receiverBean.getReceiver_addr());
+			pstmt.setString(6, receiverBean.getReceiver_addr_detail());
+			pstmt.setInt(7, basic_num);
+			pstmt.setInt(8, receiverBean.getReceiver_num());
+			updateReceiverCount = pstmt.executeUpdate();
+		}  catch (SQLException e) {
+//			e.printStackTrace();
+			System.out.println("OrderDAO - updateReceiver() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return updateReceiverCount;
+	}
+	
+	// 배송지 삭제 (마이페이지 사용)
+	public int deleteReceiver(int receiver_num){
+		System.out.println("OrderDAO - deleteReceiver");
+		PreparedStatement pstmt = null;
+		int deleteCount = 0;
+		try {
+			String sql = "DELETE FROM receiver WHERE num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, receiver_num);
+			deleteCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+//				e.printStackTrace();
+			System.out.println("OrderDAO - deleteReceiver() 실패! : " + e.getMessage());
+		} finally {
+			close(pstmt);
+		}
+		return deleteCount;
+	}
+	
+	// 주문 상세보기 INSERT
 	public int insertDetail(List orderList, String id) {
 		System.out.println("OrderDAO - insertDetail");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int insertDetailCount = 0;
+		int insertDetailCount = 0; // INSERT
+		int updateCount = 0; // 수량변경
 		int num = 1; // 번호
 		String orders_num = "0"; // 주문번호
 		int receiver_num = 0; // 배송지번호
@@ -252,6 +336,13 @@ public class OrderDAO {
 				
 				insertDetailCount = pstmt.executeUpdate();
 				num++; //일련번호증가
+				if(insertDetailCount > 0) {
+					sql="UPDATE product SET stock_count=stock_count-? WHERE code=?";
+					pstmt=con.prepareStatement(sql);
+					pstmt.setInt(1, selectOrderBean.getQuantity());
+					pstmt.setString(2, selectOrderBean.getItemCode());
+					updateCount = pstmt.executeUpdate();
+				}
 				System.out.println(i + "번ㅎㅎㅎ");
 			}
 		}  catch (SQLException e) {
@@ -261,9 +352,10 @@ public class OrderDAO {
 			close(rs);
 			close(pstmt);
 		}
-		return insertDetailCount;
+		return updateCount;
 	}
 
+	// 주문 상세보기 목록 출력 (OrderPayComplete.jsp 및 마이페이지 사용)
 	public List getDetailList(String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -329,14 +421,14 @@ public class OrderDAO {
 		return list;
 	}
 
-	// 기본배송지 가져오기
+	// 기본배송지 가져오기 (OrderPay.jsp 와 마이페이지 배송지관리에서 사용)
 	public List getBasicReceiverList(String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List list = new ArrayList();
 		
 		try {
-			String sql = "SELECT * FROM receiver WHERE member_id=? AND receiver IS NOT NULL";
+			String sql = "SELECT * FROM receiver WHERE member_id=? AND receiver NOT IN('')";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			
@@ -367,7 +459,7 @@ public class OrderDAO {
 		return list;
 	}
 	
-	// 최근배송지 가져오기
+	// 최근배송지 가져오기 (OrderPay.jsp)
 	public List getLastReceiverList(String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

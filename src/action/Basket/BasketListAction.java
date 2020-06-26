@@ -27,7 +27,7 @@ public class BasketListAction implements Action {
 		if(id == null){
 			forward = new ActionForward();
 			forward.setRedirect(true);
-			forward.setPath("/artbox_clone/login.basket");
+			forward.setPath("/artbox_clone/memberLoginForm.member");
 			return forward;
 		}
 		

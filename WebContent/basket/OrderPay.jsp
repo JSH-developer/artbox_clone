@@ -18,20 +18,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-
-// 	$.ajax({
-
-// 		url:"/basket/inicis.jsp",
-// 		method:"POST",
-// 		data: {name : "홍길동"},
-// 		dataType:"JSON", // 옵션이므로 JSON으로 받을게 아니면 안써도 됨
-
-// 		success : function(data) {
-			
-// 		}
-
-// 	});
-
+	IMP.init('imp92896832'); // 가맹점식별코드
 
     $("input[type=tel]").keyup(function(e){
 		if (!Check_Number(e.currentTarget.value)) {
@@ -207,18 +194,20 @@ $(document).ready(function(){
 	fnSelectMyDelivery = function (obj) {
 		if (obj.value) {
 			var receiverArr = obj.value.split("||");
-			var ShipName,ShipPostcode,ShipAddr,ShipAddrD;
-			var ShipPhoneArr = receiverArr[1].split("-");
+			var Receiver, ShipName,ShipPostcode,ShipAddr,ShipAddrD;
+			var ShipPhoneArr = receiverArr[2].split("-");
 			var ShipPhone1,ShipPhone2,ShipPhone3
 
-			ShipName = receiverArr[0];
+			Receiver = receiverArr[0];
+			ShipName = receiverArr[1];
 			ShipPhone1 = ShipPhoneArr[0];
 			ShipPhone2 = ShipPhoneArr[1];
 			ShipPhone3 = ShipPhoneArr[2];
-			ShipPostcode = receiverArr[2];
-			ShipAddr = receiverArr[3];
-			ShipAddrD = receiverArr[4];
+			ShipPostcode = receiverArr[3];
+			ShipAddr = receiverArr[4];
+			ShipAddrD = receiverArr[5];
 
+			$('#receiver').val(Receiver)
 			$("#i_shipname").val(ShipName);
 			$("#i_shipzipcode").val(ShipPostcode);
 			$("#i_shipaddr").val(ShipAddr);
@@ -237,7 +226,7 @@ $(document).ready(function(){
 			$("#i_shipcpnum2").val('');
 			$("#i_shipcpnum3").val('');
 		}
-   }
+	}
 
 	fnShipAlertDesc = function (obj) {
 		if (obj.value) {
@@ -366,123 +355,12 @@ $(document).ready(function(){
 			$("#CouponIdxSelect_Goods").css("display","none");
 		}
 	}
-
-	$(".btn_order").click(function(){
-
-		var fr = document.Order;
-
-		if (!$.trim(fr.memname.value)) {
-			alert("주문자명을 입력해주세요.");
-			fr.memname.focus();
-			return;
-		}
-
-		if (!fr.mememail.value) {
-			alert("이메일 주소를 입력해주세요.");
-			fr.mememail.focus();
-			return;
-		}
-
-		if (!fr.memcpnum1.value||!fr.memcpnum2.value||!fr.memcpnum3.value) {
-			alert("휴대폰 번호를 입력해주세요.");
-			fr.memcpnum.focus();
-			return;
-		}
-
-		if (!$.trim(fr.shipname.value)) {
-			alert("수령인명을 입력해주세요.");
-			fr.shipname.focus();
-			return;
-		}
-
-		if (!fr.shipcpnum1.value||!fr.shipcpnum2.value||!fr.shipcpnum3.value) {
-			alert("휴대폰 번호를 입력해주세요.");
-			fr.shipcpnum3.focus();
-			return;
-		}
-
-		var ExceptNumber = "000-0000||111-1111||222-2222||333-3333||444-4444||555-5555||666-6666||777-7777||888-8888||999-9999||0000-0000||1111-1111||2222-2222||3333-3333||4444-4444||5555-5555||6666-6666||7777-7777||8888-8888||9999-9999||000-1234||123-1234||1234-1234||0000-1234||";
-		var findStr = fr.shipcpnum2.value + "-" + fr.shipcpnum3.value;
-
-		if (ExceptNumber.indexOf(findStr) != -1) {
-			alert("연락 가능한 번호로 기재해주세요.");
-			fr.shipcpnum3.focus();
-			return false;
-		}
-
-		if (!fr.shipzipcode.value||!fr.shipaddr.value||!fr.shipaddrd.value) {
-			alert("주소를 입력해주세요.");
-			fr.shipaddrd.focus();
-			return;
-		}
-
-		if (!$("input:checkbox[name=OrderAgreeThird]").is(":checked")) {
-			alert("개인정보 제3자 제공에 동의해주세요.");
-			$("input[name=OrderAgreeThird]").focus();
-			return;
-		}
-
-		if (!$("input:checkbox[name=OrderAgreePayment]").is(":checked")) {
-			alert("결제대행서비스 이용약관에 동의해주세요.");
-			$("input[name=OrderAgreePayment]").focus();
-			return;
-		}
-
-		if (!$("input:checkbox[name=OrderAgreeRule]").is(":checked")) {
-			alert("상품설명/취소/환불규정에 동의해주세요.");
-			$("input[name=OrderAgreeRule]").focus();
-			return;
-		}
-		
-		$.ajax({
-			type: "GET",
-			url: "/orderCheck.order", // 최종 결제전에 마지막으로 해당 상품 구매가능한 상태인지 확인 요청(재고)
-			data: {'arrBasket': '${arrBasket}', // 구매하려는 상품 번호
-					'quantity': '${quantity}' // 상품 수량
-					},
-				success: function(data) {
-					if (data) {
-						var IMP = window.IMP; // 생략가능
-						IMP.init('imp92896832');// 아임포트 라이브러리를 통해서 가맹점정보를 불러옴
-						IMP.request_pay({
-								pg : 'inicis', // version 1.1.0부터 지원.
-								pay_method : 'card',
-								merchant_uid : 'merchant_' + new Date().getTime(),
-								name : '주문명:결제테스트',
-								amount : 14000,
-								buyer_email : 'iamport@siot.do',
-								buyer_name : '구매자이름',
-								buyer_tel : '010-1234-5678',
-								buyer_addr : '서울특별시 강남구 삼성동',
-								buyer_postcode : '123-456',
-						}, function(rsp) { // 콜백 함수
-							if (rsp.success) {
-								// 결제 정보를 form 에 담음
-								$('#checkSeat').val('${pInfo.checkSeat}');
-								$('#merchant_uid').val(rsp.merchant_uid);
-								$('#paid_amount').val(rsp.paid_amount);
-								$('#pay_method').val(rsp.pay_method);
-								$.ajax({ type: "post",
-								url: "OrderComplete.order", //최종 결제정보를 서버로 전달
-								data: queryString,
-								success: function(data) {
-								}
-							})
-						} else {
-							alert('결제 실패하셨습니다.');
-						}
-					});
-				} else {
-					alert('결제 오류');
-				}
-			}
-		});
-      
-//       if (!$("input:checkbox[name=BasicAddr]").is(":checked")) {
-//     	  $("input:checkbox[name=BasicAddr]").val(1);
-//       }
-      
-	})
+	
+	if($("#BasicAddr").is(":checked")) {
+		$("#BasicAddr").val(1);
+	} else {
+		$("#BasicAddr").val(0);
+	}
 	
     fnDeliveryInfo(3); // 배송지정보 '직접 입력'을 기본으로 설정
 
@@ -510,10 +388,6 @@ function execDaumPostCode() { // 우편번호
 	}).open();
 }
 </script>
-<style type="text/css">
-/* .btn_order {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:56px; height:56px; color:#ffffff; font-size:21px; border:0; background-color:#000000; border-radius:5px; font-weight:bold; } */
-/* .btn_basket {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:54px; height:56px; color:#000000; font-size:21px; border:1px solid #646464; background-color:#ffffff; border-radius:5px;} */
-</style>
 </head>
 <body>
 <div class="page">
@@ -531,10 +405,12 @@ function execDaumPostCode() { // 우편번호
          <small>
          <c:choose>
     <c:when test="${fn:length(orderList) == 1}">
-        ${orderListOne[0].itemName } (${orderListOne[0].itemCode })
+        <c:set var="Order_Product_Name" value="${orderListOne[0].itemName } (${orderListOne[0].itemCode })"/>
+        <c:out value="${Order_Product_Name }"/>
     </c:when>
     <c:otherwise>
-         ${orderListOne[0].itemName } (${orderListOne[0].itemCode }) 외 ${fn:length(orderList)-1}개
+         <c:set var="Order_Product_Name" value="${orderListOne[0].itemName } (${orderListOne[0].itemCode }) 외 ${fn:length(orderList)-1}개"/>
+         <c:out value="${Order_Product_Name }"/>
     </c:otherwise>
          </c:choose>
          </small>
@@ -609,6 +485,7 @@ function execDaumPostCode() { // 우편번호
                <c:set var="phonearr" value="${orderListOne[0].phone}" />
                <c:set var="phone" value="${fn:split(phonearr, '-')}" />
                <dd>
+	              <input type="hidden" id="tel" name="tel" value="${orderListOne[0].phone}"/>
                   <input type="tel" id="i_memcpnum1" name="memcpnum1" maxlength="2" value="${phone[0] }" />
                   <p class="null"></p>
                </dd>
@@ -654,7 +531,7 @@ function execDaumPostCode() { // 우편번호
 			<select onchange="fnSelectMyDelivery(this);">
 				<option value="" selected="selected">선택</option>
 				<c:forEach var="receiverBasicList" items="${receiverBasicList }" varStatus="status">
-               		<option value="${receiverBasicList.receiver_name }||${receiverBasicList.receiver_phone }||${receiverBasicList.receiver_postcode }||${receiverBasicList.receiver_addr }||${receiverBasicList.receiver_addr_detail }">${receiverBasicList.receiver }</option>
+               		<option value="${receiverBasicList.receiver }||${receiverBasicList.receiver_name }||${receiverBasicList.receiver_phone }||${receiverBasicList.receiver_postcode }||${receiverBasicList.receiver_addr }||${receiverBasicList.receiver_addr_detail }">${receiverBasicList.receiver }</option>
 				</c:forEach>
 <!-- 					<option value="김땡땡||06257||서울특별시 강남구 논현로 311 (역삼동)||101-101||010||1234||5678||||||">자택</option> -->
 			</select>
@@ -668,9 +545,9 @@ function execDaumPostCode() { // 우편번호
 				</c:when>
 
 				<c:otherwise>
-               	<c:forEach var="receiverLastList" items="${receiverLastList }" varStatus="status">
                		<option value="" selected="selected">선택</option>
-               		<option value="${receiverLastList.receiver_name }||${receiverLastList.receiver_phone }||${receiverLastList.receiver_postcode }||${receiverLastList.receiver_addr }||${receiverLastList.receiver_addr_detail }">${receiverLastList.receiver_addr }</option>
+               	<c:forEach var="receiverLastList" items="${receiverLastList }" varStatus="status">
+               		<option value="${receiverLastList.receiver }||${receiverLastList.receiver_name }||${receiverLastList.receiver_phone }||${receiverLastList.receiver_postcode }||${receiverLastList.receiver_addr }||${receiverLastList.receiver_addr_detail }">${receiverLastList.receiver_addr }</option>
 				</c:forEach>
 				</c:otherwise>
 			</c:choose>
@@ -685,6 +562,7 @@ function execDaumPostCode() { // 우편번호
             <dl class="trOrder">
                <dt>받는분</dt>
                <dd>
+                  <input type="hidden" id="receiver" name="receiver">
                   <input type="text" id="i_shipname" name="shipname" maxlength="16" />
                   <p class="null"></p>
                </dd>
@@ -754,7 +632,7 @@ function execDaumPostCode() { // 우편번호
          </div>
          
          <div class="ModifyShipAddr">
-            <input type="checkbox" id="BasicAddr" name="BasicAddr" value="0"/> 현재 입력된 배송지를 기본 배송지로 설정
+            <input type="checkbox" id="BasicAddr" name="BasicAddr"/> 현재 입력된 배송지를 기본 배송지로 설정
          </div>
          
       </div>
@@ -917,8 +795,6 @@ function execDaumPostCode() { // 우편번호
       <div class="TotalPriceAmount">
          총 결제금액 <span id="TotalPriceAmount"><fmt:formatNumber value="${tps+tpd}" pattern="#,###"/></span> 원<br />&nbsp;<br />
          <small>(적립 예정 꿈캔디 <span id="TotalMileageAmount"><fmt:formatNumber value="${tps/100}" pattern="#,###"/></span>개)</small>
-         <input type="hidden" name="TotalPriceAmount" value="27500" />
-         <input type="hidden" name="TotalMileageAmount" value="250" />
       </div>
 
       <div class="OrderAgree">
@@ -962,12 +838,91 @@ function execDaumPostCode() { // 우편번호
 	<div class="clear"></div>
 </div>
 
-<input type="hidden" name="phone123" value="${orderListOne[0].phone}"/>
-<input type="hidden" name="TotalPriceAmount" value="${tps+tpd}"/>
+<input type="hidden" id="pd_name" name="pd_name" value="${orderListOne[0].itemName }"/>
+<input type="hidden" id="Total" name="Total" value="${tps+tpd}"/>
 <input type="hidden" name="arrBasket" value="${arrBasket}"/>
 
 </form>
 
+<script type="text/javascript">
+$(".btn_order").click(function(){
+
+	var fr = document.Order;
+
+	if (!$.trim(fr.memname.value)) {
+		alert("주문자명을 입력해주세요.");
+		fr.memname.focus();
+		return;
+	}
+
+	if (!fr.mememail.value) {
+		alert("이메일 주소를 입력해주세요.");
+		fr.mememail.focus();
+		return;
+	}
+
+	if (!fr.memcpnum1.value||!fr.memcpnum2.value||!fr.memcpnum3.value) {
+		alert("휴대폰 번호를 입력해주세요.");
+		fr.memcpnum.focus();
+		return;
+	}
+
+	if (!$.trim(fr.shipname.value)) {
+		alert("수령인명을 입력해주세요.");
+		fr.shipname.focus();
+		return;
+	}
+
+	if (!fr.shipcpnum1.value||!fr.shipcpnum2.value||!fr.shipcpnum3.value) {
+		alert("휴대폰 번호를 입력해주세요.");
+		fr.shipcpnum3.focus();
+		return;
+	}
+
+	if (!fr.shipzipcode.value||!fr.shipaddr.value||!fr.shipaddrd.value) {
+		alert("주소를 입력해주세요.");
+		fr.shipaddrd.focus();
+		return;
+	}
+
+	if (!$("input:checkbox[name=OrderAgreeThird]").is(":checked")) {
+		alert("개인정보 제3자 제공에 동의해주세요.");
+		$("input[name=OrderAgreeThird]").focus();
+		return;
+	}
+
+	if (!$("input:checkbox[name=OrderAgreePayment]").is(":checked")) {
+		alert("결제대행서비스 이용약관에 동의해주세요.");
+		$("input[name=OrderAgreePayment]").focus();
+		return;
+	}
+
+	if (!$("input:checkbox[name=OrderAgreeRule]").is(":checked")) {
+		alert("상품설명/취소/환불규정에 동의해주세요.");
+		$("input[name=OrderAgreeRule]").focus();
+		return;
+	}
+	
+// 	IMP.request_pay({
+// 		pg : 'inicis', // version 1.1.0부터 지원.
+// 		pay_method : 'card',
+// 		name : $("#pd_name").val(),
+// 		amount : 100, // $("#Total").val(),
+// 	    buyer_email : $("#i_mememail").val(),
+// 	    buyer_name : $("#i_memname").val()
+// 	}, function(rsp) {
+// 		if ( rsp.success ) {
+//     		var msg = '결제가 완료되었습니다.';
+    		fr.submit();
+// 		} else {
+// 			var msg = '결제에 실패하였습니다.';
+// 			msg += '에러내용 : ' + rsp.error_msg;
+// 		}
+// 	alert(msg);
+// 	})
+	
+})
+</script>
 <!--  푸터 -->
  <jsp:include page="../inc/bottom.jsp"></jsp:include>
 <!--  푸터 -->
