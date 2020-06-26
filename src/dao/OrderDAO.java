@@ -298,7 +298,7 @@ public class OrderDAO {
 				receiverBean.setReceiver_addr_detail(rs.getString("receiver_addr_detail"));
 				receiverBean.setReceiver_date(rs.getString("receiver_date"));
 				receiverBean.setReceiver_member_id(rs.getString("member_id"));
-				receiverBean.setReceiver_basic_num(0);
+				receiverBean.setReceiver_basic_num(rs.getInt("basic_num"));
 				list.add(receiverBean);
 			}
 		} catch (SQLException e) {
@@ -336,7 +336,7 @@ public class OrderDAO {
 				receiverBean.setReceiver_addr_detail(rs.getString("receiver_addr_detail"));
 				receiverBean.setReceiver_date(rs.getString("receiver_date"));
 				receiverBean.setReceiver_member_id(rs.getString("member_id"));
-				receiverBean.setReceiver_basic_num(0);
+				receiverBean.setReceiver_basic_num(rs.getInt("basic_num"));
 				list.add(receiverBean);
 			}
 
