@@ -274,6 +274,82 @@ public class OrderDAO {
 		}
 		return deleteCount;
 	}
+
+	// 기본배송지 가져오기 (OrderPay.jsp 와 마이페이지 배송지관리에서 사용)
+	public List getBasicReceiverList(String id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List list = new ArrayList();
+		
+		try {
+			String sql = "SELECT * FROM receiver WHERE member_id=? AND receiver NOT IN('') ORDER BY basic_num DESC";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ReceiverBean receiverBean = new ReceiverBean();
+				receiverBean.setReceiver_num(rs.getInt("num"));
+				receiverBean.setReceiver(rs.getString("receiver"));
+				receiverBean.setReceiver_name(rs.getString("receiver_name"));
+				receiverBean.setReceiver_phone(rs.getString("receiver_phone"));
+				receiverBean.setReceiver_postcode(rs.getString("receiver_postcode"));
+				receiverBean.setReceiver_addr(rs.getString("receiver_addr"));
+				receiverBean.setReceiver_addr_detail(rs.getString("receiver_addr_detail"));
+				receiverBean.setReceiver_date(rs.getString("receiver_date"));
+				receiverBean.setReceiver_member_id(rs.getString("member_id"));
+				receiverBean.setReceiver_basic_num(0);
+				list.add(receiverBean);
+			}
+		} catch (SQLException e) {
+//			e.printStackTrace();
+			System.out.println("OrderDAO - getReceiverList() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	// 최근배송지 가져오기 (OrderPay.jsp)
+	public List getLastReceiverList(String id) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List list = new ArrayList();
+		
+		try {
+			String sql = "SELECT * FROM receiver WHERE num IN(SELECT receiver_num FROM orders_detail od"
+					+ " JOIN receiver r ON r.num=od.receiver_num) AND member_id=? ORDER BY receiver_date DESC LIMIT 3";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ReceiverBean receiverBean = new ReceiverBean();
+				receiverBean.setReceiver_num(rs.getInt("num"));
+				receiverBean.setReceiver(rs.getString("receiver"));
+				receiverBean.setReceiver_name(rs.getString("receiver_name"));
+				receiverBean.setReceiver_phone(rs.getString("receiver_phone"));
+				receiverBean.setReceiver_postcode(rs.getString("receiver_postcode"));
+				receiverBean.setReceiver_addr(rs.getString("receiver_addr"));
+				receiverBean.setReceiver_addr_detail(rs.getString("receiver_addr_detail"));
+				receiverBean.setReceiver_date(rs.getString("receiver_date"));
+				receiverBean.setReceiver_member_id(rs.getString("member_id"));
+				receiverBean.setReceiver_basic_num(0);
+				list.add(receiverBean);
+			}
+
+		} catch (SQLException e) {
+//			e.printStackTrace();
+			System.out.println("OrderDAO - getReceiverList() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 	
 	// 주문 상세보기 INSERT
 	public int insertDetail(List orderList, String id) {
@@ -415,83 +491,6 @@ public class OrderDAO {
 		} catch (SQLException e) {
 //			e.printStackTrace();
 			System.out.println("OrderDAO - getDetailList() 실패! : " + e.getMessage());
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-		
-		return list;
-	}
-
-	// 기본배송지 가져오기 (OrderPay.jsp 와 마이페이지 배송지관리에서 사용)
-	public List getBasicReceiverList(String id) {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List list = new ArrayList();
-		
-		try {
-			String sql = "SELECT * FROM receiver WHERE member_id=? AND receiver NOT IN('')";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id);
-			
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				ReceiverBean receiverBean = new ReceiverBean();
-				receiverBean.setReceiver_num(rs.getInt("num"));
-				receiverBean.setReceiver(rs.getString("receiver"));
-				receiverBean.setReceiver_name(rs.getString("receiver_name"));
-				receiverBean.setReceiver_phone(rs.getString("receiver_phone"));
-				receiverBean.setReceiver_postcode(rs.getString("receiver_postcode"));
-				receiverBean.setReceiver_addr(rs.getString("receiver_addr"));
-				receiverBean.setReceiver_addr_detail(rs.getString("receiver_addr_detail"));
-				receiverBean.setReceiver_date(rs.getString("receiver_date"));
-				receiverBean.setReceiver_member_id(rs.getString("member_id"));
-				receiverBean.setReceiver_basic_num(0);
-				list.add(receiverBean);
-			}
-
-		} catch (SQLException e) {
-//			e.printStackTrace();
-			System.out.println("OrderDAO - getReceiverList() 실패! : " + e.getMessage());
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-		
-		return list;
-	}
-	
-	// 최근배송지 가져오기 (OrderPay.jsp)
-	public List getLastReceiverList(String id) {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List list = new ArrayList();
-		
-		try {
-			String sql = "SELECT * FROM receiver WHERE num IN(SELECT receiver_num FROM orders_detail od"
-					+ " JOIN receiver r ON r.num=od.receiver_num) AND member_id=? ORDER BY receiver_date DESC LIMIT 3";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id);
-			
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				ReceiverBean receiverBean = new ReceiverBean();
-				receiverBean.setReceiver_num(rs.getInt("num"));
-				receiverBean.setReceiver(rs.getString("receiver"));
-				receiverBean.setReceiver_name(rs.getString("receiver_name"));
-				receiverBean.setReceiver_phone(rs.getString("receiver_phone"));
-				receiverBean.setReceiver_postcode(rs.getString("receiver_postcode"));
-				receiverBean.setReceiver_addr(rs.getString("receiver_addr"));
-				receiverBean.setReceiver_addr_detail(rs.getString("receiver_addr_detail"));
-				receiverBean.setReceiver_date(rs.getString("receiver_date"));
-				receiverBean.setReceiver_member_id(rs.getString("member_id"));
-				receiverBean.setReceiver_basic_num(0);
-				list.add(receiverBean);
-			}
-
-		} catch (SQLException e) {
-//			e.printStackTrace();
-			System.out.println("OrderDAO - getReceiverList() 실패! : " + e.getMessage());
 		} finally {
 			close(rs);
 			close(pstmt);
