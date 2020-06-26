@@ -1,4 +1,4 @@
-package item.action;
+package action.item;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -1,4 +1,4 @@
-package item.action;
+package action.item;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,19 +12,13 @@ public class SelectBoxAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward fw = new ActionForward();
 		fw.setPath("/item/itemList.jsp");
-		String kwd = request.getParameter("select");
+		String kwd = request.getParameter("kwd");
 		String status = request.getParameter("status");
 		
 		System.out.println("kwd = "+kwd);
 		System.out.println("status = "+status);
 		
-		if(status.equals("1")) {//대분류카테고리까지 선택 
-			
-		}if(status.equals("2")) {//소분류카테고리까지 선택 
-			
-		}if(status.equals("0")) {//검색함 
-			
-		}
+		
 		
 		return fw;
 	}

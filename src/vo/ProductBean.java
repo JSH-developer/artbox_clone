@@ -17,6 +17,22 @@ public class ProductBean {
 	private Timestamp product_regdate;
 	private String product_category_code;
 	private String product_option_code;
+	private String product_cnt_review;
+	private String product_cnt_order;
+	
+	
+	public String getProduct_cnt_review() {
+		return product_cnt_review;
+	}
+	public void setProduct_cnt_review(String product_cnt_review) {
+		this.product_cnt_review = product_cnt_review;
+	}
+	public String getProduct_cnt_order() {
+		return product_cnt_order;
+	}
+	public void setProduct_cnt_order(String product_cnt_order) {
+		this.product_cnt_order = product_cnt_order;
+	}
 	
 	public int getProduct_num() {
 		return product_num;

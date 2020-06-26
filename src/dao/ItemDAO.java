@@ -36,7 +36,7 @@ public class ItemDAO {
 	
 
 	public ArrayList<ProductBean> selectMajorLink(String majorCategory) {
-		String sql = "select * from product where category_code like ?";
+		String sql = "select * from count where category_code like ? order by num desc";
 		ProductBean productBean = null;
 		ArrayList<ProductBean> listProduct = new ArrayList<ProductBean>();
 		try {
@@ -60,6 +60,8 @@ public class ItemDAO {
 				productBean.setProduct_regdate(rs.getTimestamp("regdate"));
 				productBean.setProduct_category_code(rs.getString("category_code"));
 				productBean.setProduct_option_code(rs.getString("option_code"));
+				productBean.setProduct_cnt_order(rs.getString("cnt_order"));
+				productBean.setProduct_cnt_review(rs.getString("cnt_review"));
 				listProduct.add(productBean);
 			}
 		} catch (SQLException e) {
@@ -77,7 +79,7 @@ public class ItemDAO {
 	
 	
 	public ArrayList<ProductBean> selectMinorLink(String minorCategory) {
-		String sql = "select * from product where category_code=?";
+		String sql = "select * from count where category_code=? order by num desc";
 		ProductBean productBean = null;
 		ArrayList<ProductBean> listProduct = new ArrayList<ProductBean>();
 		try {
@@ -100,6 +102,8 @@ public class ItemDAO {
 				productBean.setProduct_regdate(rs.getTimestamp("regdate"));
 				productBean.setProduct_category_code(rs.getString("category_code"));
 				productBean.setProduct_option_code(rs.getString("option_code"));
+				productBean.setProduct_cnt_order(rs.getString("cnt_order"));
+				productBean.setProduct_cnt_review(rs.getString("cnt_review"));
 				listProduct.add(productBean);
 			}
 		} catch (SQLException e) {
@@ -157,9 +161,10 @@ public class ItemDAO {
 
 
 	public ArrayList<ProductBean> search(String kwd) {
-		String sql = "select * from product where keywords like ? "
+		String sql = "select * from count where keywords like ? "
 				+ "or name like ? "
-				+ "or brand like ?";
+				+ "or brand like ? "
+				+ "order by num desc";
 		ProductBean productBean = null;
 		ArrayList<ProductBean> listProduct = new ArrayList<ProductBean>();
 		try {
@@ -184,10 +189,16 @@ public class ItemDAO {
 				productBean.setProduct_regdate(rs.getTimestamp("regdate"));
 				productBean.setProduct_category_code(rs.getString("category_code"));
 				productBean.setProduct_option_code(rs.getString("option_code"));
+				productBean.setProduct_cnt_order(rs.getString("cnt_order"));
+				productBean.setProduct_cnt_review(rs.getString("cnt_review"));
 				listProduct.add(productBean);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+			close(con);
 		}
 		
 		return listProduct;
