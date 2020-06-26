@@ -106,7 +106,7 @@ public class MemberDAO {
 				}
 			}
 		} catch (SQLException e) {
-			System.out.println("LoginSuccess오류 - "+e.getMessage());
+			System.out.println("idpwSuccess오류 - "+e.getMessage());
 		} finally {
 			close(rs);
 			close(pstmt);
@@ -163,6 +163,44 @@ public class MemberDAO {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, newpw);
 			pstmt.setString(2, id);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("pwModify오류 - "+e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+	}
+
+	public int memberUpdate(MemberBean mb) {
+		PreparedStatement pstmt = null;
+		int success = 0;
+		try {
+			String sql = "UPDATE member SET gender=?,birth=?,postcode=?,addr_basic=?,addr_detail=?,email=?,phone=? where id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, mb.getGender());
+			pstmt.setString(2, mb.getBirth());
+			pstmt.setString(3, mb.getPostcode());
+			pstmt.setString(4, mb.getAddr_basic());
+			pstmt.setString(5, mb.getAddr_detail());
+			pstmt.setString(6, mb.getEmail());
+			pstmt.setString(7, mb.getPhone());
+			pstmt.setString(8, mb.getId());
+			success = pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("memberUpdate오류 - "+e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		return success;
+		
+	}
+
+	public void memberDelete(String id) {
+		PreparedStatement pstmt = null;
+		try {
+			String sql = "DELETE FROM member WHERE id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("pwModify오류 - "+e.getMessage());

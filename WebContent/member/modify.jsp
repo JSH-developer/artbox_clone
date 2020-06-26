@@ -19,7 +19,7 @@
 
 <div class="memModify">
 	<p class="title1">회원정보 변경</p>
-	<form action="modifySuccess.member" method="post">
+	<form action="modifySuccess.member" method="post" onsubmit="return check1()">
 	<div class="modifywrap">
 		<div class="modify">
 		<div class="modify_top">
@@ -38,17 +38,18 @@
 				$('.pwModify').toggle();
 			});
 			</script>
+			<input type="hidden" name="id" value="${id }">
 			<table>
 				<tr>
 					<td class="left">이름</td><td>${name }</td>
 				</tr>
 				<tr>
 					<td class="left">성별</td>
-					<td><input type="radio" name="gender" id="box1"><label for="box1">남</label>
-						<input type="radio" name="gender" id="box2"><label for="box2">여</label>
+					<td><input type="radio" name="gender" id="gender" value="남"><label for="box1">남</label>
+						<input type="radio" name="gender" id="gender" value="여"><label for="box2">여</label>
 				</tr>
 				<tr>
-					<td class="left">생년월일</td><td><input type="text" name="birth" placeholder="숫자8자리"></td>
+					<td class="left">생년월일</td><td><input type="text" id="birth" name="birth" placeholder="숫자8자리"></td>
 				</tr>
 			</table>
 				<p>* 등록한 생일에 축하쿠폰을 드립니다.</p>
@@ -62,14 +63,14 @@
 <table>
 <tr>
 	<td rowspan="3" style="width: 263px;">주소</td>
-	<td><input type="text" id="sample6_postcode" placeholder="우편번호" readonly="readonly"></td>
+	<td><input type="text" name="postcode" id="sample6_postcode" placeholder="우편번호" readonly="readonly"></td>
 	<td><input type="button" onclick="sample6_execDaumPostcode()" value="주소 찾기" ></td>
 </tr>
 <tr>
-	<td colspan="2"><input type="text" id="sample6_address" placeholder="주소" readonly="readonly"></td>
+	<td colspan="2"><input type="text" name="addr_basic" id="sample6_address" placeholder="주소" readonly="readonly"></td>
 </tr>
 <tr>
-	<td colspan="2"><input type="text" id="sample6_detailAddress" placeholder="상세주소"></td>
+	<td colspan="2"><input type="text" name="addr_detail" id="sample6_detailAddress" placeholder="상세주소"></td>
 </tr>
 <tr>
 	<td colspan="2"><input type="text" id="sample6_extraAddress" placeholder="참고항목" style="display: none;"></td>
@@ -132,26 +133,80 @@
 				<table>
 					<tr>
 						<td class="left">이메일</td>
-						<td><input type="text" placeholder="예) example@artbox.co.kr"></td>
+						<td><input type="text" id="email" name="email" placeholder="예) example@artbox.co.kr"></td>
 					</tr>
 					<tr>
 						<td class="left">휴대전화</td>
-						<td><input type="text"></td>
+						<td><input type="text" id="phone" placeholder="예)010-xxxx-xxxx" name="phone"></td>
 					</tr>
 				</table>
 			</div>
 
 			</div>
 		<div class="button">
-			<input type="button" value="회원 탈퇴">
-			<input type="button" value="취소" >
+			<input type="button" value="회원 탈퇴" onclick="location.href='memberDelete.member'">
+			<input type="button" value="취소" onclick="location.href='home.member'">
 			<span class="success">
-			<input class="submit1" type="submit" name="submit" value="정보 변경">
+			<input type="submit" name="submit" value="정보 변경">
 			</span>
 		</div>
 	</div>
 	</form>
 </div>
+
+<!-- 							------------------------------- 정규표현식 -----------------------------------          -->
+<script src="js/jquery-3.5.0.js"></script>
+<script type="text/javascript">
+
+		
+		var idcheck = /^(?!(?:[0-9]+)$)([a-zA-Z]|[0-9a-zA-Z]){4,16}$/;
+		var pwcheck = /^(?!(?:[0-9]+)$)([a-zA-Z]|[0-9a-zA-Z]){4,16}$/;
+		var birthcheck = /^[0-9]{8}$/;
+		var phonecheck = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+		var emailcheck = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+		function check1(){
+			if ($('#name').val()=="") {
+				alert('이름을 입력해주세요');
+				$.trim($('#name').focus());
+				 return false;
+			}
+			
+			if(!$('input:radio[name=gender]').is(':checked')){
+				alert('성별 체크해주세요')
+				return false;
+			}
+			
+			if (!birthcheck.test($('#birth').val())) {
+				alert('생년월일 형식에 맞춰주세요');
+				$.trim($('#birth').focus());
+				 return false;
+			}
+			
+			if ($('#sample6_address').val()=="") {
+				alert('주소를 입력해주세요.');
+				 return false;
+			}
+			
+			if ($('#sample6_detailAddress').val()=="") {
+				alert('상세주소를 입력해주세요.');
+				$.trim($('#sample6_detailAddress').focus());
+				 return false;
+			}
+			
+			if (!emailcheck.test($('#email').val())) {
+				alert('이메일 형식에 맞춰주세요');
+				$.trim($('#email').focus());
+				 return false;
+			}
+			
+			if (!phonecheck.test($('#phone').val())) {
+				alert('핸드폰번호 형식에 맞춰주세요');
+				$.trim($('#phone').focus());
+				 return false;
+			}
+		}
+		</script>
+
 
 		<!-- -------------------------------     전환      ---------------------------------------- -->
 		<!--                 비밀번호 변경                 -->

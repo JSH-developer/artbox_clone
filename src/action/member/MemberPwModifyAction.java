@@ -26,6 +26,13 @@ public class MemberPwModifyAction implements Action {
 		if(pwcheck) {
 			MemberPwModifyService MemberPwModifyService = new MemberPwModifyService();
 			MemberPwModifyService.MemberPwModify(id,newpw);
+			
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('성공적으로 변경됨')");
+			out.println("</script>");
+			
 			forward = new ActionForward();
 			forward.setRedirect(true);
 			forward.setPath("/artbox_clone/Home.home");

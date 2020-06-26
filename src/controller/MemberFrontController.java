@@ -15,11 +15,13 @@ import org.json.simple.JSONObject;
 
 import action.member.Action;
 import action.member.MemberCheckAction;
+import action.member.MemberDeleteAction;
 import action.member.MemberDeliveryAddAction;
 import action.member.MemberJoinAction;
 import action.member.MemberJoinCheckAction;
 import action.member.MemberLoginAction;
 import action.member.MemberPwModifyAction;
+import action.member.MemberModifyAction;
 import action.member.memberProfileAction;
 import vo.ActionForward;
 
@@ -147,6 +149,23 @@ public class MemberFrontController extends HttpServlet {
 			}
     	}else if(command.equals("/deliveryAdd.member")) {
     		action = new MemberDeliveryAddAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/modifySuccess.member")) {
+    		action = new MemberModifyAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/memberDelete.member")) {
+    		forward = new ActionForward();
+    		forward.setPath("/member/memberDelete.jsp");
+    	}else if(command.equals("/deleteCheck.member")) {
+    		action = new MemberDeleteAction();
     		try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
