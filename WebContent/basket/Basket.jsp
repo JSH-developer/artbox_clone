@@ -50,12 +50,12 @@ $(document).ready(function(){
 // 		alert(actiontype+"\n"+basketIdx+"\n"+qty+"\n"+optionidx);
 
 		if (actiontype == "BUY") { // 바로주문하기 버튼 클릭시
-			location.href = "order.order?arrBasket=" + basketIdx  + "&optionidx=" + optionidx;
+			location.href = "order.order?arrBasket="+basketIdx+"&optionidx="+optionidx;
 		} else if (actiontype == "QTY" && optionidx == 0) { // X(특정 상품 삭제) 버튼 클릭시
-			location.href = "deleteOne.basket?basketIdx=" + basketIdx;
+			location.href = "deleteOne.basket?arrBasket="+basketIdx;
 			alert('삭제되었습니다.');
 		} else if (actiontype == "QTY" && optionidx != 0) { // 옵션변경 버튼 클릭시
-			location.href = "updateQuantity.basket?basketIdx=" + basketIdx + "&qty=" + qty;
+			location.href = "updateQuantity.basket?basketIdx="+basketIdx+"&qty="+qty;
 			alert('변경되었습니다.');
 		}
 	}

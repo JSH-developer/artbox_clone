@@ -36,12 +36,7 @@ public class OrderOneListAction implements Action {
 		}
 		
 		String arrBasket = request.getParameter("arrBasket"); // 상품 번호 가져오기(Basket.jsp에서)
-		int product_num = 0;
-		if(request.getParameter("product_num") != null) { // 상품 번호 가져오기(itemDetail.jsp에서)
-			product_num = Integer.parseInt(request.getParameter("product_num"));
-		}
 		System.out.println("OrderOneListAction 가져온값" + arrBasket);
-		
 		
 		CouponService couponService = new CouponService();
 		ArrayList<CouponBean> mycouponList= couponService.getmycouponlist(id);
@@ -56,11 +51,7 @@ public class OrderOneListAction implements Action {
 		// => 파라미터 : (id, 상품번호) , 리턴타입 : List
 		OrderOneListService orderOneListService = new OrderOneListService();
 		List orderList = new ArrayList();
-		if(product_num != 0) {
-			orderList = orderOneListService.getOrderOneList(id, product_num);
-		} else {
-			orderList = orderOneListService.getOrderOneList(id, arrBasket);
-		}
+		orderList = orderOneListService.getOrderOneList(id, arrBasket);
 		// getBasicReceiverList() 메서드 호출하여 기본배송지 목록 가져오기
 		// getLastReceiverList() 메서드 호출하여 최근배송지 목록 가져오기
 		List receiverBasicList = orderOneListService.getBasicReceiverList(id); // 기본배송지

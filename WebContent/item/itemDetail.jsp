@@ -132,12 +132,6 @@
 	function commas(x) {
 	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
-	// 장바구니 버튼 눌렀을때
-	function cartCheck(){
-		var result = confirm("선택하신 상품이 장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?");
-		document.gfr.action = "addCart.cart?result=" + result;
-		document.gfr.submit();
-	}	
 	// 위시 버튼 눌렀을때
 	$(document).on("click",".btn-wish", function(){
 		var isId = false;
@@ -231,7 +225,7 @@
 		<section class="item-info">
 			<form action="" method="post" name="gfr">
 				<input type="hidden" name="pdt-price" value="8500">
-				<input type="hidden" name="product_num" value="${productBean.product_num}">
+				<input type="hidden" name="arrBasket" value="${productBean.product_num}">
 				<div class="img-info">
 					<div class="mainslide swiper-container">
 						<ul class="swiper-wrapper">
@@ -290,13 +284,8 @@
 						</c:choose>
 					</div>
 					<div class="pdt-btnlist">
-<<<<<<< HEAD
 						<span class="btnCart"><input type="button" value="장바구니 담기" onclick="basketCheck()"></span>
 						<span class="btnOrder"><input type="button" value="바로 구매하기" onclick="Order()"></span>
-=======
-						<span class="btnCart"><input type="button" value="장바구니 담기" onclick="cartCheck()"></span>
-						<span class="btnOrder"><input type="button" value="바로 구매하기"></span>
->>>>>>> branch 'Basket' of https://github.com/JSH-developer/artbox_clone.git
 						<span class="btn-share modal"></span>
 						<span class="btn-wish off"></span>
 					</div>

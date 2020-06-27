@@ -36,9 +36,48 @@ public class OrderDAO {
 		this.con = con; // 이름이 똑같기 때문에 this. 적음
 	}
 	
-	// 주문 목록 출력(OrderPay.jsp)
+	// 주문 목록 출력 - 바로 주문(itemDetail)
+	public List<SelectOrderBean> DirectOrderOneList(String member_id, int basket_num) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		SelectOrderBean bean = new SelectOrderBean();
+		
+		List<SelectOrderBean> OrderList = new ArrayList<SelectOrderBean>();
+		try {
+			String sql = "SELECT member.name, member.email, member.phone, member.point, product.num,"
+					+ " product.code, product.name, product.image, product.price, basket.quantity, product.category_code"
+					+ " FROM member JOIN basket ON member.id = basket.member_id"
+					+ " JOIN product ON product.num = basket.product_num"
+					+ " WHERE member_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, member_id);
+			pstmt.setInt(2, basket_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				bean.setName(rs.getString("member.name"));
+				bean.setEmail(rs.getString("email"));
+				bean.setPhone(rs.getString("phone"));
+				bean.setPoint(rs.getInt("point"));
+				bean.setItemNum(rs.getInt("num"));
+				bean.setItemCode(rs.getString("code"));
+				bean.setItemName(rs.getString("product.name"));
+				bean.setItemImage(rs.getString("image"));
+				bean.setItemprice(rs.getInt("price"));
+				bean.setQuantity(rs.getInt("quantity"));
+				bean.setItemCategory(rs.getString("category_code"));
+				OrderList.add(bean);
+			}
+		} catch (SQLException e) {
+//			e.printStackTrace();
+			System.out.println("OrderDAO - selectOrderList() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return OrderList;
+	}
 	
-	
+	// 주문 목록 출력(OrderPay.jsp) - 장바구니를 거치는 주문
 	public List<SelectOrderBean> OrderOneList(String member_id, int basket_num) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -70,7 +109,7 @@ public class OrderDAO {
 				OrderList.add(bean);
 			}
 		} catch (SQLException e) {
-//			e.printStackTrace();
+//				e.printStackTrace();
 			System.out.println("OrderDAO - selectOrderList() 실패! : " + e.getMessage());
 		} finally {
 			close(rs);
