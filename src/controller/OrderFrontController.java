@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import action.Basket.OrderCompleteAction;
 import action.Basket.OrderDetailListAction;
+import action.Basket.OrderDirectAction;
 import action.Basket.OrderOneListAction;
 import vo.ActionForward;
 
@@ -33,7 +34,14 @@ public class OrderFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/OrderComplete.order")) { // 결제하기
+		} else if(command.equals("/orderDirect.order")) { // 바로주문하기(itemDetail.jsp에서)
+			action = new OrderDirectAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(command.equals("/orderComplete.order")) { // 결제하기
 			action = new OrderCompleteAction();
 			try {
 				forward = action.execute(request, response);

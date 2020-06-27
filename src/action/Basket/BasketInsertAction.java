@@ -33,7 +33,7 @@ public class BasketInsertAction implements Action {
 			return forward;
 		}
 		String result = request.getParameter("result");
-		int product_num = Integer.parseInt(request.getParameter("arrBasket"));
+		int product_num = Integer.parseInt(request.getParameter("product_num"));
 		// 장바구니 추가를 위해 입력받은 데이터를 저장할 BasketBean 객체 생성
 		BasketBean basketBean = new BasketBean();
 		// request 객체로부터 입력받은 데이터를 가져와서 BasketBean 객체에 저장

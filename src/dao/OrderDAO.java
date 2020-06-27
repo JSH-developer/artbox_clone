@@ -13,6 +13,7 @@ import java.util.List;
 
 import vo.OrdersBean;
 import vo.OrdersDetailBean;
+import vo.ProductBean;
 import vo.ReceiverBean;
 import vo.SelectOrderBean;
 
@@ -36,40 +37,35 @@ public class OrderDAO {
 		this.con = con; // 이름이 똑같기 때문에 this. 적음
 	}
 	
-	// 주문 목록 출력 - 바로 주문(itemDetail)
-	public List<SelectOrderBean> DirectOrderOneList(String member_id, int basket_num) {
+	// 주문 목록 출력 - 바로 주문(itemDetail.jsp 에서)
+	public List<SelectOrderBean> OrderDirectList(String id, ProductBean productBean) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		SelectOrderBean bean = new SelectOrderBean();
 		
 		List<SelectOrderBean> OrderList = new ArrayList<SelectOrderBean>();
 		try {
-			String sql = "SELECT member.name, member.email, member.phone, member.point, product.num,"
-					+ " product.code, product.name, product.image, product.price, basket.quantity, product.category_code"
-					+ " FROM member JOIN basket ON member.id = basket.member_id"
-					+ " JOIN product ON product.num = basket.product_num"
-					+ " WHERE member_id=?";
+			String sql = "SELECT name, email, phone, point FROM member WHERE id=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, member_id);
-			pstmt.setInt(2, basket_num);
+			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				bean.setName(rs.getString("member.name"));
+				bean.setName(rs.getString("name"));
 				bean.setEmail(rs.getString("email"));
 				bean.setPhone(rs.getString("phone"));
 				bean.setPoint(rs.getInt("point"));
-				bean.setItemNum(rs.getInt("num"));
-				bean.setItemCode(rs.getString("code"));
-				bean.setItemName(rs.getString("product.name"));
-				bean.setItemImage(rs.getString("image"));
-				bean.setItemprice(rs.getInt("price"));
-				bean.setQuantity(rs.getInt("quantity"));
-				bean.setItemCategory(rs.getString("category_code"));
+				bean.setItemNum(productBean.getProduct_num());
+				bean.setItemCode(productBean.getProduct_code());
+				bean.setItemName(productBean.getProduct_name());
+				bean.setItemImage(productBean.getProduct_image());
+				bean.setItemprice(productBean.getProduct_price());
+				bean.setQuantity(productBean.getProduct_stock_count()); // 상품 수량 임시로 사용
+				bean.setItemCategory(productBean.getProduct_category_code());
 				OrderList.add(bean);
 			}
 		} catch (SQLException e) {
 //			e.printStackTrace();
-			System.out.println("OrderDAO - selectOrderList() 실패! : " + e.getMessage());
+			System.out.println("OrderDAO - OrderDirectList() 실패! : " + e.getMessage());
 		} finally {
 			close(rs);
 			close(pstmt);
@@ -526,4 +522,5 @@ public class OrderDAO {
 		
 		return list;
 	}
+
 }

@@ -208,9 +208,9 @@
 		document.gfr.action = "insertBasket.basket?result="+result;
 		document.gfr.submit();
 	}
-	// 바로 구매하기 버튼 클릭 시
+	// 바로 구매하기 버튼 클릭 시(수정중)
 	function Order() {
-		document.gfr.action = "order.order";
+		document.gfr.action = "orderDirect.order";
 		document.gfr.submit();
 	}
 	</script>
@@ -225,7 +225,13 @@
 		<section class="item-info">
 			<form action="" method="post" name="gfr">
 				<input type="hidden" name="pdt-price" value="8500">
-				<input type="hidden" name="arrBasket" value="${productBean.product_num}">
+				<input type="hidden" name="product_num" value="${productBean.product_num}">
+				<input type="hidden" name="product_code" value="${productBean.product_code}">
+				<input type="hidden" name="product_name" value="${productBean.product_name}">
+				<input type="hidden" name="product_image" value="${productBean.product_image}">
+				<input type="hidden" name="product_price" value="${productBean.product_price}">
+				<input type="hidden" name="product_category_code" value="${productBean.product_category_code}">
+				
 				<div class="img-info">
 					<div class="mainslide swiper-container">
 						<ul class="swiper-wrapper">

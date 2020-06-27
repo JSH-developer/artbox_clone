@@ -577,7 +577,7 @@ span.scoup { /*     쿠폰 팝업 창  */
 <jsp:include page="../inc/top.jsp"></jsp:include>
 <!-- 헤더 -->
 
-<form method="post" name="Order" action="OrderComplete.order">
+<form method="post" name="Order" action="orderComplete.order">
 <div class="OrderWrap" id="OrderWrap">
    <h1>주문하기</h1>
    
@@ -1134,6 +1134,7 @@ $("#btn_order").click(function(){
 						<tbody>
 						 <c:set var="total_price111" value="25000" />
 			<!--  bonuscoupon 가져오는 for문 -->
+			<c:if test="${!empty mycouponList}"> 
 			<c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
 			 <c:set var="myCoupon" value="${mycouponList[i].coupon_category}" />
 			
@@ -1154,7 +1155,7 @@ $("#btn_order").click(function(){
 				</tr>
 				</c:if>
 				</c:forEach>
-							
+			</c:if>		
 						</tbody>
 					</table>
 
@@ -1194,7 +1195,7 @@ $("#btn_order").click(function(){
 							<tr>
 								<td height="5" colspan="4" align="left"></td>
 							</tr>
-
+<c:if test="${!empty mycouponList}"> 
 	<c:forEach items="${orderList}" var="orderList">
          <c:forEach var="i" begin="0" end="${fn:length(mycouponList)-1}" step="1">
          <c:set var="myCoupon" value="${mycouponList[i].coupon_category }" />
@@ -1219,7 +1220,7 @@ $("#btn_order").click(function(){
          </c:if>
          </c:forEach>
          </c:forEach>
-			
+</c:if>			
 						</tbody>
 					</table>
 				</td>
