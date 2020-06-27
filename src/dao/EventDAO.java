@@ -398,6 +398,78 @@ public class EventDAO {
 		return deleteCount;
 	}
 
+	// admin용 전체 이벤트 리스트 count
+	public int selectAllListCount() {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		
+		try {
+			String sql = "SELECT COUNT(num) FROM event_board";
+			pstmt= con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("EventDAO- selectListCount()실패!"+e.getMessage());
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return listCount;
+	}
+
+	// admin용 전체 이벤트 리스트
+	public ArrayList<EventBean> selectAllArticleList(int page, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int updateCount = 0;
+		
+		int startRow = (page -1)*limit;
+		
+		ArrayList<EventBean> articleList =  new ArrayList<EventBean>();
+		
+		
+		try {
+			String sql = "SELECT * FROM event_board ORDER BY num desc LIMIT ?,?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, limit);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				EventBean rowData = new EventBean();
+				rowData.setEvent_num(rs.getInt("num"));
+				rowData.setEvent_titie(rs.getString("event_title"));
+				rowData.setEvent_content(rs.getString("event_content"));
+				rowData.setEvent_time(rs.getTimestamp("event_time"));
+				rowData.setEvent_condition(rs.getString("event_condition"));
+				rowData.setEvent_discount(rs.getInt("event_discount"));
+				rowData.setEvent_start(rs.getString("event_start"));
+				rowData.setEvent_limit(rs.getString("event_limit"));
+				rowData.setEvent_img(rs.getString("event_img"));
+				rowData.setEvent_category(rs.getString("event_category"));
+			
+				articleList.add(rowData);
+				
+			}
+		} catch (SQLException e) {
+			System.out.println("EventDAO- selectArticleList()실패!"+e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return articleList;
+	}
+
 
 
 

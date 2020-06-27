@@ -1127,6 +1127,8 @@ $("#btn_order").click(function(){
 				</td>
 			</tr>
 
+
+
 			<tr height="30">
 				<td colspan="1" align="center" style="padding: 5px 0 5px 0">
 			
@@ -1156,13 +1158,19 @@ $("#btn_order").click(function(){
 				</c:if>
 				</c:forEach>
 			</c:if>		
+							<c:if test="${empty mycouponList }">
+							<tr><td style="padding: 5px 0 5px 0">해당하는 쿠폰이 없습니다.</td></tr>
+							
+							</c:if>			
+									
+									
 						</tbody>
 					</table>
 
 				</td>
 			</tr>
 			
-			
+		
 			<tr height="1">
 				<td colspan="2" align="center" bgcolor="#e1e1e1"></td>
 			</tr>
@@ -1172,6 +1180,7 @@ $("#btn_order").click(function(){
 			</tr>
 
 
+<c:if test="${!empty mycouponList }">
 			<tr>
 				<td colspan="2" align="center" style="padding: 5px 0 10px 0">
 					<table width="750" border="0" cellspacing="0" cellpadding="0">
@@ -1226,14 +1235,16 @@ $("#btn_order").click(function(){
 				</td>
 				<td>
 
-
-
-
-				
 				</td>
 				
 				
 			</tr>
+			</c:if>
+			
+			<c:if test="${empty mycouponList }">
+			
+		</c:if>
+			
 			<tr height="2">
 				<td colspan="2" align="center" bgcolor="#e1e1e1"></td>
 			</tr>

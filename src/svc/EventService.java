@@ -158,6 +158,37 @@ public class EventService {
 		return deleteSuccess;
 	}
 
+	// admin용 전체 count
+	public int getAllListCount() {
+		int listCount = 0;
+		
+		Connection con = getConnection();
+		EventDAO eventDAO = EventDAO.getInstance();
+		eventDAO.setConnection(con);
+		
+		listCount = eventDAO.selectAllListCount(); // create함
+		
+		close(con);
+		
+		return listCount;
+	}
+	
+	
+	// admin용 전체 불러오기
+	public ArrayList<EventBean> getAllArticleList(int page, int limit) {
+		ArrayList<EventBean> articleList = null;
+		
+		Connection con = getConnection();
+		EventDAO eventDAO = EventDAO.getInstance();
+		eventDAO.setConnection(con);
+		
+		articleList = eventDAO.selectAllArticleList(page,limit);
+		
+		close(con);
+		
+		return articleList;
+	}
+
 
 
 
