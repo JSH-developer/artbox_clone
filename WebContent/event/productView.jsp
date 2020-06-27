@@ -40,15 +40,9 @@
 
 	} else {
 			var url = "CouponIssued.coupon?getid=" + getId + "&couponNum="+ coup_Num;
-			alert("쿠폰 저장함" + url);
-
-			moveCheck = confirm("쿠폰을 확인하시겠습니까?" + getId);
-
-			if (moveCheck) {
-				location.href = url;
-			} else {
-				alert("그대로 유지");
-			}
+			
+			location.href = url;
+			
 		}
 	}
 	
@@ -66,12 +60,6 @@
  <div class="pageContent">
  <h1>상품 페이지</h1>
 
-	<%	
-// 		String sessionId = (String)session.getAttribute("id");
-// 		System.out.println("sessionId"+sessionId);
-// 		String loginId = "jini";	// 로그인한 아이디
-// 		String item_category = item.getProduct_category_code();// 불러온 상품의 카테고리
-			%>
 			<c:set var="sessionId" value="${sessionScope.id}"/>
 			<c:set var="loginId" value="jini"/>
 			<c:set var="item_category" value="${item.product_category_code }"/>
@@ -85,25 +73,6 @@
 		
 		<input type="hidden" id="loginId" value="${sessionId}">
 
-	<%
-// 		if (couponList != null) {
-// 			for (int i = 0; i < couponList.size(); i++) {
-// 				int realprice = item.getProduct_price();
-// 				// saleprice가 있을 시
-// 			if(item.getProduct_sale_price()!=0){
-// 				int coup_discount = couponList.get(i).getCoupon_price();
-// 				int event_discount =item.getProduct_sale_price();
-				
-// 				int e_sale_price = realprice - ((realprice * event_discount) / 100);
-// 				int c_sale_price = realprice - coup_discount;
-
-// 				String couponName = couponList.get(i).getCoupon_name();
-// 				int couponNum = couponList.get(i).getCoupon_num();
-				
-				
-// 					// 클릭한 상품의 카테고리에 쿠폰이 있을 때 
-// 				if (item_category.equals(couponList.get(i).getCoupon_condition())) {
-	%>
 
 		<span id="rprice">실가격 :${realprice }</span>
 		

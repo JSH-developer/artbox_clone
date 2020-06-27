@@ -11,9 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.event.CouponAllListAction;
-import action.event.CouponCheckAction;
+import action.event.CouponDeleteProAction;
 import action.event.CouponIssuedAction;
-import action.event.CouponOrderPayFormAction;
 import action.event.CouponSelectAction;
 import action.event.CouponWriteProAction;
 import action.event.MypageCouponListAction;
@@ -32,8 +31,8 @@ public class CouponFrontController extends HttpServlet {
 		ActionForward forward = null;
 
 
-		if(command.equals("/CouponWriteForm.coupon")){	// 쿠폰 등록 입력
-			System.out.println("/CouponWriteForm.coupon");
+		if(command.equals("/listCoupon.coupon")){	// 쿠폰 등록 입력
+			System.out.println("/listCoupon.coupon");
 
 			action = new CouponAllListAction(); 
 			try {
@@ -60,15 +59,6 @@ public class CouponFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-		}else if(command.equals("/OrderPayForm.coupon")) {	// 주문에서 쿠폰 적용
-			System.out.println("/OrderPayForm.coupon");
-			action = new CouponOrderPayFormAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
 		}else if(command.equals("/testSelectmain.coupon")) {	// 쿠폰 적용 테스트
 			System.out.println("/testSelectmain.coupon");
 
@@ -86,15 +76,7 @@ public class CouponFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-		}else if(command.equals("/CouponCheck.coupon")) {	// 쿠폰 갖고 있는지 확인
-			System.out.println("/CouponCheck.coupon");
-			action = new CouponCheckAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}else if(command.equals("/CouponSelect.coupon")) {	// 쿠폰 갖고 있는지 확인
+		}else if(command.equals("/CouponSelect.coupon")) {	// 쿠폰 확인
 			System.out.println("/CouponSelect.coupon");
 			action = new CouponSelectAction();
 			try {
@@ -103,8 +85,16 @@ public class CouponFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+		}else if(command.equals("/CouponDeletePro.coupon")) {	// 쿠폰 확인
+			System.out.println("/CouponDeletePro.coupon");
+			action = new CouponDeleteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
-		
 		
 		
 		

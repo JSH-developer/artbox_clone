@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.eclipse.jdt.internal.compiler.ast.PrefixExpression;
+
 import static db.jdbcUtil.*;
 
 import vo.CouponBean;
@@ -38,20 +40,10 @@ public class CouponDAO {
 		
 	}
 
-	public int insertArticle(CouponBean couponBean) {
+	public int insertArticle(CouponBean couponBean) { // 쿠폰 생성 -> coupon list
 		int insertCount = 0;
 		
 		PreparedStatement pstmt = null;
-		
-		System.out.println( couponBean.getCoupon_name());
-		System.out.println(couponBean.getCoupon_price());
-		System.out.println(couponBean.getCoupon_condition());
-		System.out.println(couponBean.getCoupon_start());
-		System.out.println(couponBean.getCoupon_limit());
-		System.out.println( couponBean.getCoupon_reason());
-		System.out.println(couponBean.getCoupon_member_id());
-		System.out.println(couponBean.getCoupon_category());
-		
 		
 		try {
 			System.out.println("insertArticle- try ");
@@ -142,7 +134,7 @@ public class CouponDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				sql = "INSERT INTO coupon VALUES(null,?,?,?,?,?,?,?,?,?)";
+				sql = "INSERT IGNORE INTO coupon VALUES(null,?,?,?,?,?,?,?,?,?)";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1,rs.getString("coup_name"));
 				pstmt.setInt(2,rs.getInt("coup_price"));
@@ -153,7 +145,6 @@ public class CouponDAO {
 				pstmt.setString(7, rs.getString("coup_reason"));
 				pstmt.setString(8, id);
 				pstmt.setString(9, rs.getString("coup_category"));
-				System.out.println(sql);
 				
 				
 				isSuccess = pstmt.executeUpdate();
@@ -247,22 +238,43 @@ public class CouponDAO {
 		
 		return couponBean;
 	}
-	
-	
-	// 아이디가 쿠폰 갖고 있는지 확인
-	public int selectCouponCheck(String id, String couponName) {
-		int check = 0;
-		
-		PreparedStatement pstmt = null;
-		ResultSet rs=null;
-		
-		String sql = "SELECT * FROM coupon where ";
-		
-		
-		
-		return check;
-	}
 
+	// 쿠폰 삭제
+	public int deleteCoupon(String coupon_num) {
+		int successDelete = 0;
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "delete from couponlist where num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, coupon_num);
+			successDelete = pstmt.executeUpdate();
+			
+			
+		}catch (SQLException e) {
+			System.out.println("CouponDAO- deleteCoupon()실패!"+e.getMessage());
+		} finally {
+			close(pstmt);
+		}
+		
+		return successDelete;
+	}
+	
+	
+//	// 아이디가 쿠폰 갖고 있는지 확인
+//	public int selectCouponCheck(String id, String couponName) {
+//		int check = 0;
+//		
+//		PreparedStatement pstmt = null;
+//		ResultSet rs=null;
+//		
+//		String sql = "SELECT * FROM coupon where ";
+//		
+//		
+//		return check;
+//	}
+
+	
 	
 	
 	

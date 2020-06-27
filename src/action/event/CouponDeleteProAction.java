@@ -6,29 +6,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import svc.EventService;
+import svc.CouponService;
 import vo.ActionForward;
 
-public class EventDeleteProAction implements Action {
+public class CouponDeleteProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
 		ActionForward forward = null;
 		
-		// admin 확인 절차 넣기
+		String coupon_num =request.getParameter("coupon_num");
 		
-		String board_num = request.getParameter("board_num");
-		String event_category = request.getParameter("event_category");
+		CouponService couponService = new CouponService();
+		Boolean isDelete = couponService.deleteCoupon(coupon_num);
 		
-		EventService eventService = new EventService();
-		boolean isDelete = eventService.deleteEvent(board_num);
 		
 		if(!isDelete) {
 			
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script type=\"text/javascript\">");
-			out.println("alert('이벤트 삭제 실패')");
+			out.println("alert('쿠폰 삭제 실패')");
 			out.println("history.back()"); 
 			out.println("</script>");
 			
@@ -37,12 +36,9 @@ public class EventDeleteProAction implements Action {
 			
 			forward = new ActionForward();
 			forward.setRedirect(true);
-			forward.setPath("listEvent.event");
+			forward.setPath("listCoupon.coupon");
 			
 		}
-		
-
-
 		
 		
 		return forward;
