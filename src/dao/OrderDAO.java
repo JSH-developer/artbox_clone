@@ -37,6 +37,8 @@ public class OrderDAO {
 	}
 	
 	// 주문 목록 출력(OrderPay.jsp)
+	
+	
 	public List<SelectOrderBean> OrderOneList(String member_id, int basket_num) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -44,11 +46,11 @@ public class OrderDAO {
 		
 		List<SelectOrderBean> OrderList = new ArrayList<SelectOrderBean>();
 		try {
-			String sql = "SELECT member.name, member.email, member.phone, member.point, "
-					+ "product.num, product.code, product.name, product.image, product.price, basket.quantity "
-					+ "FROM member JOIN basket ON member.id = basket.member_id "
-					+ "JOIN product ON product.num = basket.product_num "
-					+ "WHERE member_id=? AND basket.num=?";
+			String sql = "SELECT member.name, member.email, member.phone, member.point, product.num,"
+					+ " product.code, product.name, product.image, product.price, basket.quantity, product.category_code"
+					+ " FROM member JOIN basket ON member.id = basket.member_id"
+					+ " JOIN product ON product.num = basket.product_num"
+					+ " WHERE member_id=? AND basket.num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member_id);
 			pstmt.setInt(2, basket_num);
@@ -64,6 +66,7 @@ public class OrderDAO {
 				bean.setItemImage(rs.getString("image"));
 				bean.setItemprice(rs.getInt("price"));
 				bean.setQuantity(rs.getInt("quantity"));
+				bean.setItemCategory(rs.getString("category_code"));
 				OrderList.add(bean);
 			}
 		} catch (SQLException e) {
@@ -84,7 +87,7 @@ public class OrderDAO {
 		int insertOrderCount = 0;
 		int num = 1; // 번호
 		int orders_num = 0; // 주문번호
-		Calendar cal=Calendar.getInstance();
+		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 		try {
 			// orders 번호 구하기
@@ -126,7 +129,7 @@ public class OrderDAO {
 		return insertOrderCount;
 	}
 
-	// 기본 배송지 여부 0 으로 초기화(Receiver 테이블 공통부분)
+	// 기본 배송지 여부 0 으로 초기화 - default 0, 1:기본배송지 (Receiver 테이블 공통부분)
 	public void basicReceiver(String member_id) {
 		System.out.println("OrderDAO - basicReceiver");
 		PreparedStatement pstmt = null;
@@ -151,15 +154,15 @@ public class OrderDAO {
 		String sql = null;
 		int insertReceiverCount = 0;
 		int num = 1; // 번호
-		int basic_num = receiverBean.getReceiver_basic_num(); // 기본배송지 여부
+		int basic_num = receiverBean.getReceiver_basic_num(); // 기본배송지 여부 (default 0, 1:기본배송지)
 		try {
 			// 기본배송지
 			if(basic_num==1) { // 기본배송지 체크해서 가져오면 나머지 다 0으로 만들기
 				basicReceiver(receiverBean.getReceiver_member_id());
 			}
 			// receiver 중복 여부 판별
-			sql="SELECT num FROM receiver WHERE member_id=? && receiver_name=? && receiver_phone=? "
-					+ "&& receiver_postcode=? && receiver_addr=? && receiver_addr_detail=?;";
+			sql="SELECT num FROM receiver WHERE member_id=? && receiver_name=? && receiver_phone=?"
+					+ " && receiver_postcode=? && receiver_addr=? && receiver_addr_detail=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, receiverBean.getReceiver_member_id());
 			pstmt.setString(2, receiverBean.getReceiver_name());
@@ -221,7 +224,7 @@ public class OrderDAO {
 		ResultSet rs = null;
 		String sql = null;
 		int updateReceiverCount = 0;
-		int basic_num = receiverBean.getReceiver_basic_num(); // 기본배송지 여부
+		int basic_num = receiverBean.getReceiver_basic_num(); // 기본배송지 여부 (default 0, 1:기본배송지)
 		try {
 			// 기본배송지
 			if(basic_num==1) {
@@ -274,13 +277,12 @@ public class OrderDAO {
 		System.out.println("OrderDAO - insertDetail");
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int insertDetailCount = 0; // INSERT
-		int updateCount = 0; // 수량변경
+		int insertDetailCount = 0; // INSERT 성공 여부
+		int updateCount = 0; // 수량변경 성공 여부
 		int num = 1; // 번호
 		String orders_num = "0"; // 주문번호
 		int receiver_num = 0; // 배송지번호
 		try {
-			System.out.println("1번");
 			// orders_detail 번호 구하기
 			String sql="SELECT MAX(num) FROM orders_detail";
 			pstmt=con.prepareStatement(sql);
@@ -288,8 +290,6 @@ public class OrderDAO {
 			if(rs.next()) {
 				num = rs.getInt(1)+1;
 			}
-
-			System.out.println("2번");
 			// 주문번호 불러오기
 			sql = "SELECT MAX(order_num) FROM orders WHERE member_id=?";
 			pstmt=con.prepareStatement(sql);
@@ -298,8 +298,6 @@ public class OrderDAO {
 			if(rs.next()) {
 				orders_num = rs.getString(1);
 			}
-
-			System.out.println("3번");
 			// 배송지번호 불러오기
 			sql = "SELECT r.num FROM receiver r JOIN orders o ON r.receiver_date = o.regdate WHERE r.member_id=?"
 					+ " ORDER BY o.regdate DESC LIMIT 1";
@@ -309,11 +307,6 @@ public class OrderDAO {
 			if(rs.next()) {
 				receiver_num = rs.getInt(1);
 			}
-
-			System.out.println("4번");
-			System.out.println("num값" + num);
-			System.out.println("orders_num값" + orders_num);
-			System.out.println("receiver_num값" + receiver_num);
 			// 주문상품만큼 INSERT
 			for(int i=0;i<orderList.size();i++) {
 				List list =  (List)orderList.get(i);
@@ -339,7 +332,6 @@ public class OrderDAO {
 					pstmt.setString(2, selectOrderBean.getItemCode());
 					updateCount = pstmt.executeUpdate();
 				}
-				System.out.println(i + "번ㅎㅎㅎ");
 			}
 		}  catch (SQLException e) {
 //			e.printStackTrace();
@@ -424,7 +416,7 @@ public class OrderDAO {
 		List list = new ArrayList();
 		
 		try {
-			String sql = "SELECT * FROM receiver WHERE member_id=? AND receiver NOT IN('')";
+			String sql = "SELECT * FROM receiver WHERE member_id=? AND receiver NOT IN('') ORDER BY basic_num DESC";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			
@@ -482,7 +474,6 @@ public class OrderDAO {
 				receiverBean.setReceiver_basic_num(0);
 				list.add(receiverBean);
 			}
-
 		} catch (SQLException e) {
 //			e.printStackTrace();
 			System.out.println("OrderDAO - getReceiverList() 실패! : " + e.getMessage());
@@ -490,7 +481,6 @@ public class OrderDAO {
 			close(rs);
 			close(pstmt);
 		}
-		
 		return list;
 	}
 

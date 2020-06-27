@@ -74,7 +74,7 @@
 		fnCheckPriseSum();
 	});
 	function fnCheckPriseSum(){
-		var returnValue = parseInt(${productBean.product_price},10)* parseInt($("[name=stockqty]").val(),10);
+// 		var returnValue = parseInt(${productBean.product_price},10) * parseInt($("[name=stockqty]").val(),10);
 		$(".pdt-totalprice").html(commas(returnValue) + " 원");
 	}
 	function commas(x) {
@@ -102,6 +102,18 @@
 		alert("서브밋");
 		return true;
 	}
+	// 장바구니 담기 버튼 클릭 시
+	function basketCheck() { // 확인/취소 선택 시 장바구니 상품 담음
+		var result = confirm("선택하신 상품이 장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?");
+		// result(확인/취소) 값을 넘겨줘서 Action 클래스에서 장바구니 페이지로 이동할지 안할지 판별
+		document.gfr.action = "insertBasket.basket?result="+result;
+		document.gfr.submit();
+	}
+	// 바로 구매하기 버튼 클릭 시
+	function Order() {
+		document.gfr.action = "order.order";
+		document.gfr.submit();
+	}
 	</script>
 </head>
 	<!-- 헤더 -->
@@ -111,8 +123,9 @@
 	<!-- 메인 콘텐츠  -->
 	<div class="wrap">
 		<section class="item-info">
-			<form action="#" method="post">
+			<form action="" method="post" name="gfr">
 				<input type="hidden" name="pdt-price" value="8500">
+				<input type="hidden" name="product_num" value="${productBean.product_num}">
 				<div class="img-info">
 					<div class="mainslide swiper-container">
 						<ul class="swiper-wrapper">
@@ -151,8 +164,8 @@
 					</div>
 					<div class="pdt-right pdt-totalprice"><fmt:formatNumber value="${productBean.product_price}" type="number" />원</div>
 					<div class="pdt-btnlist">
-						<span class="btnCart"><input type="button" value="장바구니 담기"></span>
-						<span class="btnOrder"><input type="button" value="바로 구매하기"></span>
+						<span class="btnCart"><input type="button" value="장바구니 담기" onclick="basketCheck()"></span>
+						<span class="btnOrder"><input type="button" value="바로 구매하기" onclick="Order()"></span>
 						<span class="btn-share modal"></span>
 						<span class="btn-wish off"></span>
 					</div>

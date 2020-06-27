@@ -9,30 +9,30 @@ import javax.servlet.http.HttpSession;
 
 import action.Action;
 import svc.Basket.BasketDeleteOneService;
-import svc.Basket.BasketListService;
 import svc.Basket.OrderCompleteService;
 import svc.Basket.OrderOneListService;
 import vo.ActionForward;
 import vo.OrdersBean;
 import vo.ReceiverBean;
 
+// OrderPay.jsp 페이지에서 구매하기 버튼 클릭시 주문 정보를 가져와서 저장하는 OrderCompleteAction 클래스 정의
+// 구매 성공 시 주문 디테일 화면을 보여주는 액션(listOrderDetail.order)으로 이동
 public class OrderCompleteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("OrderCompleteAction");
-		
-		// 세션값 가져오기
-		HttpSession session = request.getSession();
-		String id = (String)session.getAttribute("id");
 		request.setCharacterEncoding("UTF-8");
 		
+		// 세션값(id) 가져오기
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
+
 		ActionForward forward = null;
-		
-		String arrBasket = request.getParameter("arrBasket");
+		String arrBasket = request.getParameter("arrBasket"); // 상품 번호(배열로 받아옴)
 		System.out.println("OrderCompleteAction 가져온값" + arrBasket);
 
-		// 세션값 없으면 로그인페이지로 돌아가기
+		// 세션값(id) 없으면 로그인페이지로 돌아가기
 		if(id == null) {
 			forward = new ActionForward();
 			forward.setRedirect(true);
@@ -40,31 +40,17 @@ public class OrderCompleteAction implements Action {
 			return forward;
 		}
 		
-		// 자바빈 OrderBean 객체 생성 orderbean
-		OrdersBean ordersbean=new OrdersBean();
-		ReceiverBean receiverBean=new ReceiverBean();
-		
-		// 한글처리
-		request.setCharacterEncoding("utf-8");
-		
-//		BasketListService basketListService = new BasketListService();
-//		List list = basketListService.getBasketList(id);
-//		// 첫번째 vector 칸의 값인 basketList 저장
-//		List basketList = (List)list.get(0);
-//		// 두번째 vector 칸의 값인 itemsList 저장
-//		List itemList = (List)list.get(1);
-		
+		// OrderOneListService 인스턴스 생성 후 getOrderOneList() 메서드 호출하여 주문 정보 추가하기
+		// 파라미터 : (id, arrBasket), 리턴타입 : List
 		OrderOneListService orderOneListService = new OrderOneListService();
 		List orderList = orderOneListService.getOrderOneList(id, arrBasket);
-//		System.out.println("사이즈~~~!" + orderList.size());
 		
-		System.out.println("아이디 : " + id);
-		int BasicAddr =0;
+		int BasicAddr = 0; // 기본 배송지 여부 (default 0, 1:기본배송지)
 		System.out.println("들고온 베이직넘버" + request.getParameter("BasicAddr"));
 		if(request.getParameter("BasicAddr") != null) {
 			BasicAddr = 1;
 		}
-		System.out.println("기본 배송지 여부" + BasicAddr);
+		System.out.println("기본 배송지 여부 : " + BasicAddr);
 		System.out.println("포인트 : " + request.getParameter("point"));
 		System.out.println("가격 : " + request.getParameter("Total"));
 		System.out.println("이름 : " + request.getParameter("memname"));
@@ -75,52 +61,41 @@ public class OrderCompleteAction implements Action {
 		System.out.println("배송주소 : " + request.getParameter("shipaddr"));
 		System.out.println("배송메세지 : " + request.getParameter("shipalertdesc"));
 		System.out.println("배송전화번호 : " + request.getParameter("shipcpnum1")+"-"+request.getParameter("shipcpnum2")+"-"+request.getParameter("shipcpnum3"));
-		System.out.println("페이방버ㅂ: " +  request.getParameter("pay_method"));
+		System.out.println("페이방법 : " +  request.getParameter("pay_method"));
 		
-		// 폼 => 자바빈 저장
-		// 상품결제 Bean 저장
-		ordersbean.setOrders_member_id(id);
-		ordersbean.setOrders_order_name(request.getParameter("memname"));
-		ordersbean.setOrders_order_email(request.getParameter("mememail"));
-		ordersbean.setOrders_order_phone(request.getParameter("tel"));
-		ordersbean.setOrders_msg(request.getParameter("shipalertdesc"));
-		ordersbean.setOrders_point(0);
-		ordersbean.setOrders_total_price(Integer.parseInt(request.getParameter("Total")));
-		ordersbean.setOrders_payMethod("card");
-		ordersbean.setOrders_state(0);
+		// 주문정보 추가를 위해 입력받은 데이터를 저장할 OrdersBean 객체 생성
+		OrdersBean ordersbean = new OrdersBean();
+		// request 객체로부터 입력받은 데이터를 가져와서 OrdersBean 객체에 저장
+		ordersbean.setOrders_member_id(id); // 아이디
+		ordersbean.setOrders_order_name(request.getParameter("memname")); // 주문자명
+		ordersbean.setOrders_order_email(request.getParameter("mememail")); // 주문자이메일
+		ordersbean.setOrders_order_phone(request.getParameter("tel")); // 주문자번호
+		ordersbean.setOrders_msg(request.getParameter("shipalertdesc")); // 배송메세지
+		ordersbean.setOrders_point(0); // 포인트
+		ordersbean.setOrders_total_price(Integer.parseInt(request.getParameter("Total"))); // 총합계
+		ordersbean.setOrders_payMethod("card"); // 결제 페이방법
+		ordersbean.setOrders_state(0); // 배송상태(0 default:결제완료-배송준비중)
 		
-		// 배송지 Bean 저장
-		receiverBean.setReceiver_basic_num(BasicAddr);
-		receiverBean.setReceiver(request.getParameter("receiver"));
-		receiverBean.setReceiver_name(request.getParameter("shipname"));
-		receiverBean.setReceiver_phone(request.getParameter("shipcpnum1")+"-"+request.getParameter("shipcpnum2")+"-"+request.getParameter("shipcpnum3"));
-		receiverBean.setReceiver_postcode(request.getParameter("shipzipcode"));
-		receiverBean.setReceiver_addr(request.getParameter("shipaddr"));
-		receiverBean.setReceiver_addr_detail(request.getParameter("shipaddrd"));
-		receiverBean.setReceiver_member_id(id);
+		// 배송지 추가를 위해 입력받은 데이터를 저장할 ReceiverBean 객체 생성
+		ReceiverBean receiverBean = new ReceiverBean();
+		// request 객체로부터 입력받은 데이터를 가져와서 ReceiverBean 객체에 저장
+		receiverBean.setReceiver_basic_num(BasicAddr); // 기본배송지 여부
+		receiverBean.setReceiver(request.getParameter("receiver")); // 배송지명
+		receiverBean.setReceiver_name(request.getParameter("shipname")); // 배송자명
+		receiverBean.setReceiver_phone(request.getParameter("shipcpnum1")+"-"+request.getParameter("shipcpnum2")+"-"+request.getParameter("shipcpnum3")); // 배송자번호
+		receiverBean.setReceiver_postcode(request.getParameter("shipzipcode")); // 배송지 우편번호
+		receiverBean.setReceiver_addr(request.getParameter("shipaddr")); // 배송지 주소
+		receiverBean.setReceiver_addr_detail(request.getParameter("shipaddrd")); // 배송지 상세주소
+		receiverBean.setReceiver_member_id(id); // 아이디
 		
-		// 주문상세보기 Bean 저장
-//		for(int i = 0; i < basketList.size(); i++){
-//			OrdersDetailBean ordersDetailBean=new OrdersDetailBean();
-//			ordersDetailBean.setOrdersDetail_quantity(Integer.parseInt(request.getParameter("TotalPriceAmount")));
-//			ordersDetailBean.setOrdersDetail_orders_order_num(Integer.parseInt(request.getParameter("TotalPriceAmount")));
-//			ordersDetailBean.setOrdersDetail_product_num(Integer.parseInt(request.getParameter("TotalPriceAmount")));
-//			ordersDetailBean.setOrdersDetail_receiver_num(Integer.parseInt(request.getParameter("TotalPriceAmount")));
-//			ordersDetailBean.setOrdersDetail_code(request.getParameter("TotalPriceAmount"));
-//			ordersDetailBean.setOrdersDetail_name(request.getParameter("TotalPriceAmount"));
-//			ordersDetailBean.setOrdersDetail_image(request.getParameter("TotalPriceAmount"));
-//			ordersDetailBean.setOrdersDetail_price(Integer.parseInt(request.getParameter("TotalPriceAmount")));
-//		}
-		
-		// OrderDAO 객체생성 orderdao
-//		OrderDAO orderdao = new OrderDAO();
-		// 메서드 호출  => 주문정보저장
-		// 메서드호출 addOrder(orderbean,basketList,itemList)
+		// OrderCompleteService 인스턴스 생성 후 insertOrder() 메서드 호출하여 주문정보 추가하기
+		// 파라미터 : (ordersbean, receiverBean, orderList, id), 리턴타입 : boolean(isInsertSuccess)
 		OrderCompleteService orderCompleteService = new OrderCompleteService();
 		boolean isInsertSuccess = orderCompleteService.insertOrder(ordersbean, receiverBean, orderList, id);
 		
-		// 리턴받은 결과를 사용하여 장바구니 등록 결과 판별
+		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
+		// 리턴받은 결과를 사용하여 주문정보 등록 결과 판별
 		if(!isInsertSuccess) {
 			System.out.println("isInsertSuccess 주문 실패!");
 			out.println("<script>");
@@ -128,35 +103,22 @@ public class OrderCompleteAction implements Action {
 			out.println("history.back();");
 			out.println("</script>");
 		} else {
-//			boolean isDeleteSuccess = BasketDeleteOneService.deleteBasket(arrBasket); // 장바구니 삭제
-//			boolean isUpdateItemQuantity = itemdao.updateAmount(arrBasket); // 상품개수 수정
-//			if(!isDeleteSuccess || !isUpdateItemQuantity) {
-//				System.out.println("isDeleteSuccess 주문 실패!");
-//				out.println("<script>");
-//				out.println("alert('주문 실패!')");
-//				out.println("history.back();");
-//				out.println("</script>");
-//			} else {
+			// BasketDeleteOneService 인스턴스 생성 후 deleteBasket() 메서드 호출하여 장바구니 삭제하기
+			// 파라미터 : arrBasket, 리턴타입 : boolean(isDeleteSuccess)
+			boolean isDeleteSuccess = BasketDeleteOneService.deleteBasket(arrBasket); // 장바구니 삭제(상품개수 수정은 Admin 에서 관리!)
+			if(!isDeleteSuccess) {
+				System.out.println("isDeleteSuccess 주문 실패!");
+				out.println("<script>");
+				out.println("alert('주문 실패!')");
+				out.println("history.back();");
+				out.println("</script>");
+			} else {
 				System.out.println("주문 성공!");
 				forward = new ActionForward();
 				forward.setRedirect(true);
 				forward.setPath("listOrderDetail.order");
-//			}
+			}
 		}
-		
-		// 상품전체개수 수정 itemdao    updateAmount(basketList)
-//		ItemDao itemdao=new ItemDao();
-		//itemdao.updateAmount(basketList);
-		
-		// 장바구니 정보 삭제 basketdao // deleteAllBasket(id)
-//		basketdao.deleteAllBasket(id, arrBasket);
-		
-		// 이동 /OrderComplete.order
-//		forward.setRedirect(true);
-//		forward.setPath("/OrderComplete.order");
-		
-		// 4. ActionForward 객체 리턴
 		return forward;
 	}
-
 }

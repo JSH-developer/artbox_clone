@@ -12,7 +12,7 @@ import vo.SelectOrderBean;
 public class OrderOneListService {
 
 	public List getOrderOneList(String member_id, String arrBasket) {
-		System.out.println("OrderOneListService - getOrderOneList()");
+		System.out.println("OrderOneListService - getOrderOneList() -장바구니 주문");
 		
 		// DB 작업을 위한 준비 => Connection 객체, DAO 객체, DAO 객체의 메서드 호출
 		// 1. DB 작업에 필요한 Connection 객체 가져오기
@@ -42,6 +42,34 @@ public class OrderOneListService {
 		//    리턴타입 : List
 		List list = orderDAO.OrderOneList(member_id, product_num);
  */
+		
+		// 5. Connection 객체 반환
+		close(con);
+		
+		// 6. 작업 결과 리턴
+		return list;
+	}
+	
+	public List getOrderOneList(String member_id, int product_num) {
+		System.out.println("OrderOneListService - getOrderOneList() -바로주문");
+		
+		// DB 작업을 위한 준비 => Connection 객체, DAO 객체, DAO 객체의 메서드 호출
+		// 1. DB 작업에 필요한 Connection 객체 가져오기
+		Connection con = getConnection();
+		
+		// 2. DB 작업을 위한 orderDAO 객체 생성 => 싱글톤 패턴으로 생성된 객체 가져오기
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		
+		// 3. orderDAO 객체에 Connection 객체 전달
+		orderDAO.setConnection(con);
+		
+		// 4. orderDAO 클래스의 OrderOneList() 메서드를 호출하여
+		//    파라미터 : member_id
+		//    리턴타입 : List
+		List list = new ArrayList();
+		List<SelectOrderBean> basketList = new ArrayList<SelectOrderBean>();
+		basketList = orderDAO.OrderOneList(member_id, product_num);
+		list.add(basketList);
 		
 		// 5. Connection 객체 반환
 		close(con);

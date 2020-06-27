@@ -805,11 +805,11 @@ function execDaumPostCode() { // 우편번호
 			<dl class="trOrder">
 				<dd class="twoBtn">
 <!-- 					<a class="btnCancel" href="listBasket.basket">장바구니</a> -->
-					<input type="button" class="btn_basket" value="장바구니" onclick="location.href='listBasket.basket'">
+					<input type="button" id="btn_basket" value="장바구니" onclick="location.href='listBasket.basket'">
 				</dd>
 				<dd>&nbsp;</dd>
 				<dd class="twoBtn" id="OrderBuyButton1">
-					<input type="button" value="결제하기" class="btn_order">
+					<input type="button" value="결제하기" id="btn_order">
 <!-- 					<a class="btnModify" href="javascript:fnOrderReady();">결제하기</a> -->
 <!-- 					<a class="btnModify" href="OrderComplete.complete">결제하기</a> -->
 				</dd>
@@ -828,7 +828,7 @@ function execDaumPostCode() { // 우편번호
 </form>
 
 <script type="text/javascript">
-$(".btn_order").click(function(){
+$("#btn_order").click(function(){
 
 	var fr = document.Order;
 
@@ -887,12 +887,15 @@ $(".btn_order").click(function(){
 	}
 	
 // 	IMP.request_pay({
-// 		pg : 'inicis', // version 1.1.0부터 지원.
-// 		pay_method : 'card',
-// 		name : $("#pd_name").val(),
-// 		amount : 100, // $("#Total").val(),
-// 	    buyer_email : $("#i_mememail").val(),
-// 	    buyer_name : $("#i_memname").val()
+// 		pg: 'inicis', // version 1.1.0부터 지원.
+// 		pay_method: 'card',
+// 		name: $("#pd_name").val(),
+// 		amount: 100, // $("#Total").val(),
+// 	    buyer_email: $("#i_mememail").val(),
+// 	    buyer_name: $("#i_memname").val(),
+// 		buyer_tel: $("#tel").val()",
+//     	buyer_addr: $("#i_shipaddr").val(),
+//     	buyer_postcode: $("#i_shipzipcode").val()
 // 	}, function(rsp) {
 // 		if ( rsp.success ) {
 //     		var msg = '결제가 완료되었습니다.';

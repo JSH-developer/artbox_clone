@@ -1,11 +1,9 @@
 package action.Basket;
 
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import action.Action;
 import svc.Basket.BasketDeleteOneService;
@@ -24,7 +22,7 @@ public class BasketDeleteOneAction implements Action {
 		System.out.println("가져온값" + arrBasket);
 		
 		// BasketDeleteOneService 인스턴스 생성 후 deleteBasket() 메서드 호출하여 장바구니 삭제하기
-		// => 파라미터 : 장바구니 인덱스번호(arrBasket), 리턴타입 : boolean(isDeleteSuccess)
+		// => 파라미터 : 장바구니 인덱스번호 배열로 받음(arrBasket), 리턴타입 : boolean(isDeleteSuccess)
 		boolean isDeleteSuccess = BasketDeleteOneService.deleteBasket(arrBasket);
 	
 		// 삭제 결과에 따른 처리
@@ -50,8 +48,6 @@ public class BasketDeleteOneAction implements Action {
 			forward.setRedirect(true);
 			forward.setPath("listBasket.basket"); // listBasket.basket 로 포워딩
 		}
-		
 		return forward;
 	}
-
 }

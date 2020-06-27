@@ -76,7 +76,6 @@ public class BasketDAO {
 	// 장바구니 목록 출력 (Basket.jsp)
 	public List selectBasketList(String member_id) {
 		// member_id 에 해당하는 장바구니 목록 전체 조회
-		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		PreparedStatement pstmt2 = null;
@@ -85,14 +84,11 @@ public class BasketDAO {
 		List list = new ArrayList();
 		List basketList = new ArrayList();
 		List itemsList = new ArrayList();
-		
 		try {
-			String sql = "SELECT * FROM basket WHERE member_id = ?";
-			
+			String sql = "SELECT * FROM basket WHERE member_id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member_id);
 			rs = pstmt.executeQuery();
-			
 			while(rs.next()) {
 				BasketBean basket = new BasketBean();
 				basket.setBasket_num(rs.getInt("num"));
@@ -107,7 +103,7 @@ public class BasketDAO {
 				pstmt2 = con.prepareStatement(sql);
 				pstmt2.setInt(1, basket.getBasket_product_num());
 				rs2 = pstmt2.executeQuery();
-				if(rs2.next()) {
+				while(rs2.next()) {
 					ProductBean productBean = new ProductBean();
 					productBean.setProduct_code(rs2.getString("code"));
 					productBean.setProduct_price(rs2.getInt("price"));
@@ -124,10 +120,10 @@ public class BasketDAO {
 //			e.printStackTrace();
 			System.out.println("BasketDAO - selectBasketList() 실패! : " + e.getMessage());
 		} finally {
-			close(rs);
-			close(pstmt);
 //			close(rs2);
 //			close(pstmt2);
+			close(rs);
+			close(pstmt);
 		}
 		return list;
 	}
@@ -145,7 +141,7 @@ public class BasketDAO {
 			pstmt.setInt(2, basketBean.getBasket_product_num());
 			
 			rs=pstmt.executeQuery();
-			// rs 데이터 있으면 check=1
+			// rs 데이터 있으면 check = 1
 			if(rs.next()){
 				check = 1;
 				// 장바구니에 있는 상품일 경우, 상품 개수만 증가시킴
@@ -177,7 +173,7 @@ public class BasketDAO {
 			pstmt.setInt(1, num);
 			
 			rs=pstmt.executeQuery();
-			// rs 데이터 있으면 updateCount=1
+			// rs 데이터 있으면 updateCount = 1
 			if(rs.next()){
 				updateCount = 1;
 				sql="UPDATE basket SET quantity=? WHERE num=?";
@@ -214,24 +210,5 @@ public class BasketDAO {
 		}
 		return deleteCount;
 	}
-	
-	// 전체 삭제(주문페이지로 넘어갈 경우 장바구니 전체삭제) ==> 선택삭제 해야하므로,, 안쓸듯
-//	public int deleteAllBasket(String member_id){
-//		PreparedStatement pstmt = null;
-//		int deleteCount = 0;
-//		try {
-//			String sql = "DELETE FROM basket WHERE member_id=?";
-//			pstmt=con.prepareStatement(sql);
-//			pstmt.setString(1, member_id);
-//			
-//			deleteCount = pstmt.executeUpdate();
-//		} catch (SQLException e) {
-////			e.printStackTrace();
-//			System.out.println("BasketDAO - deleteAllBasket() 실패! : " + e.getMessage());
-//		} finally {
-//			close(pstmt);
-//		}
-//		return deleteCount;
-//	}
 	
 }

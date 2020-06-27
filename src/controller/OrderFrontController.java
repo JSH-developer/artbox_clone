@@ -26,24 +26,21 @@ public class OrderFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		if(command.equals("/order.order")) {
-			forward = new ActionForward();
-			forward.setPath("/basket/OrderPay.jsp");
-		} else if(command.equals("/orderOne.order")) {
+		if(command.equals("/order.order")) { // 주문하기(OrderPay.jsp 화면)
 			action = new OrderOneListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/OrderComplete.order")) {
+		} else if(command.equals("/OrderComplete.order")) { // 결제하기
 			action = new OrderCompleteAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/listOrderDetail.order")) {
+		} else if(command.equals("/listOrderDetail.order")) { // 주문성공(OrderPayComplete.jsp 화면)
 			action = new OrderDetailListAction();
 			try {
 				forward = action.execute(request, response);

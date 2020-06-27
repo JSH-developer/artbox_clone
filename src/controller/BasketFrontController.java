@@ -27,31 +27,28 @@ public class BasketFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		if(command.equals("/productDetail.basket")) { // 상품상세보기창(나중에 지울 부분)
-			forward = new ActionForward();
-			forward.setPath("/basket/BasketTestItemDetail.jsp");
-		} else if(command.equals("/insertBasket.basket")) {
+		if(command.equals("/insertBasket.basket")) { // 장바구니 담기
 			action = new BasketInsertAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/listBasket.basket")) {
+		} else if(command.equals("/listBasket.basket")) { // 장바구니 목록(Basket.jsp 화면)
 			action = new BasketListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/updateQuantity.basket")) {
+		} else if(command.equals("/updateQuantity.basket")) { // 장바구니 상품수량 변경
 			action = new BasketQuantityUpdateAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/deleteOne.basket")) {
+		} else if(command.equals("/deleteOne.basket")) { // 장바구니 상품 삭제
 			action = new BasketDeleteOneAction();
 			try {
 				forward = action.execute(request, response);

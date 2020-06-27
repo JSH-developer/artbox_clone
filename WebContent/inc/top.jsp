@@ -30,7 +30,7 @@
 			<li class="CategoryMiddle"><a href="index.event">베스트</a></li>
 			<li class="CategoryMiddle"><a href="EventList.event">이벤트</a></li>
 			<li class="Cart">
-				<a href="${pageContext.request.contextPath}/productDetail.basket" title="장바구니">
+				<a href="${pageContext.request.contextPath}/listBasket.basket" title="장바구니">
 					<img src="${pageContext.request.contextPath}/Images/common/top_icon_cart.png">
 				</a>
 			</li>

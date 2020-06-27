@@ -50,7 +50,7 @@ $(document).ready(function(){
 // 		alert(actiontype+"\n"+basketIdx+"\n"+qty+"\n"+optionidx);
 
 		if (actiontype == "BUY") { // 바로주문하기 버튼 클릭시
-			location.href = "orderOne.order?arrBasket=" + basketIdx  + "&optionidx=" + optionidx;
+			location.href = "order.order?arrBasket=" + basketIdx  + "&optionidx=" + optionidx;
 		} else if (actiontype == "QTY" && optionidx == 0) { // X(특정 상품 삭제) 버튼 클릭시
 			location.href = "deleteOne.basket?basketIdx=" + basketIdx;
 			alert('삭제되었습니다.');
@@ -102,33 +102,27 @@ $(document).ready(function(){
 		$("#TotalPriceDelivery").text(comma(TotalPriceDelivery));
 		$("#TotalPriceAmount").text(comma(TotalPriceAmount));
 	}
-	
-	// 상품 삭제
-	$(".btn_basketDelete").click(function(){ // 삭제버튼 클릭 시
-		var arrBasket = new Array();
-		$("input[name='BasketIdx']:checked").each(function(){
-			arrBasket.push($(this).attr("data-basketNum"));
-		});
-		alert('삭제되었습니다.');
-		location.href = "deleteOne.basket?arrBasket="+arrBasket;
-	});
-
-	// 상품 주문
-	$(".btn_basketOrder").click(function(){ // 주문버튼 클릭 시
-		var arrBasket = new Array();
-		$("input[name='BasketIdx']:checked").each(function(){
-			arrBasket.push($(this).attr("data-basketNum"));
-		});
-		if(arrBasket=="") { // 체크된 상품이 없을 경우
-			alert("선택된 상품이 없습니다.");
-			return;
-		} else {
-			location.href = "orderOne.order?arrBasket="+arrBasket;
-		}
-	});
 
 	fnBasketCalculate();
 });
+
+// 상품 주문 및 상품 삭제
+function Select(id) {
+		var arrBasket = new Array();
+		$("input[name='BasketIdx']:checked").each(function(){
+			arrBasket.push($(this).attr("data-basketNum"));
+		});
+		if(arrBasket=="") { // 체크된 상품이 없을 경우 (공통부분)
+			alert("선택된 상품이 없습니다.");
+			return;
+		}
+		if(id=='btn_basketDelete') { // 선택삭제 버튼일 경우
+			alert('삭제되었습니다.');
+			location.href = "deleteOne.basket?arrBasket="+arrBasket;
+		} else if (id=='btn_basketOrder') { // 주문하기 버튼일 경우
+			location.href = "order.order?arrBasket="+arrBasket;
+		}
+}
 </script>
 </head>
 <body>
@@ -146,10 +140,10 @@ $(document).ready(function(){
 <!-- 장바구니가 비었을 때 -->
 	<h1>장바구니 터엉~</h1>
 	<div class="BasketEmpty">
-		<span class="EmptyImage"><img src="${pageContext.request.contextPath}/Images/order/basket_empty_pc.png"></span>
-		장바구니에 담긴 상품이 없습니다.<br />
+		<span class="EmptyImage"><img src="${pageContext.request.contextPath}/Images/order/basket_empty_pc.png"></span><br>
+		장바구니에 담긴 상품이 없습니다.<br>
 		관심있는 상품을 담아보세요.
-		<a href="/artbox_clone/login.basket">쇼핑하러 가기</a>
+		<a href="/artbox_clone/Home.home">쇼핑하러 가기</a>
 	</div>
   </c:when>
 
@@ -208,7 +202,7 @@ $(document).ready(function(){
 	</div>
 	<a class="BasketButton" href="javascript:fnCheckAll();">전체선택</a>
 <!-- 	<a class="BasketButton" href="javascript:fnBasketArray('ARRAYDEL');">선택삭제</a> -->
-	<input type="button" value="선택삭제" class="btn_basketDelete">
+	<input type="button" value="선택삭제" id="btn_basketDelete" onclick="Select(this.id)">
 	<a class="BasketButton" href="javascript:GA_event('장바구니', '하단', '위시리스트'); fnBasketArray('ARRAYWISH');">위시리스트</a>
 	<div class="BasketPrice">
 		<div class="PriceDetail">
@@ -229,7 +223,7 @@ $(document).ready(function(){
 		<div class="clear"></div>
 	</div>
 	<div class="BasketBottom">
-		<div class="BasketBuyButton"><input type="button" value="주문하기" class="btn_basketOrder"></div>
+		<div class="BasketBuyButton"><input type="button" value="주문하기" id="btn_basketOrder" onclick="Select(this.id)"></div>
 <!-- 		<a href="javascript:fnBasketArray('ARRAYBUY');">주문하기</a> -->
 		<div class="BasketComment">
 			장바구니에 담긴 상품은 30일 이후 자동으로 위시리스트로 이동됩니다.<br>

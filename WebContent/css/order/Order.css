@@ -1,7 +1,7 @@
-.btn_order {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:56px; height:56px; color:#ffffff; font-size:21px; border:0; background-color:#000000; border-radius:5px; font-weight:bold; }
-.btn_basket {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:54px; height:56px; color:#000000; font-size:21px; border:1px solid #646464; background-color:#ffffff; border-radius:5px;}
-.btn_basketOrder {background-color:black; border: 1px solid #424242; color: white; font-size: 22px; font-weight: bold; padding: 15px 80px; border-radius: 5px;}
-.btn_basketDelete {border: 1px solid #424242; background-color:white;  margin:0 7px 0 0; color: #424242; font-size: 15px; padding: 8.5px 25px 8.8px 25px; border-radius: 5px;}
+#btn_order {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:56px; height:56px; color:#ffffff; font-size:21px; border:0; background-color:#000000; border-radius:5px; font-weight:bold; }
+#btn_basket {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:54px; height:56px; color:#000000; font-size:21px; border:1px solid #646464; background-color:#ffffff; border-radius:5px;}
+#btn_basketOrder {background-color:black; border: 1px solid #424242; color: white; font-size: 22px; font-weight: bold; padding: 15px 80px; border-radius: 5px;}
+#btn_basketDelete {border: 1px solid #424242; background-color:white;  margin:0 7px 0 0; color: #424242; font-size: 15px; padding: 8.5px 25px 8.8px 25px; border-radius: 5px;}
 
 th, td, p, input, button, textarea, select, div, xmp {font-family:'Spoqa Han Sans', 'Malgun Gothic', Dotum, Gulim, Tahoma, Helvetica, AppleGothic, Helvetica, Sans-serif; color:#808080; line-height:100%;}
 
