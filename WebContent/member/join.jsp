@@ -16,7 +16,6 @@
     <jsp:include page="../inc/top.jsp"></jsp:include>
     <!-- 헤더 -->
 
-<!-- <form/action="" method="post" onsubmit="return check()"> -->
 <form action="joinPro.member" method="post" onsubmit="return check()">
 <div class="JoinWrap">
 	<h1>회원가입</h1>
@@ -80,19 +79,10 @@
 				<dt>이메일</dt>
 				<dd>
 					<input class="conInput" type="text" id="email" name="email" maxlength="50" placeholder="예) example@artbox.co.kr"/>
-					<a class="conButton" href="#">인증번호</a>
 					<div id="emailcheck"></div>
 				</dd>
 			</dl>
 		
-		
-		<dl class="trJoin">
-			<dt>인증번호</dt>
-			<dd>
-				<input class="conInput" type="tel" id="sixnum" name="sixnum" maxlength="6" placeholder="인증번호 6자리" />
-				<a class="conButton" href="#">인증확인</a>
-			</dd>
-		</dl>
 		
 		
 		</div>
@@ -305,6 +295,7 @@
 				<div class="post">
 					<input type="text" id="sample6_detailAddress" placeholder="상세주소" name="addr_detail"
 						class="detail" style="width: 90%;">
+					<input type="text" id="sample6_extraAddress" placeholder="참고항목" style="display: none;">
 				</div>
 			</div>
 			<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

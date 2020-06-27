@@ -13,7 +13,7 @@ public class MemberBean {
 	private String addr_detail; //상세주소
 	private String email; //이메일
 	private String phone; //폰번호
-	private String gender; //송뵬
+	private String gender; //성별
 	private int point; //포인트
 	private String birth; //생년월일
 	private String grade; //회원등급

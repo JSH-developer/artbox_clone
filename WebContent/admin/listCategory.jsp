@@ -41,6 +41,8 @@ function deleteCategory(num){
 <ul class="admin_nav">
 	<li><a href="home.admin">관리자 홈</a></li>
 	<li><a href="ProductList.admin">상품 목록</a></li>
+ 	<li><a href="CategoryList.admin">카테고리 목록</a></li>
+	<li><a href="OptionList.admin">옵션 목록</a></li>
 </ul>
 </div>
 
@@ -73,10 +75,10 @@ function deleteCategory(num){
 	<c:forEach var="a" begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1">
 		<c:choose>
 		<c:when test="${a == pageInfo.page}">
-			[${a}]
+			${a}
 		</c:when>
 		<c:otherwise>
-			<a href="CategoryList.admin?page=${a}">[${a}]
+			<a href="CategoryList.admin?page=${a}">${a}
 			</a>&nbsp;
 		</c:otherwise>
 		</c:choose>

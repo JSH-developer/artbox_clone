@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
+import svc.CouponService;
 import svc.Basket.OrderOneListService;
 import vo.ActionForward;
+import vo.CouponBean;
 
 // Basket.jsp 페이지에서 선택된 상품 주문을 하기위한 OrderOneListAction 클래스 정의
 // itemDetail.jsp 페이지에서 바로주문하기 버튼 클릭 시 상품 주문을 하기위한 OrderOneListAction 클래스 정의
@@ -39,6 +41,16 @@ public class OrderOneListAction implements Action {
 			product_num = Integer.parseInt(request.getParameter("product_num"));
 		}
 		System.out.println("OrderOneListAction 가져온값" + arrBasket);
+		
+		
+		CouponService couponService = new CouponService();
+		ArrayList<CouponBean> mycouponList= couponService.getmycouponlist(id);
+		
+		if(mycouponList != null) {
+			request.setAttribute("mycouponList", mycouponList);
+		} else {
+			System.out.println("쿠폰 리스트 불러오기 실패");
+		}
 		
 		// OrderOneListService 인스턴스 생성 후 getOrderOneList() 메서드 호출하여 주문하는 상품 목록 가져오기
 		// => 파라미터 : (id, 상품번호) , 리턴타입 : List

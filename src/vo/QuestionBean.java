@@ -1,5 +1,7 @@
 package vo;
 
+import java.sql.Timestamp;
+
 public class QuestionBean {
 	private int question_num;
 	private String question_email;
@@ -7,6 +9,7 @@ public class QuestionBean {
 	private String question_title;
 	private String question_content;
 	private String question_answer;
+	private Timestamp question_regdate;
 	private String question_member_id;
 	private int question_product_num;
 	
@@ -45,6 +48,12 @@ public class QuestionBean {
 	}
 	public void setQuestion_answer(String question_answer) {
 		this.question_answer = question_answer;
+	}
+	public Timestamp getQuestion_regdate() {
+		return question_regdate;
+	}
+	public void setQuestion_regdate(Timestamp question_regdate) {
+		this.question_regdate = question_regdate;
 	}
 	public String getQuestion_member_id() {
 		return question_member_id;

@@ -40,22 +40,22 @@ function deleteOption(num){
 <ul class="admin_nav">
 	<li><a href="home.admin">관리자 홈</a></li>
 	<li><a href="ProductList.admin">상품 목록</a></li>
+ 	<li><a href="CategoryList.admin">카테고리 목록</a></li>
+	<li><a href="OptionList.admin">옵션 목록</a></li>
 </ul>
 </div>
 
 <h1 class="list_title">옵션 리스트</h1>
 <table class="table_content">
-<tr><th>코드</th><th>옵션이름</th><th>추가가격</th><th>삭제버튼</th></tr>
+<tr><th>코드</th><th>옵션이름</th><th>추가가격</th></tr>
 <c:forEach var="i" begin="0" end="${fn:length(optionList)-1}" step="1">
 	<tr>
 	<td>${optionList[i].option_code}</td>
 	<td>${optionList[i].option_name}</td>
 	<td>${optionList[i].add_price}</td>
-	<td><button onclick='deleteOption(${optionList[i].option_num})'>옵션삭제</button></td>
 	</tr>
 </c:forEach>
 </table>
-<a href="OptionWriteForm.admin"><button class="table_btn">옵션 등록</button></a>
 
 <section id="pageList">
 	<c:choose>
@@ -63,16 +63,16 @@ function deleteOption(num){
 	◁&nbsp;
 	</c:when>
 	<c:when test="${pageInfo.page > 1}">
-	<a href="CategoryList.admin?page=${pageInfo.page-1}">◁</a>&nbsp;
+	<a href="OptionList.admin?page=${pageInfo.page-1}">◁</a>&nbsp;
 	</c:when>
 	</c:choose>
 	<c:forEach var="a" begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1">
 		<c:choose>
 		<c:when test="${a == pageInfo.page}">
-			[${a}]
+			${a}
 		</c:when>
 		<c:otherwise>
-			<a href="CategoryList.admin?page=${a}">[${a}]
+			<a href="OptionList.admin?page=${a}">${a}
 			</a>&nbsp;
 		</c:otherwise>
 		</c:choose>
@@ -82,7 +82,7 @@ function deleteOption(num){
 		▷
 	</c:when>
 	<c:otherwise>
-		<a href="CategoryList.admin?page=${pageInfo.page+1}">▷</a>
+		<a href="OptionList.admin?page=${pageInfo.page+1}">▷</a>
 	</c:otherwise>
 	</c:choose>
 </section>

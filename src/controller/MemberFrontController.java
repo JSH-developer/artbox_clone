@@ -9,20 +9,28 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 
-import action.Action;
-import action.MemberJoinAction;
-import action.MemberJoinCheckAction;
-import action.MemberLoginAction;
+import action.member.Action;
+import action.member.MemberCheckAction;
+import action.member.MemberDeleteAction;
+import action.member.MemberDeliveryAddAction;
+import action.member.MemberJoinAction;
+import action.member.MemberJoinCheckAction;
+import action.member.MemberLoginAction;
+import action.member.MemberPwModifyAction;
+import action.member.MemberModifyAction;
+import action.member.memberProfileAction;
 import vo.ActionForward;
 
 @WebServlet("*.member")
 public class MemberFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @SuppressWarnings({ "unchecked" })
+	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
     	request.setCharacterEncoding("UTF-8");
     	
@@ -44,7 +52,7 @@ public class MemberFrontController extends HttpServlet {
 			}
     	}else if(command.equals("/reidCheck.member")) {
     		String id = request.getParameter("id");
-    		MemberJoinCheckAction idcheckAction = new MemberJoinCheckAction();
+    		MemberCheckAction idcheckAction = new MemberCheckAction();
     		boolean booleanid = idcheckAction.execute(id);
     		
     		JSONObject idcheck = new JSONObject();
@@ -56,7 +64,7 @@ public class MemberFrontController extends HttpServlet {
     		writer.flush();
     		writer.close();
     		
-    	} else if(command.equals("/memberLoginForm.member")) {
+    	} else if(command.equals("/loginForm.member")) {
     		forward = new ActionForward();
     		forward.setPath("/member/Login.jsp");
     		
@@ -77,7 +85,8 @@ public class MemberFrontController extends HttpServlet {
     		writer.close();
     	} else if (command.equals("/login.member")) {
     		forward = new ActionForward();
-    		forward.setPath("/home/home.jsp");
+    		forward.setRedirect(true);
+    		forward.setPath("/artbox_clone/Home.home");
     		
     	} else if(command.equals("/findId.member")) {
     		forward = new ActionForward();
@@ -104,6 +113,64 @@ public class MemberFrontController extends HttpServlet {
     	}else if(command.equals("/myPageQuestion.member")) { //myPageQuestion
     		forward = new ActionForward();
     		forward.setPath("/member/myPageQuestion.jsp");
+    	}else if(command.equals("/profileChange.member")) {
+    		forward = new ActionForward();
+    		forward.setPath("/member/profileChange.jsp");
+    	}else if(command.equals("/profile.member")) {
+    		
+    		action = new memberProfileAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/logout.member")) {
+    		HttpSession session = request.getSession();
+    		session.invalidate();
+    		forward = new ActionForward();
+    		forward.setRedirect(true);
+    		forward.setPath("/artbox_clone/Home.home");
+    	}else if (command.equals("/home.member")) {
+    		forward = new ActionForward();
+    		forward.setRedirect(true);
+    		forward.setPath("/artbox_clone/Home.home");
+    	}else if(command.equals("/delivery.member")) {
+    		forward = new ActionForward();
+    		forward.setPath("/member/myPageDelivery.jsp");
+    	}else if(command.equals("/MyPageDeliveryAdd.member")) {
+    		forward = new ActionForward();
+    		forward.setPath("/member/myPageDeliveryAdd.jsp");
+    	}else if(command.equals("/pwProModify.member")) {
+    		action = new MemberPwModifyAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/deliveryAdd.member")) {
+    		action = new MemberDeliveryAddAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/modifySuccess.member")) {
+    		action = new MemberModifyAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/memberDelete.member")) {
+    		forward = new ActionForward();
+    		forward.setPath("/member/memberDelete.jsp");
+    	}else if(command.equals("/deleteCheck.member")) {
+    		action = new MemberDeleteAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
     	}
     	
     	

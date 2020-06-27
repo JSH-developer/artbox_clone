@@ -17,31 +17,43 @@
  <div class="pageContent">
 
 			<h2>
-				<a href="CouponWriteForm.event">쿠폰 등록 페이지</a>
+				<a href="CouponWriteForm.coupon">쿠폰 등록 페이지</a>
 			</h2>
 			<h2>
-				<a href="MypageCouponList.event">마이페이지 - 쿠폰</a>
+				<a href="MypageCouponList.coupon">마이페이지 - 쿠폰</a>
 			</h2>
 			<!--  <h2><a href="OrderPayForm.event">구매페이지 - 쿠폰</a></h2> -->
 			<h2>
-				<a href="OrderPayForm.event">구매페이지 - 쿠폰테스트</a>
+				<a href="listBasket.basket">장바구니</a>
 			</h2>
-			<h2>
-				<a href="testSelectmain.event">select 테스트</a>
-			</h2>
+
 			<h2>
 				<a href="EventWriteForm.event">이벤트 등록 페이지</a>
 			</h2>
-				<h2>
+
+			<h2>
 				<a href="EventList.event">이벤트 리스트 페이지</a>
 			</h2>
-				<h2>
-				<a href="ProductWriteForm.admin">상품 등록 페이지</a>
-			</h2>
-			
 
- 
- </div>
+			<h2>
+				<a href="ProductWriteForm.admin">상품 등록 페이지</a>                
+			</h2>
+
+			<h2>
+				<a href="memberLoginForm.member">로그인</a>
+			</h2>
+			<h2>
+				<a href="home.admin">관리자 화면</a>
+			</h2>
+			<h2>
+				<a href="CouponSelect.coupon">주문페이지 - 쿠폰선택</a>
+			</h2>
+
+
+
+
+
+		</div>
  <!-- 메인 콘텐츠  -->
  
 <!--  푸터 -->

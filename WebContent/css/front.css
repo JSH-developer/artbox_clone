@@ -26,19 +26,30 @@ BODY {
 .pageHeader{
 	
 	width: 100%;
-    margin: 50px auto 0;
+/*     margin: 50px auto 0; */
+	height: 170px;
 	display: block;
     border-bottom: 1px solid #e4e4e4;
+    
+    
+    background-color: #ffffff;
+	opacity: 0.9;
+	z-index: 2;
 	}
 .logo{
-	min-height: 120px;
+/* 	min-height: 120px; */
+text-align: center;
 	
 }
 
 .pageNavigationBar{
 
-/* 	min-height: 57px; */
+background-color: #ffffff;
+opacity: 0.9;
+z-index: 2;
 	}
+	
+	
 	
 .pageContent{
 
@@ -52,6 +63,9 @@ BODY {
 
 	
 	
+.pageHeader.fixed{position: fixed; left: 0; top: 0; width: 100%; height: 100px;}
+#orilogo img{margin: 30px auto;}
+#scrlogo img{margin: 14px auto;height: 30px;}
 
 
 

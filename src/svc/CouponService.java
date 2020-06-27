@@ -68,7 +68,7 @@ public class CouponService {
 		
 		ArrayList<CouponBean> mycouponList = couponDAO.selectmyCouponlist(id);
 		
-		
+		close(con);
 		
 		return mycouponList;
 	}
@@ -91,7 +91,7 @@ public class CouponService {
 			rollback(con);
 		}
 		
-		
+		close(con);
 		
 		return isSuccess;
 	}
@@ -99,18 +99,48 @@ public class CouponService {
 	
 	// 모든 리스트 다 불러오기 
 	public ArrayList<CouponBean> getCouponAllList() {
-		System.out.println("couponBean - getCouponAllList");
 		ArrayList<CouponBean> couponList = null;
 		
 		Connection con = getConnection();
 		CouponDAO couponDAO = CouponDAO.getInstance();	
 		couponDAO.setConnection(con);
 		
-		couponList = couponDAO.selectEventItemList();
+		couponList = couponDAO.selectCouponItemList();
 		
 		close(con);
-		
 		return couponList;
+	}
+
+	// 상품 카테고리 = condition
+	public CouponBean getCouponList(String condition) {
+		System.out.println("couponBean - getCouponList");
+		CouponBean coupon = null;
+		
+		Connection con = getConnection();
+		CouponDAO couponDAO = CouponDAO.getInstance();	
+		couponDAO.setConnection(con);
+		
+		coupon = couponDAO.getItemcoupon(condition);
+		
+		System.out.println("couponBean - getCouponList +"+coupon.getCoupon_name());
+		
+		close(con);
+		return coupon;
+	}
+	
+	
+	// 아이디가 쿠폰 갖고 있는지 확인
+	public int selectCouponCheck(String id, String couponName) {
+		int check = 0;
+		
+		Connection con = getConnection();
+		CouponDAO couponDAO = CouponDAO.getInstance();
+		couponDAO.setConnection(con);
+		
+		check = couponDAO.selectCouponCheck(id, couponName);
+		
+		
+		return check;
 	}
 
 	

@@ -67,7 +67,6 @@ public class CouponDAO {
 			pstmt.setString(6, couponBean.getCoupon_reason());
 			pstmt.setString(7, couponBean.getCoupon_category());
 			
-			System.out.println("쿠폰이름: "+couponBean.getCoupon_name());
 			insertCount = pstmt.executeUpdate();
 			
 			
@@ -171,8 +170,8 @@ public class CouponDAO {
 	}
 
 	
-	// 이벤트 리스트 불러오기
-	public ArrayList<CouponBean> selectEventItemList() {
+	// 쿠폰 모든  리스트 불러오기
+	public ArrayList<CouponBean> selectCouponItemList() {
 		ArrayList<CouponBean> couponList = new ArrayList<CouponBean>();
 		
 		PreparedStatement pstmt = null;
@@ -200,7 +199,7 @@ public class CouponDAO {
 			
 			
 		}catch (SQLException e) {
-			System.out.println("CouponDAO- selectEventItemList()실패!"+e.getMessage());
+			System.out.println("CouponDAO- selectCouponItemList()실패!"+e.getMessage());
 		} finally {
 			close(pstmt);
 			close(rs);
@@ -209,6 +208,59 @@ public class CouponDAO {
 		
 		
 		return couponList;
+	}
+
+	// 아이템 카테고리 = conditon
+	public CouponBean getItemcoupon(String condition) {
+		CouponBean couponBean = new CouponBean();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT * FROM couponlist WHERE coup_condition=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, condition);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				couponBean.setCoupon_num(rs.getInt("num"));
+				couponBean.setCoupon_name(rs.getString("coup_name"));
+				couponBean.setCoupon_price(rs.getInt("coup_price"));
+				couponBean.setCoupon_condition(rs.getString("coup_condition"));
+				couponBean.setCoupon_start(rs.getString("coup_start"));
+				couponBean.setCoupon_limit(rs.getString("coup_limit"));
+				couponBean.setCoupon_reason(rs.getString("coup_reason"));
+				couponBean.setCoupon_category(rs.getString("coup_category"));
+				
+				System.out.println("couponBean - getItemcoupon +"+couponBean.getCoupon_name());
+			}
+			
+		}catch (SQLException e) {
+			System.out.println("CouponDAO- getItemcoupon()실패!"+e.getMessage());
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		
+		return couponBean;
+	}
+	
+	
+	// 아이디가 쿠폰 갖고 있는지 확인
+	public int selectCouponCheck(String id, String couponName) {
+		int check = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;
+		
+		String sql = "SELECT * FROM coupon where ";
+		
+		
+		
+		return check;
 	}
 
 	

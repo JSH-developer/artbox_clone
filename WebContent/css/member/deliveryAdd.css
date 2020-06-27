@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+.main .left {
+	display:inline-block;
+	width: 138px;
+	color: #646464;
+}
+article{
+	width: 680px;
+	margin: auto;
+}
+
+.title {
+	text-align: center;
+	font-size: 25px;
+}
+.message{
+	font-size: 15px;
+    line-height: 15px;
+    color: #9d9d9d;
+}
+
+.main .cancel{
+	font-size:23px;
+	display:inline-block;
+	width: 280px;
+	border: 1px solid #646464;
+	height: 56px;
+	text-align:center;
+	line-height: 55px;
+	border-radius: 5px;
+	margin: 0 3px 0 40px;
+}
+
+.main input[type="text"]{
+	width: 400px;
+    margin: 5px 0 5px;
+    height: 56px;
+    color: #777777;
+    font-size: 15px;
+    border: 0;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+}
+
+.main input[type="submit"] {
+	font-size:23px;
+	width: 280px;
+	border: 1px solid #000000;
+	height: 56px;
+	text-align:center;
+	line-height: 55px;
+	border-radius: 5px;
+	background-color: #000000;
+	color: #ffffff;
+}
+
+.main input[type="button"]{
+	margin-left:10px;
+	width: 100px;
+	height: 56px;
+	border: 0;
+	border-radius: 5px;
+	background-color: #000000;
+	color: #ffffff;
+	font-size: 20px;
+}
+
+.button {
+	margin-bottom: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -10,11 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import item.action.CategoryLinkAction;
-import item.action.ItemDetailAction;
-import item.action.QuestionWriteAction;
-import item.action.SearchAction;
-import item.action.SelectBoxAction;
+import action.item.CategoryLinkAction;
+import action.item.ItemDetailAction;
+import action.item.ItemReviewAction;
+import action.item.QuestionListAction;
+import action.item.QuestionWriteAction;
+import action.item.ReviewWriteAction;
 import vo.ActionForward;
 
 
@@ -44,6 +45,20 @@ public class ItemController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("/reviewWrite.item")) {
+			action = new ReviewWriteAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/itemReview.item")) {
+			action = new ItemReviewAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}else if(command.equals("/questionWrite.item")) {
 			action = new QuestionWriteAction();
 			try {
@@ -51,21 +66,15 @@ public class ItemController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/search.item")) {
-			action = new SearchAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}else if(command.equals("/selectBox.item")) {
-			action = new SelectBoxAction();
+		}else if(command.equals("/questionList.item")) {
+			action = new QuestionListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+		
 		
 		if(forward != null) {
 			if(forward.isRedirect()) { 
