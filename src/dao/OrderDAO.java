@@ -389,6 +389,7 @@ public class OrderDAO {
 	// 주문 상세보기 INSERT
 	public int insertDetail(List orderList, String id) {
 		System.out.println("OrderDAO - insertDetail");
+		System.out.println("확인하기" + orderList);
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int insertDetailCount = 0; // INSERT 성공 여부
@@ -422,8 +423,13 @@ public class OrderDAO {
 				receiver_num = rs.getInt(1);
 			}
 			// 주문상품만큼 INSERT
+			System.out.println(orderList+"1 get() 출력 값");
 			for(int i=0;i<orderList.size();i++) {
+				System.out.println("이거 orderList 사이즈" + orderList.size());
+				System.out.println(orderList.get(i)+" 2 get() 출력 값");
 				List list =  (List)orderList.get(i);
+				System.out.println(i+"i값");
+				System.out.println("이거 List 사이즈" + list.size());
 				SelectOrderBean selectOrderBean = (SelectOrderBean) list.get(0);
 				sql="INSERT INTO orders_detail VALUES(?,?,?,?,?,?,?,?,?)";
 				pstmt=con.prepareStatement(sql);

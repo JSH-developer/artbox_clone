@@ -50,8 +50,10 @@ public class OrderCompleteAction implements Action {
 		if(request.getParameter("BasicAddr") != null) {
 			BasicAddr = 1;
 		}
+		System.out.println("사용한 포인트" + request.getParameter("UseMileagePrice"));
 		System.out.println("기본 배송지 여부 : " + BasicAddr);
-		System.out.println("포인트 : " + request.getParameter("point"));
+		System.out.println("적립포인트 : " + request.getParameter("point"));
+		System.out.println("저장할 포인트" );
 		System.out.println("가격 : " + request.getParameter("Total"));
 		System.out.println("이름 : " + request.getParameter("memname"));
 		System.out.println("이메일 : " + request.getParameter("mememail"));
@@ -88,6 +90,7 @@ public class OrderCompleteAction implements Action {
 		receiverBean.setReceiver_addr_detail(request.getParameter("shipaddrd")); // 배송지 상세주소
 		receiverBean.setReceiver_member_id(id); // 아이디
 		
+		System.out.println("여기서 사이즈는??" + orderList.size());
 		// OrderCompleteService 인스턴스 생성 후 insertOrder() 메서드 호출하여 주문정보 추가하기
 		// 파라미터 : (ordersbean, receiverBean, orderList, id), 리턴타입 : boolean(isInsertSuccess)
 		OrderCompleteService orderCompleteService = new OrderCompleteService();

@@ -68,7 +68,6 @@ $(document).ready(function(){
 		}
 	fnCouponType();
 	});
-	
 	$("input[name=UseMileagePrice]").focus(function(){
 		TempScrollTop = $(window).scrollTop();
 		var inputValue = parseInt($(this).val(),10);
@@ -221,7 +220,7 @@ $(document).ready(function(){
 			fnTotalPriceAmount();
 		} else if ($(obj).attr("name")=="FreeCouponIdx") {
 			$("input[name=TotalUseFreeCoupon]").val(DcNumber);
-			$("#TotalUseFreeCoupon").text(setComma(parseInt(DcNumber,10)));
+			$("#TotalUseFreeCoupon").text("- " + setComma(parseInt(DcNumber,10)));
 			fnTotalPriceAmount();
 		}
 	}
@@ -238,26 +237,25 @@ $(document).ready(function(){
 			}
 			$("input[name=UseMileagePrice]").val(UsableMileage);
 			$("input[name=TotalUseMileage]").val(UsableMileage);
-			$("#TotalUseMileage").text("-" + setComma(UsableMileage));
+			$("#TotalUseMileage").text("- " + setComma(UsableMileage));
 		} else {
 			$("input[name=UseMileagePrice]").val("0");
 			$("input[name=TotalUseMileage]").val("0");
-			$("#TotalUseMileage").text("-" + setComma("0"));
+			$("#TotalUseMileage").text("- " + setComma("0"));
 		}
 	fnTotalPriceAmount();
 	}
-
-
 
 	fnInitDiscountTable = function(){
 
 		$("select[name=BonusCouponIdx] option:eq(0)").prop("selected",true); // 보너스쿠폰 초기화, 상품쿠폰 추가시 상품쿠폰 초기화 추가해야 함
 		$("select[name=FreeCouponIdx] option:eq(0)").prop("selected",true); // 무료배송쿠폰 초기화
 
-		$("#UseMileageAll").prop("checked",false); // 꿈캔디 모두사용
+		$("#UseMileageAll").prop("checked",false); // 꿈캔디 초기화
+		$("input[name=UseMileagePrice]").val(0);
+		$("#TotalUseMileage").text("- 0"); 
 
-		$("input[name=TotalUseMileage]").val(0); // 실제값들
-		$("input[name=TotalUseBonusCoupon]").val(0);
+		$("input[name=TotalUseBonusCoupon]").val(0); // 실제값들
 		$("input[name=TotalUseGoodsCoupon]").val(0);
 		$("input[name=TotalUseFreeCoupon]").val(0);
 
@@ -379,18 +377,12 @@ function execDaumPostCode() { // 우편번호
 		$("#UseMileageAll").val(TotalPriceAmount);
 
 	}
-
 	   
-	   
-		   
-		   
-
-	function open_pop(flag) { 	// 팝업 open
+	function open_pop(flag) { // 팝업 open
 	    $('#myModal').show();
 	};
 
-	function close_pop(sum) { 	// 팝업 Close 기능
-		
+	function close_pop(sum) { // 팝업 Close 기능
 		
 		var total_sum = document.getElementById("total_sum").value;
 		total_sum = parseInt(total_sum);
@@ -400,8 +392,7 @@ function execDaumPostCode() { // 우편번호
 		
 		fnTotalPriceAmount();
 		
-		 $('#myModal').hide();
-		
+		$('#myModal').hide();
 		
 //	  	var total_sum = document.getElementById("total_sum");
 	};
@@ -432,7 +423,6 @@ function execDaumPostCode() { // 우편번호
 		
 		 $('#myModal').hide();
 	};
-	
 	
 	// 할인가격 sum
 	function sumCouponTotal(b,g){ // sumCouponTotal(bonus,goods)
@@ -904,14 +894,15 @@ span.scoup { /*     쿠폰 팝업 창  */
                <dt>꿈캔디</dt>
                <dd>
                   <input type="tel" id="i_UseMileagePrice" name="UseMileagePrice" maxlength="7" value="0" />
-                  <input type="hidden" name="MemMileage" value="0" />
+                  <input type="hidden" name="MemMileage" value="${orderListOne[0].point }" />
                   <p class="null"></p>
                </dd>
                <dt class="mileage">&nbsp;개</dt>
             </dl>
          </div>
          <div class="ModifyShipAddr">
-            <input type="checkbox" type="checkbox" id="UseMileageAll" value="0" alt="0" onclick="if(this.checked){fnUseMileageAll(1);}else{fnUseMileageAll(0);}" /> 모두사용 (사용 가능 꿈캔디 0개)
+            <input type="checkbox" type="checkbox" id="UseMileageAll" value="${orderListOne[0].point }" alt="${orderListOne[0].point }" onclick="if(this.checked){fnUseMileageAll(1);}else{fnUseMileageAll(0);}" />
+             모두사용 (사용 가능 꿈캔디 <fmt:formatNumber value="${orderListOne[0].point }" pattern="#,###"/>개)
             <p class="null"></p>
          </div>
       </div>
@@ -970,6 +961,7 @@ span.scoup { /*     쿠폰 팝업 창  */
       <div class="TotalPriceAmount">
          총 결제금액 <span id="TotalPriceAmount"><fmt:formatNumber value="${tps+tpd}" pattern="#,###"/></span> 원<br />&nbsp;<br />
          <small>(적립 예정 꿈캔디 <span id="TotalMileageAmount"><fmt:formatNumber value="${tps/100}" pattern="#,###"/></span>개)</small>
+         <input type="hidden" name="point" value="${tps/100}">
       </div>
 
       <div class="OrderAgree">

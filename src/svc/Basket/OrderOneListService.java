@@ -28,12 +28,16 @@ public class OrderOneListService {
 		// 4. orderDAO 클래스의 selectOrderList() 메서드를 호출하여
 		//    파라미터 : member_id
 		//    리턴타입 : List
+		System.out.println("배열 너버"+basketNumArr);
 		
 		List list = new ArrayList();
 		for(String i:basketNumArr) {
+			System.out.println("도는지 확인~~");
 			List<SelectOrderBean> basketList = new ArrayList<SelectOrderBean>();
 			basketList = orderDAO.OrderOneList(member_id, Integer.parseInt(i));
+			System.out.println("저장하는지 확인~~");
 			list.add(basketList);
+			System.out.println("리스트는" + list);
 		}
 		
 /*
@@ -42,7 +46,7 @@ public class OrderOneListService {
 		//    리턴타입 : List
 		List list = orderDAO.OrderOneList(member_id, product_num);
  */
-		
+		System.out.println("여기도~~");
 		// 5. Connection 객체 반환
 		close(con);
 		
