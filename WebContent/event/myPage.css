@@ -190,6 +190,39 @@ input[type=button]{cursor:pointer;}
 
  /*  coupon-end */
  
+ 
+ 
+ /* point */
+	.wrap .top_box .whoes span { font-size:35px; font-weight:bold;  }
+	.wrap .top_box .three_box:after { content:" "; display:block; clear:both; }
+	.wrap .top_box .three_box ul li { width:33.3%; padding:0 5px; }
+	.wrap .top_box .three_box ul li .inner_box { padding-top:32px; position:relative; background-color:#ffffff; text-align:center; border-radius:5px; height:145px;  }
+	.wrap .top_box .three_box ul li .inner_box .subj { margin-bottom:10px; color:#646464; font-size:20px; }
+	.wrap .top_box .three_box ul li .inner_box .cont { font-weight:bold; font-size:47px; }
+	.wrap .top_box .three_box ul li .inner_box .cont.type1 { color:#94b7d1; }
+	.wrap .top_box .three_box ul li .inner_box .cont.type2 { color:#88d0cc; }
+	.wrap .top_box .three_box ul li .inner_box .cont.type3 { color:#b0b0b0; }
+	.wrap .top_box .three_box ul li .inner_box .bottom_cont { margin-top:5px; font-size:14px; color:#9d9d9d; }
+	.wrap .top_box .guide_box.pc { margin-left:10px; font-size:14px; color:#9d9d9d; line-height:16px; display:inline-block; }
+
+	.wrap .sel_box { margin-bottom:13px;  }
+	.wrap .sel_box select { background:url(/images/ver1/common/sel_arrow.png) no-repeat; background-size:0.53125rem 0.28125rem; background-position:right 0.3125rem center; font-size:14px; color:#424242; width:240px; height:35px; padding:0 12px; border:1px solid #424242; border-radius:5px; }
+
+	.wrap .CandyTable table { width:100%; }
+	.wrap .CandyTable table th { border-top:1px solid #e4e4e4; border-bottom:1px solid #e4e4e4; color:#000000; font-size:17px; padding:17px 0;  font-weight:normal; }
+	.wrap .CandyTable table td { padding-top:30px; text-align:center; color:#646464; font-size:17px; }
+	.wrap .CandyTable table th:nth-child(1) { width:186px; }
+	.wrap .CandyTable table th:nth-child(2) { width:230px; }
+	.wrap .CandyTable table th:nth-child(3) { width:586px; }
+	.wrap .CandyTable table th:nth-child(4) { width:190px; }
+	.wrap .CandyTable table td:nth-child(1) { width:186px; }
+	.wrap .CandyTable table td:nth-child(2) { width:230px; }
+	.wrap .CandyTable table td:nth-child(3) { width:586px; }
+	.wrap .CandyTable table td:nth-child(3) span { display:none; }
+	.wrap .CandyTable table td:nth-child(4) { width:190px; }
+ 
+ 
+ 
  .sel_box select{
     background-size: 0.53125rem 0.28125rem;
     background-position: right 0.3125rem center;

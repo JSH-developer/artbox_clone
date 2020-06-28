@@ -34,6 +34,23 @@ ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute(
 <div class="wrap">
 	<div class="top_title">쿠폰</div>
 	
+	<c:set var="bonusCouponCount" value="0"/>
+<c:set var="freeCouponCount" value="0"/>
+<c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
+<c:set var="Coupon" value="${mycouponList[i].coupon_category}" />
+<c:if test="${Coupon eq 'bonuscoupon' }">
+<c:set var="bonusCouponCount" value="${bonusCouponCount=bonusCouponCount+1 }"/>
+</c:if>
+<c:if test="${Coupon eq 'goodscoupon' }">
+<c:set var="goodsCouponCount" value="${goodsCouponCount=goodsCouponCount+1 }"/>
+</c:if>
+
+<c:if test="${Coupon eq 'freecoupon' }">
+<c:set var="freeCouponCount" value="${freeCouponCount=freeCouponCount+1 }"/>
+</c:if>
+
+</c:forEach>
+	
 	<div class="top_box">
 		<div class="whoes">
 		<c:set var="id" value="${sessionScope.id}"/>
@@ -46,13 +63,13 @@ ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute(
 				
 				<li class="bonus_coupon">
 					<div class="inner_box">
-						<p>1</p>
+						<p>${bonusCouponCount +goodsCouponCount  }</p>
 					</div>
 				</li>
 				
 				<li class="free_coupon">
 					<div class="inner_box">
-						<p>1</p>
+						<p>${freeCouponCount}</p>
 					</div>
 				</li>
 				
@@ -79,27 +96,19 @@ ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute(
 
 </div>
 
-<c:set var="bonusCouponCount" value="0"/>
-<c:set var="freeCouponCount" value="0"/>
-<c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
-<c:set var="Coupon" value="${mycouponList[i].coupon_category}" />
-<c:if test="${Coupon eq 'bonuscoupon' }">
-<c:set var="bonusCouponCount" value="${bonusCouponCount+1 }"/>
-</c:if>
 
-<c:if test="${Coupon eq 'freecoupon' }">
-<c:set var="freeCouponCount" value="${freeCouponCount+1 }"/>
-</c:if>
-
-</c:forEach>
 
 
 
 <!-- 가지고 있는 쿠폰 목록 -->
-				<div class="coupon_tab on">온라인 전용 쿠폰 (2장)</div>
+				<div class="coupon_tab on">온라인 전용 쿠폰 (${bonusCouponCount+goodsCouponCount+freeCouponCount })</div>
+		
+		<c:if test="${!empty mycouponList }">
+		
 		
 				<div class="coupon_box">
 					<div class="detail_tab">보너스 쿠폰 (${bonusCouponCount }장)</div>
+					
 					<div class="CouponList">
 						<ul>
 		<c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
@@ -117,12 +126,14 @@ ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute(
 									<span>${mycouponList[i].coupon_reason}</span>
 								</div>
 							</li>
+							
+							
 						</c:if>
 						</c:forEach>
 						</ul>
 					</div>
 					
-				<div class="detail_tab">상품 쿠폰 (${bonusCouponCount }장)</div>
+				<div class="detail_tab">상품 쿠폰 (${goodsCouponCount }장)</div>
 					<div class="CouponList">
 						<ul>
 		<c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
@@ -166,7 +177,19 @@ ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute(
 							</c:forEach>
 						</ul>
 					</div>
-				</div>
+					</div>
+		</c:if>
+		<c:if test="${empty mycouponList}">
+		<div class="coupon_box nocoupon">보유한 쿠폰이 없습니다.</div>
+		</c:if>
+					
+					
+					
+				
+				
+				
+				
+				
 
 				<div class="coupon_tab on">매장 전용 쿠폰 (0장)</div>
 	

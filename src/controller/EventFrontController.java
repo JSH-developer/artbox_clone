@@ -17,6 +17,7 @@ import action.event.EventModifyFormAction;
 import action.event.EventModifyProAction;
 import action.event.EventWriteProAction;
 import action.event.EventproductviewAction;
+import action.event.PointListAction;
 import action.event.listEventAction;
 import svc.admin.ProductWriteService;
 import vo.ActionForward;
@@ -119,6 +120,14 @@ public class EventFrontController extends HttpServlet {
 		}else if(command.equals("/listEvent.event")) { // 이벤트 삭제
 			System.out.println("/listEvent.event");
 			action = new listEventAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/PointList.event")) { // 이벤트 삭제
+			System.out.println("/PointList.event");
+			action = new PointListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
