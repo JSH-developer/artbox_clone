@@ -322,7 +322,11 @@ $(document).ready(function(){
 		$("#BasicAddr").val(0);
 	}
 	
-    fnDeliveryInfo(3); // 배송지정보 '직접 입력'을 기본으로 설정
+//     fnDeliveryInfo(3); // 배송지정보 '직접 입력'을 기본으로 설정
+		fnDeliveryInfo(1); // 배송지 정보 - '기본'으로 설정된 배송지를 기본으로 설정
+		$("#MyDelivery1 select option:eq(1)").prop("selected",true);
+		$("#MyDelivery1 select").trigger("change");
+    
 });
 
 

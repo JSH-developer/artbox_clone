@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class OrdersBean {
 	private int orders_num; // orders의 인덱스
-	private int orders_order_num; // 주문번호(승인날짜 + 인덱스)
+	private String orders_order_num; // 주문번호(승인날짜 + 인덱스)
 	private String orders_member_id; // member 테이블의 id(아이디)
 	private String orders_order_name; // 주문자 이름
 	private String orders_order_email; // 주문자 이메일
@@ -22,10 +22,10 @@ public class OrdersBean {
 	public void setOrders_num(int orders_num) {
 		this.orders_num = orders_num;
 	}
-	public int getOrders_order_num() {
+	public String getOrders_order_num() {
 		return orders_order_num;
 	}
-	public void setOrders_order_num(int orders_order_num) {
+	public void setOrders_order_num(String orders_order_num) {
 		this.orders_order_num = orders_order_num;
 	}
 	public String getOrders_member_id() {

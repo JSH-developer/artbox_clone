@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
-import svc.Basket.BasketDeleteOneService;
+import svc.Basket.BasketDeleteService;
 import svc.Basket.OrderCompleteService;
 import svc.Basket.OrderOneListService;
 import vo.ActionForward;
@@ -36,7 +36,7 @@ public class OrderCompleteAction implements Action {
 		if(id == null) {
 			forward = new ActionForward();
 			forward.setRedirect(true);
-			forward.setPath("/artbox_clone/memberLoginForm.member");
+			forward.setPath("/artbox_clone/loginForm.member");
 			return forward;
 		}
 		
@@ -105,7 +105,7 @@ public class OrderCompleteAction implements Action {
 		} else {
 			// BasketDeleteOneService 인스턴스 생성 후 deleteBasket() 메서드 호출하여 장바구니 삭제하기
 			// 파라미터 : arrBasket, 리턴타입 : boolean(isDeleteSuccess)
-			boolean isDeleteSuccess = BasketDeleteOneService.deleteBasket(arrBasket); // 장바구니 삭제(상품개수 수정은 Admin 에서 관리!)
+			boolean isDeleteSuccess = BasketDeleteService.deleteBasket(arrBasket); // 장바구니 삭제(상품개수 수정은 Admin 에서 관리!)
 			if(!isDeleteSuccess) {
 				System.out.println("isDeleteSuccess 주문 실패!");
 				out.println("<script>");
