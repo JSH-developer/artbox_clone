@@ -365,13 +365,13 @@ function execDaumPostCode() { // 우편번호
 			return;
 		}
 		
-		$("#TotalDiscountPriceSum").text(TotalUseBonusCoupon+TotalUseGoodsCoupon+TotalUseFreeCoupon+TotalPriceMemberLevelDiscount);
+		$("#TotalDiscountPriceSum").text(setComma(TotalUseBonusCoupon+TotalUseGoodsCoupon+TotalUseFreeCoupon+TotalPriceMemberLevelDiscount));
 // 		alert(typeof tt);
 // 		alert("TotalDiscountPriceSum"+$("#TotalDiscountPriceSum").value);
 		
 		$("input[name=TotalPriceAmount]").val(TotalPriceAmount);
-		$("#TotalPriceAmount").text(TotalPriceAmount);
-		$("#TotalPriceAmount2").text(TotalPriceAmount);
+		$("#TotalPriceAmount").text(setComma(TotalPriceAmount));
+		$("#TotalPriceAmount2").text(setComma(TotalPriceAmount));
 		$("#UseMileageAll").val(TotalPriceAmount);
 
 	}
@@ -441,10 +441,10 @@ function execDaumPostCode() { // 우편번호
 		
 		
 		$("input[name=TotalUseBonusCoupon]").val(parseInt(b));
-		$("#TotalUseBonusCoupon").text("- "+b);
+		$("#TotalUseBonusCoupon").text("- "+setComma(b));
 		
 		$("input[name=TotalUseGoodsCoupon]").val(parseInt(g));
-		$("#TotalUseGoodsCoupon").text("- "+g);
+		$("#TotalUseGoodsCoupon").text("- "+setComma(g));
 	};
 	
 	function selectCouponGroup(s){ // 라디오 버튼 선택(bonus)
@@ -1074,26 +1074,27 @@ $("#btn_order").click(function(){
 		return;
 	}
 	
-// 	IMP.request_pay({
-// 		pg: 'inicis', // version 1.1.0부터 지원.
-// 		pay_method: 'card',
-// 		name: $("#pd_name").val(),
-// 		amount: 100, // $("#Total").val(),
-// 	    buyer_email: $("#i_mememail").val(),
-// 	    buyer_name: $("#i_memname").val(),
-// 		buyer_tel: $("#tel").val()",
-//     	buyer_addr: $("#i_shipaddr").val(),
-//     	buyer_postcode: $("#i_shipzipcode").val()
-// 	}, function(rsp) {
-// 		if ( rsp.success ) {
-//     		var msg = '결제가 완료되었습니다.';
+	IMP.request_pay({
+		pg: 'inicis', // version 1.1.0부터 지원.
+		merchant_uid : 'mid_' + new Date().getTime(),
+		pay_method: 'card',
+		name: $("#pd_name").val(),
+		amount: 100, // $("#Total").val(),
+	    buyer_email: $("#i_mememail").val(),
+	    buyer_name: $("#i_memname").val(),
+		buyer_tel: $("#tel").val(),
+    	buyer_addr: $("#i_shipaddr").val(),
+    	buyer_postcode: $("#i_shipzipcode").val()
+	}, function(rsp) {
+		if ( rsp.success ) {
+    		var msg = '결제가 완료되었습니다.';
     		fr.submit();
-// 		} else {
-// 			var msg = '결제에 실패하였습니다.';
-// 			msg += '에러내용 : ' + rsp.error_msg;
-// 		}
-// 	alert(msg);
-// 	})
+		} else {
+			var msg = '결제에 실패하였습니다.';
+			msg += '에러내용 : ' + rsp.error_msg;
+		}
+	alert(msg);
+	})
 	
 })
 </script>
