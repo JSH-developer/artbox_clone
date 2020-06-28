@@ -50,9 +50,6 @@ $(document).on("click",".basket", function(){
 		}
 });
 </script>
-<style type="text/css">
-.fas fa-shopping-cart {color: white;}
-</style>
 </head>
 <body>
 <div class="page">
@@ -115,7 +112,7 @@ $(document).on("click",".basket", function(){
                             <div class="shopping_basket">
                                 <div class="shopping_basket_icon">
                                     <i class="far fa-heart"></i>
-                                    <a href="javascript:Basket()" class="basket off" data-pdNum='${item.product_num }' data-pdName='${item.product_name } (${item.product_code })' style="color: white;"><i class="fas fa-shopping-cart"></i></a>
+                                    <a class="basket off" data-pdNum='${item.product_num }' data-pdName='${item.product_name } (${item.product_code })' style="color: white;"><i class="fas fa-shopping-cart"></i></a>
                                     <i class="far fa-comment-dots"></i>
                                 </div>
                         <a href="${pageContext.request.contextPath}/itemDetail.item?product_num=${item.product_num }">
