@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import svc.Basket.BasketDeleteOneService;
+import svc.Basket.BasketDeleteService;
 import vo.ActionForward;
 
 // 장바구니에서 선택된 물품을 삭제하는 BasketDeleteOneAction 클래스 정의
@@ -23,7 +23,7 @@ public class BasketDeleteOneAction implements Action {
 		
 		// BasketDeleteOneService 인스턴스 생성 후 deleteBasket() 메서드 호출하여 장바구니 삭제하기
 		// => 파라미터 : 장바구니 인덱스번호 배열로 받음(arrBasket), 리턴타입 : boolean(isDeleteSuccess)
-		boolean isDeleteSuccess = BasketDeleteOneService.deleteBasket(arrBasket);
+		boolean isDeleteSuccess = BasketDeleteService.deleteBasket(arrBasket);
 	
 		// 삭제 결과에 따른 처리
 		// => isDeleteSuccess 가 false 일 경우

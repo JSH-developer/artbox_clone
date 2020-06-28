@@ -13,6 +13,43 @@
 <link href="${pageContext.request.contextPath}/css/item/itemList.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
+<script type="text/javascript">
+
+$(document).on("click",".basket", function(){
+	var product_name = $(this).attr("data-pdName");
+	var product_num = $(this).attr("data-pdNum");
+	var stockqty = 1;
+	var result = 'itemList';
+		if ($(this).hasClass("on")){
+			$(this).css("color", "white");
+			$(this).removeClass("on");
+			$(this).addClass("off");
+			$.ajax({
+			    url: "/artbox_clone/deleteDirect.basket",
+			    data: { product_num: product_num },
+			    type: "GET"
+			}).done(function() { // 장바구니 제거 성공
+				alert(product_name + ' 이 장바구니에서 제거되었습니다.');
+	        }).fail(function() { // 장바구니 제거 실패
+	            alert("장바구니 제거 실패");
+	        })
+		} else {
+			$(this).css("color", "red");
+			$(this).removeClass("off");
+			$(this).addClass("on");
+			$.ajax({
+			    url: "/artbox_clone/insertBasket.basket",
+			    data: { product_num: product_num, stockqty: stockqty, result: result },
+			    type: "GET"
+			}).done(function() { // 장바구니 추가 성공
+				alert(product_name + ' 이 장바구니에 추가되었습니다.');
+	        }).fail(function() { // 장바구니 추가 실패
+	            alert("장바구니 담기 실패");
+	        })
+		}
+});
+</script>
 </head>
 <body>
 <div class="page">
@@ -72,35 +109,35 @@
             	<c:forEach var="item" items="${productBean }" varStatus="status">
                 <li>
                     <span class="item">
-                        <a href="${pageContext.request.contextPath}/itemDetail.item?product_num=${item.product_num }">
                             <div class="shopping_basket">
                                 <div class="shopping_basket_icon">
                                     <i class="far fa-heart"></i>
-                                    <i class="fas fa-shopping-cart"></i>
+                                    <a class="basket off" data-pdNum='${item.product_num }' data-pdName='${item.product_name } (${item.product_code })' style="color: white;"><i class="fas fa-shopping-cart"></i></a>
                                     <i class="far fa-comment-dots"></i>
                                 </div>
+                        <a href="${pageContext.request.contextPath}/itemDetail.item?product_num=${item.product_num }">
                                 <img src="${pageContext.request.contextPath}/upload/${item.product_image}" class="item_img">
+                        </a>
                             </div>
                             <p>
-                               ${item.product_name }
+                               ${item.product_name } (${item.product_code })
                             </p>
-                        </a>
                         <span>
                         <c:choose>
-                        	<c:when test="${item.product_sale_price == null }">
-                           <fmt:formatNumber value="${item.product_price }" pattern="0원"/>
+                        	<c:when test="${item.product_sale_price == 0}">
+                           <fmt:formatNumber value="${item.product_price }" pattern="#,###원"/>
                            </c:when>
                            <c:otherwise>
-                           <del>${item.product_price }</del><br>
-                           <fmt:formatNumber value="${item.product_price - item.product_sale_price }" pattern="0원"/>
+                           <del><fmt:formatNumber value="${item.product_price }" pattern="#,###원"/></del><br>
+                           <fmt:formatNumber value="${item.product_price - item.product_sale_price }" pattern="#,###원"/>
                            </c:otherwise>
                         </c:choose> 
                         </span>
                         <span>
-                        <c:if test="${status.count<6 }">
+                        <c:if test="${status.count < 6 }">
                             <img src="${pageContext.request.contextPath}/Images/item/new.png">
                         </c:if>
-                        <c:if test="${item.product_sale_price != null }">
+                        <c:if test="${item.product_sale_price != 0 }">
                         	<img src="${pageContext.request.contextPath}/Images/item/sale.png">
                         </c:if>
                         	&nbsp;
@@ -127,11 +164,11 @@
         </div>
     </div>
  </div>
- <!— 메인 콘텐츠  —>
+ <!-- 메인 콘텐츠 -->
  
-<!—  푸터 —>
+<!--  푸터 -->
  <jsp:include page="../inc/bottom.jsp"></jsp:include>
-<!—  푸터 —>
+<!--  푸터 -->
 </div>
 
 </body>

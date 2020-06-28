@@ -1,12 +1,14 @@
 package svc;
 
 import vo.EventBean;
+import vo.PointBean;
 import vo.ProductBean;
 
 import static db.jdbcUtil.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
 import dao.EventDAO;
 
@@ -187,6 +189,24 @@ public class EventService {
 		close(con);
 		
 		return articleList;
+	}
+
+
+
+	// 마이페이지 point
+	public ArrayList<PointBean> selectMyPoint(String id) {
+		ArrayList<PointBean> point = null;
+		
+		Connection con = getConnection();
+		EventDAO eventDAO = EventDAO.getInstance();
+		eventDAO.setConnection(con);
+		
+		point = eventDAO.selectMyPoint(id);
+		System.out.println(id);
+		
+		close(con);
+		
+		return point;
 	}
 
 

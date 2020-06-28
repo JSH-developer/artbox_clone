@@ -58,7 +58,7 @@ $(document).ready(function(){
 <div class="admin_nav_wrap">
 <ul class="admin_nav">
 	<li><a href="home.admin">관리자 홈</a></li>
-	<li><a href="CouponWriteForm.coupon">쿠폰 관리</a></li>
+	<li><a href="listCoupon.coupon">쿠폰 관리</a></li>
  	<li><a href="listEvent.event">이벤트 관리</a></li>
 </ul>
 </div>

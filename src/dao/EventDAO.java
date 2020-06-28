@@ -9,10 +9,12 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.eclipse.jdt.internal.compiler.ast.PrefixExpression;
 
 import vo.EventBean;
+import vo.PointBean;
 import vo.ProductBean;
 
 public class EventDAO {
@@ -466,6 +468,56 @@ public class EventDAO {
 			close(rs);
 			close(pstmt);
 		}
+		
+		return articleList;
+	}
+
+	
+	// 마이페이지 point
+	public ArrayList<PointBean> selectMyPoint(String id) {
+		ArrayList<PointBean> articleList= new ArrayList<PointBean>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select p.title, p.content, p.type, p.reg_date, p.point, p.member_id, m.point FROM point AS p JOIN member AS m ON p.member_id = m.id WHERE member_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			System.out.println("dao"+id);
+			
+			while(rs.next()) {
+				PointBean rowData = new PointBean();
+				rowData.setTitle(rs.getString("p.title"));
+				rowData.setContent(rs.getString("p.content"));
+				rowData.setType(rs.getString("p.type"));
+				rowData.setPoint(rs.getInt("p.point"));
+				rowData.setMember_id(rs.getString("p.member_id"));
+				rowData.setReg_date(rs.getTimestamp("p.reg_date"));
+				rowData.setMypoint(rs.getInt("m.point"));
+				
+				
+				System.out.println(rs.getString("p.title"));
+				System.out.println(rs.getString("p.content"));
+				System.out.println(rs.getString("p.type"));
+				System.out.println(rs.getInt("p.point"));
+				System.out.println(rs.getString("p.member_id"));
+				System.out.println(rs.getInt("m.point"));
+				
+			
+				articleList.add(rowData);
+				
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("EventDAO- selectMyPoint()실패!"+e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
 		
 		return articleList;
 	}

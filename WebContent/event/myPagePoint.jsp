@@ -34,7 +34,7 @@
 	
 	<div class="top_box">
 		<div class="whoes">
-			<span>조해진</span> 님의 꿈캔디 현황 
+			<span>${Mypointrecode[0].member_id}</span> 님의 꿈캔디 현황 
 			<div class="guide_box pc">
 				꿈캔디는 현금처럼 쓰실 수 있는 마일리지로,<br>
 				아트박스/POOM 온라인 쇼핑몰 및 전국 직영매장에서 적립 및 사용하실 수 있습니다.
@@ -45,7 +45,7 @@
 				<li>
 					<div class="inner_box">
 						<div class="subj pc">사용가능 꿈캔디</div>
-						<div class="cont type1">0</div>
+						<div class="cont type1">${Mypointrecode[0].mypoint }</div>
 					</div>
 				</li>
 				<li>
@@ -93,19 +93,30 @@
 							</tr>
 						</tbody>
 					</table>
-					
+					<c:if test="${empty Mypointrecode }">
 					<div class="noData">적립/사용 내역이 없습니다.</div>
+					</c:if>
 					
+					<c:if test="${!empty Mypointrecode }">
 					<table cellspacing="0">
 						<tbody>
+						<c:forEach var="i" begin="0" end="${fn:length(Mypointrecode) -1}" step="1">
+						
 							<tr>
-								<th>날짜</th>
-								<th>구분</th>
-								<th>내용</th>
-								<th>사용/적립</th>
+								<td>${Mypointrecode[i].reg_date }</td>
+								<td>${Mypointrecode[i].title }</td>
+								<td>${Mypointrecode[i].content }</td>
+								<td>${Mypointrecode[i].type }</td>
 							</tr>
+							
+							</c:forEach>
 						</tbody>
 					</table>
+					
+					</c:if>
+
+
+
 				</div>
 
 			</div>

@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.event.EventCategoryListAction;
 import action.event.EventDeleteProAction;
 import action.event.EventDetailAction;
-import action.event.EventCategoryListAction;
 import action.event.EventModifyFormAction;
 import action.event.EventModifyProAction;
 import action.event.EventWriteProAction;
 import action.event.EventproductviewAction;
-import action.event.PointListAction;
+import action.event.MypagePointListAction;
 import action.event.listEventAction;
 import svc.admin.ProductWriteService;
 import vo.ActionForward;
@@ -125,9 +125,9 @@ public class EventFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/PointList.event")) { // 이벤트 삭제
-			System.out.println("/PointList.event");
-			action = new PointListAction();
+		}else if(command.equals("/MypagePointList.event")) { // 이벤트 삭제
+			System.out.println("/MypagePointList.event");
+			action = new MypagePointListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

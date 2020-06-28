@@ -6,7 +6,7 @@ import java.sql.Connection;
 
 import dao.BasketDAO;
 
-public class BasketDeleteOneService {
+public class BasketDeleteService {
 
 	public static boolean deleteBasket(String arrBasket) { // 여러개 삭제
 		System.out.println("basketDeleteService - deleteBasket()");
@@ -49,11 +49,11 @@ public class BasketDeleteOneService {
 		return isBasketDeleteSuccess;
 	}
 	
-	public static boolean deleteBasket(int basketIdx) { // 하나 삭제
-		System.out.println("basketDeleteService - deleteBasket()");
+	public static boolean deleteBasket(String member_id, int product_num) { // 하나 삭제
+		System.out.println("basketDeleteService - deleteBasket() - 2개짜리");
 		
 		boolean isBasketDeleteSuccess = false; // 장바구니 삭제 성공여부를 리턴
-		
+		System.out.println("가져온 값 : " + member_id + " , " + product_num);
 		// DB 작업을 위한 준비 => Connection 객체, DAO 객체, DAO 객체의 메서드 호출
 		// 1. DB 작업에 필요한 Connection 객체 가져오기
 		Connection con = getConnection();
@@ -68,7 +68,7 @@ public class BasketDeleteOneService {
 		//    파라미터 : basketIdx
 		//    리턴타입 : int
 		int deleteCount = 0;
-		deleteCount = basketDAO.deleteBasket(basketIdx);
+		deleteCount = basketDAO.deleteBasket(member_id, product_num);
 		
 		// 5. 리턴받은 작업 결과 판별
 		// => deleteCount 가 0보다 크면 commit() 실행, isBasketDeleteSuccess 를 true 로 변경
