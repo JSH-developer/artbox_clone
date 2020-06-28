@@ -1074,27 +1074,27 @@ $("#btn_order").click(function(){
 		return;
 	}
 	
-	IMP.request_pay({
-		pg: 'inicis', // version 1.1.0부터 지원.
-		merchant_uid : 'mid_' + new Date().getTime(),
-		pay_method: 'card',
-		name: $("#pd_name").val(),
-		amount: 100, // $("#Total").val(),
-	    buyer_email: $("#i_mememail").val(),
-	    buyer_name: $("#i_memname").val(),
-		buyer_tel: $("#tel").val(),
-    	buyer_addr: $("#i_shipaddr").val(),
-    	buyer_postcode: $("#i_shipzipcode").val()
-	}, function(rsp) {
-		if ( rsp.success ) {
-    		var msg = '결제가 완료되었습니다.';
+// 	IMP.request_pay({
+// 		pg: 'inicis', // version 1.1.0부터 지원.
+// 		merchant_uid : 'mid_' + new Date().getTime(),
+// 		pay_method: 'card',
+// 		name: $("#pd_name").val(),
+// 		amount: 100, // $("#Total").val(),
+// 	    buyer_email: $("#i_mememail").val(),
+// 	    buyer_name: $("#i_memname").val(),
+// 		buyer_tel: $("#tel").val(),
+//     	buyer_addr: $("#i_shipaddr").val(),
+//     	buyer_postcode: $("#i_shipzipcode").val()
+// 	}, function(rsp) {
+// 		if ( rsp.success ) {
+//     		var msg = '결제가 완료되었습니다.';
     		fr.submit();
-		} else {
-			var msg = '결제에 실패하였습니다.';
-			msg += '에러내용 : ' + rsp.error_msg;
-		}
-	alert(msg);
-	})
+// 		} else {
+// 			var msg = '결제에 실패하였습니다.';
+// 			msg += '에러내용 : ' + rsp.error_msg;
+// 		}
+// 	alert(msg);
+// 	})
 	
 })
 </script>
