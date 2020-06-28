@@ -28,7 +28,7 @@ public class CouponIssuedAction implements Action {
 		if(!isSuceess) {
 	
 			out.println("<script>"); // 자바스크립트 시작 태그
-			out.println("alert('쿠폰 발급 실패!')"); // 다이얼로그 메세지 출력
+			out.println("alert('중복된 쿠폰입니다.')"); // 다이얼로그 메세지 출력
 			out.println("history.back()"); // 이전 페이지로 돌아가기
 			out.println("</script>"); // 자바스크립트 끝 태그
 

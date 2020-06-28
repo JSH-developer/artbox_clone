@@ -47,8 +47,6 @@ text-align: center;}
  <div  class="eventdescription">
 <div>
 기간 : ${eventArticle.event_start} ~ ${eventArticle.event_limit}
- <a href="EventModifyForm.event?board_num=${eventArticle.event_num}">수정</a>
-  <a href="EventDeletePro.event?board_num=${eventArticle.event_num}&event_category=${eventArticle.event_category}">| 삭제</a>
 </div>
 <div class="eventcontent">
 ${eventArticle.event_content }

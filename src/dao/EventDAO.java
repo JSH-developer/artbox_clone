@@ -70,15 +70,8 @@ public class EventDAO {
 			insertCount = pstmt.executeUpdate();
 			int ediscount = eventBean.getEvent_discount();
 			
-			if(eventBean.getEvent_category().equals("coup_event")) {
-					
-				sql = "UPDATE product SET sale_price="+ediscount+" WHERE category_code=?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, eventBean.getEvent_condition());
-				
-			}
 			
-			if(eventBean.getEvent_category().equals("sale_event")) {
+			if(eventBean.getEvent_category().equals("sale_event") || eventBean.getEvent_category().equals("coup_event")) {
 			String discount="(price * "+ediscount+")/100";
 				
 			sql = "UPDATE product SET sale_price="+discount+" WHERE category_code=?";
@@ -362,7 +355,7 @@ public class EventDAO {
 	}
 
 	// 이벤트 삭제
-	public int deleteEvent(String board_num) {
+	public int deleteEvent(String board_num,String condition) {
 		int deleteCount = 0;
 		int updateCount =0;
 		
@@ -379,7 +372,7 @@ public class EventDAO {
 			
 			sql = "UPDATE product SET sale_price=0 WHERE category_code=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, rs.getString("event_condition"));
+			pstmt.setString(1,condition);
 			
 			updateCount = pstmt.executeUpdate();
 			

@@ -74,7 +74,7 @@ public class EventWriteProAction implements Action {
 			
 			forward = new ActionForward();
 			forward.setRedirect(true);
-			forward.setPath("EventList.event?event_category=sale_event");
+			forward.setPath("listEvent.event");
 			
 		}
 		

@@ -139,7 +139,7 @@ public class EventService {
 	}
 
 	// 이벤트 삭제
-	public boolean deleteEvent(String board_num) {
+	public boolean deleteEvent(String board_num,String condition) {
 		boolean deleteSuccess = false;
 
 		Connection con = getConnection();
@@ -147,7 +147,7 @@ public class EventService {
 		EventDAO eventDAO = EventDAO.getInstance();
 		eventDAO.setConnection(con);
 		
-		int isSuccess = eventDAO.deleteEvent(board_num);
+		int isSuccess = eventDAO.deleteEvent(board_num,condition);
 		
 		if(isSuccess>0) {
 			deleteSuccess = true;
