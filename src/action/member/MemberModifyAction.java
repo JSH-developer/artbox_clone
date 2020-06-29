@@ -1,7 +1,5 @@
 package action.member;
 
-import java.io.PrintWriter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,19 +24,11 @@ public class MemberModifyAction implements Action {
 		mb.setPhone(request.getParameter("phone"));
 		
 		MemberModifyService MemberModifyService = new MemberModifyService();
-		int success = MemberModifyService.MemberUpdate(mb);
+		MemberModifyService.MemberUpdate(mb);
 		
-//		response.setContentType("text/html;charset=UTF-8");
-//		PrintWriter out = response.getWriter();
-//		out.println("<script>");
-//		out.println("alert('성공적으로 변경됨')");
-//		out.println("</script>");
-		
-//		if(success == 1) {
 		forward = new ActionForward();
 		forward.setRedirect(true);
 		forward.setPath("/artbox_clone/Home.home");
-//		}
 		
 		
 		

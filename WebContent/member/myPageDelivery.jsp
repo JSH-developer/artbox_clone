@@ -15,34 +15,36 @@
 	<jsp:include page="../inc/top.jsp"></jsp:include>
 	<!-- 헤더 -->
 	
+	
 	<div class="main">
 		<div class="mydelivery">
 			<p class="title">나의 배송지 관리</p>
-			
+			<div>
 			<span class="top">배송지명</span>
 			<span class="top">받는사람</span>
 			<span class="top">주소</span>
 			<span class="top">휴대전화</span>
-			<span class="top">일반전화	</span>
-			<c:if test="${empty rb }">
+			</div>
+			
+			<c:if test="${empty list }">
 				<div class="middle">
 					등록된 배송지가 없습니다.
 				</div>
 			</c:if>
 			
-			<c:if test="${!empty rb }">
-				<c:forEach var="rb" items="rbList">
+			<c:if test="${!empty list }">
+				<c:forEach var="rb" items="${list }">
 					<div class="middle">
-						<span></span>
-						<span></span>
-						<span></span>
-						<span></span>
-						<span></span>
+						<span class="bottom"><input type="checkbox" name="box[]">${rb.receiver }</span>
+						<span class="bottom">${rb.receiver_name}</span>
+						<span class="bottom">${rb.receiver_addr}</span>
+						<span class="bottom">${rb.receiver_phone}</span>
 					</div>
 				</c:forEach>
 			</c:if>
 			
 		</div>
+		
 		<div class="button">
 			<span class="modify" onclick="rModify()">수정</span>
 			<span class="delete" onclick="rDelete()">삭제</span>

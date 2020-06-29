@@ -64,7 +64,8 @@ public class MemberJoinAction implements Action {
 
 				System.out.println("글 등록 성공");
 				forward = new ActionForward();
-				forward.setPath("/Main.jsp");
+				forward.setRedirect(true);
+				forward.setPath("/artbox_clone/Home.home");
 			}
 
 

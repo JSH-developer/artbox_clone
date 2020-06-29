@@ -55,5 +55,8 @@
 
 		<div class="noData">위시리스트가 없습니다.</div>
 	</div>
+	<!--  푸터 -->
+<%-- 	<jsp:include page="../inc/bottom.jsp"></jsp:include> --%>
+	<!--  푸터 -->
 </body>
 </html>

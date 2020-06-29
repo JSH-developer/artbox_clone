@@ -171,9 +171,8 @@ public class MemberDAO {
 		}
 	}
 
-	public int memberUpdate(MemberBean mb) {
+	public void memberUpdate(MemberBean mb) {
 		PreparedStatement pstmt = null;
-		int success = 0;
 		try {
 			String sql = "UPDATE member SET gender=?,birth=?,postcode=?,addr_basic=?,addr_detail=?,email=?,phone=? where id=?";
 			pstmt = con.prepareStatement(sql);
@@ -185,13 +184,12 @@ public class MemberDAO {
 			pstmt.setString(6, mb.getEmail());
 			pstmt.setString(7, mb.getPhone());
 			pstmt.setString(8, mb.getId());
-			success = pstmt.executeUpdate();
+			pstmt.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("memberUpdate오류 - "+e.getMessage());
 		}finally {
 			close(pstmt);
 		}
-		return success;
 		
 	}
 

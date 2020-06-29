@@ -121,7 +121,7 @@
 				</script>
 				<!-- 									우편번호 API 끝 							-->
 				<div class="button">
-					<span class="cancel">취소</span>
+					<span class="cancel" onclick="location.href='delivery.member'">취소</span>
 					<input type="submit" name="submit" value="저장">
 				</div>
 			</form>

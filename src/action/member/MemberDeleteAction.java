@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import svc.member.MemberDeleteService;
 import svc.member.MemberLoginService;
@@ -17,7 +18,7 @@ public class MemberDeleteAction implements Action {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		
-		System.out.println("MemberDelete / "+id+" / "+pw);
+//		System.out.println("MemberDelete / "+id+" / "+pw);
 		
 		MemberLoginService pwcheck = new MemberLoginService();
 		int success = pwcheck.LoginSuccess(id, pw);
@@ -25,6 +26,14 @@ public class MemberDeleteAction implements Action {
 		if(success == 1) {
 			MemberDeleteService MemberDeleteService = new MemberDeleteService();
 			MemberDeleteService.MemberDelete(id);
+			
+			HttpSession session = request.getSession();
+			session.invalidate();
+			
+			forward = new ActionForward();
+			forward.setRedirect(true);
+			forward.setPath("/artbox_clone/Home.home");
+			
 		}else {
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();

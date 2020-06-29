@@ -23,6 +23,7 @@ import action.member.MemberLoginAction;
 import action.member.MemberPwModifyAction;
 import action.member.MemberModifyAction;
 import action.member.memberProfileAction;
+import action.member.receiverList;
 import vo.ActionForward;
 
 @WebServlet("*.member")
@@ -135,8 +136,12 @@ public class MemberFrontController extends HttpServlet {
     		forward.setRedirect(true);
     		forward.setPath("/artbox_clone/Home.home");
     	}else if(command.equals("/delivery.member")) {
-    		forward = new ActionForward();
-    		forward.setPath("/member/myPageDelivery.jsp");
+    		action = new receiverList();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
     	}else if(command.equals("/MyPageDeliveryAdd.member")) {
     		forward = new ActionForward();
     		forward.setPath("/member/myPageDeliveryAdd.jsp");

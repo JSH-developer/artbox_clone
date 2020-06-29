@@ -12,7 +12,10 @@
 	text-align: center;
 }
 
-.mydelivery .top {
+.mydelivery .top{
+	display: table-cell;
+}
+.mydelivery .top:nth-child(1) {
 	width:300px;
 	text-align:center;
 	background-color: #e4e4e4;
@@ -20,20 +23,71 @@
     font-size: 18px;
     height: 55px;
     line-height: 55px;
-    display: table-cell;
 }
-
-.mydelivery .middle {
-	width:100%;
-	height:300px;
+.mydelivery .top:nth-child(2){
+	width:150px;
 	text-align:center;
+	background-color: #e4e4e4;
     color: #646464;
     font-size: 18px;
     height: 55px;
     line-height: 55px;
-    margin-bottom: 70px;
-    line-height: 100px;
 }
+.mydelivery .top:nth-child(n+3) {
+	width:380px;
+	text-align:center;
+	background-color: #e4e4e4;
+    color: #646464;
+    font-size: 18px;
+    height: 55px;
+    line-height: 55px;
+}
+
+.mydelivery .bottom{
+	height: 65px;
+	line-height: 65px;
+}
+
+.mydelivery .bottom:nth-child(1){
+	width:300px;
+	text-align:center;
+    color: #646464;
+    font-size: 18px;
+    display: table-cell;
+    border-bottom: 1px solid #e4e4e4;
+}
+
+.mydelivery .bottom:nth-child(2){
+	width:150px;
+	text-align:center;
+    color: #646464;
+    font-size: 18px;
+    display: table-cell;
+    border-bottom: 1px solid #e4e4e4;
+}
+
+.mydelivery .bottom:nth-child(n+3){
+	width:380px;
+	text-align:center;
+    color: #646464;
+    font-size: 18px;
+    display: table-cell;
+    border-bottom: 1px solid #e4e4e4;
+}
+
+input[type="checkbox"]{
+	position:absolute;
+	left:400px;
+	width: 30px;
+	height: 30px;
+	margin-top: 20px;
+}
+
+
+.button{
+	margin-top: 50px;
+}
+
 .button span{
 	display:inline-block;
 	border: 1px solid #646464;
