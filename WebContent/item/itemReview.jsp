@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,6 +71,20 @@
 		</div>
 		<div class="reviewWriteList">
 			<ul class="ItemList">
+				<c:forEach var="rl" items="${reviewList }">
+					<li>
+						<a href="itemDetail.item?product_num=${rl.product_num }">
+							<img src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png">
+						</a>
+						<span class="itemname">${rl.product_name }</span>
+						<span class="itemname"> </span>
+						<span class="itemamt">
+							<span class="itemprice sale_N">${rl.product_price }</span>
+						</span>
+						<a class="btnWrite modal" href="#">구매후기 쓰기</a>
+						<span class="deadline">작성기한: 2020.12.02까지</span>
+					</li>
+				</c:forEach>
 				<li>
 					<a href="http://www.artboxmall.com/home/shop/itemdetail.asp?itemidx=1901220587">
 						<img src="./detail1.jpg">
@@ -199,23 +214,23 @@
 					<div class="input">
 						<span class="tt">이미지 파일</span>
 						<label>
-							<img id="blah1" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt="" class="preview" title="선택된 파일 없음"/>
+							<img id="blah1" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt=" " class="preview" title="선택된 파일 없음"/>
 							<input type='file' name="review_img1" onchange="readURL(this,1);" />
 						</label>
 						<label>
-							<img id="blah2" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt="" class="preview" title="선택된 파일 없음"/>
+							<img id="blah2" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt=" " class="preview" title="선택된 파일 없음"/>
 							<input type='file' name="review_img2" onchange="readURL(this,2);" />
 						</label>
 						<label>
-							<img id="blah3" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt="" class="preview" title="선택된 파일 없음"/>
+							<img id="blah3" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt=" " class="preview" title="선택된 파일 없음"/>
 							<input type='file' name="review_img3" onchange="readURL(this,3);" />
 						</label>
 						<label>
-							<img id="blah4" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt="" class="preview" title="선택된 파일 없음"/>
+							<img id="blah4" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt=" " class="preview" title="선택된 파일 없음"/>
 							<input type='file' name="review_img4" onchange="readURL(this,4);" />
 						</label>
 						<label>
-							<img id="blah5" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt="" class="preview" title="선택된 파일 없음"/>
+							<img id="blah5" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt=" " class="preview" title="선택된 파일 없음"/>
 							<input type='file' name="review_img5" onchange="readURL(this,5);" />
 						</label>
 						<div class="etc">*이미지는 jpg와 png 형식만 가능합니다</div>
@@ -242,6 +257,7 @@
 				}else{
 					var reader = new FileReader();
 					reader.onload = function (e) {
+						$("#blah"+x).attr('src', "${pageContext.request.contextPath}/Images/item/BE.jpg");
 						$("#blah"+x).attr('src', e.target.result);
 						$("#blah"+x).attr('title', "");
 					}

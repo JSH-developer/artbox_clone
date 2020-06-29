@@ -1,11 +1,15 @@
 package action.item;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
+import svc.item.ReviewListSVC;
 import vo.ActionForward;
+import vo.ProductBean;
 
 public class ItemReviewAction implements Action {
 
@@ -19,11 +23,14 @@ public class ItemReviewAction implements Action {
 		if(session.getAttribute("id") == null) {
 			session.setAttribute("id", "guest");
 		}
-				
-
 		
-
-
+		ReviewListSVC reviewListSVC = new ReviewListSVC();
+		ArrayList<ProductBean> reviewList = reviewListSVC.getReviewList((String)session.getAttribute("id"));
+		request.setAttribute("reviewList",reviewList);
+		
+		
+		
+		
 		forward = new ActionForward();
 		forward.setPath("/item/itemReview.jsp");
 		return forward;

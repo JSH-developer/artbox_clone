@@ -1,6 +1,7 @@
 package action.item;
 
 import java.io.PrintWriter;
+import java.util.Enumeration;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +53,13 @@ public class ReviewWriteAction implements Action {
 			fileSize, // 한 번에 업로드 가능한 파일 최대 크기
 			"UTF-8", // 파일명에 대한 인코딩 방식
 			new DefaultFileRenamePolicy()); // 파일명 중복 시 중복 파일명을 처리할 객체
-
+		
+//		//Enumeration은 커서를 사용한 순서있는 배열
+//		//inputFileNames 는 순서가 섞여있어 review_img1 로 직접 지정
+//		Enumeration inputFileNames = multi.getFileNames();
+//		while(inputFileNames.hasMoreElements()) {
+//			System.out.println((String)inputFileNames.nextElement());
+//		}
 		
 		request.setCharacterEncoding("UTF-8");
 		reviewBean.setReview_skill(Integer.parseInt(multi.getParameter("skill")));
@@ -60,11 +67,11 @@ public class ReviewWriteAction implements Action {
 		reviewBean.setReview_price(Integer.parseInt(multi.getParameter("price")));
 		reviewBean.setReview_quality(Integer.parseInt(multi.getParameter("quality")));
 		reviewBean.setReview_content(multi.getParameter("content"));
-		reviewBean.setReview_img1((String)multi.getParameter("review_img1").nextElemen);
-		reviewBean.setReview_img2(multi.getParameter("review_img2").nextElement());
-		reviewBean.setReview_img3(multi.getParameter("review_img3"));
-		reviewBean.setReview_img4(multi.getParameter("review_img4"));
-		reviewBean.setReview_img5(multi.getParameter("review_img5"));
+		reviewBean.setReview_img1(multi.getFilesystemName("review_img1"));
+		reviewBean.setReview_img2(multi.getFilesystemName("review_img2"));
+		reviewBean.setReview_img3(multi.getFilesystemName("review_img3"));
+		reviewBean.setReview_img4(multi.getFilesystemName("review_img4"));
+		reviewBean.setReview_img5(multi.getFilesystemName("review_img5"));
 		reviewBean.setReview_member_id(member_id);
 		reviewBean.setReview_product_num(Integer.parseInt(multi.getParameter("product_num")));
 		

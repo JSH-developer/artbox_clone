@@ -16,6 +16,7 @@ public class QuestionListSVC {
 		System.out.println("getQuestionList");
 		ArrayList<QuestionBean> questionList = null;
 		
+		// 공통작업
 		Connection con = getConnection();
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		itemDAO.setConnection(con);

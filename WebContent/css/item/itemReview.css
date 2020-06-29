@@ -150,20 +150,18 @@ a {text-decoration:none}
 }
 .overlay-body .input label{
 	display: inline-block;
-	border: 0;
+	border: 1px solid #ebebeb;
 	width: 80px;
 	height: 80px;
 	border-radius: .25em;
 	margin-right: 10px;
+	vertical-align: bottom;
 }
-
-.overlay-body .input label .preview {
+.overlay-body .input label img {
 	width:100%;
 	height:100%;
 	cursor: pointer;
-	border: 1px solid #ebebeb;
 	border-radius: .25em;
-	
 }
 .overlay-body .input label input[type="file"] { /* 파일 필드 숨기기 */
 	display: none;
