@@ -114,6 +114,8 @@ $(document).ready(function(){
 <table class="table_content">
 <tr><td colspan="6">표시할 항목이 없습니다.</td></tr>
 </table>
+<a href="ProductWriteForm.admin"><button class="table_btn">기본상품 등록</button></a>
+<a href="OptionWriteForm.admin"><button class="table_btn">옵션상품 등록</button></a>
 <br><br>
 </c:if>
 

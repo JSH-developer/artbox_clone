@@ -308,7 +308,7 @@ public class AdminDAO {
 		String listCount = "";
 		
 		try {
-			String sql ="SELECT LPAD(MAX(num)+1,3,'0') FROM product";
+			String sql ="SELECT LPAD(IFNULL(MAX(num),0)+1,3,'0') FROM product";
 			pstmt=con.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
@@ -947,7 +947,7 @@ public class AdminDAO {
 			while(rs.next()) {
 				OrdersBean ordersBean = new OrdersBean();
 				ordersBean.setOrders_num(rs.getInt("num"));
-				ordersBean.setOrders_order_num(rs.getInt("order_num"));
+				ordersBean.setOrders_order_num(rs.getString("order_num"));
 				ordersBean.setOrders_member_id(rs.getString("member_id"));
 				ordersBean.setOrders_regdate(rs.getTimestamp("regdate"));
 				ordersBean.setOrders_state(rs.getInt("state"));
@@ -981,7 +981,7 @@ public class AdminDAO {
 			while(rs.next()) {
 				OrdersBean ordersBean = new OrdersBean();
 				ordersBean.setOrders_num(rs.getInt("num"));
-				ordersBean.setOrders_order_num(rs.getInt("order_num"));
+				ordersBean.setOrders_order_num(rs.getString("order_num"));
 				ordersBean.setOrders_member_id(rs.getString("member_id"));
 				ordersBean.setOrders_regdate(rs.getTimestamp("regdate"));
 				ordersBean.setOrders_state(rs.getInt("state"));
@@ -1012,7 +1012,7 @@ public class AdminDAO {
 			if(rs.next()) {
 				ordersBean = new OrdersBean();
 				ordersBean.setOrders_num(rs.getInt("num"));
-				ordersBean.setOrders_order_num(rs.getInt("order_num"));
+				ordersBean.setOrders_order_num(rs.getString("order_num"));
 				ordersBean.setOrders_member_id(rs.getString("member_id"));
 				ordersBean.setOrders_order_name(rs.getString("order_name"));
 				ordersBean.setOrders_order_email(rs.getString("order_email"));
@@ -1035,13 +1035,13 @@ public class AdminDAO {
 	}
 
 	// reciever 상세정보를 빼오기
-	public ReceiverBean toViewReceiver(int orders_order_num) {
+	public ReceiverBean toViewReceiver(int num) {
 		ReceiverBean receiverBean = null;
 		
 		try {
-			String sql="SELECT * FROM receiver WHERE orders_num=?";
+			String sql="SELECT * FROM receiver WHERE num=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, orders_order_num);
+			pstmt.setInt(1, num);
 			
 			rs= pstmt.executeQuery();
 			
@@ -1068,13 +1068,13 @@ public class AdminDAO {
 	}
 
 	// 주문상품상세 출력해오기
-	public ArrayList<OrdersDetailBean> toViewOrdersDetail(int orders_order_num) {
+	public ArrayList<OrdersDetailBean> toViewOrdersDetail(String orders_order_num) {
 		ArrayList<OrdersDetailBean> ordersDetailBeans = new ArrayList<OrdersDetailBean>();
 		
 		try {
 			String sql="SELECT * FROM orders_detail WHERE orders_order_num=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, orders_order_num);
+			pstmt.setString(1, orders_order_num);
 			
 			rs= pstmt.executeQuery();
 			
@@ -1130,6 +1130,147 @@ public class AdminDAO {
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, state);
 			pstmt.setInt(2, num);
+			
+			changeCount = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return changeCount;
+	}
+
+	// 아이디로 orders의 정보를 조회
+	public List<OrdersBean> getMyOrders(String id) {
+		List<OrdersBean> myOrders = new ArrayList<OrdersBean>();
+		
+		try {
+			String sql="SELECT * FROM orders WHERE member_id=? AND state <> -1 ORDER BY regdate DESC";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				OrdersBean ordersBean = new OrdersBean();
+				ordersBean.setOrders_order_num(rs.getString("order_num"));
+				ordersBean.setOrders_state(rs.getInt("state"));
+				ordersBean.setOrders_regdate(rs.getTimestamp("regdate"));
+				ordersBean.setOrders_point(rs.getInt("point"));
+				ordersBean.setOrders_total_price(rs.getInt("total_price"));
+				ordersBean.setOrders_payMethod(rs.getString("pay_method"));
+				myOrders.add(ordersBean);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return myOrders;
+	}
+	
+	// 취소 및 반품목록
+	public List<OrdersBean> getMyCancleOrders(String id) {
+		List<OrdersBean> myOrders = new ArrayList<OrdersBean>();
+		
+		try {
+			String sql="SELECT * FROM orders WHERE member_id=? AND state = -1 ORDER BY regdate DESC";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				OrdersBean ordersBean = new OrdersBean();
+				ordersBean.setOrders_order_num(rs.getString("order_num"));
+				ordersBean.setOrders_state(rs.getInt("state"));
+				ordersBean.setOrders_regdate(rs.getTimestamp("regdate"));
+				ordersBean.setOrders_point(rs.getInt("point"));
+				ordersBean.setOrders_total_price(rs.getInt("total_price"));
+				ordersBean.setOrders_payMethod(rs.getString("pay_method"));
+				myOrders.add(ordersBean);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return myOrders;
+	}
+	
+	// 구매 확정후 상태 변경
+	public int changeBuyState(String orders_order_num) {
+		int changeCount = 0;
+		try {
+			String sql="UPDATE orders SET state = 3 WHERE order_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, orders_order_num);
+			
+			changeCount = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return changeCount;
+	}
+	
+	// 구매 확정후 포인트 변경
+	public int changeBuyPoint(int point, String id) {
+		int changeCount = 0;
+		
+		try {
+			String sql="CALL update_point('구매 확정','구매 확정에 따른 포인트 적립','적립',?,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, point);
+			pstmt.setString(2, id);
+			
+			changeCount = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return changeCount;
+	}
+	
+	// 구매 취소후 상태 변경
+	public int changeCancleState(String orders_order_num) {
+		int changeCount = 0;
+		
+		try {
+			String sql="UPDATE orders SET state = -1 WHERE order_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, orders_order_num);
+			
+			changeCount = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return changeCount;
+	}
+	
+	// 구매 취소후 포인트 변경
+	public int changeCanclePoint(int point, String id) {
+		int changeCount = 0;
+		
+		try {
+			String sql="CALL update_point('구매 취소','구매 취소에 따른 금액 포인트로 환불','적립',?,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, point);
+			pstmt.setString(2, id);
 			
 			changeCount = pstmt.executeUpdate();
 		}catch(SQLException e) {
