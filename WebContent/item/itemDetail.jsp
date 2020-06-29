@@ -224,7 +224,6 @@
 		alert(getId);
 		
 		if(getId == "null" || getId == ""){
-
 			moveCheck = confirm("로그인하시겠습니까?"+getId);
 			
 			if(moveCheck){
