@@ -1262,14 +1262,14 @@ public class AdminDAO {
 		return changeCount;
 	}
 	
-	// 구매 확정후 포인트 변경
+	// 구매 취소후 포인트 변경
 	public int changeCanclePoint(int point, String id) {
 		int changeCount = 0;
 		
 		try {
 			String sql="CALL update_point('구매 취소','구매 취소에 따른 금액 포인트로 환불','적립',?,?)";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, -1*point);
+			pstmt.setInt(1, point);
 			pstmt.setString(2, id);
 			
 			changeCount = pstmt.executeUpdate();

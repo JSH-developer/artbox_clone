@@ -86,16 +86,16 @@ function buy(orders_order_num,point){
 		<span>날짜 : ${orders.orders_regdate}</span>
 		<c:if test="${orders.orders_state eq 0 }">
 		<span>배송준비중</span>
-		<span><button onclick="cancel(${orders.orders_order_num},${orders.orders_point})">주문취소</button></span>
+		<span><button onclick="cancel(${orders.orders_order_num},${orders.orders_total_price})">주문취소</button></span>
 		</c:if>
 		<c:if test="${orders.orders_state eq 1 }">
 		<span>배송진행중</span>
-		<span><button onclick="cancel(${orders.orders_order_num},${orders.orders_point})">주문취소</button></span>
+		<span><button onclick="cancel(${orders.orders_order_num},${orders.orders_total_price})">주문취소</button></span>
 		</c:if>
 		<c:if test="${orders.orders_state eq 2 }">
 		<span>배송완료</span>
 		<span><button onclick="buy(${orders.orders_order_num},${orders.orders_point})">구매확정</button></span>
-		<span><button onclick="cancel(${orders.orders_order_num},${orders.orders_point})">반품하기</button></span>
+		<span><button onclick="cancel(${orders.orders_order_num},${orders.orders_total_price})">반품하기</button></span>
 		</c:if>
 		<c:if test="${orders.orders_state eq 3 }">
 		<span>구매확정이 된 상품입니다.</span>
