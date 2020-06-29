@@ -40,8 +40,8 @@
  </span>
  
  <span class="adhome_menu">
- <a href="listCoupon.coupon"><img src="${pageContext.request.contextPath}/Images/admin/event.png" width="100"/>
- <h3>이벤트관리</h3></a>
+ <img src="${pageContext.request.contextPath}/Images/admin/event.png" width="100"/>
+ <h3>이벤트관리</h3>
  </span>
  </div>
  </div>

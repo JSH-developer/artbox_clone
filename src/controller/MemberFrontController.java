@@ -21,6 +21,11 @@ import action.member.MemberJoinAction;
 import action.member.MemberJoinCheckAction;
 import action.member.MemberLoginAction;
 import action.member.MemberPwModifyAction;
+import action.member.MyPageBuyProAction;
+import action.member.MyPageCancelProAction;
+import action.member.MyPageOrdersDetailProAction;
+import action.member.MyPageOrdersProAction;
+import action.member.MyPageReProAction;
 import action.member.MemberModifyAction;
 import action.member.memberProfileAction;
 import vo.ActionForward;
@@ -94,15 +99,49 @@ public class MemberFrontController extends HttpServlet {
 
     		
     		
-    	}else if(command.equals("/myPageOrders.member")) { // myPageOrders
-    		forward = new ActionForward();
-    		forward.setPath("/member/myPageOrders.jsp");
+    	}
+    	// -------------------------------- SH 추가 부분  (시작)-------------------------------- //
+    	else if(command.equals("/myPageOrders.member")) { // myPageOrders
+    		action = new MyPageOrdersProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
     		
+    	}else if(command.equals("/myPageOrdersDetail.member")) { // myPageOrdersDetail
+    		action = new MyPageOrdersDetailProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    		
+    	}else if(command.equals("/cancel.member")) { // 주문취소 및 반품 클릭시
+    		action = new MyPageCancelProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/buy.member")) { // 주문확정 클릭시
+    		action = new MyPageBuyProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
     	}else if(command.equals("/myPageRe.member")) { // myPageRe
-    		forward = new ActionForward();
-    		forward.setPath("/member/myPageRe.jsp");
-    		
-    	}else if(command.equals("/myPageWishlist.member")) { // myPageWishlist
+    		action = new MyPageReProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}
+    	// -------------------------------- SH 추가 부분 (끝) -------------------------------- //
+
+    	else if(command.equals("/myPageWishlist.member")) { // myPageWishlist
     		forward = new ActionForward();
     		forward.setPath("/member/myPageWishlist.jsp");
     		
