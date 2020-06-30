@@ -33,7 +33,7 @@ a {text-decoration:none}
 
 .ItemList li {list-style:none;position:relative; width:20%; text-align:center; padding:14px 14px 0 14px;float: left;}
 .ItemList li:last-child {width: 100%; text-align: center; padding: 0;}
-.ItemList img {width:100%;}
+.ItemList img {width:100%;height: 207px;}
 .ItemList span {display:block; text-align:center; }
 .ItemList span.itemname {font-size:16px; color:#000000; padding:10px 10px 0 10px; height:26px; line-height:16px; width:100%; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
 .ItemList span.itemamt  {font-size:16px; color:#000000; font-weight:bold;}
@@ -48,6 +48,7 @@ a {text-decoration:none}
 .paging {padding:60px 0; text-align: center;}
 .paging .box{display: inline-block; height: 35px;}
 .paging .box a {line-height: 35px; font-size: 15px; padding: 0 15px 0 15px;float: left;}
+.paging .box img {height: 100%;}
 .paging .box .btn_pageon {color: #df2e38; font-size: 16px;}
 .paging .box .opacity {opacity: 0.3;}
 
@@ -164,7 +165,7 @@ a {text-decoration:none}
 	border-radius: .25em;
 }
 .overlay-body .input label input[type="file"] { /* 파일 필드 숨기기 */
-	display: none;
+/* 	display: none; */
 }
 .overlay-body .input .etc{
 	font-size: 13px;

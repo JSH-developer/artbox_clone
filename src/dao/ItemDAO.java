@@ -221,11 +221,12 @@ public class ItemDAO {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT detail.product_num, detail.image, detail.name, detail.price, orders.regdate "
+			String sql = "SELECT detail.product_num, detail.image, detail.name, detail.price, DATE_ADD(orders.regdate, INTERVAL 6 MONTH) "
 					+ "FROM orders INNER JOIN orders_detail detail ON orders.order_num = detail.orders_order_num "
-					+ "WHERE orders.member_id = ?";
+					+ "WHERE orders.member_id = ? AND orders.state = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
+			pstmt.setInt(2, 3);
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -234,7 +235,7 @@ public class ItemDAO {
 				article.setProduct_image(rs.getString("detail.image"));
 				article.setProduct_name(rs.getString("detail.name"));
 				article.setProduct_price(Integer.parseInt(rs.getString("detail.price")));
-				article.setProduct_regdate(rs.getTimestamp("orders.regdate"));
+				article.setProduct_regdate(rs.getTimestamp("DATE_ADD(orders.regdate, INTERVAL 6 MONTH)"));
 				reviewList.add(article);
 			}
 		} catch (SQLException e) {

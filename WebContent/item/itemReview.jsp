@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,14 +23,38 @@
 	$(document).on('click','.overlay-close',function(){
 		$('.full-screen').css('display','none');
 		$('.review-overlay').css('display','none');
+		setClose();
 	})
 	$(document).on('click','.full-screen-close',function(){
 		$('.full-screen').css('display','none');
 		$('.review-overlay').css('display','none');
+		setClose();
 	})
-	
-	
-	
+	// 모달팝업시 설정
+	function setOpen(productnum){
+		$('input[name=product_num]').val(productnum);
+	}
+	// 모달종료시 설정
+	function setClose(){
+		$('input[name=product_num]').val("");
+		$('.score').children("b").removeClass("on");
+    	$("input[name=skill]").val("");
+    	$("input[name=design]").val("");
+    	$("input[name=price]").val("");
+    	$("input[name=quality]").val("");
+		$("#fr")[0].reset();
+		$("#img1").attr('src', "${pageContext.request.contextPath}/Images/item/img_uploadimage.png");
+		$("#img1").attr('title', "선택된 파일 없음");
+		$("#img2").attr('src', "${pageContext.request.contextPath}/Images/item/img_uploadimage.png");
+		$("#img2").attr('title', "선택된 파일 없음");
+		$("#img3").attr('src', "${pageContext.request.contextPath}/Images/item/img_uploadimage.png");
+		$("#img3").attr('title', "선택된 파일 없음");
+		$("#img4").attr('src', "${pageContext.request.contextPath}/Images/item/img_uploadimage.png");
+		$("#img4").attr('title', "선택된 파일 없음");
+		$("#img5").attr('src', "${pageContext.request.contextPath}/Images/item/img_uploadimage.png");
+		$("#img5").attr('title', "선택된 파일 없음");
+	}
+		
 	function reviewcheck() {
 		var result = false;
 		
@@ -49,6 +74,7 @@
 		}
 		return result;
 	}
+	
 	</script>
 </head>
 <body>
@@ -74,89 +100,17 @@
 				<c:forEach var="rl" items="${reviewList }">
 					<li>
 						<a href="itemDetail.item?product_num=${rl.product_num }">
-							<img src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png">
+							<img src="${pageContext.request.contextPath}/upload/${rl.product_image }">
 						</a>
 						<span class="itemname">${rl.product_name }</span>
 						<span class="itemname"> </span>
 						<span class="itemamt">
 							<span class="itemprice sale_N">${rl.product_price }</span>
 						</span>
-						<a class="btnWrite modal" href="#">구매후기 쓰기</a>
-						<span class="deadline">작성기한: 2020.12.02까지</span>
+						<a class="btnWrite modal" href="javascript:setOpen(${rl.product_num });">구매후기 쓰기</a>
+						<span class="deadline">작성기한: <fmt:formatDate value="${rl.product_regdate }" pattern="yyyy.MM.dd"/>까지</span>
 					</li>
 				</c:forEach>
-				<li>
-					<a href="http://www.artboxmall.com/home/shop/itemdetail.asp?itemidx=1901220587">
-						<img src="./detail1.jpg">
-					</a>
-					<span class="itemname">물티슈 썸머튜브패턴(10매) (25014223)</span>
-					<span class="itemname"> </span>
-					<span class="itemamt">
-						<span class="itemprice sale_N">600원</span>
-					</span>
-					<a class="btnWrite modal" href="#">구매후기 쓰기</a>
-					<span class="deadline">작성기한: 2020.12.02까지</span>
-				</li>
-				<li>
-					<a href="http://www.artboxmall.com/home/shop/itemdetail.asp?itemidx=1901220587">
-						<img src="./detail1.jpg">
-					</a>
-					<span class="itemname">물티슈 썸머튜브패턴(10매) (25014223)</span>
-					<span class="itemname"> </span>
-					<span class="itemamt">
-						<span class="itemprice sale_N">600원</span>
-					</span>
-					<a class="btnWrite modal" href="#">구매후기 쓰기</a>
-					<span class="deadline">작성기한: 2020.12.02까지</span>
-				</li>
-				<li>
-					<a href="http://www.artboxmall.com/home/shop/itemdetail.asp?itemidx=1901220587">
-						<img src="./detail1.jpg">
-					</a>
-					<span class="itemname">물티슈 썸머튜브패턴(10매) (25014223)</span>
-					<span class="itemname"> </span>
-					<span class="itemamt">
-						<span class="itemprice sale_N">600원</span>
-					</span>
-					<a class="btnWrite modal" href="#">구매후기 쓰기</a>
-					<span class="deadline">작성기한: 2020.12.02까지</span>
-				</li>
-				<li>
-					<a href="http://www.artboxmall.com/home/shop/itemdetail.asp?itemidx=1901220587">
-						<img src="./detail1.jpg">
-					</a>
-					<span class="itemname">물티슈 썸머튜브패턴(10매) (25014223)</span>
-					<span class="itemname"> </span>
-					<span class="itemamt">
-						<span class="itemprice sale_N">600원</span>
-					</span>
-					<a class="btnWrite modal" href="#">구매후기 쓰기</a>
-					<span class="deadline">작성기한: 2020.12.02까지</span>
-				</li>
-				<li>
-					<a href="http://www.artboxmall.com/home/shop/itemdetail.asp?itemidx=1901220587">
-						<img src="./detail1.jpg">
-					</a>
-					<span class="itemname">물티슈 썸머튜브패턴(10매) (25014223)</span>
-					<span class="itemname"> </span>
-					<span class="itemamt">
-						<span class="itemprice sale_N">600원</span>
-					</span>
-					<a class="btnWrite modal" href="#">구매후기 쓰기</a>
-					<span class="deadline">작성기한: 2020.12.02까지</span>
-				</li>
-				<li>
-					<a href="http://www.artboxmall.com/home/shop/itemdetail.asp?itemidx=1901220587">
-						<img src="./detail1.jpg">
-					</a>
-					<span class="itemname">물티슈 썸머튜브패턴(10매) (25014223)</span>
-					<span class="itemname"> </span>
-					<span class="itemamt">
-						<span class="itemprice sale_N">600원</span>
-					</span>
-					<a class="btnWrite modal" href="#">구매후기 쓰기</a>
-					<span class="deadline">작성기한: 2020.12.02까지</span>
-				</li>
 				<li>
 					<div class="paging">
 						<span class="box">
@@ -173,10 +127,10 @@
 		<div class="full-screen">
 			<div class="full-screen-close"></div>
 			<div class="review-overlay">
-			<form action="reviewWrite.item" method="post" enctype="multipart/form-data" onsubmit="return reviewcheck()">
+			<form action="reviewWrite.item" method="post" id="fr" enctype="multipart/form-data" onsubmit="return reviewcheck()">
 				<div class="overlay-header">상품후기 작성하기<input class="overlay-close" type="button" value=""></div>
 				<div class="overlay-body">
-					<input type="hidden" name="product_num" value="1">
+					<input type="hidden" name="product_num" value="0">
 					<img class="candy-img" src="${pageContext.request.contextPath}/Images/item/img_epilogue_bg.png">
 					<div class="input">
 						<span class="tt">별점</span>
@@ -194,7 +148,7 @@
 			            $(this).parent().children("b").removeClass("on");  /* 별점의 on 클래스 전부 제거 */ 
 			            $(this).addClass("on").prevAll("b").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
 			            $('input[name=skill]').val()
-			            alert($(this).attr("value"));
+// 			            alert($(this).attr("value"));
 			            if($(this).parent().find("input[name=skill]").length){//.length 존재유무 확인
 			            	$("input[name=skill]").val($(this).attr("value"));
 			            }else if($(this).parent().find("input[name=design]").length){
@@ -214,23 +168,23 @@
 					<div class="input">
 						<span class="tt">이미지 파일</span>
 						<label>
-							<img id="blah1" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt=" " class="preview" title="선택된 파일 없음"/>
+							<img id="img1" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt=" " class="preview" title="선택된 파일 없음"/>
 							<input type='file' name="review_img1" onchange="readURL(this,1);" />
 						</label>
 						<label>
-							<img id="blah2" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt=" " class="preview" title="선택된 파일 없음"/>
+							<img id="img2" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt=" " class="preview" title="선택된 파일 없음"/>
 							<input type='file' name="review_img2" onchange="readURL(this,2);" />
 						</label>
 						<label>
-							<img id="blah3" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt=" " class="preview" title="선택된 파일 없음"/>
+							<img id="img3" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt=" " class="preview" title="선택된 파일 없음"/>
 							<input type='file' name="review_img3" onchange="readURL(this,3);" />
 						</label>
 						<label>
-							<img id="blah4" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt=" " class="preview" title="선택된 파일 없음"/>
+							<img id="img4" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt=" " class="preview" title="선택된 파일 없음"/>
 							<input type='file' name="review_img4" onchange="readURL(this,4);" />
 						</label>
 						<label>
-							<img id="blah5" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt=" " class="preview" title="선택된 파일 없음"/>
+							<img id="img5" src="${pageContext.request.contextPath}/Images/item/img_uploadimage.png" alt=" " class="preview" title="선택된 파일 없음"/>
 							<input type='file' name="review_img5" onchange="readURL(this,5);" />
 						</label>
 						<div class="etc">*이미지는 jpg와 png 형식만 가능합니다</div>
@@ -251,21 +205,21 @@
 			if (input.files && input.files[0]) {
 				if (FileType != "jpg" && FileType != "png" && FileType != "jpeg"){
 					alert("jpg 또는 png파일만 업로드 가능합니다." + FileType);
-					$("#blah"+x).attr('src', "${pageContext.request.contextPath}/Images/item/img_uploadimage.png");
-					$("#blah"+x).attr('title', "선택된 파일 없음");
+					$("#img"+x).attr('src', "${pageContext.request.contextPath}/Images/item/img_uploadimage.png");
+					$("#img"+x).attr('title', "선택된 파일 없음");
 					input.value="";	
 				}else{
 					var reader = new FileReader();
 					reader.onload = function (e) {
-						$("#blah"+x).attr('src', "${pageContext.request.contextPath}/Images/item/BE.jpg");
-						$("#blah"+x).attr('src', e.target.result);
-						$("#blah"+x).attr('title', "");
+						$("#img"+x).attr('src', "${pageContext.request.contextPath}/Images/item/BE.jpg");
+						$("#img"+x).attr('src', e.target.result);
+						$("#img"+x).attr('title', "");
 					}
 					reader.readAsDataURL(input.files[0]);
 				}
 			}else{
-				$("#blah"+x).attr('src', "${pageContext.request.contextPath}/Images/item/img_uploadimage.png");
-				$("#blah"+x).attr('title', "선택된 파일 없음");
+				$("#img"+x).attr('src', "${pageContext.request.contextPath}/Images/item/img_uploadimage.png");
+				$("#img"+x).attr('title', "선택된 파일 없음");
 			}
 		}
 	</script>
