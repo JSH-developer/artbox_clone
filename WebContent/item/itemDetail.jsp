@@ -213,6 +213,29 @@
 		document.gfr.action = "orderDirect.order";
 		document.gfr.submit();
 	}
+	
+	
+	// 쿠폰 중복 발급 x
+		function cpClick(){
+		var moveCheck;
+		var getId  = document.getElementById("loginId").value;
+		var coup_Num  = document.getElementById("coupNum").value;
+		
+		alert(getId);
+		
+		if(getId == "null" || getId == ""){
+			moveCheck = confirm("로그인하시겠습니까?"+getId);
+			
+			if(moveCheck){
+				location.href = "loginForm.member";
+			}else{
+				alert("그대로 유지");
+			}
+	} else {
+			var url = "CouponIssued.coupon?getid=" + getId + "&couponNum="+ coup_Num;
+			location.href = url;
+		}
+	}
 	</script>
 </head>
 <body>
@@ -257,7 +280,35 @@
 						&gt;
 						<a href="${pageContext.request.contextPath}/itemList.item?minor=${productBean.product_category_code}" class="minor">${category_sub }</a>
 					</div>
-					<div class="pdt-right pdt-price"><fmt:formatNumber value="${productBean.product_price}" type="number" />원</div>
+					<div class="pdt-right pdt-price">
+					<span id="rprice"><fmt:formatNumber value="${productBean.product_price}" type="number" />원</span>
+					
+						<!-- 			할인 있거나 쿠폰 있을때    || item.product_sale_price > 0-->
+		<c:if test="${productBean.product_sale_price > 0}"> 
+		<!-- 			realprice 스타일바꿈 -->
+			<style>span#rprice {text-decoration: line-through;color:grey;}</style>
+			
+<!-- 			할인 있을때 -->
+				<c:if test="${empty itemcoupon.coupon_name}">
+				<fmt:parseNumber integerOnly="true" var="persent" value="${productBean.product_sale_price/productBean.product_price *100 }" />
+						<span style="color:red;"> ${productBean.product_price - productBean.product_sale_price }원 [ ${persent}% ]</span>
+				</c:if>
+<!-- 				쿠폰 있을때 -->
+			<c:if test="${not empty itemcoupon.coupon_name}">
+			<fmt:parseNumber integerOnly="true" var="persent" value="${productBean.product_sale_price/productBean.product_price *100 }" />
+				<span style="color:red;">${productBean.product_price - productBean.product_sale_price }원  [ ${persent}% ]</span>
+				
+				<input type="hidden" id="loginId" value="${sessionScope.id}">
+					<input type="hidden" id="coupNum" value="${itemcoupon.coupon_num}">
+					<input type="button" id="coup_btn" value="쿠폰받기" onclick= "cpClick();" ><br>
+				</c:if>
+					
+			</c:if>
+					
+					
+					</div>
+					
+					
 					<div class="pdt-right pdt-delivery">2,500원
 						<input type="button" class="btn-delivery modal" value="배송비 안내">
 					</div>

@@ -47,7 +47,7 @@ function change_state(){
 <select id="status_select" class="chooseOpt" onchange="change_state()">
 <option value="-10">전체보기</option><option value="0">배송준비중</option>
 <option value="1">배송진행중</option><option value="2">배송완료</option>
-<option value="-1">배송취소</option></select>
+<option value="-1">배송취소</option><option value="3">구매확정</option></select>
 
 <h1 class="list_title">주문리스트</h1>
 
@@ -72,6 +72,9 @@ function change_state(){
 		</c:if>
 		<c:if test="${orderList[i].orders_state eq -1}">
 		배송취소
+		</c:if>
+		<c:if test="${orderList[i].orders_state eq -1}">
+		구매확정
 		</c:if>
 		</span><br><button onclick="window.open('./changeState.admin?num='+${orderList[i].orders_num}+'&status='+${orderList[i].orders_state}, '', 'width=700,height=250,left=250,top=250');">배송상태 변경</button></td></tr>
 	</c:forEach>

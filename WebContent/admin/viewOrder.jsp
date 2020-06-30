@@ -20,6 +20,8 @@ $(document).ready(function(){
 		$("#order_state").text('배송완료');
 	}else if(${ordersBean.orders_state} == -1){
 		$("#order_state").text('배송취소');
+	}else if(${ordersBean.orders_state} == 3){
+		$("#order_state").text('구매확정');
 	}
 })
 

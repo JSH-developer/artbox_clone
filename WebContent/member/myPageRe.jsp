@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,7 @@
 <link href="css/slide.css" rel="stylesheet" type="text/css">
 <script src="../js/jquery-3.5.0.js"></script>
 <script type="text/javascript" src="member/myPage.js"></script>
+
 </head>
 <body>
 
@@ -45,8 +47,41 @@
 
 
 		<div class="clear"></div>
-
+		<br>
+		
+		<style type="text/css">
+		.myOrders{
+			border: 1px solid green;
+		}
+		.myOrders span{
+			display: block;
+		}
+		
+		</style>
+		
+		<c:if test="${!empty myRes}">
+		<c:forEach var="res" items="${myRes}">
+		<div class="myOrders">
+		<span>주문번호 : ${res.orders_order_num}</span>
+		<span><a href="myPageOrdersDetail.member?orders_num=${res.orders_order_num}">주문상세보기</a></span>
+		<span>총가격 : ${res.orders_total_price}</span>
+		<span>날짜 : ${res.orders_regdate}</span>
+		<span>주문이 취소된 상품입니다.</span>
+		</div>
+		<br>
+		</c:forEach>
+		</c:if>
+		
+		<c:if test="${empty myRes}">
 		<div class="noData">주문내역이 없습니다.</div>
+		</c:if>
+
+		
 	</div>
+	
+	
+	<!--  푸터 -->
+	<jsp:include page="/inc/bottom.jsp"></jsp:include>
+	<!--  푸터 -->
 </body>
 </html>

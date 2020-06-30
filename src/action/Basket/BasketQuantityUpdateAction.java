@@ -17,12 +17,12 @@ public class BasketQuantityUpdateAction implements Action {
 		System.out.println("BasketQuantityUpdateAction");
 		ActionForward forward = new ActionForward();
 		
-		int basketIdx = Integer.parseInt(request.getParameter("basketIdx")); // 상품번호
+		int product_num = Integer.parseInt(request.getParameter("product_num")); // 상품번호
 		int quantity = Integer.parseInt(request.getParameter("qty")); // 상품수량
 		
 		// BasketQuantityUpdateService 인스턴스 생성 후 updateBasket() 메서드 호출하여 수량 변경하기
 		// 파라미터 : (basketIdx, quantity), 리턴타입 : boolean(isUpdateSuccess)
-		boolean isUpdateSuccess = BasketQuantityUpdateService.updateBasket(basketIdx, quantity);
+		boolean isUpdateSuccess = BasketQuantityUpdateService.updateBasket(product_num, quantity);
 		
 		// 수량 변경 결과에 따른 처리
 		// => isUpdateSuccess 가 false 일 경우

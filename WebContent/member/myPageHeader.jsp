@@ -31,7 +31,7 @@
 		</li></a>
 		
 		
-		<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '꿈캔디 내역');"><li
+		<a href="MypagePointList.event" onclick="GA_event('마이페이지', '상단 메뉴', '꿈캔디 내역');"><li
 			class="Tbox2"><img class="CImg" src="Images/img/point.png" /> <span
 				class="CCandy">0</span></li></a>
 		<li class="Tbox3">
@@ -39,7 +39,7 @@
 				<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '주문/배송');"><li>
 						<span>주문/배송</span><span>0</span>
 				</li></a>
-				<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '쿠폰');"><li>
+				<a href="MypageCouponList.coupon" onclick="GA_event('마이페이지', '상단 메뉴', '쿠폰');"><li>
 						<span>쿠폰</span><span>4</span>
 				</li></a>
 				<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '쿠매후기');"><li>

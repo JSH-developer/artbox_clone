@@ -1,15 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ARTBOX</title>
-<link href="css/member/myPage.css" rel="stylesheet">
-<link href="css/front.css" rel="stylesheet" type="text/css">
-<link href="css/slide.css" rel="stylesheet" type="text/css">
-<script src="../js/jquery-3.5.0.js"></script>
-<script type="text/javascript" src="member/myPage.js"></script>
+<link href="${pageContext.request.contextPath}/css/member/myPage.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/slide.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/member/myPage.js"></script>
+<script>
+
+function cancel(orders_order_num,point){
+	cancel = confirm("구매취소 또는 반품 하시겠습니까?\n※취소 후 금액은 포인트로 환불됩니다.");
+	if(cancel){
+		location.href="cancel.member?orders_order_num="+orders_order_num+"&point="+point;
+	}
+}
+
+function buy(orders_order_num,point){
+	buy = confirm("구매확정 하시겠습니까?\n※구매확정이후 교환/환불 이 불가능합니다.");
+	if(buy){
+		location.href="buy.member?orders_order_num="+orders_order_num+"&point="+point;
+	}
+	
+}
+
+</script>
 </head>
 <body>
 
@@ -19,7 +38,7 @@
 
 	<div class = "body_box">
 		<div class="top_box">
-			<jsp:include page="../member/myPageHeader.jsp"></jsp:include>
+			<jsp:include page="/member/myPageHeader.jsp"></jsp:include>
 		</div>
 		
 		
@@ -45,10 +64,58 @@
 			</select>
 		</div>
 
-
 		<div class="clear"></div>
+		<br>
+		
+		<style type="text/css">
+		.myOrders{
+			border: 1px solid green;
+		}
+		.myOrders span{
+			display: block;
+		}
+		
+		</style>
+		
+		<c:if test="${!empty myOrders }">
+		<c:forEach var="orders" items="${myOrders}">
+		<div class="myOrders">
+		<span>주문번호 : ${orders.orders_order_num}</span>
+		<span><a href="myPageOrdersDetail.member?orders_num=${orders.orders_order_num}">주문상세보기</a></span>
+		<span>총가격 : ${orders.orders_total_price}</span>
+		<span>날짜 : ${orders.orders_regdate}</span>
+		<c:if test="${orders.orders_state eq 0 }">
+		<span>배송준비중</span>
+		<span><button onclick="cancel(${orders.orders_order_num},${orders.orders_total_price})">주문취소</button></span>
+		</c:if>
+		<c:if test="${orders.orders_state eq 1 }">
+		<span>배송진행중</span>
+		<span><button onclick="cancel(${orders.orders_order_num},${orders.orders_total_price})">주문취소</button></span>
+		</c:if>
+		<c:if test="${orders.orders_state eq 2 }">
+		<span>배송완료</span>
+		<span><button onclick="buy(${orders.orders_order_num},${orders.orders_point})">구매확정</button></span>
+		<span><button onclick="cancel(${orders.orders_order_num},${orders.orders_total_price})">반품하기</button></span>
+		</c:if>
+		<c:if test="${orders.orders_state eq 3 }">
+		<span>구매확정이 된 상품입니다.</span>
+		</c:if>
+		<c:if test="${orders.orders_state eq -1 }">
+		<span>배송취소</span>
+		</c:if>
+		</div>
+		<br>
+		</c:forEach>
+		</c:if>
 
+		<c:if test="${empty myOrders}">
 		<div class="noData">주문내역이 없습니다.</div>
+		</c:if>
 	</div>
+	
+	
+	<!--  푸터 -->
+	<jsp:include page="/inc/bottom.jsp"></jsp:include>
+	<!--  푸터 -->
 </body>
 </html>

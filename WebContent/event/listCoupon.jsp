@@ -3,10 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<%
-ArrayList<CouponBean> couponList= (ArrayList<CouponBean>)request.getAttribute("couponList");
-%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -14,8 +11,11 @@ ArrayList<CouponBean> couponList= (ArrayList<CouponBean>)request.getAttribute("c
 <meta charset="UTF-8">
 <title>ARTBOX(포트폴리오)</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
 <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/css/admin/adminRegist.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/admin/adminList.css" rel="stylesheet" type="text/css">
 
 </head>
 <script type="text/javascript">
@@ -53,23 +53,20 @@ $(document).ready(function(){
 
 
 
- <div class="pageContent">
- 
-
+<div class="pageContent">
  
 <div class="admin_nav_wrap">
 <ul class="admin_nav">
-	<li><a href="Home.admin">관리자 홈</a></li>
-	<li><a href="#">상품 목록</a></li>
- 	<li><a href="#">상품 등록</a></li>
- 	<li><a href="#">상품 수정</a></li>
- 	<li><a href="#">쿠폰 등록</a></li>
+	<li><a href="home.admin">관리자 홈</a></li>
+	<li><a href="listCoupon.coupon">쿠폰 관리</a></li>
+ 	<li><a href="listEvent.event">이벤트 관리</a></li>
 </ul>
 </div>
+
 <br>
 
 <!-- 쿠폰 등록 -->
-<h1>쿠폰 등록</h1>
+<h1 class="list_title">쿠폰 등록</h1>
 <!-- 나중에 admin으로 바꿔야하는 부분 -->
 <form action="CouponWritePro.coupon" method="post" >
 <table class="reg_tab">
@@ -93,70 +90,44 @@ $(document).ready(function(){
 <!-- /쿠폰 등록 -->
 
 <!-- 쿠폰 리스트 -->
-	<section id="listForm">
+<h1 class="list_title">쿠폰 리스트</h1>
+<!-- 쿠폰 리스트 -->
+	<section class="table_content">
 			<table>
-				<%
-					if (couponList != null) {
-						
-				%>
+				<c:if test="${!empty couponList}">
 
 				<tr id="tr_top">
-					<td>쿠폰 이름</td>
-					<td>쿠폰 할인가격</td>
-					<td>쿠폰 조건</td>
-					<td>쿠폰 지급일</td>
-					<td>쿠폰 유효기간</td>
-					<td>쿠폰 사유</td>
-					<td>쿠폰 카테고리</td>
+					<th>쿠폰 이름</th>
+					<th>쿠폰 할인가격</th>
+					<th>쿠폰 조건</th>
+					<th>쿠폰 지급일</th>
+					<th>쿠폰 유효기간</th>
+					<th>쿠폰 사유</th>
+					<th>쿠폰 카테고리</th>
 				</tr>
-
-				<%
-					for (int i = 0; i < couponList.size(); i++) {
-				%>
+		<c:forEach var="i" begin="0" end="${fn:length(couponList) -1}" step="1">
+			
 				<tr>
-					<td><%=couponList.get(i).getCoupon_name()%></td>
-					<td><%=couponList.get(i).getCoupon_price()%></td>
-					<td><%=couponList.get(i).getCoupon_condition() %></td>
-					<td><%=couponList.get(i).getCoupon_start() %></td>
-					<td><%=couponList.get(i).getCoupon_limit() %></td> 
-					<td><%=couponList.get(i).getCoupon_reason() %></td> 
-					<td><%=couponList.get(i).getCoupon_category() %></td> 
-					
+					<td>${couponList[i].coupon_name}</td>
+					<td>${couponList[i].coupon_price}</td>
+					<td>${couponList[i].coupon_condition}</td>
+					<td>${couponList[i].coupon_start}</td>
+					<td>${couponList[i].coupon_limit}</td> 
+					<td>${couponList[i].coupon_reason}</td> 
+					<td>${couponList[i].coupon_category}</td> 
+					<td><button onclick="location.href='CouponDeletePro.coupon?coupon_num=${couponList[i].coupon_num}'">쿠폰 삭제</button></td>	
 				</tr>
-				<%
-					} }else{ %>
-						<h2>불러올 리스트가 없습니다</h2>
-					<% }%>
+			</c:forEach>
+			
+			</c:if>
+			<c:if test="${empty couponList}">
+			 등록된 쿠폰이 없습니다.
+			</c:if>
+			
 			</table>
 		</section>
 <!-- /쿠폰 리스트 -->
 
-
-
-
-
-<!-- 쿠폰 리스트 -->
-<!-- 	<div class="coupon_tab on">온라인 전용 쿠폰 (2장)</div> -->
-<!-- 				<div class="coupon_box"> -->
-<!-- 					<div class="detail_tab">보너스 쿠폰 (1장)</div> -->
-<!-- 					<div class="CouponList"> -->
-<!-- 						<ul> -->
-<!-- 							<li> -->
-<!-- 								<div class="CouponImage"> -->
-<!-- 									<img -->
-<!-- 										src="http://www.poom.co.kr/Images/Ver2/Mypoom/sale2000.jpg"> -->
-<!-- 								</div> -->
-<!-- 								<div class="CouponName" title="가입회원 2000원 할인 쿠폰">가입회원 -->
-<!-- 									2000원 할인 쿠폰</div> -->
-<!-- 								<div class="CouponInfo"> -->
-<!-- 									<span>2020-05-14 ~ 2020-06-30</span><span>30,000원 이상 구매 시</span> -->
-<!-- 								</div> -->
-<!-- 							</li> -->
-<!-- 						</ul> -->
-<!-- 					</div> -->
-					
-<!-- 	</div> -->
-<!-- /쿠폰 리스트 -->
 
 </div>
  <!--  푸터 -->

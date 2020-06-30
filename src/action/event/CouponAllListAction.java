@@ -30,7 +30,7 @@ public class CouponAllListAction implements Action {
 		
 		
 		forward = new ActionForward();
-		forward.setPath("/event/registCoupon.jsp");
+		forward.setPath("/event/listCoupon.jsp");
 		
 		
 		return forward;

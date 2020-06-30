@@ -22,11 +22,13 @@ public class CouponIssuedAction implements Action {
 		CouponService couponService = new CouponService();
 		Boolean isSuceess = couponService.couponIssued(getid,getCouponNum);
 		
+		
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
 		if(!isSuceess) {
-			response.setContentType("text/html;charset=UTF-8");
-			PrintWriter out = response.getWriter();
+	
 			out.println("<script>"); // 자바스크립트 시작 태그
-			out.println("alert('쿠폰 발급 실패!')"); // 다이얼로그 메세지 출력
+			out.println("alert('중복된 쿠폰입니다.')"); // 다이얼로그 메세지 출력
 			out.println("history.back()"); // 이전 페이지로 돌아가기
 			out.println("</script>"); // 자바스크립트 끝 태그
 
@@ -35,9 +37,22 @@ public class CouponIssuedAction implements Action {
 
 		}else {
 			System.out.println("쿠폰 발급받기 성공");
+			
+			out.println("<script>");
+			out.println("if(confirm('쿠폰을 확인하시겠습니까?'))");
+			out.println("{location.href='MypageCouponList.coupon';}");
+			out.println("else");
+			out.println("{history.back()}");
+			out.println("</script>");
+			out.close();
 
-			forward = new ActionForward();
-			forward.setPath("MypageCouponList.coupon");
+
+//			forward = new ActionForward();
+//			forward.setPath("MypageCouponList.coupon");
+			
+			
+			
+			
 		}
 		
 		return forward;

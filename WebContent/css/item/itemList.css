@@ -119,7 +119,7 @@
     letter-spacing: 10px;
 }
 
-.item_list .ul_list .item a:hover .shopping_basket_icon {
+.item_list .ul_list .item .shopping_basket:hover .shopping_basket_icon {
     top: 70%;
 }
 

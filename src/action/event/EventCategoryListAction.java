@@ -11,7 +11,7 @@ import vo.ActionForward;
 import vo.EventBean;
 import vo.PageInfo;
 
-public class EventListAction implements Action {
+public class EventCategoryListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

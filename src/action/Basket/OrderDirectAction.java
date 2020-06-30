@@ -33,7 +33,7 @@ public class OrderDirectAction implements Action {
 		if(id == null){
 			forward = new ActionForward();
 			forward.setRedirect(true);
-			forward.setPath("/artbox_clone/memberLoginForm.member");
+			forward.setPath("/artbox_clone/loginForm.member");
 			return forward;
 		}
 		
@@ -70,7 +70,7 @@ public class OrderDirectAction implements Action {
 		// request 에 orderList / arrBasket / receiverBasicList / receiverLastList 담기
 		request.setAttribute("orderListOne", orderList.get(0));
 		request.setAttribute("orderList", orderList);
-		request.setAttribute("arrBasket", Integer.parseInt(request.getParameter("product_num"))); // 주문한 상품번호 들고가기
+		request.setAttribute("product_num", Integer.parseInt(request.getParameter("product_num"))); // 주문한 상품번호 들고가기
 		request.setAttribute("receiverBasicList", receiverBasicList);
 		request.setAttribute("receiverLastList", receiverLastList);
 		forward.setPath("/basket/OrderPay.jsp");

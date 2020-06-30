@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
-import svc.Basket.BasketDeleteOneService;
+import svc.Basket.BasketDeleteService;
 import svc.Basket.OrderCompleteService;
 import svc.Basket.OrderOneListService;
 import vo.ActionForward;
@@ -29,29 +29,33 @@ public class OrderCompleteAction implements Action {
 		String id = (String)session.getAttribute("id");
 
 		ActionForward forward = null;
-		String arrBasket = request.getParameter("arrBasket"); // 상품 번호(배열로 받아옴)
-		System.out.println("OrderCompleteAction 가져온값" + arrBasket);
-
+		String basketIdx = request.getParameter("basketIdx"); // 상품 번호(배열로 받아옴)
+		System.out.println("OrderCompleteAction 가져온 장바구니 값" + basketIdx);
+		String product_num = request.getParameter("product_num");
+		System.out.println("OrderCompleteAction 가져온 상품 번호 값" + product_num);
+		
 		// 세션값(id) 없으면 로그인페이지로 돌아가기
 		if(id == null) {
 			forward = new ActionForward();
 			forward.setRedirect(true);
-			forward.setPath("/artbox_clone/memberLoginForm.member");
+			forward.setPath("/artbox_clone/loginForm.member");
 			return forward;
 		}
 		
 		// OrderOneListService 인스턴스 생성 후 getOrderOneList() 메서드 호출하여 주문 정보 추가하기
 		// 파라미터 : (id, arrBasket), 리턴타입 : List
 		OrderOneListService orderOneListService = new OrderOneListService();
-		List orderList = orderOneListService.getOrderOneList(id, arrBasket);
+		List orderList = orderOneListService.getOrderOneList(id, product_num);
 		
 		int BasicAddr = 0; // 기본 배송지 여부 (default 0, 1:기본배송지)
 		System.out.println("들고온 베이직넘버" + request.getParameter("BasicAddr"));
 		if(request.getParameter("BasicAddr") != null) {
 			BasicAddr = 1;
 		}
+		System.out.println("사용한 포인트" + request.getParameter("UseMileagePrice"));
 		System.out.println("기본 배송지 여부 : " + BasicAddr);
-		System.out.println("포인트 : " + request.getParameter("point"));
+		System.out.println("적립포인트 : " + request.getParameter("point"));
+		System.out.println("저장할 포인트" );
 		System.out.println("가격 : " + request.getParameter("Total"));
 		System.out.println("이름 : " + request.getParameter("memname"));
 		System.out.println("이메일 : " + request.getParameter("mememail"));
@@ -88,6 +92,7 @@ public class OrderCompleteAction implements Action {
 		receiverBean.setReceiver_addr_detail(request.getParameter("shipaddrd")); // 배송지 상세주소
 		receiverBean.setReceiver_member_id(id); // 아이디
 		
+		System.out.println("여기서 사이즈는??" + orderList.size());
 		// OrderCompleteService 인스턴스 생성 후 insertOrder() 메서드 호출하여 주문정보 추가하기
 		// 파라미터 : (ordersbean, receiverBean, orderList, id), 리턴타입 : boolean(isInsertSuccess)
 		OrderCompleteService orderCompleteService = new OrderCompleteService();
@@ -105,7 +110,7 @@ public class OrderCompleteAction implements Action {
 		} else {
 			// BasketDeleteOneService 인스턴스 생성 후 deleteBasket() 메서드 호출하여 장바구니 삭제하기
 			// 파라미터 : arrBasket, 리턴타입 : boolean(isDeleteSuccess)
-			boolean isDeleteSuccess = BasketDeleteOneService.deleteBasket(arrBasket); // 장바구니 삭제(상품개수 수정은 Admin 에서 관리!)
+			boolean isDeleteSuccess = BasketDeleteService.deleteBasket(id, product_num); // 장바구니 삭제(상품개수 수정은 Admin 에서 관리!)
 			if(!isDeleteSuccess) {
 				System.out.println("isDeleteSuccess 주문 실패!");
 				out.println("<script>");

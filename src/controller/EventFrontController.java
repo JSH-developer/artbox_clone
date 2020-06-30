@@ -10,13 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.event.EventCategoryListAction;
 import action.event.EventDeleteProAction;
 import action.event.EventDetailAction;
-import action.event.EventListAction;
 import action.event.EventModifyFormAction;
 import action.event.EventModifyProAction;
 import action.event.EventWriteProAction;
 import action.event.EventproductviewAction;
+import action.event.MypagePointListAction;
+import action.event.listEventAction;
 import svc.admin.ProductWriteService;
 import vo.ActionForward;
 
@@ -82,16 +84,16 @@ public class EventFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-		}else if(command.equals("/EventList.event")) { // 이벤트 메인리스트
-			System.out.println("/EventList.event");
-			action = new EventListAction();
+		}else if(command.equals("/EventCategoryList.event")) { // 이벤트 메인리스트 - sale_event
+			System.out.println("/EventCategoryList.event");
+			action = new EventCategoryListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		
-		}else if(command.equals("/EventDetail.event")) { // 이벤트 컨텐츠
+		}else if(command.equals("/EventDetail.event")) { // 클릭한 이벤트 컨텐츠
 			System.out.println("/EventDetail.event");
 			action = new EventDetailAction();
 			try {
@@ -110,6 +112,22 @@ public class EventFrontController extends HttpServlet {
 		}else if(command.equals("/EventDeletePro.event")) { // 이벤트 삭제
 			System.out.println("/EventDeletePro.event");
 			action = new EventDeleteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/listEvent.event")) { // 이벤트 삭제
+			System.out.println("/listEvent.event");
+			action = new listEventAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/MypagePointList.event")) { // 이벤트 삭제
+			System.out.println("/MypagePointList.event");
+			action = new MypagePointListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
