@@ -225,7 +225,6 @@
 		<section class="item-info">
 			<form action="" method="post" name="gfr">
 				<input type="hidden" name="pdt-price" value="8500">
-				<input type="hidden" name="product_num" value="${productBean.product_num}">
 				<input type="hidden" name="product_code" value="${productBean.product_code}">
 				<input type="hidden" name="product_name" value="${productBean.product_name}">
 				<input type="hidden" name="product_image" value="${productBean.product_image}">
@@ -252,7 +251,7 @@
 					</script>
 				</div>
 				<div class="text-info">
-					<div class="pdt-name">${productBean.product_name }</div>
+					<div class="pdt-name">${productBean.product_name } (${productBean.product_code})</div>
 					<div class="pdt-category">
 						<a href="${pageContext.request.contextPath}/itemList.item?major=${fn:substring(productBean.product_code,0,2)}" class="major">${category_sup }</a>
 						&gt;
