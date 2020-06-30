@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import action.Action;
 import svc.Basket.BasketDeleteService;
 import svc.Basket.OrderCompleteService;
-import svc.Basket.OrderOneListService;
+import svc.Basket.OrderListService;
 import vo.ActionForward;
 import vo.OrdersBean;
 import vo.ReceiverBean;
@@ -21,7 +21,7 @@ public class OrderCompleteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("OrderCompleteAction");
+//		System.out.println("OrderCompleteAction");
 		request.setCharacterEncoding("UTF-8");
 		
 		// 세션값(id) 가져오기
@@ -29,10 +29,7 @@ public class OrderCompleteAction implements Action {
 		String id = (String)session.getAttribute("id");
 
 		ActionForward forward = null;
-		String basketIdx = request.getParameter("basketIdx"); // 상품 번호(배열로 받아옴)
-		System.out.println("OrderCompleteAction 가져온 장바구니 값" + basketIdx);
-		String product_num = request.getParameter("product_num");
-		System.out.println("OrderCompleteAction 가져온 상품 번호 값" + product_num);
+		String product_num = request.getParameter("product_num"); // 상품 번호(배열로 받아옴)
 		
 		// 세션값(id) 없으면 로그인페이지로 돌아가기
 		if(id == null) {
@@ -42,30 +39,30 @@ public class OrderCompleteAction implements Action {
 			return forward;
 		}
 		
-		// OrderOneListService 인스턴스 생성 후 getOrderOneList() 메서드 호출하여 주문 정보 추가하기
+		// OrderListService 인스턴스 생성 후 getOrderList() 메서드 호출하여 주문 정보 추가하기
 		// 파라미터 : (id, arrBasket), 리턴타입 : List
-		OrderOneListService orderOneListService = new OrderOneListService();
-		List orderList = orderOneListService.getOrderOneList(id, product_num);
+		OrderListService orderListService = new OrderListService();
+		List orderList = orderListService.getOrderList(id, product_num);
 		
 		int BasicAddr = 0; // 기본 배송지 여부 (default 0, 1:기본배송지)
-		System.out.println("들고온 베이직넘버" + request.getParameter("BasicAddr"));
 		if(request.getParameter("BasicAddr") != null) {
 			BasicAddr = 1;
 		}
-		System.out.println("사용한 포인트" + request.getParameter("UseMileagePrice"));
-		System.out.println("기본 배송지 여부 : " + BasicAddr);
-		System.out.println("적립포인트 : " + request.getParameter("point"));
-		System.out.println("저장할 포인트" );
-		System.out.println("가격 : " + request.getParameter("Total"));
-		System.out.println("이름 : " + request.getParameter("memname"));
-		System.out.println("이메일 : " + request.getParameter("mememail"));
-		System.out.println("폰번호 : " + request.getParameter("tel"));
-		System.out.println("배송이름 : " + request.getParameter("shipname"));
-		System.out.println("배송우편 : " + request.getParameter("shipzipcode"));
-		System.out.println("배송주소 : " + request.getParameter("shipaddr"));
-		System.out.println("배송메세지 : " + request.getParameter("shipalertdesc"));
-		System.out.println("배송전화번호 : " + request.getParameter("shipcpnum1")+"-"+request.getParameter("shipcpnum2")+"-"+request.getParameter("shipcpnum3"));
-		System.out.println("페이방법 : " +  request.getParameter("pay_method"));
+		
+//		System.out.println("사용한 포인트" + request.getParameter("UseMileagePrice"));
+//		System.out.println("기본 배송지 여부 : " + BasicAddr);
+//		System.out.println("적립포인트 : " + request.getParameter("point"));
+//		System.out.println("저장할 포인트" );
+//		System.out.println("가격 : " + request.getParameter("Total"));
+//		System.out.println("이름 : " + request.getParameter("memname"));
+//		System.out.println("이메일 : " + request.getParameter("mememail"));
+//		System.out.println("폰번호 : " + request.getParameter("tel"));
+//		System.out.println("배송이름 : " + request.getParameter("shipname"));
+//		System.out.println("배송우편 : " + request.getParameter("shipzipcode"));
+//		System.out.println("배송주소 : " + request.getParameter("shipaddr"));
+//		System.out.println("배송메세지 : " + request.getParameter("shipalertdesc"));
+//		System.out.println("배송전화번호 : " + request.getParameter("shipcpnum1")+"-"+request.getParameter("shipcpnum2")+"-"+request.getParameter("shipcpnum3"));
+//		System.out.println("페이방법 : " +  request.getParameter("pay_method"));
 		
 		// 주문정보 추가를 위해 입력받은 데이터를 저장할 OrdersBean 객체 생성
 		OrdersBean ordersbean = new OrdersBean();
@@ -78,7 +75,7 @@ public class OrderCompleteAction implements Action {
 		ordersbean.setOrders_point(0); // 포인트
 		ordersbean.setOrders_total_price(Integer.parseInt(request.getParameter("Total"))); // 총합계
 		ordersbean.setOrders_payMethod("card"); // 결제 페이방법
-		ordersbean.setOrders_state(0); // 배송상태(0 default:결제완료-배송준비중)
+		ordersbean.setOrders_state(0); // 배송상태 (0 default:결제완료-배송준비중)
 		
 		// 배송지 추가를 위해 입력받은 데이터를 저장할 ReceiverBean 객체 생성
 		ReceiverBean receiverBean = new ReceiverBean();
@@ -86,13 +83,12 @@ public class OrderCompleteAction implements Action {
 		receiverBean.setReceiver_basic_num(BasicAddr); // 기본배송지 여부
 		receiverBean.setReceiver(request.getParameter("receiver")); // 배송지명
 		receiverBean.setReceiver_name(request.getParameter("shipname")); // 배송자명
-		receiverBean.setReceiver_phone(request.getParameter("shipcpnum1")+"-"+request.getParameter("shipcpnum2")+"-"+request.getParameter("shipcpnum3")); // 배송자번호
+		receiverBean.setReceiver_phone(request.getParameter("shipcpnum1")+"-"+request.getParameter("shipcpnum2")+"-"+request.getParameter("shipcpnum3")); // 배송자 전화번호
 		receiverBean.setReceiver_postcode(request.getParameter("shipzipcode")); // 배송지 우편번호
 		receiverBean.setReceiver_addr(request.getParameter("shipaddr")); // 배송지 주소
 		receiverBean.setReceiver_addr_detail(request.getParameter("shipaddrd")); // 배송지 상세주소
 		receiverBean.setReceiver_member_id(id); // 아이디
 		
-		System.out.println("여기서 사이즈는??" + orderList.size());
 		// OrderCompleteService 인스턴스 생성 후 insertOrder() 메서드 호출하여 주문정보 추가하기
 		// 파라미터 : (ordersbean, receiverBean, orderList, id), 리턴타입 : boolean(isInsertSuccess)
 		OrderCompleteService orderCompleteService = new OrderCompleteService();

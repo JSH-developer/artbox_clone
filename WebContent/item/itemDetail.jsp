@@ -201,19 +201,21 @@
 			}
 		});
 	}
-	// 장바구니 담기 버튼 클릭 시
-	function basketCheck() { // 확인/취소 선택 시 장바구니 상품 담음
-		var result = confirm("선택하신 상품이 장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?");
-		// result(확인/취소) 값을 넘겨줘서 Action 클래스에서 장바구니 페이지로 이동할지 안할지 판별
-		document.gfr.action = "insertBasket.basket?result="+result;
-		document.gfr.submit();
-	}
-	// 바로 구매하기 버튼 클릭 시(수정중)
-	function Order() {
-		document.gfr.action = "orderDirect.order";
-		document.gfr.submit();
-	}
 	
+	// '장바구니 담기' 및 '바로 구매하기' 버튼 클릭 이벤트
+	function Order(id) {
+		var product_num = $("input[name=product_num]").val();
+		if(id=='AddBasket') { // '장바구니 담기' 버튼 클릭 시
+			var result = confirm("선택하신 상품이 장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?");
+			// 확인/취소 선택 시 장바구니 상품 담음
+			// result(확인/취소) 값을 넘겨줘서 Action 클래스에서 장바구니 페이지 이동여부 판별
+			document.gfr.action = "insertBasket.basket?result="+result+"&product_num="+product_num;
+			document.gfr.submit();
+		} else if(id=='DirectOrder') { // '바로 구매하기' 버튼 클릭 시
+			document.gfr.action = "orderDirect.order?product_num="+product_num;
+			document.gfr.submit();
+		}
+	}
 	
 	// 쿠폰 중복 발급 x
 		function cpClick(){
@@ -340,8 +342,8 @@
 						</c:choose>
 					</div>
 					<div class="pdt-btnlist">
-						<span class="btnCart"><input type="button" value="장바구니 담기" onclick="basketCheck()"></span>
-						<span class="btnOrder"><input type="button" value="바로 구매하기" onclick="Order()"></span>
+						<span class="btnCart"><input type="button" value="장바구니 담기" id="AddBasket" onclick="Order(this.id)"></span>
+						<span class="btnOrder"><input type="button" value="바로 구매하기" id="DirectOrder" onclick="Order(this.id)"></span>
 						<span class="btn-share modal"></span>
 						<span class="btn-wish off"></span>
 					</div>

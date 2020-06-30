@@ -17,7 +17,7 @@ public class BasketInsertAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("BasketInsertAction");
+//		System.out.println("BasketInsertAction");
 		request.setCharacterEncoding("UTF-8");
 		ActionForward forward = null;
 		
@@ -32,6 +32,7 @@ public class BasketInsertAction implements Action {
 			forward.setPath("/artbox_clone/loginForm.member");
 			return forward;
 		}
+		
 		String result = request.getParameter("result");
 		int product_num = Integer.parseInt(request.getParameter("product_num"));
 		// 장바구니 추가를 위해 입력받은 데이터를 저장할 BasketBean 객체 생성

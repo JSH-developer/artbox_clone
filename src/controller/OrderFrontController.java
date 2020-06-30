@@ -13,7 +13,7 @@ import action.Action;
 import action.Basket.OrderCompleteAction;
 import action.Basket.OrderDetailListAction;
 import action.Basket.OrderDirectAction;
-import action.Basket.OrderOneListAction;
+import action.Basket.OrderListAction;
 import vo.ActionForward;
 
 @WebServlet("*.order")
@@ -28,7 +28,7 @@ public class OrderFrontController extends HttpServlet {
 		ActionForward forward = null;
 		
 		if(command.equals("/order.order")) { // 주문하기(OrderPay.jsp 화면)
-			action = new OrderOneListAction();
+			action = new OrderListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

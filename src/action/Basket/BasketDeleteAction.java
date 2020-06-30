@@ -10,24 +10,21 @@ import action.Action;
 import svc.Basket.BasketDeleteService;
 import vo.ActionForward;
 
-// 장바구니에서 선택된 물품을 삭제하는 BasketDeleteOneAction 클래스 정의
+// 장바구니에서 선택된 물품을 삭제하는 BasketDeleteAction 클래스 정의
 // 장바구니 삭제 성공 시 장바구니 목록(listBasket.basket)으로 이동
-public class BasketDeleteOneAction implements Action {
+public class BasketDeleteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("BasketDeleteOneAction");
+//		System.out.println("BasketDeleteAction");
 		ActionForward forward = null;
 		
-//		String basketIdx = request.getParameter("basketIdx");
-//		System.out.println("가져온값" + basketIdx);
 		// 세션값(id) 가져오기
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
 		String product_num = request.getParameter("product_num");
-		System.out.println("가져온값" + product_num);
 		
-		// BasketDeleteOneService 인스턴스 생성 후 deleteBasket() 메서드 호출하여 장바구니 삭제하기
+		// BasketDeleteService 인스턴스 생성 후 deleteBasket() 메서드 호출하여 장바구니 삭제하기
 		// => 파라미터 : 장바구니 인덱스번호 배열로 받음(arrBasket), 리턴타입 : boolean(isDeleteSuccess)
 		boolean isDeleteSuccess = BasketDeleteService.deleteBasket(id, product_num);
 	

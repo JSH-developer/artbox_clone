@@ -36,7 +36,7 @@ $(document).ready(function(){
 		fnBasketCalculate();
 	});
 
-	// 옵션변경 창 나타내기 / 숨기기
+	// 옵션변경 창 나타내기 및 숨기기
 	fnChangeOption = function(basketIdx){
 		if ($("#ItemListChangeOption"+basketIdx).css("display")=="none") {
 			$("#ItemListChangeOption"+basketIdx).css("display","block");
@@ -45,26 +45,24 @@ $(document).ready(function(){
 		}
 	}
 	
-	// 선택 주문 / 삭제 / 옵션변경
-	fnBasketOne = function(actiontype,basketIdx,qty,product_num){
-// 		alert(actiontype+"\n"+basketIdx+"\n"+qty+"\n"+product_num);
-		if (actiontype == "BUY") { // 바로주문하기 버튼 클릭시
+	// '바로주문하기' 및 'X버튼(삭제)' 및 '옵션변경' 버튼 클릭 이벤트
+	fnBasketOne = function(actiontype, basketIdx, qty, product_num){
+// 		alert(actiontype+"\n"+basketIdx+"\n"+qty+"\n"+product_num); // 값 확인용
+		if (actiontype == "BUY") { // '바로주문하기' 버튼 클릭 => 특정 상품만 주문
 			location.href = "order.order?basketIdx="+basketIdx+"&product_num="+product_num;
-		} else if (actiontype == "QTY" && product_num == 0) { // X(특정 상품 삭제) 버튼 클릭시
-			location.href = "deleteOne.basket?basketIdx="+basketIdx+"&product_num="+product_num;
+		} else if (actiontype == "QTY" && qty == 0) { // 'X' 버튼 클릭 => 특정 상품만 삭제
+			location.href = "deleteBasket.basket?basketIdx="+basketIdx+"&product_num="+product_num;
 			alert('삭제되었습니다.');
-		} else if (actiontype == "QTY" && product_num != 0) { // 옵션변경 버튼 클릭시
-			alert(actiontype+"\n"+basketIdx+"\n"+qty+"\n"+product_num);
+		} else if (actiontype == "QTY" && qty != 0) { // '옵션변경' 버튼 클릭 => 수량 변경
 			location.href = "updateQuantity.basket?basketIdx="+basketIdx+"&qty="+qty;
 			alert('변경되었습니다.');
 		}
 	}
 	
 	// 상품 수량 변경 옵션
-	fnSetQty = function(basketIdx,add){
-		var qty = parseInt($("#Qty"+basketIdx).val(),10)+parseInt(add,10);
-
-		if (qty<=0) {
+	fnSetQty = function(basketIdx, add){
+		var qty = parseInt($("#Qty"+basketIdx).val(), 10) + parseInt(add, 10);
+		if (qty <= 0) {
 			alert("0 이상의 값을 입력해야 합니다.");
 			return;
 		}
@@ -77,11 +75,11 @@ $(document).ready(function(){
 	    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
 	}
 	 
-	// 콤마풀기(혹시 모를 계산을 위해)
-	function uncomma(str) {
-	    str = String(str);
-	    return str.replace(/[^\d]+/g, '');
-	}
+// 	// 콤마풀기(혹시 모를 계산을 위해)
+// 	function uncomma(str) {
+// 	    str = String(str);
+// 	    return str.replace(/[^\d]+/g, '');
+// 	}
 	
 	// 장바구니 금액 계산
 	fnBasketCalculate = function(){
@@ -98,30 +96,31 @@ $(document).ready(function(){
 		
 		TotalPriceAmount = TotalPriceSum + TotalPriceDelivery;
 
-		$("#TotalPriceSum").text(comma(TotalPriceSum)); // 값변경
+		// 값 변경
+		$("#TotalPriceSum").text(comma(TotalPriceSum));
 		$("#TotalPriceDelivery").text(comma(TotalPriceDelivery));
 		$("#TotalPriceAmount").text(comma(TotalPriceAmount));
 	}
 
-	fnBasketCalculate();
+	fnBasketCalculate(); // 금액계산
 });
 
-// 상품 주문 및 상품 삭제
+// '주문하기' 및 '선택삭제' 버튼 클릭 이벤트
 function Select(id) {
-		var arrBasket = new Array();
-		var arrOption = new Array();
+		var arrBasket = new Array(); // 장바구니 번호들을 담을 배열 생성
+		var arrOption = new Array(); // 상품 번호들을 담을 배열 생성
 		$("input[name='BasketIdx']:checked").each(function(){
-			arrBasket.push($(this).attr("data-basketIdx"));
-			arrOption.push($(this).attr("data-product_num"));
+			arrBasket.push($(this).attr("data-basketIdx")); // 체크된 장바구니 번호들를 배열에 담음
+			arrOption.push($(this).attr("data-product_num")); // 체크된 상품 번호들를 배열에 담음
 		});
-		if(arrBasket=="") { // 체크된 상품이 없을 경우 (공통부분)
+		if(arrBasket=="") { // 체크된 상품이 하나도 없을 경우 (공통부분)
 			alert("선택된 상품이 없습니다.");
 			return;
 		}
-		if(id=='btn_basketDelete') { // 선택삭제 버튼일 경우
+		if(id=='btn_basketDelete') { // '선택삭제' 버튼 클릭 시(체크된 상품 장바구니에서 삭제)
 			alert('삭제되었습니다.');
-			location.href = "deleteOne.basket?basketIdx="+arrBasket+"&product_num="+arrOption;
-		} else if (id=='btn_basketOrder') { // 주문하기 버튼일 경우
+			location.href = "deleteBasket.basket?basketIdx="+arrBasket+"&product_num="+arrOption;
+		} else if (id=='btn_basketOrder') { // '주문하기' 버튼 클릭 시(체크된 상품 주문)
 			location.href = "order.order?basketIdx="+arrBasket+"&product_num="+arrOption;
 		}
 }
@@ -140,7 +139,7 @@ function Select(id) {
 <c:choose>
   <c:when test="${empty basketList }">
 <!-- 장바구니가 비었을 때 -->
-	<h1>장바구니 터엉~</h1>
+	<h1>장바구니 터엉~</h1><br><br>
 	<div class="BasketEmpty">
 		<span class="EmptyImage"><img src="${pageContext.request.contextPath}/Images/order/basket_empty_pc.png"></span><br>
 		장바구니에 담긴 상품이 없습니다.<br>
@@ -176,7 +175,7 @@ function Select(id) {
 								<fmt:formatNumber value="${price }" pattern="#,###"/> 원 X ${basketList.basket_quantity }개 = <fmt:formatNumber value="${price*basketList.basket_quantity}" pattern="#,###"/>원
 								</div>
 							</dd>
-							<dd class="tdDelete"><a class="BasketButtonX" href="javascript:fnBasketOne('QTY','${basketList.basket_num }',0,0);"><img src="${pageContext.request.contextPath}/Images/order/basket_x.png"></a></dd>
+							<dd class="tdDelete"><a class="BasketButtonX" href="javascript:fnBasketOne('QTY','${basketList.basket_num }',0,'${basketList.basket_product_num }');"><img src="${pageContext.request.contextPath}/Images/order/basket_x.png"></a></dd>
 						</dl>
 					</div>
 					<div class="tableDiv">

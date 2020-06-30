@@ -16,17 +16,18 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 
+// 장바구니 추가 및 제거 이벤트
 $(document).on("click",".basket", function(){
-	var product_name = $(this).attr("data-pdName");
-	var product_num = $(this).attr("data-pdNum");
-	var stockqty = 1;
+	var product_name = $(this).attr("data-pdName"); // 상품이름
+	var product_num = $(this).attr("data-pdNum"); // 상품번호
+	var stockqty = 1; // 수량
 	var result = 'itemList';
-		if ($(this).hasClass("on")){
-			$(this).css("color", "white");
-			$(this).removeClass("on");
-			$(this).addClass("off");
+		if ($(this).hasClass("on")){ // 장바구니에서 제거할 때
+			$(this).css("color", "white"); // 장바구니 이미지 하얗게
+			$(this).removeClass("on"); // Class 에서 on 제거
+			$(this).addClass("off"); // Class 에 off 추가
 			$.ajax({
-			    url: "/artbox_clone/deleteOne.basket",
+			    url: "/artbox_clone/deleteBasket.basket",
 			    data: { product_num: product_num },
 			    type: "GET"
 			}).done(function() { // 장바구니 제거 성공
@@ -34,19 +35,20 @@ $(document).on("click",".basket", function(){
 	        }).fail(function() { // 장바구니 제거 실패
 	            alert("장바구니 제거 실패");
 	        })
-		} else {
-			$(this).css("color", "red");
-			$(this).removeClass("off");
-			$(this).addClass("on");
+		} else { // 장바구니에 추가할 때
+			$(this).css("color", "red"); // 장바구니 이미지 빨갛게
+			$(this).removeClass("off"); // Class 에서 off 제거
+			$(this).addClass("on"); // Class 에 on 추가
 			$.ajax({
 			    url: "/artbox_clone/insertBasket.basket",
 			    data: { product_num: product_num, stockqty: stockqty, result: result },
 			    type: "GET"
-			}).done(function() { // 장바구니 추가 성공
-				alert(product_name + ' 이 장바구니에 추가되었습니다.');
-	        }).fail(function() { // 장바구니 추가 실패
-	            alert("장바구니 담기 실패");
-	        })
+			})
+// 			.done(function() { // 장바구니 추가 성공
+// 				alert(product_name + ' 이 장바구니에 추가되었습니다.');
+// 	        }).fail(function() { // 장바구니 추가 실패
+// 	            alert("장바구니 담기 실패");
+// 	        })
 		}
 });
 </script>

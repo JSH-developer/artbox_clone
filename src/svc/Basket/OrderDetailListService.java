@@ -10,7 +10,7 @@ import dao.OrderDAO;
 public class OrderDetailListService {
 
 	public List getOrderDetailList(String id) {
-		System.out.println("OrderDetailListService - getOrderDetailList()");
+//		System.out.println("OrderDetailListService - getOrderDetailList()");
 		
 		Connection con = getConnection();
 		OrderDAO orderDAO = OrderDAO.getInstance();

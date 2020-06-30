@@ -74,7 +74,7 @@ public class OrderDAO {
 	}
 	
 	// 주문 목록 출력(OrderPay.jsp) - 장바구니를 거치는 주문
-	public List<SelectOrderBean> OrderOneList(String member_id, int product_num) {
+	public List<SelectOrderBean> OrderList(String member_id, int product_num) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		SelectOrderBean bean = new SelectOrderBean();
@@ -106,7 +106,7 @@ public class OrderDAO {
 			}
 		} catch (SQLException e) {
 //				e.printStackTrace();
-			System.out.println("OrderDAO - selectOrderList() 실패! : " + e.getMessage());
+			System.out.println("OrderDAO - OrderList() 실패! : " + e.getMessage());
 		} finally {
 			close(rs);
 			close(pstmt);
@@ -339,7 +339,7 @@ public class OrderDAO {
 			}
 		} catch (SQLException e) {
 //			e.printStackTrace();
-			System.out.println("OrderDAO - getReceiverList() 실패! : " + e.getMessage());
+			System.out.println("OrderDAO - getBasicReceiverList() 실패! : " + e.getMessage());
 		} finally {
 			close(rs);
 			close(pstmt);
@@ -377,7 +377,7 @@ public class OrderDAO {
 			}
 		} catch (SQLException e) {
 //			e.printStackTrace();
-			System.out.println("OrderDAO - getReceiverList() 실패! : " + e.getMessage());
+			System.out.println("OrderDAO - getLastReceiverList() 실패! : " + e.getMessage());
 		} finally {
 			close(rs);
 			close(pstmt);

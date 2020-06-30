@@ -193,25 +193,6 @@ public class BasketDAO {
 	}
 	
 	// 상품 삭제
-//	public int deleteBasket(int basket_num){
-//		PreparedStatement pstmt = null;
-//		int deleteCount = 0;
-//		try {
-//			String sql = "DELETE FROM basket WHERE num=?";
-//			pstmt=con.prepareStatement(sql);
-//			pstmt.setInt(1, basket_num);
-//			
-//			deleteCount = pstmt.executeUpdate();
-//		} catch (SQLException e) {
-////			e.printStackTrace();
-//			System.out.println("BasketDAO - deleteBasket() 실패! : " + e.getMessage());
-//		} finally {
-//			close(pstmt);
-//		}
-//		return deleteCount;
-//	}
-	
-	// itemList.jsp 에서 상품 바로 삭제
 	public int deleteBasket(String member_id, int product_num){
 		PreparedStatement pstmt = null;
 		int deleteCount = 0;
@@ -223,7 +204,7 @@ public class BasketDAO {
 			deleteCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 //			e.printStackTrace();
-			System.out.println("BasketDAO - deleteBasket() 2개짜리 실패! : " + e.getMessage());
+			System.out.println("BasketDAO - deleteBasket() 실패! : " + e.getMessage());
 		} finally {
 			close(pstmt);
 		}

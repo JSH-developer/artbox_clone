@@ -10,7 +10,7 @@ import static db.jdbcUtil.*;
 public class BasketInsertService {
 	
 	public boolean insertBasket(BasketBean basketBean) {
-		System.out.println("BasketInsertService - insertBasket()");
+//		System.out.println("BasketInsertService - insertBasket()");
 		
 		boolean isBasketAddSuccess = false; // 장바구니 추가 성공여부를 리턴
 		
