@@ -28,14 +28,14 @@ public class AdminOrderViewService {
 		return ordersBean;
 	}
 
-	public ReceiverBean infoReceiver(int orders_order_num) {
+	public ReceiverBean infoReceiver(int num) {
 		ReceiverBean receiverBean = null;
 		
 		Connection con = getConnection();
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
 
-		receiverBean = adminDAO.toViewReceiver(orders_order_num);
+		receiverBean = adminDAO.toViewReceiver(num);
 		
 		close(con);
 		
@@ -43,7 +43,7 @@ public class AdminOrderViewService {
 	}
 	
 	
-	public ArrayList<OrdersDetailBean> infoOrdersDetail(int orders_order_num) {
+	public ArrayList<OrdersDetailBean> infoOrdersDetail(String orders_order_num) {
 		ArrayList<OrdersDetailBean> ordersDetailBeans = null; 
 		
 		Connection con = getConnection();

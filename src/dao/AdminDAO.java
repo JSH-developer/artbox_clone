@@ -1154,6 +1154,7 @@ public class AdminDAO {
 			
 			while(rs.next()) {
 				OrdersBean ordersBean = new OrdersBean();
+				ordersBean.setOrders_num(rs.getInt("num"));
 				ordersBean.setOrders_order_num(rs.getString("order_num"));
 				ordersBean.setOrders_state(rs.getInt("state"));
 				ordersBean.setOrders_regdate(rs.getTimestamp("regdate"));
@@ -1186,6 +1187,7 @@ public class AdminDAO {
 			
 			while(rs.next()) {
 				OrdersBean ordersBean = new OrdersBean();
+				ordersBean.setOrders_num(rs.getInt("num"));
 				ordersBean.setOrders_order_num(rs.getString("order_num"));
 				ordersBean.setOrders_state(rs.getInt("state"));
 				ordersBean.setOrders_regdate(rs.getTimestamp("regdate"));

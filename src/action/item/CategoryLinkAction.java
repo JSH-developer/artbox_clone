@@ -115,7 +115,7 @@ public class CategoryLinkAction implements Action {
 	public void setAttribute(String majorCategory, String name, String[] printCategory, HttpServletRequest request, HttpSession session) {
 		
 		session.setAttribute("code", majorCategory);
-		session.setAttribute("name", name);
+		session.setAttribute("cname", name);
 		request.setAttribute("select", majorCategory);
 		session.setAttribute("printCategory", printCategory);
 	}
