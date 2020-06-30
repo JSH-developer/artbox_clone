@@ -113,7 +113,7 @@ function Select(id) {
 		$("input[name='BasketIdx']:checked").each(function(){
 			arrBasket.push($(this).attr("data-basketIdx")); // 체크된 장바구니 번호들을 배열에 담음
 			arrOption.push($(this).attr("data-product_num")); // 체크된 상품 번호들을 배열에 담음
-			arrBasket.push($(this).attr("itemquantity")); // 체크된 장바구니 수량들을 배열에 담음
+			arrQty.push($(this).attr("itemquantity")); // 체크된 장바구니 수량들을 배열에 담음
 		});
 		if(arrBasket=="") { // 체크된 상품이 하나도 없을 경우 (공통부분)
 			alert("선택된 상품이 없습니다.");
