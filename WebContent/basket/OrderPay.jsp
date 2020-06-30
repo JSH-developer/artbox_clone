@@ -542,7 +542,7 @@ span.scoup { /*     쿠폰 팝업 창  */
    <c:set var="qqq" value="${price*orderList[0].quantity }"/>
          <div class="tableDiv">
             <dl class="trOrderItem 2002200265">
-               <dt class="tdImage"><a href="productDetail.basket?product_num=${orderList[0].itemNum }"><img src="basket/${orderList[0].itemImage }"/></a></dt>
+               <dt class="tdImage"><a href="itemDetail.item?product_num=${orderList[0].itemNum }"><img src="basket/${orderList[0].itemImage }"/></a></dt>
                <dt class="tdInner">
                   <div class="BasketListItemName">${orderList[0].itemName } (${orderList[0].itemCode })
                   </div>
@@ -1129,7 +1129,8 @@ span.scoup { /*     쿠폰 팝업 창  */
 
 <input type="hidden" id="pd_name" name="pd_name" value="${orderListOne[0].itemName }"/>
 <input type="hidden" id="Total" name="Total" value="${tps+tpd}"/>
-<input type="hidden" name="arrBasket" value="${arrBasket}"/>
+<input type="hidden" name="basketIdx" value="${basketIdx}"/>
+<input type="hidden" name="product_num" value="${product_num}">
 
 </form>
 

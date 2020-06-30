@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import svc.Basket.BasketDeleteService;
@@ -18,12 +19,17 @@ public class BasketDeleteOneAction implements Action {
 		System.out.println("BasketDeleteOneAction");
 		ActionForward forward = null;
 		
-		String arrBasket = request.getParameter("arrBasket");
-		System.out.println("가져온값" + arrBasket);
+//		String basketIdx = request.getParameter("basketIdx");
+//		System.out.println("가져온값" + basketIdx);
+		// 세션값(id) 가져오기
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
+		String product_num = request.getParameter("product_num");
+		System.out.println("가져온값" + product_num);
 		
 		// BasketDeleteOneService 인스턴스 생성 후 deleteBasket() 메서드 호출하여 장바구니 삭제하기
 		// => 파라미터 : 장바구니 인덱스번호 배열로 받음(arrBasket), 리턴타입 : boolean(isDeleteSuccess)
-		boolean isDeleteSuccess = BasketDeleteService.deleteBasket(arrBasket);
+		boolean isDeleteSuccess = BasketDeleteService.deleteBasket(id, product_num);
 	
 		// 삭제 결과에 따른 처리
 		// => isDeleteSuccess 가 false 일 경우

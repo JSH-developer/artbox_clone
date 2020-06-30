@@ -46,14 +46,15 @@ $(document).ready(function(){
 	}
 	
 	// 선택 주문 / 삭제 / 옵션변경
-	fnBasketOne = function(actiontype,basketIdx,qty,optionIdx){
-// 		alert(actiontype+"\n"+basketIdx+"\n"+qty+"\n"+optionidx);
+	fnBasketOne = function(actiontype,basketIdx,qty,product_num){
+// 		alert(actiontype+"\n"+basketIdx+"\n"+qty+"\n"+product_num);
 		if (actiontype == "BUY") { // 바로주문하기 버튼 클릭시
-			location.href = "order.order?basketIdx="+basketIdx+"&optionIdx="+optionIdx;
-		} else if (actiontype == "QTY" && optionidx == 0) { // X(특정 상품 삭제) 버튼 클릭시
-			location.href = "deleteOne.basket?basketIdx="+basketIdx;
+			location.href = "order.order?basketIdx="+basketIdx+"&product_num="+product_num;
+		} else if (actiontype == "QTY" && product_num == 0) { // X(특정 상품 삭제) 버튼 클릭시
+			location.href = "deleteOne.basket?basketIdx="+basketIdx+"&product_num="+product_num;
 			alert('삭제되었습니다.');
-		} else if (actiontype == "QTY" && optionidx != 0) { // 옵션변경 버튼 클릭시
+		} else if (actiontype == "QTY" && product_num != 0) { // 옵션변경 버튼 클릭시
+			alert(actiontype+"\n"+basketIdx+"\n"+qty+"\n"+product_num);
 			location.href = "updateQuantity.basket?basketIdx="+basketIdx+"&qty="+qty;
 			alert('변경되었습니다.');
 		}
@@ -111,7 +112,7 @@ function Select(id) {
 		var arrOption = new Array();
 		$("input[name='BasketIdx']:checked").each(function(){
 			arrBasket.push($(this).attr("data-basketIdx"));
-			arrOption.push($(this).attr("data-optionIdx"));
+			arrOption.push($(this).attr("data-product_num"));
 		});
 		if(arrBasket=="") { // 체크된 상품이 없을 경우 (공통부분)
 			alert("선택된 상품이 없습니다.");
@@ -119,9 +120,9 @@ function Select(id) {
 		}
 		if(id=='btn_basketDelete') { // 선택삭제 버튼일 경우
 			alert('삭제되었습니다.');
-			location.href = "deleteOne.basket?basketIdx="+arrBasket+"&optionIdx="+arrOption;
+			location.href = "deleteOne.basket?basketIdx="+arrBasket+"&product_num="+arrOption;
 		} else if (id=='btn_basketOrder') { // 주문하기 버튼일 경우
-			location.href = "order.order?basketIdx="+arrBasket+"&optionIdx="+arrOption;
+			location.href = "order.order?basketIdx="+arrBasket+"&product_num="+arrOption;
 		}
 }
 </script>
@@ -162,7 +163,7 @@ function Select(id) {
 		<div class="tableDiv BasketRow">
 			<dl class="trBasket ${basketList.basket_num }" >
 				<dt class="tdCheck">
-					<input type="checkbox" name="BasketIdx" id="Item${basketList.basket_num }" value="${basketList.basket_num }" data-optionIdx="${basketList.basket_product_num }" data-basketIdx="${basketList.basket_num }" realitemprice="${itemsList[status.index].product_sale_price}" itemprice="${itemsList[status.index].product_price}" itemquantity="${basketList.basket_quantity }" >
+					<input type="checkbox" name="BasketIdx" id="Item${basketList.basket_num }" value="${basketList.basket_num }" data-product_num="${basketList.basket_product_num }" data-basketIdx="${basketList.basket_num }" realitemprice="${itemsList[status.index].product_sale_price}" itemprice="${itemsList[status.index].product_price}" itemquantity="${basketList.basket_quantity }" >
 				</dt>
 				<dt class="tdImage"><a href="productDetail.basket?product_num=${basketList.basket_product_num }"><img src="basket/${itemsList[status.index].product_image }"></a></dt>
 				<dt class="tdInner">

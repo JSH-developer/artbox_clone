@@ -35,8 +35,10 @@ public class OrderOneListAction implements Action {
 			return forward;
 		}
 		
-		String arrBasket = request.getParameter("arrBasket"); // 장바구니 번호 가져오기(Basket.jsp에서)
-		System.out.println("OrderOneListAction 가져온값" + arrBasket);
+		String basketIdx = request.getParameter("basketIdx"); // 장바구니 번호 가져오기(Basket.jsp에서)
+		System.out.println("OrderOneListAction 가져온값" + basketIdx);
+		String product_num = request.getParameter("product_num");
+		System.out.println("OrderCompleteAction 가져온 상품 번호 값" + product_num);
 		
 		CouponService couponService = new CouponService();
 		ArrayList<CouponBean> mycouponList= couponService.getmycouponlist(id);
@@ -51,7 +53,7 @@ public class OrderOneListAction implements Action {
 		// => 파라미터 : (id, 상품번호) , 리턴타입 : List
 		OrderOneListService orderOneListService = new OrderOneListService();
 		List orderList = new ArrayList();
-		orderList = orderOneListService.getOrderOneList(id, arrBasket);
+		orderList = orderOneListService.getOrderOneList(id, basketIdx);
 		// getBasicReceiverList() 메서드 호출하여 기본배송지 목록 가져오기
 		// getLastReceiverList() 메서드 호출하여 최근배송지 목록 가져오기
 		List receiverBasicList = orderOneListService.getBasicReceiverList(id); // 기본배송지
@@ -62,7 +64,7 @@ public class OrderOneListAction implements Action {
 		// request 에 orderList / arrBasket / receiverBasicList / receiverLastList 담기
 		request.setAttribute("orderListOne", orderList.get(0));
 		request.setAttribute("orderList", orderList);
-		request.setAttribute("arrBasket", arrBasket); // 주문한 장바구니 번호 들고가기
+		request.setAttribute("product_num", product_num); // 주문한 장바구니 번호 들고가기
 		request.setAttribute("receiverBasicList", receiverBasicList);
 		request.setAttribute("receiverLastList", receiverLastList);
 		forward.setPath("/basket/OrderPay.jsp");

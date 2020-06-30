@@ -26,7 +26,7 @@ $(document).on("click",".basket", function(){
 			$(this).removeClass("on");
 			$(this).addClass("off");
 			$.ajax({
-			    url: "/artbox_clone/deleteDirect.basket",
+			    url: "/artbox_clone/deleteOne.basket",
 			    data: { product_num: product_num },
 			    type: "GET"
 			}).done(function() { // 장바구니 제거 성공

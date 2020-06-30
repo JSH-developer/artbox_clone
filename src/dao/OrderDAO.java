@@ -74,7 +74,7 @@ public class OrderDAO {
 	}
 	
 	// 주문 목록 출력(OrderPay.jsp) - 장바구니를 거치는 주문
-	public List<SelectOrderBean> OrderOneList(String member_id, int basket_num) {
+	public List<SelectOrderBean> OrderOneList(String member_id, int product_num) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		SelectOrderBean bean = new SelectOrderBean();
@@ -85,10 +85,10 @@ public class OrderDAO {
 					+ " product.code, product.name, product.image, product.price, basket.quantity, product.category_code"
 					+ " FROM member JOIN basket ON member.id = basket.member_id"
 					+ " JOIN product ON product.num = basket.product_num"
-					+ " WHERE member_id=? AND basket.num=?";
+					+ " WHERE member_id=? AND basket.product_num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member_id);
-			pstmt.setInt(2, basket_num);
+			pstmt.setInt(2, product_num);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				bean.setName(rs.getString("member.name"));
