@@ -1,5 +1,6 @@
 package action.item;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import action.Action;
 import svc.item.ReviewListSVC;
 import vo.ActionForward;
+import vo.PageInfo;
 import vo.ProductBean;
 
 public class ItemReviewAction implements Action {
@@ -17,6 +19,10 @@ public class ItemReviewAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("ItemReviewAction");
 		ActionForward forward = null;
+		PageInfo pageInfo = new PageInfo();
+		if(request.getParameter("page") != null) {
+			pageInfo.setPage(Integer.parseInt(request.getParameter("page")));
+		}
 		
 		//로그인 안했으면 id값 guest
 		HttpSession session = request.getSession();
@@ -32,6 +38,9 @@ public class ItemReviewAction implements Action {
 		if(tab=="mod") {
 			
 		}
+		
+		Timestamp now = new Timestamp(System.currentTimeMillis());
+		request.setAttribute("now", now);
 		
 		forward = new ActionForward();
 		forward.setPath("/item/itemReview.jsp");
