@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import action.Action;
 import svc.Basket.BasketDeleteService;
 import svc.Basket.OrderCompleteService;
+import svc.Basket.OrderItemListService;
 import svc.Basket.OrderListService;
 import vo.ActionForward;
 import vo.OrdersBean;
@@ -30,7 +31,9 @@ public class OrderCompleteAction implements Action {
 
 		ActionForward forward = null;
 		String product_num = request.getParameter("product_num"); // 상품 번호(배열로 받아옴)
-		
+		String stockqty = request.getParameter("stockqty"); // 상품 수량(배열로 받아옴)
+		System.out.println(stockqty);
+
 		// 세션값(id) 없으면 로그인페이지로 돌아가기
 		if(id == null) {
 			forward = new ActionForward();
@@ -41,8 +44,8 @@ public class OrderCompleteAction implements Action {
 		
 		// OrderListService 인스턴스 생성 후 getOrderList() 메서드 호출하여 주문 정보 추가하기
 		// 파라미터 : (id, arrBasket), 리턴타입 : List
-		OrderListService orderListService = new OrderListService();
-		List orderList = orderListService.getOrderList(id, product_num);
+		OrderItemListService orderItemListService = new OrderItemListService();
+		List orderList = orderItemListService.getOrderItemList(product_num, stockqty);
 		
 		int BasicAddr = 0; // 기본 배송지 여부 (default 0, 1:기본배송지)
 		if(request.getParameter("BasicAddr") != null) {
@@ -106,19 +109,19 @@ public class OrderCompleteAction implements Action {
 		} else {
 			// BasketDeleteOneService 인스턴스 생성 후 deleteBasket() 메서드 호출하여 장바구니 삭제하기
 			// 파라미터 : arrBasket, 리턴타입 : boolean(isDeleteSuccess)
-			boolean isDeleteSuccess = BasketDeleteService.deleteBasket(id, product_num); // 장바구니 삭제(상품개수 수정은 Admin 에서 관리!)
-			if(!isDeleteSuccess) {
-				System.out.println("isDeleteSuccess 주문 실패!");
-				out.println("<script>");
-				out.println("alert('주문 실패!')");
-				out.println("history.back();");
-				out.println("</script>");
-			} else {
+//			boolean isDeleteSuccess = BasketDeleteService.deleteBasket(id, product_num); // 장바구니 삭제(상품개수 수정은 Admin 에서 관리!)
+//			if(!isDeleteSuccess) {
+//				System.out.println("isDeleteSuccess 주문 실패!");
+//				out.println("<script>");
+//				out.println("alert('주문 실패!')");
+//				out.println("history.back();");
+//				out.println("</script>");
+//			} else {
 				System.out.println("주문 성공!");
 				forward = new ActionForward();
 				forward.setRedirect(true);
-				forward.setPath("listOrderDetail.order");
-			}
+				forward.setPath("listOrderDetail.order?product_num="+product_num);
+//			}
 		}
 		return forward;
 	}

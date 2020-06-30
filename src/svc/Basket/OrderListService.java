@@ -31,9 +31,9 @@ public class OrderListService {
 		
 		List list = new ArrayList();
 		for(String i:arrOption) {
-			List<SelectOrderBean> basketList = new ArrayList<SelectOrderBean>();
-			basketList = orderDAO.OrderList(member_id, Integer.parseInt(i));
-			list.add(basketList);
+			List<SelectOrderBean> orderList = new ArrayList<SelectOrderBean>();
+			orderList = orderDAO.OrderList(member_id, Integer.parseInt(i));
+			list.add(orderList);
 		}
 		
 		// 5. Connection 객체 반환

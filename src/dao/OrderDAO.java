@@ -423,33 +423,28 @@ public class OrderDAO {
 				receiver_num = rs.getInt(1);
 			}
 			// 주문상품만큼 INSERT
-			System.out.println(orderList+"1 get() 출력 값");
-			for(int i=0;i<orderList.size();i++) {
-				System.out.println("이거 orderList 사이즈" + orderList.size());
-				System.out.println(orderList.get(i)+" 2 get() 출력 값");
+			for(int i = 0; i < orderList.size(); i++) {
 				List list =  (List)orderList.get(i);
-				System.out.println(i+"i값");
-				System.out.println("이거 List 사이즈" + list.size());
-				SelectOrderBean selectOrderBean = (SelectOrderBean) list.get(0);
+				ProductBean bean = (ProductBean)list.get(0);
 				sql="INSERT INTO orders_detail VALUES(?,?,?,?,?,?,?,?,?)";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, num);
-				pstmt.setInt(2, selectOrderBean.getQuantity());
+				pstmt.setInt(2, bean.getProduct_stock_count());
 				pstmt.setString(3, orders_num);//주문번호
-				pstmt.setInt(4, selectOrderBean.getItemNum());
+				pstmt.setInt(4, bean.getProduct_num());
 				pstmt.setInt(5, receiver_num); // 배송지번호
-				pstmt.setString(6, selectOrderBean.getItemCode());
-				pstmt.setString(7, selectOrderBean.getItemName());
-				pstmt.setString(8, selectOrderBean.getItemImage());
-				pstmt.setInt(9, selectOrderBean.getItemprice());
+				pstmt.setString(6, bean.getProduct_code());
+				pstmt.setString(7, bean.getProduct_name());
+				pstmt.setString(8, bean.getProduct_image());
+				pstmt.setInt(9, bean.getProduct_price());
 				
 				insertDetailCount = pstmt.executeUpdate();
 				num++; //일련번호증가
 				if(insertDetailCount > 0) {
 					sql="UPDATE product SET stock_count=stock_count-? WHERE code=?";
 					pstmt=con.prepareStatement(sql);
-					pstmt.setInt(1, selectOrderBean.getQuantity());
-					pstmt.setString(2, selectOrderBean.getItemCode());
+					pstmt.setInt(1, bean.getProduct_stock_count());
+					pstmt.setString(2, bean.getProduct_code());
 					updateCount = pstmt.executeUpdate();
 				}
 			}
@@ -527,6 +522,35 @@ public class OrderDAO {
 		}
 		
 		return list;
+	}
+
+	public List OrderItemList(int product_num, int qty) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductBean bean = new ProductBean();
+		List OrderList = new ArrayList();
+		try {
+			String sql = "SELECT code, name, image, price FROM product WHERE num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, product_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				bean.setProduct_stock_count(qty); // 수량 담음
+				bean.setProduct_num(product_num);
+				bean.setProduct_code(rs.getString("code"));
+				bean.setProduct_name(rs.getString("name"));
+				bean.setProduct_image(rs.getString("image"));
+				bean.setProduct_price(rs.getInt("price"));
+				OrderList.add(bean);
+			}
+		} catch (SQLException e) {
+//				e.printStackTrace();
+			System.out.println("OrderDAO - OrderItemList() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return OrderList;
 	}
 
 }

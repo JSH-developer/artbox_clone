@@ -49,12 +49,12 @@ $(document).ready(function(){
 	fnBasketOne = function(actiontype, basketIdx, qty, product_num){
 // 		alert(actiontype+"\n"+basketIdx+"\n"+qty+"\n"+product_num); // 값 확인용
 		if (actiontype == "BUY") { // '바로주문하기' 버튼 클릭 => 특정 상품만 주문
-			location.href = "order.order?basketIdx="+basketIdx+"&product_num="+product_num;
+			location.href = "order.order?basketIdx="+basketIdx+"&product_num="+product_num+"&stockqty="+qty;
 		} else if (actiontype == "QTY" && qty == 0) { // 'X' 버튼 클릭 => 특정 상품만 삭제
 			location.href = "deleteBasket.basket?basketIdx="+basketIdx+"&product_num="+product_num;
 			alert('삭제되었습니다.');
 		} else if (actiontype == "QTY" && qty != 0) { // '옵션변경' 버튼 클릭 => 수량 변경
-			location.href = "updateQuantity.basket?basketIdx="+basketIdx+"&qty="+qty;
+			location.href = "updateQuantity.basket?basketIdx="+basketIdx+"&stockqty="+qty;
 			alert('변경되었습니다.');
 		}
 	}
@@ -109,9 +109,11 @@ $(document).ready(function(){
 function Select(id) {
 		var arrBasket = new Array(); // 장바구니 번호들을 담을 배열 생성
 		var arrOption = new Array(); // 상품 번호들을 담을 배열 생성
+		var arrQty = new Array();
 		$("input[name='BasketIdx']:checked").each(function(){
-			arrBasket.push($(this).attr("data-basketIdx")); // 체크된 장바구니 번호들를 배열에 담음
-			arrOption.push($(this).attr("data-product_num")); // 체크된 상품 번호들를 배열에 담음
+			arrBasket.push($(this).attr("data-basketIdx")); // 체크된 장바구니 번호들을 배열에 담음
+			arrOption.push($(this).attr("data-product_num")); // 체크된 상품 번호들을 배열에 담음
+			arrBasket.push($(this).attr("itemquantity")); // 체크된 장바구니 수량들을 배열에 담음
 		});
 		if(arrBasket=="") { // 체크된 상품이 하나도 없을 경우 (공통부분)
 			alert("선택된 상품이 없습니다.");
@@ -121,7 +123,7 @@ function Select(id) {
 			alert('삭제되었습니다.');
 			location.href = "deleteBasket.basket?basketIdx="+arrBasket+"&product_num="+arrOption;
 		} else if (id=='btn_basketOrder') { // '주문하기' 버튼 클릭 시(체크된 상품 주문)
-			location.href = "order.order?basketIdx="+arrBasket+"&product_num="+arrOption;
+			location.href = "order.order?basketIdx="+arrBasket+"&product_num="+arrOption+"&stockqty="+arrQty;
 		}
 }
 </script>

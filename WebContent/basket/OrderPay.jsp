@@ -520,6 +520,7 @@ span.scoup { /*     쿠폰 팝업 창  */
 <c:set var="tps" value="0"/>
 <c:forEach var="orderList" items="${orderList }" varStatus="status">
    <c:set var="price" value="${orderList[0].itemprice }"/>
+   <input type="hidden" name="stockqty" value="${orderList[0].quantity }"/>
    <c:set var="qqq" value="${price*orderList[0].quantity }"/>
          <div class="tableDiv">
             <dl class="trOrderItem 2002200265">
@@ -1106,7 +1107,7 @@ span.scoup { /*     쿠폰 팝업 창  */
 <input type="hidden" id="pd_name" name="pd_name" value="${orderListOne[0].itemName }"/>
 <input type="hidden" id="Total" name="Total" value="${tps+tpd}"/>
 <input type="hidden" name="basketIdx" value="${basketIdx}"/>
-<input type="hidden" name="product_num" value="${product_num}">
+<input type="hidden" name="product_num" value="${product_num}"/>
 
 </form>
 
@@ -1169,6 +1170,11 @@ $("#btn_order").click(function(){
 		$("input[name=OrderAgreeRule]").focus();
 		return;
 	}
+	
+	var arrQty = new Array();
+	$("input[name='stockqty']").each(function(){
+		arrQty.push($(this).val()); // 체크된 수량들을 배열에 담음
+	});
 	
 	// 아임포트 API
 // 	IMP.request_pay({

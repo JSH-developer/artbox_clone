@@ -205,6 +205,7 @@
 	// '장바구니 담기' 및 '바로 구매하기' 버튼 클릭 이벤트
 	function Order(id) {
 		var product_num = $("input[name=product_num]").val();
+		var stockqty = $("input[name=stockqty]").val();
 		if(id=='AddBasket') { // '장바구니 담기' 버튼 클릭 시
 			var result = confirm("선택하신 상품이 장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?");
 			// 확인/취소 선택 시 장바구니 상품 담음
@@ -212,7 +213,7 @@
 			document.gfr.action = "insertBasket.basket?result="+result+"&product_num="+product_num;
 			document.gfr.submit();
 		} else if(id=='DirectOrder') { // '바로 구매하기' 버튼 클릭 시
-			document.gfr.action = "orderDirect.order?product_num="+product_num;
+			document.gfr.action = "orderDirect.order?product_num="+product_num+"&stockqty="+stockqty;
 			document.gfr.submit();
 		}
 	}
