@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
@@ -96,6 +96,11 @@
 			<a href="#">구매후기 수정</a>
 		</div>
 		<div class="reviewWriteList">
+		<c:choose>
+			<c:when test="${empty reviewList }">
+				<div class="empty">구매후기가 없습니다.</div>
+			</c:when>
+			<c:otherwise>
 			<ul class="ItemList">
 				<c:forEach var="rl" items="${reviewList }">
 					<li>
@@ -105,7 +110,7 @@
 						<span class="itemname">${rl.product_name }</span>
 						<span class="itemname"> </span>
 						<span class="itemamt">
-							<span class="itemprice sale_N">${rl.product_price }</span>
+							<span class="itemprice sale_N">${rl.product_price }원</span>
 						</span>
 						<a class="btnWrite modal" href="javascript:setOpen(${rl.product_num });">구매후기 쓰기</a>
 						<span class="deadline">작성기한: <fmt:formatDate value="${rl.product_regdate }" pattern="yyyy.MM.dd"/>까지</span>
@@ -123,6 +128,8 @@
 				</li>
 			</ul>
 			<div class="clear"></div>
+			</c:otherwise>
+		</c:choose>
 		</div>
 		<div class="full-screen">
 			<div class="full-screen-close"></div>

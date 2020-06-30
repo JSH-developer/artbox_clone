@@ -28,8 +28,10 @@ public class ItemReviewAction implements Action {
 		ArrayList<ProductBean> reviewList = reviewListSVC.getReviewList((String)session.getAttribute("id"));
 		request.setAttribute("reviewList",reviewList);
 		
-		
-		
+		String tab = request.getParameter("tab");
+		if(tab=="mod") {
+			
+		}
 		
 		forward = new ActionForward();
 		forward.setPath("/item/itemReview.jsp");
