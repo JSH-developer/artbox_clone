@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import static db.jdbcUtil.*;
 
 import vo.MemberBean;
+import vo.ReceiverBean;
 
 public class MemberDAO {
 
@@ -29,11 +31,11 @@ public class MemberDAO {
 		this.con = con;
 	}
 	
-	public int JoinInsert(MemberBean bb) {
+	public int JoinInsert(MemberBean bb) { // 회원가입 INSERT
 		PreparedStatement pstmt = null;
 		int insertCount = 0;
 		try {
-			String sql = "insert into member values(null,?,?,?,?,?,?,?,?,?,0,?,?,1,now())";
+			String sql = "INSERT INTO member VALUES(null,?,?,?,?,?,?,?,?,?,0,?,?,1,now())";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bb.getId());
 			pstmt.setString(2, bb.getPw());
@@ -49,9 +51,6 @@ public class MemberDAO {
 			
 			insertCount = pstmt.executeUpdate();
 			
-			
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("MemberDAO - JoinInsert() 실패 : "+e.getMessage());
@@ -63,7 +62,7 @@ public class MemberDAO {
 		
 	}
 	
-	public boolean idcheck(String id) {
+	public boolean idcheck(String id) { //아이디 중복 체크
 		boolean idcheck = false;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -74,9 +73,7 @@ public class MemberDAO {
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-//				System.out.println("rs 아이디 : "+rs.getString("id"));
-//				System.out.println("DAO id : "+id);
-					idcheck =  true;
+					idcheck =  true; //아이디 중복!
 			}
 		} catch (SQLException e) {
 			System.out.println("DAO - idcheck 실패!"+e.getMessage());
@@ -87,7 +84,7 @@ public class MemberDAO {
 		return idcheck;
 	}
 
-	public int idpwSuccess(String id, String pw) {
+	public int idpwSuccess(String id, String pw) { // 패스워드 체크
 		int LoginSuccess = -1; // 아이디 존재안함
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -115,13 +112,13 @@ public class MemberDAO {
 	}
 	
 	
-	public MemberBean myName(String id) {
+	public MemberBean myName(String id) { //로그인 후 NAME 세션값 지정 및 프로필 들고오기
 		MemberBean bb = new MemberBean();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			String sql = "select * from member where id = ?";
+			String sql = "SELECT * FROM member WHERE id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
@@ -156,7 +153,7 @@ public class MemberDAO {
 		
 		
 	}
-	public void pwModify(String id, String newpw) {
+	public void pwModify(String id, String newpw) { // 
 		PreparedStatement pstmt = null;
 		try {
 			String sql = "UPDATE member SET pw = ? WHERE id = ?";
@@ -205,6 +202,37 @@ public class MemberDAO {
 		}finally {
 			close(pstmt);
 		}
+	}
+
+	public ReceiverBean ReceiverModify(int receiverNum) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ReceiverBean rb = new ReceiverBean();
+		try {
+			String sql = "SELECT * FROM receiver WHERE num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, receiverNum);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				rb.setReceiver_num(rs.getInt("num"));
+				rb.setReceiver(rs.getString("receiver"));
+				rb.setReceiver_name(rs.getString("receiver_name"));
+				rb.setReceiver_phone(rs.getString("receiver_phone"));
+				rb.setReceiver_postcode(rs.getString("receiver_postcode"));
+				rb.setReceiver_addr(rs.getString("receiver_addr"));
+				rb.setReceiver_addr_detail(rs.getString("receiver_addr_detail"));
+			}
+			
+		} catch (Exception e) {
+			System.out.println("pwModify오류 - "+e.getMessage());
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		
+		return rb;
 	}
 
 }

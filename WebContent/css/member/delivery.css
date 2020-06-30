@@ -14,9 +14,6 @@
 
 .mydelivery .top{
 	display: table-cell;
-}
-.mydelivery .top:nth-child(1) {
-	width:300px;
 	text-align:center;
 	background-color: #e4e4e4;
     color: #646464;
@@ -24,65 +21,51 @@
     height: 55px;
     line-height: 55px;
 }
-.mydelivery .top:nth-child(2){
-	width:150px;
-	text-align:center;
-	background-color: #e4e4e4;
-    color: #646464;
-    font-size: 18px;
-    height: 55px;
-    line-height: 55px;
-}
-.mydelivery .top:nth-child(n+3) {
-	width:380px;
-	text-align:center;
-	background-color: #e4e4e4;
-    color: #646464;
-    font-size: 18px;
-    height: 55px;
-    line-height: 55px;
-}
+.mydelivery .top:nth-child(1) {	width:150px;}
+.mydelivery .top:nth-child(2) {	width:150px;}
+.mydelivery .top:nth-child(3){	width:700px;}
+.mydelivery .top:nth-child(4) {	width:200px;}
 
 .mydelivery .bottom{
 	height: 65px;
 	line-height: 65px;
-}
-
-.mydelivery .bottom:nth-child(1){
-	width:300px;
 	text-align:center;
     color: #646464;
     font-size: 18px;
     display: table-cell;
     border-bottom: 1px solid #e4e4e4;
 }
+.mydelivery .bottom:nth-child(1){width:30px;}
+.mydelivery .bottom:nth-child(2){width:120px;}
+.mydelivery .bottom:nth-child(3){width:150px;}
+.mydelivery .bottom:nth-child(4){width:700px;}
+.mydelivery .bottom:nth-child(5){width:200px;}
 
-.mydelivery .bottom:nth-child(2){
-	width:150px;
-	text-align:center;
-    color: #646464;
-    font-size: 18px;
-    display: table-cell;
-    border-bottom: 1px solid #e4e4e4;
-}
-
-.mydelivery .bottom:nth-child(n+3){
-	width:380px;
-	text-align:center;
-    color: #646464;
-    font-size: 18px;
-    display: table-cell;
-    border-bottom: 1px solid #e4e4e4;
-}
-
-input[type="checkbox"]{
-	position:absolute;
-	left:400px;
+input[type="radio"]{
+	position:relative;
+	left:0px;
 	width: 30px;
 	height: 30px;
 	margin-top: 20px;
 }
 
+.middle0{
+	text-align: center;
+    padding: 70px 0;
+    font-size: 20px;
+    vertical-align: middle;
+    border-bottom: 1px solid #e4e4e4;
+    color: #808080;
+}
+
+.middle1{
+	text-align: center;
+    padding: 0px;
+    font-size: 20px;
+    vertical-align: middle;
+    border-bottom: 1px solid #e4e4e4;
+    color: #808080;
+}
 
 .button{
 	margin-top: 50px;

@@ -27,19 +27,22 @@
 			</div>
 			
 			<c:if test="${empty list }">
-				<div class="middle">
+				<div class="middle0">
 					등록된 배송지가 없습니다.
 				</div>
 			</c:if>
 			
 			<c:if test="${!empty list }">
-				<c:forEach var="rb" items="${list }">
-					<div class="middle">
-						<span class="bottom"><input type="checkbox" name="box[]">${rb.receiver }</span>
+				<c:forEach var="rb" items="${list }" varStatus="status">
+
+					<div class="middle1">
+						<span class="bottom"><input type="radio" name="box" value="${rb.receiver_num }"></span>
+						<span class="bottom">${rb.receiver }</span>
 						<span class="bottom">${rb.receiver_name}</span>
-						<span class="bottom">${rb.receiver_addr}</span>
+						<span class="bottom">${rb.receiver_addr} ${rb.receiver_addr_detail }</span>
 						<span class="bottom">${rb.receiver_phone}</span>
 					</div>
+	
 				</c:forEach>
 			</c:if>
 			
@@ -51,24 +54,17 @@
 			<span class="basic">기본 배송지로 선택</span>
 			<span class="add" onclick="location.href='MyPageDeliveryAdd.member'">배송지 추가</span>
 		</div>
-		
+	
+	<script src="js/jquery-3.5.0.js"></script>
 	<script type="text/javascript">
-		function rModify() {
-			
-		}
+// 		$(document).ready(function() {
+	
+			function rModify() {
+				var boxcheck = $('input[name="box"]:checked').val();
+				location.href="deliveryModify.member?num="+boxcheck;
+			}
+// 		});
 	</script>
-
-
-
-
-
-
-
-
-
-
-		
-<!-- 		       페이지 구현 				-->
 
 	</div>
 	

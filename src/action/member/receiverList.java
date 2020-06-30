@@ -25,7 +25,6 @@ public class receiverList implements Action {
 		List list = ReceiverSelectService.ReceiverSelect(id);
 		
 		request.setAttribute("list", list);
-		System.out.println("list - "+list);
 		
 		forward = new ActionForward();
 		forward.setPath("/member/myPageDelivery.jsp");

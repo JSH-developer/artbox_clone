@@ -17,6 +17,8 @@ import action.member.Action;
 import action.member.MemberCheckAction;
 import action.member.MemberDeleteAction;
 import action.member.MemberDeliveryAddAction;
+import action.member.MemberDeliveryModifyAction;
+import action.member.MemberDeliveryModifyProAction;
 import action.member.MemberJoinAction;
 import action.member.MemberJoinCheckAction;
 import action.member.MemberLoginAction;
@@ -171,6 +173,20 @@ public class MemberFrontController extends HttpServlet {
     		forward.setPath("/member/memberDelete.jsp");
     	}else if(command.equals("/deleteCheck.member")) {
     		action = new MemberDeleteAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/deliveryModify.member")) {
+    		action = new MemberDeliveryModifyAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/deliveryModifyPro.member")) {
+    		action = new MemberDeliveryModifyProAction();
     		try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
