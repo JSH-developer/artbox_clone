@@ -67,7 +67,7 @@ $(document).on("click",".basket", function(){
 		<b class="categoryName">${cname }</b>
         </div>
         <div class="category">
-            <span><a href="${pageContext.request.contextPath}/itemList.item?major=${code}">전체</a></span>
+            <span><a href="${pageContext.request.contextPath}/itemList.item?major=${code}&page=${page}">전체</a></span>
             	<c:forEach var="minorCategory" items="${printCategory}" varStatus="status">
             <span class="category_menu"><a href="${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${code}<fmt:formatNumber value="${status.count}" pattern="00" />&page=${page}">${minorCategory}</a></span>
             </c:forEach>

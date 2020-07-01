@@ -25,6 +25,7 @@ public class MyPageBuyProAction implements Action{
 		MyPageBuyService myPageBuyService = new MyPageBuyService();
 		myPageBuyService.changeBuyState(orders_order_num);
 		myPageBuyService.changeBuyPoint(point, id);
+		myPageBuyService.changeGrade(id);
 		
 		MyPageOrdersService myPageOrdersService = new MyPageOrdersService();
 		List<OrdersBean> myOrders = myPageOrdersService.getMyOrders(id);

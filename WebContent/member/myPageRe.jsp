@@ -7,17 +7,18 @@
 <head>
 <meta charset="UTF-8">
 <title>ARTBOX(포트폴리오)</title>
-<link href="css/member/myPage.css" rel="stylesheet">
-<link href="css/front.css" rel="stylesheet" type="text/css">
-<link href="css/slide.css" rel="stylesheet" type="text/css">
-<script src="../js/jquery-3.5.0.js"></script>
-<script type="text/javascript" src="member/myPage.js"></script>
+<link href="${pageContext.request.contextPath}/css/member/myPage.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/member/myPageRe.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/slide.css" rel="stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/member/myPage.js"></script>
 
 </head>
 <body>
 
 	<!-- 헤더 -->
-	<jsp:include page="../inc/top.jsp"></jsp:include>
+	<jsp:include page="/inc/top.jsp"></jsp:include>
 	<!-- 헤더 -->
 	<div class = "body_box">
 		<div class="top_box">
@@ -35,54 +36,19 @@
 
 
 		<div class="sel_box">
-			<select name="Term">
-				<option value="0">전체보기</option>
-				<option value="1">최근 1개월</option>
-				<option value="2">최근 2개월</option>
-				<option value="3">최근 3개월</option>
-				<option value="6">최근 6개월</option>
+<!-- 			<select name="Term"> -->
+<!-- 				<option value="0">전체보기</option> -->
+<!-- 				<option value="1">최근 1개월</option> -->
+<!-- 				<option value="2">최근 2개월</option> -->
+<!-- 				<option value="3">최근 3개월</option> -->
+<!-- 				<option value="6">최근 6개월</option> -->
 
-			</select>
+<!-- 			</select> -->
 		</div>
 
 
 		<div class="clear"></div>
 		<br>
-		
-		<style type="text/css">
-		.myOrders{
- 			border-top: 1px solid grey; 
- 			border-bottom: 1px solid grey;
-			height: auto;
-			padding: 10px;
-		}
-		.myOrderstb{
-			width: 100%;
-		}
-		
-		.myOrderstb td{
-			padding:10px;
-		}
-		
-		.myOrders button{
-			margin-top:5px;
-			padding:3px;
-		}
-		
-		.myOrderstb a:hover{
-			font-size: 20px;
-		}
-		
-		.state_box{
-			width:300px;
-			text-align: center;
-		}
-		
-		.info_box{
-			color:#eb5280;
-		}
-		
-		</style>
 		
 		<c:if test="${!empty myRes}">
 		<c:forEach var="res" items="${myRes}">

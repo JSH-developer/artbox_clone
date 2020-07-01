@@ -54,6 +54,27 @@ public class MyPageBuyService {
 		
 		return isChange;
 	}
+	
+	public boolean changeGrade(String id) {
+		boolean isChange = false;
+		
+		Connection con = getConnection();
+		
+		AdminDAO adminDAO = AdminDAO.getInstance();
+		adminDAO.setConnection(con);
+		int changeCount = adminDAO.changeGrade(id);
+		
+		if(changeCount > 0) {
+			isChange = true;
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return isChange;
+	}
 
 
 }

@@ -28,6 +28,7 @@ function buy(orders_order_num,point){
 
 </script>
 <link href="${pageContext.request.contextPath}/css/member/myPage.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/member/myPageOrders.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 <%-- <link href="${pageContext.request.contextPath}/css/slide.css" rel="stylesheet" type="text/css"> --%>
 </head>
@@ -55,60 +56,18 @@ function buy(orders_order_num,point){
 
 
 		<div class="sel_box">
-			<select name="Term" id="term" onchange="select()">
-				<option value="0">전체보기</option>
-				<option value="1" >최근 1개월</option>
-				<option value="2" >최근 2개월</option>
-				<option value="3" >최근 3개월</option>
-				<option value="6" >최근 6개월</option>
-			</select>
+<!-- 			<select name="Term" id="term" onchange="select()"> -->
+<!-- 				<option value="0">전체보기</option> -->
+<!-- 				<option value="1" >최근 1개월</option> -->
+<!-- 				<option value="2" >최근 2개월</option> -->
+<!-- 				<option value="3" >최근 3개월</option> -->
+<!-- 				<option value="6" >최근 6개월</option> -->
+<!-- 			</select> -->
 		</div>
 
 		<div class="clear"></div>
 		<br>
 		
-		<style type="text/css">
-		.myOrders{
- 			border-top: 1px solid grey; 
- 			border-bottom: 1px solid grey;
-			height: auto;
-			padding: 10px;
-		}
-		.myOrderstb{
-			width: 100%;
-		}
-		
-		.myOrderstb td{
-			padding:10px;
-		}
-		
-		.myOrders button{
-			margin-top:7px;
-			padding:8px;
-			color:white;
-			background: #f58495;
-			border: 1px solid #f58495;
-		}
-		
-		.myOrders button.confirm_btn{
-			background: grey;
-			border: 1px solid grey;
-		}
-		
-		.myOrderstb a:hover{
-			font-size: 20px;
-		}
-		
-		.state_box{
-			width:300px;
-			text-align: center;
-		}
-		
-		.info_box{
-			color:#eb5280;
-		}
-		
-		</style>
 		
 		<c:if test="${!empty myOrders }">
 		<c:forEach var="orders" items="${myOrders}">

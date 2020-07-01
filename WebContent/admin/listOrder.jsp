@@ -73,7 +73,7 @@ function change_state(){
 		<c:if test="${orderList[i].orders_state eq -1}">
 		배송취소
 		</c:if>
-		<c:if test="${orderList[i].orders_state eq -1}">
+		<c:if test="${orderList[i].orders_state eq 3}">
 		구매확정
 		</c:if>
 		</span><br><button onclick="window.open('./changeState.admin?num='+${orderList[i].orders_num}+'&status='+${orderList[i].orders_state}, '', 'width=700,height=250,left=250,top=250');">배송상태 변경</button></td></tr>

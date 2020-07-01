@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.admin.BestItemAction;
+import action.admin.CategoryWriteProAction;
 import vo.ActionForward;
 
 /**
@@ -24,20 +26,15 @@ public class HomeFrontController extends HttpServlet {
 	Action action = null;
 	ActionForward forward = null;
 
-// 쿠폰 등록 입력
 	if(command.equals("/Home.home")){
-		System.out.println("/Home.home");
-//		view로 이동할것임
-		// 글쓰기 페이지 요청은 비즈니스 로직이 없는 View 페이지(jsp)로 바로 연결 수행
-		// => ActionForward 객체의 포워딩 방식을 별도로 설정하지 않음(주소변경 x)
-		forward = new ActionForward();
-//		forward.setRedirect(false); // 포워딩 박식을 Dispatcher 방식으로 설정(기본값 생략 가능)
-		forward.setPath("/home/home.jsp"); // 이동할 View 페이지 경로 지정
-		
-// 쿠폰 등록 Pro
+		action = new BestItemAction();
+		try {
+			forward = action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
        
-	// ActionForward 객체 내의 포워딩 방식에 따라 각각의 포워딩 작업 수행
 	if(forward != null) {
 		
 		if(forward.isRedirect()) { // redirect 방식
@@ -48,8 +45,6 @@ public class HomeFrontController extends HttpServlet {
 		}
 		
 	}
-	
-	
 	
 }	
 

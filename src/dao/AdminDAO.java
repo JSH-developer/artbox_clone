@@ -1283,5 +1283,68 @@ public class AdminDAO {
 		
 		return changeCount;
 	}
+	
+	// 회원 등급 최신화
+	public int changeGrade(String id) {
+		int changeCount = 0;
+		
+		try {
+			String sql="UPDATE member SET grade = "+ 
+					"IF((SELECT SUM(total_price) FROM orders WHERE member_id=?)>=200000," + 
+					"'GOLD',IF((SELECT SUM(total_price) FROM orders WHERE member_id=?)>=500000,'DIAMOND','SILVER')) " + 
+					"WHERE id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, id);
+			pstmt.setString(3, id);
+			
+			changeCount = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return changeCount;
+	}
+
+	public ArrayList<ProductBean> toBestProduct() {
+		ArrayList<ProductBean> bestList= new ArrayList<ProductBean>();
+		
+		try {
+			String sql="SELECT num,name,image,price,sale_price FROM count ORDER BY cnt_order DESC, regdate DESC limit 0,10";
+			pstmt=con.prepareStatement(sql);
+			
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ProductBean productBean = new ProductBean();
+				productBean = new ProductBean();
+				productBean.setProduct_num(rs.getInt("num"));
+//				productBean.setProduct_code(rs.getString("code"));
+				productBean.setProduct_name(rs.getString("name"));
+				productBean.setProduct_image(rs.getString("image"));
+//				productBean.setProduct_description(rs.getString("description"));
+				productBean.setProduct_price(rs.getInt("price"));
+//				productBean.setProduct_brand(rs.getString("brand"));
+//				productBean.setProduct_stock_count(rs.getInt("stock_count"));
+				productBean.setProduct_sale_price(rs.getInt("sale_price"));
+//				productBean.setProduct_keywords(rs.getString("keywords"));
+//				productBean.setProduct_regdate(rs.getTimestamp("regdate"));
+//				productBean.setProduct_category_code(rs.getString("category_code"));
+//				productBean.setProduct_option_code(rs.getString("option_code"));
+				bestList.add(productBean);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return bestList;
+		
+	}
 
 }
