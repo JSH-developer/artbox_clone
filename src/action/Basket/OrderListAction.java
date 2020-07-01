@@ -13,13 +13,12 @@ import svc.Basket.OrderListService;
 import vo.ActionForward;
 import vo.CouponBean;
 
-// Basket.jsp 페이지에서 선택된 상품 주문을 하기위한 OrderOneListAction 클래스 정의
-// itemDetail.jsp 페이지에서 바로주문하기 버튼 클릭 시 상품 주문을 하기위한 OrderOneListAction 클래스 정의
+// Basket.jsp 페이지에서 선택된 상품 주문을 하기위한 OrderListAction 클래스 정의
 public class OrderListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		System.out.println("OrderListAction");
+		System.out.println("OrderListAction");
 		request.setCharacterEncoding("UTF-8");
 		
 		// 세션값(id) 가져오기
@@ -61,6 +60,7 @@ public class OrderListAction implements Action {
 		request.setAttribute("orderListOne", orderList.get(0)); // 상품명 뿌리기 위해서 한 칸 담음
 		request.setAttribute("orderList", orderList);
 		request.setAttribute("product_num", product_num); // 주문한 장바구니 번호 들고가기
+		request.setAttribute("stockqty", request.getParameter("stockqty")); // 주문한 상품에 해당하는 수량 들고가기
 		request.setAttribute("receiverBasicList", receiverBasicList);
 		request.setAttribute("receiverLastList", receiverLastList);
 		forward.setPath("/basket/OrderPay.jsp");

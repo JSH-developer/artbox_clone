@@ -25,23 +25,25 @@ public class OrderItemListService {
 		orderDAO.setConnection(con);
 		
 		String[] arrOption = product_num.split(",");
+		int[] arrOptionNum = new int[arrOption.length];
+		for(int i = 0; i < arrOption.length; i++) {
+			arrOptionNum[i] = Integer.parseInt(arrOption[i]);
+			System.out.println("차" + arrOptionNum[i]);
+		}
 		String[] arrQty = stockqty.split(",");
+		int[] arrQtyNum = new int[arrQty.length];
+		for(int i = 0; i < arrQty.length; i++) {
+			arrQtyNum[i] = Integer.parseInt(arrQty[i]);
+			System.out.println("핫" + arrQtyNum[i]);
+		}
 		// 4. orderDAO 클래스의 OrderList() 메서드를 호출하여
 		//    파라미터 : member_id, product_num
 		//    리턴타입 : List
 		
-		for(String i:arrQty) {
-			System.out.println("차" + Integer.parseInt(i));
-		}
-		for(String i:arrOption) {
-			System.out.println("핫" + Integer.parseInt(i));
-		}
 		List list = new ArrayList();
-		for(int i = 0; i < arrOption.length; i++) {
-			String optionIdx = arrOption[i];
-			String stockQty = arrQty[i];
+		for(int i = 0; i < arrOptionNum.length; i++) {
 			List orderList = new ArrayList();
-			orderList = orderDAO.OrderItemList(Integer.parseInt(optionIdx), Integer.parseInt(stockQty));
+			orderList = orderDAO.OrderItemList(arrOptionNum[i], arrQtyNum[i]);
 			list.add(orderList);
 		}
 //		for(String i:arrOption) {

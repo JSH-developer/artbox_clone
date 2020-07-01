@@ -492,7 +492,7 @@ span.scoup { /*     쿠폰 팝업 창  */
 <jsp:include page="../inc/top.jsp"></jsp:include>
 <!-- 헤더 -->
 
-<form method="post" name="Order" action="">
+<form method="post" name="Order" action="orderComplete.order">
 <div class="OrderWrap" id="OrderWrap">
    <h1>주문하기</h1>
    
@@ -1105,9 +1105,8 @@ span.scoup { /*     쿠폰 팝업 창  */
 
 <input type="hidden" id="pd_name" name="pd_name" value="${orderListOne[0].itemName }"/>
 <input type="hidden" id="Total" name="Total" value="${tps+tpd}"/>
-<input type="hidden" name="basketIdx" value="${basketIdx}"/>
-<input type="hidden" name="product_num" value="${product_num}"/>
 <input type="hidden" name="stockqty" value="${stockqty}"/>
+<input type="hidden" name="product_num" value="${product_num}"/>
 
 </form>
 

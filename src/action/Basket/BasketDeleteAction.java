@@ -16,7 +16,7 @@ public class BasketDeleteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		System.out.println("BasketDeleteAction");
+		System.out.println("BasketDeleteAction");
 		ActionForward forward = null;
 		
 		// 세션값(id) 가져오기

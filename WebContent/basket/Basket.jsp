@@ -89,7 +89,7 @@ $(document).ready(function(){
 
 		$("input[name=BasketIdx]").each(function(){ //금액 계산
 			if ($(this).prop("checked")) {
-				TotalPriceSum = TotalPriceSum + parseInt($(this).attr("itemprice"),10) * parseInt($(this).attr("itemquantity"),10);
+				TotalPriceSum = TotalPriceSum + parseInt($(this).attr("itemprice"),10) * parseInt($(this).attr("data-itemquantity"),10);
 				TotalPriceDelivery = TotalPriceSum>=30000?0:2500;
 			}
 		});
@@ -112,9 +112,10 @@ function Select(id) {
 		var arrQty = new Array();
 		$("input[name='BasketIdx']:checked").each(function(){
 			arrBasket.push($(this).attr("data-basketIdx")); // 체크된 장바구니 번호들을 배열에 담음
+			arrQty.push($(this).attr("data-itemquantity")); // 체크된 장바구니 수량들을 배열에 담음
 			arrOption.push($(this).attr("data-product_num")); // 체크된 상품 번호들을 배열에 담음
-			arrQty.push($(this).attr("itemquantity")); // 체크된 장바구니 수량들을 배열에 담음
 		});
+		alert(arrBasket+"/n"+arrQty+"/n"+arrOption+"/n")
 		if(arrBasket=="") { // 체크된 상품이 하나도 없을 경우 (공통부분)
 			alert("선택된 상품이 없습니다.");
 			return;
@@ -123,7 +124,7 @@ function Select(id) {
 			alert('삭제되었습니다.');
 			location.href = "deleteBasket.basket?basketIdx="+arrBasket+"&product_num="+arrOption;
 		} else if (id=='btn_basketOrder') { // '주문하기' 버튼 클릭 시(체크된 상품 주문)
-			location.href = "order.order?basketIdx="+arrBasket+"&product_num="+arrOption+"&stockqty="+arrQty;
+			location.href = "order.order?basketIdx="+arrBasket+"&stockqty="+arrQty+"&product_num="+arrOption;
 		}
 }
 </script>
@@ -164,7 +165,7 @@ function Select(id) {
 		<div class="tableDiv BasketRow">
 			<dl class="trBasket ${basketList.basket_num }" >
 				<dt class="tdCheck">
-					<input type="checkbox" name="BasketIdx" id="Item${basketList.basket_num }" value="${basketList.basket_num }" data-product_num="${basketList.basket_product_num }" data-basketIdx="${basketList.basket_num }" realitemprice="${itemsList[status.index].product_sale_price}" itemprice="${itemsList[status.index].product_price}" itemquantity="${basketList.basket_quantity }" >
+					<input type="checkbox" name="BasketIdx" id="Item${basketList.basket_num }" value="${basketList.basket_num }" data-product_num="${basketList.basket_product_num }" data-basketIdx="${basketList.basket_num }" realitemprice="${itemsList[status.index].product_sale_price}" itemprice="${itemsList[status.index].product_price}" data-itemquantity="${basketList.basket_quantity }" >
 				</dt>
 				<dt class="tdImage"><a href="productDetail.basket?product_num=${basketList.basket_product_num }"><img src="basket/${itemsList[status.index].product_image }"></a></dt>
 				<dt class="tdInner">

@@ -15,7 +15,7 @@ public class BasketListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		System.out.println("BasketListAction");
+		System.out.println("BasketListAction");
 		request.setCharacterEncoding("UTF-8");
 		ActionForward forward = null;
 		

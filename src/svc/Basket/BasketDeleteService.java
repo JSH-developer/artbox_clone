@@ -9,7 +9,7 @@ import dao.BasketDAO;
 public class BasketDeleteService {
 
 	public static boolean deleteBasket(String member_id, String product_num) { // 여러개 삭제
-//		System.out.println("BasketDeleteService - deleteBasket()");
+		System.out.println("BasketDeleteService - deleteBasket()");
 		
 		boolean isBasketDeleteSuccess = false; // 장바구니 삭제 성공여부를 리턴
 		

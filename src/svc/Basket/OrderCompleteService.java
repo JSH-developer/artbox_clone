@@ -11,7 +11,7 @@ import vo.ReceiverBean;
 
 public class OrderCompleteService {
 	public boolean insertOrder(OrdersBean ordersbean, ReceiverBean receiverBean, List orderList, String id) {
-//		System.out.println("OrderCompleteService - insertOrder()");
+		System.out.println("OrderCompleteService - insertOrder()");
 		
 		boolean isOrderInsertSuccess = false; // 장바구니 추가 성공여부를 리턴
 		

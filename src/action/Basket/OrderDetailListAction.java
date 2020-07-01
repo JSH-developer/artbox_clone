@@ -17,7 +17,7 @@ public class OrderDetailListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		System.out.println("OrderDetailListAction");
+		System.out.println("OrderDetailListAction");
 		request.setCharacterEncoding("UTF-8");
 		
 		// 세션값(id) 가져오기

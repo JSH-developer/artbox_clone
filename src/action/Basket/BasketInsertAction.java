@@ -11,13 +11,13 @@ import svc.Basket.BasketInsertService;
 import vo.ActionForward;
 import vo.BasketBean;
 
-// itemDetail.jsp 페이지에서 장바구니 담기 버튼 클릭시 장바구니에 추가하는 BasketInsertAction 클래스 정의
+// itemDetail.jsp / itemList.jsp 페이지에서 장바구니 담기 버튼 클릭시 장바구니에 추가하는 BasketInsertAction 클래스 정의
 // 장바구니 담기 성공 시 장바구니 목록(listBasket.basket)으로 이동
 public class BasketInsertAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		System.out.println("BasketInsertAction");
+		System.out.println("BasketInsertAction");
 		request.setCharacterEncoding("UTF-8");
 		ActionForward forward = null;
 		

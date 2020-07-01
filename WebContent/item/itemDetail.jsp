@@ -324,10 +324,10 @@
 							<input type="button" class="btnStockQty Plus" value="+">
 							<c:choose>
 								<c:when test="${productBean.product_stock_count == 0 }">
-									<input type="tel" name="stockqty" value="0" maxlength="4">
+									<input type="tel" name="stockqty" id="stockqty" value="0" maxlength="4">
 								</c:when>
 								<c:otherwise>
-									<input type="tel" name="stockqty" value="1" maxlength="4">
+									<input type="tel" name="stockqty" id="stockqty" value="1" maxlength="4">
 								</c:otherwise>
 							</c:choose>
 						</span>

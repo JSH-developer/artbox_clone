@@ -9,7 +9,7 @@ import dao.BasketDAO;
 public class BasketQuantityUpdateService {
 
 	public static boolean updateBasket(int basketIdx, int quantity) {
-//		System.out.println("BasketQuantityUpdateService - updateBasket()");
+		System.out.println("BasketQuantityUpdateService - updateBasket()");
 		
 		boolean isBasketUpdateSuccess = false; // 장바구니 추가 성공여부를 리턴
 		

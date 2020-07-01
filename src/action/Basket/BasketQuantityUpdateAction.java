@@ -14,7 +14,7 @@ public class BasketQuantityUpdateAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		System.out.println("BasketQuantityUpdateAction");
+		System.out.println("BasketQuantityUpdateAction");
 		ActionForward forward = new ActionForward();
 		
 		int basketIdx = Integer.parseInt(request.getParameter("basketIdx")); // 장바구니 번호

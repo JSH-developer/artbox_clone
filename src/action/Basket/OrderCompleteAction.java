@@ -22,7 +22,7 @@ public class OrderCompleteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		System.out.println("OrderCompleteAction");
+		System.out.println("OrderCompleteAction");
 		request.setCharacterEncoding("UTF-8");
 		
 		// 세션값(id) 가져오기
@@ -32,7 +32,8 @@ public class OrderCompleteAction implements Action {
 		ActionForward forward = null;
 		String product_num = request.getParameter("product_num"); // 상품 번호(배열로 받아옴)
 		String stockqty = request.getParameter("stockqty"); // 상품 수량(배열로 받아옴)
-		System.out.println(stockqty);
+		System.out.println(stockqty+"수량");
+		System.out.println(product_num+"번호");
 
 		// 세션값(id) 없으면 로그인페이지로 돌아가기
 		if(id == null) {
@@ -41,7 +42,7 @@ public class OrderCompleteAction implements Action {
 			forward.setPath("/artbox_clone/loginForm.member");
 			return forward;
 		}
-		
+
 		// OrderListService 인스턴스 생성 후 getOrderList() 메서드 호출하여 주문 정보 추가하기
 		// 파라미터 : (id, arrBasket), 리턴타입 : List
 		OrderItemListService orderItemListService = new OrderItemListService();
