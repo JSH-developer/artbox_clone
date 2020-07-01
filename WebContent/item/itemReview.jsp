@@ -98,7 +98,7 @@
 		<div class="reviewWriteList">
 		<c:choose>
 			<c:when test="${empty reviewList }">
-				<div class="empty">구매후기가 없습니다.</div>
+				<div class="empty">주문 내역이 없습니다.</div>
 			</c:when>
 			<c:otherwise>
 			<ul class="ItemList">
@@ -114,19 +114,41 @@
 						</span>
 						<a class="btnWrite modal" href="javascript:setOpen(${rl.product_num });">구매후기 쓰기</a>
 						<span class="deadline">작성기한: <fmt:formatDate value="${rl.product_regdate }" pattern="yyyy.MM.dd"/>까지</span>
- 						<span class="deadline">${rl.product_regdate }</span>
-						<span class="deadline">${now }</span>
+ 						<span class="deadline">${rl.keywords }</span>
 					</li>
 				</c:forEach>
 				<li>
 					<div class="paging">
 						<span class="box">
-							<a href="#"> <img class="opacity" src="../Images/order/btn_board_prev.gif"> </a>
-							<a href="#" class="btn_pageon">1</a>
-							<a href="#">2</a>
-							<a href="#"> <img class="paging_pc" src="../Images/order/btn_board_next.gif"> </a>
-						</span>
+						<c:choose>
+							<c:when test="${pageInfo.page == 1 }">
+								<a href="javascript:prev();"> <img class="opacity" src="${pageContext.request.contextPath}/Images/order/btn_board_prev.gif"> </a>
+							</c:when>
+							<c:otherwise>
+								<a href="itemReview.item?page=${pageInfo.page-1 }"> <img src="${pageContext.request.contextPath}/Images/order/btn_board_prev.gif"> </a>
+							</c:otherwise>
+						</c:choose>
+						<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+							<c:choose>
+								<c:when test="${i == pageInfo.page }">
+									<a href="itemReview.item?page=${i }" class="btn_pageon">${i }</a>
+								</c:when>
+								<c:otherwise>
+									<a href="itemReview.item?page=${i }">${i }</a>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<c:choose>
+							<c:when test="${pageInfo.page == pageInfo.endPage }">
+								<a href="javascript:next();"> <img class="opacity" src="${pageContext.request.contextPath}/Images/order/btn_board_next.gif"> </a>
+							</c:when>
+							<c:otherwise>
+								<a href="itemReview.item?page=${pageInfo.page+1 }"> <img src="${pageContext.request.contextPath}/Images/order/btn_board_next.gif"> </a>
+							</c:otherwise>
+						</c:choose>
+					</span>
 					</div>
+					
 				</li>
 			</ul>
 			<div class="clear"></div>

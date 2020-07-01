@@ -32,8 +32,10 @@ public class CategoryLinkAction implements Action {
 		int page = Integer.parseInt(request.getParameter("page"));
 		List<ProductBean> productBean = new ArrayList<ProductBean>();
 		int count = 0;
+System.out.println(kwd);
 
-	if(kwd!=null) { //검색시 
+	if(!kwd.equals("")) { //검색시 
+		System.out.println("키워드 검색시");
 		SearchSVC searchSVC = new SearchSVC();
 		//검색된 상품 
 		productBean = searchSVC.search(kwd);
@@ -44,7 +46,9 @@ public class CategoryLinkAction implements Action {
 		//기존에 존재하던 하위카테고리 삭제 
 		session.removeAttribute("printCategory");
 	}else{
-		if(minorCategory==null) { //대분류 카테고리까지 선택시 
+		System.out.println("키워드 검색이 아니다 !");
+		if(!majorCategory.equals("") && minorCategory.equals("")) { //대분류 카테고리까지 선택시 
+			System.out.println("대분류 선택시");
 			//대분류 파라미터 검증 
 			findCategory(majorCategory,request,session);
 			
@@ -55,6 +59,7 @@ public class CategoryLinkAction implements Action {
 			count = productBean.size();
 			
 		}else { //소분류 카테고리까지 선택시 
+			System.out.println("소분류 선택시");
 			//소분류 파라미터에 해당하는 상품목록 불러오기 
 			CategoryMinorLinkSVC minorLinkSVC = new CategoryMinorLinkSVC();
 			productBean = minorLinkSVC.minorLinkSVC(minorCategory);
@@ -67,7 +72,8 @@ public class CategoryLinkAction implements Action {
 		
 	}
 	//셀렉트박스 정렬
-	if(doOrder!=null) {
+	if(!doOrder.equals("")) {
+		System.out.println("셀렉트 박스 정렬");
 			for(ProductBean a:productBean) {// null값 0으로 초기화 (null pointer exception 방지)
 				if(a.getProduct_cnt_review()==null) {
 					a.setProduct_cnt_review("0");
@@ -76,7 +82,7 @@ public class CategoryLinkAction implements Action {
 					a.setProduct_cnt_order("0");
 				}
 			}
-			selectBox(doOrder, productBean);
+			productBean = selectBox(doOrder, productBean);
 	}
 	//--------------------------페이징처리-----------------------------
 	//startPage 구하기 
@@ -92,7 +98,6 @@ public class CategoryLinkAction implements Action {
 		int lastPage=0;
 		if(count%20 != 0) lastPage=(count/20)+1;
 		else if(count%20 == 0) lastPage=count/20;
-		System.out.println(lastPage);
 	//--------------------------페이징처리-------------------------------
 		
 		//페이지에 따른 상품 불러오기 
@@ -159,7 +164,7 @@ public class CategoryLinkAction implements Action {
 		}
 	}
 	
-	public void selectBox(String doOrder, List<ProductBean> productBean) {
+	public List<ProductBean> selectBox(String doOrder, List<ProductBean> productBean) {
 //		1 = 신상품순
 //		2 = 인기상품순
 //		3 = 낮은가격순
@@ -229,6 +234,7 @@ public class CategoryLinkAction implements Action {
 			});
 		Collections.reverse(productBean); //desc
 		}
+		return productBean;
 	}
 	
 

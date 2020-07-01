@@ -28,9 +28,9 @@
 		<b class="categoryName">${name }</b>
         </div>
         <div class="category">
-            <span><a href="${pageContext.request.contextPath}/itemList.item?major=${code}">전체</a></span>
+            <span><a href="${pageContext.request.contextPath}/itemList.item?major=${code}&minor=&kwd=${kwd}&doOrder=&page=1">전체</a></span>
             	<c:forEach var="minorCategory" items="${printCategory}" varStatus="status">
-            <span class="category_menu"><a href="${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${code}<fmt:formatNumber value="${status.count}" pattern="00" />&page=${page}">${minorCategory}</a></span>
+            <span class="category_menu"><a href="${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${code}<fmt:formatNumber value="${status.count}" pattern="00" />&kwd=${kwd}&doOrder=&page=${page}">${minorCategory}</a></span>
             </c:forEach>
         </div>
 
@@ -44,22 +44,22 @@
 					<option>
 					선택하세요 
 					</option>                
-                    <option value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=1&page=1">
+                    <option value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=1&page=${page}">
                         신상품순
                     </option>
-                    <option value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=2&page=1">
+                    <option value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=2&page=${page}">
                         인기상품순
                     </option>
-                    <option value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=3&page=1">
+                    <option value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=3&page=${page}">
                         낮은가격순
                     </option>
-                    <option value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=4&page=1">
+                    <option value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=4&page=${page}">
                         높은가격순
                     </option>
-                    <option value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=5&page=1">
+                    <option value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=5&page=${page}">
                         높은할인율순
                     </option>
-                    <option value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=6&page=1">
+                    <option value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=6&page=${page}">
                         상품평순
                     </option>
 

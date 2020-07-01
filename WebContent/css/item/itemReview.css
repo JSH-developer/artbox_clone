@@ -165,7 +165,7 @@ a {text-decoration:none}
 	border-radius: .25em;
 }
 .overlay-body .input label input[type="file"] { /* 파일 필드 숨기기 */
-/* 	display: none; */
+	display: none;
 }
 .overlay-body .input .etc{
 	font-size: 13px;

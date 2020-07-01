@@ -1,7 +1,9 @@
 package action.item;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,9 +27,10 @@ public class ItemReviewAction implements Action {
 		if(session.getAttribute("id") == null) {
 			session.setAttribute("id", "guest");
 		}
+		session.setAttribute("id", "guest");
 
 		int page = 1; // 현재 페이지 번호를 저장할 변수
-		int limit = 8; // 한 페이지 당 출력할 게시물 수 지정
+		int limit = 10; // 한 페이지 당 출력할 게시물 수 지정
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
@@ -64,12 +67,24 @@ public class ItemReviewAction implements Action {
 //			
 //		}
 		
-//		Timestamp now = new Timestamp(System.currentTimeMillis());
+//		Date now = new Timestamp(System.currentTimeMillis());
+//		Date now2 = null;
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//		now = sdf.parse(now.toString());
 //		request.setAttribute("now", now);
-//		System.out.println(now);
+//		System.out.println("now : "+now);
 //		
 //		for(ProductBean product : reviewList) {
-//			System.out.println(product.getProduct_regdate());
+//			System.out.println("now2 : "+product.getProduct_regdate());
+//			now2 = sdf.parse(product.getProduct_regdate().toString());
+//			System.out.println("now after : "+now);
+//			System.out.println("now2 after : "+now2);
+//			
+//			if(now2.after(now)) System.out.println("now2는 now보다 미래이다!");
+//			if(now2.before(now)) {
+//				System.out.println("now2는 now보다 과거이다!");
+//			}
+//			if(now2.equals(now)) System.out.println("now2는 now와 같다!!");
 //		}
 		
 		forward = new ActionForward();
