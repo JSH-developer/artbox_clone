@@ -207,6 +207,44 @@
 			}
 		});
 	}
+	
+	// '장바구니 담기' 및 '바로 구매하기' 버튼 클릭 이벤트
+	function Order(id) {
+		var product_num = $("input[name=product_num]").val();
+		var stockqty = $("input[name=stockqty]").val();
+		if(id=='AddBasket') { // '장바구니 담기' 버튼 클릭 시
+			var result = confirm("선택하신 상품이 장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?");
+			// 확인/취소 선택 시 장바구니 상품 담음
+			// result(확인/취소) 값을 넘겨줘서 Action 클래스에서 장바구니 페이지 이동여부 판별
+			document.gfr.action = "insertBasket.basket?result="+result+"&product_num="+product_num;
+			document.gfr.submit();
+		} else if(id=='DirectOrder') { // '바로 구매하기' 버튼 클릭 시
+			document.gfr.action = "orderDirect.order?product_num="+product_num+"&stockqty="+stockqty;
+			document.gfr.submit();
+		}
+	}
+	
+	// 쿠폰 중복 발급 x
+		function cpClick(){
+		var moveCheck;
+		var getId  = document.getElementById("loginId").value;
+		var coup_Num  = document.getElementById("coupNum").value;
+		
+		alert(getId);
+		
+		if(getId == "null" || getId == ""){
+			moveCheck = confirm("로그인하시겠습니까?"+getId);
+			
+			if(moveCheck){
+				location.href = "loginForm.member";
+			}else{
+				alert("그대로 유지");
+			}
+	} else {
+			var url = "CouponIssued.coupon?getid=" + getId + "&couponNum="+ coup_Num;
+			location.href = url;
+		}
+	}
 	</script>
 </head>
 <body>
@@ -217,8 +255,14 @@
 	<!-- 메인 콘텐츠  -->
 	<div class="wrap">
 		<section class="item-info">
-			<form action="#" method="post">
+			<form action="" method="post" name="gfr">
 				<input type="hidden" name="pdt-price" value="8500">
+				<input type="hidden" name="product_code" value="${productBean.product_code}">
+				<input type="hidden" name="product_name" value="${productBean.product_name}">
+				<input type="hidden" name="product_image" value="${productBean.product_image}">
+				<input type="hidden" name="product_price" value="${productBean.product_price}">
+				<input type="hidden" name="product_category_code" value="${productBean.product_category_code}">
+				
 				<div class="img-info">
 					<div class="mainslide swiper-container">
 						<ul class="swiper-wrapper">
@@ -239,13 +283,37 @@
 					</script>
 				</div>
 				<div class="text-info">
-					<div class="pdt-name">${productBean.product_name }</div>
+					<div class="pdt-name">${productBean.product_name } (${productBean.product_code})</div>
 					<div class="pdt-category">
 						<a href="${pageContext.request.contextPath}/itemList.item?major=${fn:substring(productBean.product_code,0,2)}" class="major">${category_sup }</a>
 						&gt;
 						<a href="${pageContext.request.contextPath}/itemList.item?minor=${productBean.product_category_code}" class="minor">${category_sub }</a>
 					</div>
-					<div class="pdt-right pdt-price"><fmt:formatNumber value="${productBean.product_price}" type="number" />원</div>
+					<div class="pdt-right pdt-price">
+						<span id="rprice">
+							<fmt:formatNumber value="${productBean.product_price}" type="number" />원
+						</span>
+					
+						<!-- 			할인 있거나 쿠폰 있을때    || item.product_sale_price > 0-->
+						<c:if test="${productBean.product_sale_price > 0}"> 
+							<!-- 			realprice 스타일바꿈 -->
+							<style>span#rprice {text-decoration: line-through;color:grey;}</style>
+			
+							<!-- 			할인 있을때 -->
+							<c:if test="${empty itemcoupon.coupon_name}">
+								<fmt:parseNumber integerOnly="true" var="persent" value="${productBean.product_sale_price/productBean.product_price *100 }" />
+								<span style="color:red;"> ${productBean.product_price - productBean.product_sale_price }원 [ ${persent}% ]</span>
+							</c:if>
+							<!-- 				쿠폰 있을때 -->
+							<c:if test="${not empty itemcoupon.coupon_name}">
+								<fmt:parseNumber integerOnly="true" var="persent" value="${productBean.product_sale_price/productBean.product_price *100 }" />
+								<span style="color:red;">${productBean.product_price - productBean.product_sale_price }원  [ ${persent}% ]</span>
+								<input type="hidden" id="loginId" value="${sessionScope.id}">
+								<input type="hidden" id="coupNum" value="${itemcoupon.coupon_num}">
+								<input type="button" id="coup_btn" value="쿠폰받기" onclick= "cpClick();" ><br>
+							</c:if>
+						</c:if>
+					</div>
 					<div class="pdt-right pdt-delivery">2,500원
 						<input type="button" class="btn-delivery modal" value="배송비 안내">
 					</div>
@@ -258,10 +326,10 @@
 							<input type="button" class="btnStockQty Plus" value="+">
 							<c:choose>
 								<c:when test="${productBean.product_stock_count == 0 }">
-									<input type="tel" name="stockqty" value="0" maxlength="4">
+									<input type="tel" name="stockqty" id="stockqty" value="0" maxlength="4">
 								</c:when>
 								<c:otherwise>
-									<input type="tel" name="stockqty" value="1" maxlength="4">
+									<input type="tel" name="stockqty" id="stockqty" value="1" maxlength="4">
 								</c:otherwise>
 							</c:choose>
 						</span>
@@ -277,8 +345,8 @@
 						</c:choose>
 					</div>
 					<div class="pdt-btnlist">
-						<span class="btnCart"><input type="button" value="장바구니 담기" onclick="cartCheck()"></span>
-						<span class="btnOrder"><input type="button" value="바로 구매하기"></span>
+						<span class="btnCart"><input type="button" value="장바구니 담기" id="AddBasket" onclick="Order(this.id)"></span>
+						<span class="btnOrder"><input type="button" value="바로 구매하기" id="DirectOrder" onclick="Order(this.id)"></span>
 						<span class="btn-share modal"></span>
 						<span class="btn-wish off"></span>
 					</div>
@@ -488,59 +556,6 @@
     //메뉴버튼 초기화 
     activate(arrayIcon[0]);
   //----------------탭바-------------------------
-    
-    
-    //---------------이미지 슬라이더----------------------------
-    /*console.log(window.getComputedStyle(document.querySelector(".slideimg")).width);
-    console.log(window.getComputedStyle(document.querySelector(".slideimg")).height);
-    var slider = document.querySelector(".slideimg");
-    var left_btn = document.querySelector(".img_left_btn");
-    var right_btn = document.querySelector(".img_right_btn");
-    var img_count = 0;
-    var left_point = document.querySelector(".img_left_point");
-    var right_point = document.querySelector(".img_right_point");
-    
-    function side_right(){
-    	console.log(img_count);
-    	left_point.style.opacity="0.3";
-    	right_point.style.opacity="1.0";
-    	
-    	right_point.style.right="400px";
-    	left_point.style.right="420px";
-    	if(img_count<1){
-    		img_count++;
-    		slider.style.top = "-552px";
-    	}
-    	if(img_count===1){
-    		right_btn.style.display="none";
-    	}else{
-    		left_btn.style.display="inline-block";
-    	}
-    };
-    
-    right_btn.addEventListener("click",side_right);
-   	
-    function slide_left(){
-    	console.log(img_count);
-    	left_point.style.opacity="1.0";
-    	right_point.style.opacity="0.3";
-    	
-    	right_point.style.right="500px";
-    	left_point.style.right="520px";
-    	if(img_count>0){
-    		img_count--;
-    		slider.style.top = "0px";
-    	}
-    	if(img_count===0){
-    		right_btn.style.display="inline-block";
-    	}else{
-    		left_btn.style.display="none";
-    	}
-    };
-    
-    left_btn.addEventListener("click",slide_left);
-    */
-  //---------------이미지 슬라이더----------------------------
     
     </script>
 </body>

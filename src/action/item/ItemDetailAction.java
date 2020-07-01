@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
-import svc.ProductViewService;
+import svc.admin.ProductViewService;
 import svc.item.GetCategorySVC;
 import svc.item.QuestionListSVC;
 import vo.ActionForward;

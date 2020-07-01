@@ -79,7 +79,6 @@ public class ItemDAO {
 	}
 	
 	
-	
 	public ArrayList<ProductBean> selectMinorLink(String minorCategory) {
 		String sql = "select * from count where category_code=? order by num desc";
 		ProductBean productBean = null;
@@ -212,7 +211,8 @@ public class ItemDAO {
 		
 		return insertCount;
 	}
-
+	
+	
 	public ArrayList<ProductBean> selectReviewList(String id, int page, int limit) {
 		System.out.println("selectReviewList");
 		ArrayList<ProductBean> reviewList = new ArrayList<ProductBean>();
@@ -251,6 +251,7 @@ public class ItemDAO {
 		
 		return reviewList;
 	}
+
 	
 	public int selectReviewListCount(String id) {
 		int listCount = 0;
@@ -281,6 +282,7 @@ public class ItemDAO {
 		
 		return listCount;
 	}
+	
 	
 	public int insertQuestion(QuestionBean questionBean) {
 		int insertCount = 0;
@@ -411,8 +413,5 @@ public class ItemDAO {
 		System.out.println(categoryBean.getCategory_sub());
 		return categoryBean;
 	}
-
-
-
 
 }

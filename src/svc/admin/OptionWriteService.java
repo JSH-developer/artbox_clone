@@ -1,0 +1,79 @@
+package svc.admin;
+
+import java.sql.Connection;
+
+import dao.AdminDAO;
+import vo.OptionBean;
+
+import static db.jdbcUtil.*;
+
+public class OptionWriteService {
+	
+	public String productSelectList() {
+		String result="";
+		
+		Connection con = getConnection();
+		AdminDAO adminDAO = AdminDAO.getInstance();
+		adminDAO.setConnection(con);
+		
+		result = adminDAO.toMakeProductSelect();
+		
+		if(result.length()>0) {
+			commit(con);
+			
+		}else {
+			rollback(con);
+		}
+		
+		
+		close(con);
+		
+		return result;
+	}
+	
+	public String makeOptionCode(String product_code_base) {
+		String result="";
+		
+		Connection con = getConnection();
+		AdminDAO adminDAO = AdminDAO.getInstance();
+		adminDAO.setConnection(con);
+		
+		result = adminDAO.toMakeOptionCode(product_code_base);
+		
+		if(result.length()>0) {
+			commit(con);
+			
+		}else {
+			rollback(con);
+		}
+		
+		
+		close(con);
+		
+		return result;
+	}
+
+	
+	public boolean registOption(OptionBean optionBean) {
+		boolean isRegist=false;
+		
+		Connection con = getConnection();
+		AdminDAO adminDAO = AdminDAO.getInstance();
+		adminDAO.setConnection(con);
+		
+		int insertCount = adminDAO.regOption(optionBean);
+		if(insertCount>0) {
+			commit(con);
+			isRegist = true;
+			
+		}else {
+			rollback(con);
+		}
+		
+		
+		close(con);
+		
+		return isRegist;
+	}
+	
+}

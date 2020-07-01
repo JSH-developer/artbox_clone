@@ -9,8 +9,12 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import org.eclipse.jdt.internal.compiler.ast.PrefixExpression;
 
 import vo.EventBean;
+import vo.PointBean;
 import vo.ProductBean;
 
 public class EventDAO {
@@ -66,17 +70,9 @@ public class EventDAO {
 			insertCount = pstmt.executeUpdate();
 			int ediscount = eventBean.getEvent_discount();
 			
-//			if(eventBean.getEvent_category().equals("coup_event")) {
-//				String discount="price - "+ediscount;
-//					
-//				sql = "UPDATE product SET sale_price="+discount+" WHERE category_code=?";
-//				pstmt = con.prepareStatement(sql);
-//				pstmt.setString(1, eventBean.getEvent_condition());
-//				
-//			}
 			
-			if(eventBean.getEvent_category().equals("sale_event")) {
-			String discount="price - ((price * "+ediscount+")/100)";
+			if(eventBean.getEvent_category().equals("sale_event") || eventBean.getEvent_category().equals("coup_event")) {
+			String discount="(price * "+ediscount+")/100";
 				
 			sql = "UPDATE product SET sale_price="+discount+" WHERE category_code=?";
 			pstmt = con.prepareStatement(sql);
@@ -173,17 +169,17 @@ public class EventDAO {
 				int limitdate1 = Integer.parseInt(limitdate);
 				int nowwDate = Integer.parseInt(sf.format(nowDate));
 				
-				if(nowwDate>limitdate1 ) {
-					sql = "UPDATE product SET sale_price=0 WHERE category_code=?";
-					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, rs.getString("event_condition"));
-					
-					updateCount = pstmt.executeUpdate();
-					
-					if(updateCount>0) {
-						System.out.println("상품 할인 내리기 성공");
-					}
-				}
+//				if(nowwDate>limitdate1 ) {
+//					sql = "UPDATE product SET sale_price=0 WHERE category_code=?";
+//					pstmt = con.prepareStatement(sql);
+//					pstmt.setString(1, rs.getString("event_condition"));
+//					
+//					updateCount = pstmt.executeUpdate();
+//					
+//					if(updateCount>0) {
+//						System.out.println("상품 할인 내리기 성공");
+//					}
+//				}
 				
 			}
 		} catch (SQLException e) {
@@ -359,16 +355,30 @@ public class EventDAO {
 	}
 
 	// 이벤트 삭제
-	public int deleteEvent(String board_num) {
+	public int deleteEvent(String board_num,String condition) {
 		int deleteCount = 0;
+		int updateCount =0;
 		
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
 		
 		try {
 			String sql = "DELETE FROM event_board WHERE num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, board_num);
 			deleteCount = pstmt.executeUpdate();
+			
+			
+			sql = "UPDATE product SET sale_price=0 WHERE category_code=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1,condition);
+			
+			updateCount = pstmt.executeUpdate();
+			
+			if(updateCount>0) {
+				System.out.println("상품 할인 내리기 성공");
+			}
 			
 			
 		} catch (SQLException e) {
@@ -382,6 +392,130 @@ public class EventDAO {
 		
 		return deleteCount;
 	}
+
+	// admin용 전체 이벤트 리스트 count
+	public int selectAllListCount() {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		
+		try {
+			String sql = "SELECT COUNT(num) FROM event_board";
+			pstmt= con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("EventDAO- selectListCount()실패!"+e.getMessage());
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return listCount;
+	}
+
+	// admin용 전체 이벤트 리스트
+	public ArrayList<EventBean> selectAllArticleList(int page, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int updateCount = 0;
+		
+		int startRow = (page -1)*limit;
+		
+		ArrayList<EventBean> articleList =  new ArrayList<EventBean>();
+		
+		
+		try {
+			String sql = "SELECT * FROM event_board ORDER BY num desc LIMIT ?,?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, limit);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				EventBean rowData = new EventBean();
+				rowData.setEvent_num(rs.getInt("num"));
+				rowData.setEvent_titie(rs.getString("event_title"));
+				rowData.setEvent_content(rs.getString("event_content"));
+				rowData.setEvent_time(rs.getTimestamp("event_time"));
+				rowData.setEvent_condition(rs.getString("event_condition"));
+				rowData.setEvent_discount(rs.getInt("event_discount"));
+				rowData.setEvent_start(rs.getString("event_start"));
+				rowData.setEvent_limit(rs.getString("event_limit"));
+				rowData.setEvent_img(rs.getString("event_img"));
+				rowData.setEvent_category(rs.getString("event_category"));
+			
+				articleList.add(rowData);
+				
+			}
+		} catch (SQLException e) {
+			System.out.println("EventDAO- selectArticleList()실패!"+e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return articleList;
+	}
+
+	
+	// 마이페이지 point
+	public ArrayList<PointBean> selectMyPoint(String id) {
+		ArrayList<PointBean> articleList= new ArrayList<PointBean>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select p.title, p.content, p.type, p.reg_date, p.point, p.member_id, m.point FROM point AS p JOIN member AS m ON p.member_id = m.id WHERE member_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			System.out.println("dao"+id);
+			
+			while(rs.next()) {
+				PointBean rowData = new PointBean();
+				rowData.setTitle(rs.getString("p.title"));
+				rowData.setContent(rs.getString("p.content"));
+				rowData.setType(rs.getString("p.type"));
+				rowData.setPoint(rs.getInt("p.point"));
+				rowData.setMember_id(rs.getString("p.member_id"));
+				rowData.setReg_date(rs.getTimestamp("p.reg_date"));
+				rowData.setMypoint(rs.getInt("m.point"));
+				
+				
+				System.out.println(rs.getString("p.title"));
+				System.out.println(rs.getString("p.content"));
+				System.out.println(rs.getString("p.type"));
+				System.out.println(rs.getInt("p.point"));
+				System.out.println(rs.getString("p.member_id"));
+				System.out.println(rs.getInt("m.point"));
+				
+			
+				articleList.add(rowData);
+				
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("EventDAO- selectMyPoint()실패!"+e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return articleList;
+	}
+
+
 
 
 	

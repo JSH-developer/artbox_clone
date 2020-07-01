@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import dao.ItemDAO;
-import vo.PageInfo;
 import vo.ProductBean;
 
 public class ReviewListSVC {

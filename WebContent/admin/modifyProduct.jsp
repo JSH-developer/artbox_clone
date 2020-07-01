@@ -19,13 +19,13 @@ $(document).ready(function(){
 		$("#option_code").attr("disabled","disabled");
 	}else{
 		$("#option_code").val('${productBean.product_option_code}').attr("selected","selected");
+		$("#option_code").attr("disabled","disabled");
 		$("select[name='product_option_code'] option[value='00']").remove();
 	}
 	
 	$("#modfSubmit").click(function(){
 		$("#option_code").removeAttr("disabled")
-	})
-	
+	});
 
 })
 </script>
@@ -112,8 +112,8 @@ $(document).ready(function() {
 
 <h1 class="registTitle">상품수정</h1>
 <form action="ProductModifyPro.admin" method="post" enctype="multipart/form-data">
-	<input type="hidden" name="num" value="${num}%>">
-	<input type="hidden" name="page" value="${page}">
+	<input type="hidden" name="num" value="${param.num}">
+	<input type="hidden" name="page" value="${param.page}">
 <table class="reg_tab">
 	<tr><th>상품카테고리</th><td><select id="category_code" name="product_category_code"><c:out value="${categorySelectList}" escapeXml="false"/></select></td></tr>
 	<tr><th>상품옵션</th><td><select id="option_code" name="product_option_code"><option value="00">기본옵션(+0)</option><c:out value="${optionSelectList}" escapeXml="false"/></select></td></tr>

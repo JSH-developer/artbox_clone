@@ -28,33 +28,32 @@
 	<h1>주문 완료!</h1>
 	<div class="OrderComplete">
 		<span class="CompleteImage"></span>
-		<b>주문번호 ${list[0].orders_order_num}</b>
-		
-	번호 : ${list[0].num}<br>
-	주문번호 : ${list[0].orders_order_num}<br>
-	product 테이블의 num(인덱스) : ${list[0].product_num}<br>
-	receiver 테이블의 num(인덱스) : ${list[0].receiver_num}<br>
-	<c:forEach var="orderList" items="${list}" varStatus="status">
-	상품코드 : ${orderList.code}<br>
-	상품이름 : ${orderList.name}<br>
-	대표이미지 파일명 : ${orderList.image} <br>
-	상품가격 : ${orderList.price}<br>
-	수량 : ${orderList.quantity}<br>
-	</c:forEach>
-	승인(결제)날짜 : ${list[0].orders_regdate}<br>
-	결제(최종)금액 : ${list[0].orders_total_price}<br>
-	결제수단 : ${list[0].orders_payMethod}<br>
-	수신자 이름 : ${list[0].receiver_name}<br>
-	수신자 폰번호 : ${list[0].receiver_phone}<br>
-	수신자 우편번호 : ${list[0].receiver_postcode}<br>
-	수신자 기본주소 : ${list[0].receiver_addr}<br>
-	수신자 상세주소 : ${list[0].receiver_addr_detail}<br>
-	배송메세지 : ${list[0].receiver_msg}
-		
+		<b>주문번호 : ${list[0].orders_order_num}</b>
+<!-- 	확인용 -->
+<%-- 	번호 : ${list[0].num}<br> --%>
+<%-- 	주문번호 : ${list[0].orders_order_num}<br> --%>
+<%-- 	product 테이블의 num(인덱스) : ${list[0].product_num}<br> --%>
+<%-- 	receiver 테이블의 num(인덱스) : ${list[0].receiver_num}<br> --%>
+<%-- 	<c:forEach var="orderList" items="${list}" varStatus="status"> --%>
+<%-- 	상품코드 : ${orderList.code}<br> --%>
+<%-- 	상품이름 : ${orderList.name}<br> --%>
+<%-- 	대표이미지 파일명 : ${orderList.image} <br> --%>
+<%-- 	상품가격 : ${orderList.price}<br> --%>
+<%-- 	수량 : ${orderList.quantity}<br> --%>
+<%-- 	</c:forEach> --%>
+<%-- 	승인(결제)날짜 : ${list[0].orders_regdate}<br> --%>
+<%-- 	결제(최종)금액 : ${list[0].orders_total_price}<br> --%>
+<%-- 	결제수단 : ${list[0].orders_payMethod}<br> --%>
+<%-- 	수신자 이름 : ${list[0].receiver_name}<br> --%>
+<%-- 	수신자 폰번호 : ${list[0].receiver_phone}<br> --%>
+<%-- 	수신자 우편번호 : ${list[0].receiver_postcode}<br> --%>
+<%-- 	수신자 기본주소 : ${list[0].receiver_addr}<br> --%>
+<%-- 	수신자 상세주소 : ${list[0].receiver_addr_detail}<br> --%>
+<%-- 	배송메세지 : ${list[0].orders_msg} --%>
 		&nbsp;<br />
 		&nbsp;<br />
 		
-		<a class="btn1" href="#">주문내역 확인</a>&nbsp;&nbsp;<a class="btn2" href="../home/home.jsp">쇼핑하러 가기</a>
+		<a class="btn1" href="#">주문내역 확인</a>&nbsp;&nbsp;<a class="btn2" href="/artbox_clone/Home.home">쇼핑하러 가기</a>
 	</div>
 </div>
 

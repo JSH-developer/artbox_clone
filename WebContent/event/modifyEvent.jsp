@@ -125,7 +125,7 @@ $(document).ready(function(){
 <table class="reg_tab">
 	<tr><th>이벤트 제목</th><td><input type="text" name="event_title" value="${eventArticle.event_titie}"></td></tr>
 	<tr><th>이벤트 내용</th><td style="margin-left:100px"><textarea id="summernote" name="event_content" value="${eventArticle.event_content}"></textarea></td></tr>
-	<tr><th>이벤트 할인%</th><td><input type="text" name="event_discount" value="<%=eventArticle.getEvent_discount() %>"></td></tr>
+	<tr><th>이벤트 할인%</th><td><input type="text" name="event_discount" value="${eventArticle.event_discount}"></td></tr>
 	<tr><th>이벤트 조건</th><td><select id="event_condition" name="event_condition"><option value="${eventArticle.event_condition}" selected>${eventArticle.event_condition}</option>${categorySelectList}</select></td></tr>
 	<tr><th>이벤트 시작일</th><td><input type="date" name="event_start" value="${eventArticle.event_start}"></td></tr>
 	<tr><th>이벤트 마감일</th><td><input type="date" name="event_limit" value="${eventArticle.event_limit}"></td></tr>
@@ -136,7 +136,7 @@ $(document).ready(function(){
    		<option value="coup_event">쿠폰 이벤트</option></select></td></tr>
 	<tr class="btn_tr"><td colspan="2"><input type="submit" value="이벤트 등록"></td></tr>
 </table>
-<input type="hidden" name="event_num" value="${eventArticle.event_num} %>">
+<input type="hidden" name="event_num" value="${eventArticle.event_num}">
 </form>
 </div>
 <p><% out.print(request.getRealPath("/upload")); %></p>

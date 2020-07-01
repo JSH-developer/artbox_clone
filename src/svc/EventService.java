@@ -1,12 +1,14 @@
 package svc;
 
 import vo.EventBean;
+import vo.PointBean;
 import vo.ProductBean;
 
 import static db.jdbcUtil.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
 import dao.EventDAO;
 
@@ -136,8 +138,8 @@ public class EventService {
 		return modifySuccess;
 	}
 
-	
-	public boolean deleteEvent(String board_num) {
+	// 이벤트 삭제
+	public boolean deleteEvent(String board_num,String condition) {
 		boolean deleteSuccess = false;
 
 		Connection con = getConnection();
@@ -145,7 +147,7 @@ public class EventService {
 		EventDAO eventDAO = EventDAO.getInstance();
 		eventDAO.setConnection(con);
 		
-		int isSuccess = eventDAO.deleteEvent(board_num);
+		int isSuccess = eventDAO.deleteEvent(board_num,condition);
 		
 		if(isSuccess>0) {
 			deleteSuccess = true;
@@ -157,6 +159,57 @@ public class EventService {
 		
 		return deleteSuccess;
 	}
+
+	// admin용 전체 count
+	public int getAllListCount() {
+		int listCount = 0;
+		
+		Connection con = getConnection();
+		EventDAO eventDAO = EventDAO.getInstance();
+		eventDAO.setConnection(con);
+		
+		listCount = eventDAO.selectAllListCount(); // create함
+		
+		close(con);
+		
+		return listCount;
+	}
+	
+	
+	// admin용 전체 불러오기
+	public ArrayList<EventBean> getAllArticleList(int page, int limit) {
+		ArrayList<EventBean> articleList = null;
+		
+		Connection con = getConnection();
+		EventDAO eventDAO = EventDAO.getInstance();
+		eventDAO.setConnection(con);
+		
+		articleList = eventDAO.selectAllArticleList(page,limit);
+		
+		close(con);
+		
+		return articleList;
+	}
+
+
+
+	// 마이페이지 point
+	public ArrayList<PointBean> selectMyPoint(String id) {
+		ArrayList<PointBean> point = null;
+		
+		Connection con = getConnection();
+		EventDAO eventDAO = EventDAO.getInstance();
+		eventDAO.setConnection(con);
+		
+		point = eventDAO.selectMyPoint(id);
+		System.out.println(id);
+		
+		close(con);
+		
+		return point;
+	}
+
+
 
 
 

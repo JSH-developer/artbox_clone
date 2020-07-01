@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+body{
+	text-align: center;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+#status_select{
+	width:75%;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	font-size: 20px;
+	padding:5px;
+}
+.viewBtn{
+	padding: 10px;
+	margin: 10px;
+	width: 100px;
+	background-color: black;
+	color:white;
+	border: none;
+}
+
+.deleteBtn{
+	background-color: red;
+	border:none;
+	color:white;
+	
+}

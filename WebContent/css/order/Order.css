@@ -1,4 +1,7 @@
-
+#btn_order {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:56px; height:56px; color:#ffffff; font-size:21px; border:0; background-color:#000000; border-radius:5px; font-weight:bold; }
+#btn_basket {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:54px; height:56px; color:#000000; font-size:21px; border:1px solid #646464; background-color:#ffffff; border-radius:5px;}
+#btn_basketOrder {background-color:black; border: 1px solid #424242; color: white; font-size: 22px; font-weight: bold; padding: 15px 80px; border-radius: 5px;}
+#btn_basketDelete {border: 1px solid #424242; background-color:white;  margin:0 7px 0 0; color: #424242; font-size: 15px; padding: 8.5px 25px 8.8px 25px; border-radius: 5px;}
 
 th, td, p, input, button, textarea, select, div, xmp {font-family:'Spoqa Han Sans', 'Malgun Gothic', Dotum, Gulim, Tahoma, Helvetica, AppleGothic, Helvetica, Sans-serif; color:#808080; line-height:100%;}
 
@@ -11,18 +14,12 @@ dfn {display:none;}
 .option {padding:0; margin:0;}
 dl {padding:0; margin:0;}
 li, dt, dd {padding:0; margin:0; list-style:none;}
-li         {float:left;}
+li {float:left;}
 
-div, p, span, input, select, textarea, a, dd, dt, dl { 
-	box-sizing: border-box !important; 
-	-webkit-box-sizing: border-box !important;
-	-moz-box-sizing: border-box !important;
-}
+div, p, span, input, select, textarea, a, dd, dt, dl {box-sizing: border-box !important; -webkit-box-sizing: border-box !important; -moz-box-sizing: border-box !important;}
 
 select {-webkit-appearance: none; -moz-appearance:none; appearance:none;}
-select::-ms-expand { display:none; }
-
-
+select::-ms-expand { display:none;}
 
 input[type=checkbox] {appearance:none; -moz-appearance:none; -webkit-appearance:none;checkbox; width:27px; height:27px; padding:0; margin:0; display:inline-block; display:inline-block; vertical-align:middle; border-radius:3px; border:1px solid #000000; background-color:#ffffff; width:27px; height:27px;} 
 input[type=checkbox]:checked {background-image:url(../../Images/order/check_27.png); background-repeat:no-repeat; background-size:27px 27px; background-position:center;}
@@ -36,38 +33,27 @@ input[type=checkbox]:checked::-ms-check {padding:25%;}
 input[type=radio]::-ms-check {border-radius:50%; border-color:#000000;} 
 input[type=radio]:checked::-ms-check {padding:1px;} 
 
+.clear { display:block; clear:both;}
+.none { display:none !important;}
+.hidden { visibility:hidden;}
 
-.clear     { display:block; clear:both; }
-.none      { display:none !important; }
-.hidden    { visibility:hidden; }
-
-.lt { text-align:left !important;   }
-.rt { text-align:right !important;  }
-.ct { text-align:center !important; }
+.lt { text-align:left !important;}
+.rt { text-align:right !important;}
+.ct { text-align:center !important;}
 
 .fl { float:left; }
 .fr { float:right; }
 
 a:link, a:visited, a:active, a:hover { text-decoration:none; color:#808080; }
-a:hover                              { }
-a.privacy {/*font-weight:bold;*/color:#3a4b59;}
 
 input[type=button]{cursor:pointer;}
 
-.grade1 { color:#88d0cc !important;}
-.grade2 { color:#da6ca8 !important;}
-.grade3 { color:#66afdf !important;}
-.grade4 { color:#fad668 !important;}
-.grade5 { color:#bbbcbe !important;}
-
+.grade {color:#bbbcbe !important;}
 .tableDiv {display:table; width:100%;}
 .tableDiv dl {display: table-row;}
 .tableDiv dt {display: table-cell; vertical-align:top; position:relative;}
 .tableDiv dd {display: table-cell; vertical-align:top; position:relative;}
 
-
-
-/* order.css */
 input[type=password], input[type=tel],
 dd>input[type=text] {width:100%; padding:0 22px; margin:0; line-height:56px; height:56px; color:#777777; font-size:15px; border:0; background-color:#f3f3f3; border-radius:5px;}
 input.readonly[type=text] {background-color:#ffffff; border:1px solid #646464; color:#646464;}
@@ -80,7 +66,6 @@ input.readonly[type=text] {background-color:#ffffff; border:1px solid #646464; c
 .BasketWrap select {display:block; border:1px solid #424242; color:#424242; width:250px; margin:0 10px 0 0; height:35px; padding:0 12px; font-size:15px; background-color:#ffffff; background-image:url(../../Images/order/select_bg.png); background-repeat:no-repeat; background-size:36px 9px; background-position:center right; border-radius:5px;}
 
 .BasketEmpty {width:100%; text-align:center; line-height:24px; font-size:17px; color:#646464;}
-.BasketEmpty span.EmptyImage {display:block; margin:50px auto 40px; width:206px; height:137px; background-size:206px 137px; background-image:url(../../Images/order/basket_empty_pc.png); background-repeat:no-repeat;}
 .BasketEmpty a {display:block; width:210px; height:56px; line-height:56px; font-size:17px; color:#424242; background-color:#ffffff; text-align:center; border:1px solid #424242; border-radius:5px; margin:26px auto 0;}
 
 .BasketCount {width:100%; text-align:left; line-height:16px; font-size:16px; color:#646464; padding:20px 0 20px 0;}
@@ -122,13 +107,11 @@ a.BasketButtonX    {display:inline-block; width:30px; height:30px; background-si
 .trBasketPrice dd {width:50%; line-height:34px; font-size:17px; color:#000000; text-align:left;}
 .trBasketPrice dd img {width:auto; height:20px; vertical-align:top; margin:8px 2px 6px 2px;}
 
-
 .BasketBottom {width:100%;}
 .BasketBuyButton {float:right; width:50%; text-align:right;}
 .BasketBuyButton a {display:inline-block; width:250px; height:56px; line-height:56px; font-size:23px; color:#ffffff; background-color:#000000; text-align:center; border-radius:5px; margin:0; font-weight:bold;}
 .BasketComment {float:right; width:50%; line-height:20px; color:#7b7b7b; font-size:13px; text-align:left; margin:0;}
 .BasketComment b {font-weight:normal; color:#000000;}
-
 
 .ItemListChangeOption {display:none; padding:10px 0 0 0; margin:10px 0 0 0; border-top:1px solid #e4e4e4;}
 .ItemListChangeOption li.OptionIdx {float:left;}
@@ -138,17 +121,10 @@ a.BasketButtonX    {display:inline-block; width:30px; height:30px; background-si
 .ItemListChangeOption li.Qty p input {display:inline-block; width:50%; height:100%; line-height:33px; font-size:15px; color:#424242; text-align:center; padding:0; margin:0; border-top-width:0; border-bottom-width:0; border-right:1px solid #424242; border-left:1px solid #424242; background-color:#ffffff; border-radius:0; vertical-align:top;}
 .ItemListChangeOption li.Btn {float:right;}
 
-
-
-
-
-
 .OrderWrap {width:1200px; margin:50px auto 50px; padding:0;}
 .OrderWrap h1 {display:block; width:1200px; height:25px; line-height:25px; font-size:25px; color:#000000; font-weight:normal; text-align:center; margin:0 auto; padding:0;}
 .OrderWrap h1 img {width:14px; height:24px; vertical-align:top; margin:2px 7px 0 0;}
 .OrderWrap select {display:block; border:1px solid #838383; width:100%; margin:0; height:56px; padding:0 15px; font-size:15px; background-color:#ffffff; background-image:url(../../Images/order/select_bg.png); background-repeat:no-repeat; background-size:36px 9px; background-position:center right; border-radius:5px;}
-
-.OrderWrap.OrderPayLayer {display:none;}
 
 .OrderComplete {width:100%; text-align:center; line-height:24px; font-size:14px; color:#a1a1a1;}
 .OrderComplete span.CompleteImage {display:block; margin:50px auto 40px; width:250px; height:276px; background-size:250px 276px; background-image:url(../../Images/order/ordercomplete_pc.png); background-repeat:no-repeat;}
@@ -156,13 +132,9 @@ a.BasketButtonX    {display:inline-block; width:30px; height:30px; background-si
 .OrderComplete a.btn1 {display:inline-block; width:200px; height:56px; line-height:56px; font-size:17px; color:#424242; background-color:#ffffff; text-align:center; border:1px solid #424242; border-radius:5px;}
 .OrderComplete a.btn2 {display:inline-block; width:200px; height:56px; line-height:56px; font-size:17px; color:#ffffff; background-color:#000000; text-align:center; border:1px solid #000000; border-radius:5px;}
 
-
-
 .SectionItemList {margin:40px 0 30px 0;}
 .SectionMember   {float:left; width:600px; padding:0 30px 0 0;}
 .SectionDiscount {float:left; width:600px; border-left:1px solid #e4e4e4; padding:0 0 0 30px;}
-.SectionMidLine  {display:block; height:60px; border-bottom:1px solid #e4e4e4;}
-.SectionPayType  {float:left; width:600px; padding:30px 30px 0 0;} 
 .SectionPrice    {float:left; width:600px; border-left:1px solid #e4e4e4; padding:250px 0 0 30px;}
 
 .OrderInfoTitle {border-top:1px solid #e4e4e4; border-bottom:1px solid #e4e4e4; margin:0 0 0 0; padding:14px 0;}
@@ -200,30 +172,11 @@ span.MobileBr {display:none;}
 
 .trOrder dt {width:120px; line-height:56px; text-align:left; font-size:16px; color:#646464;}
 .trOrder dd {width:*;}
-
 .trOrder dd.blank  {width:18px; text-align:center; font-size:15px; color:#646464; line-height:56px;}
-
-.trOrder dd.refund  {width:*; }
-.trOrder dd.quota {width:150px; line-height:56px;}
-.trOrder dd.quota a {display:block; width:90%; margin:0 0 0 10%; height:56px; line-height:56px; background-color:#424242; text-align:center; color:#ffffff; font-size:16px; border-radius:5px;}
-.trOrder dd.zipcode  {width:143px; line-height:56px;}
-.trOrder dd.refund a,
-.trOrder dd.zipcode a {display:block; width:100%; height:56px; line-height:56px; background-color:#424242; text-align:center; color:#ffffff; font-size:16px; border-radius:5px;}
 .trOrder dd.twoBtn   {width:49%;}
-.trOrder dd.okcomment {line-height:27px; color:#9d9d9d; font-size:17px;}
-.trOrder dd.findpw {width:180px;}
-
-
 .trOrder dt.mileage {width:240px;}
-.trOrder dt.twoLine {line-height:18px; padding:10px 0;}
-
-
-.trOrder a.PwdModify {display:block; width:164px; padding:0; text-align:center; margin:0; line-height:56px; height:56px; color:#ffffff; font-size:15px; border:0; background-color:#424242; border-radius:5px;}
-.trOrder a.btnCancel {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:54px; height:56px; color:#000000; font-size:21px; border:1px solid #646464; background-color:#ffffff; border-radius:5px;}
-.trOrder a.btnModify {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:56px; height:56px; color:#ffffff; font-size:21px; border:0; background-color:#000000; border-radius:5px; font-weight:bold; }
-
-.trOrder a.btnForeign {float:right; display:block; width:40%; height:32px; line-height:30px; border:1px solid #94b7d1; text-align:center; color:#94b7d1; font-size:16px; border-radius:5px;}
-
+.trOrder dd.zipcode  {width:143px; line-height:56px;}
+.trOrder dd.zipcode a {display:block; width:100%; height:56px; line-height:56px; background-color:#424242; text-align:center; color:#ffffff; font-size:16px; border-radius:5px;}
 
 .DeliveryInfo {border:1px solid #646464; border-radius:5px; margin-bottom:15px;}
 .DeliveryInfo a {float:left; display:block; height:36px; line-height:36px; font-size:16px; text-align:center;}
@@ -235,34 +188,17 @@ span.MobileBr {display:none;}
 
 .ModifyShipAddr {display:block; color:#646464; line-height:27px; font-size:14px; text-align:left;}
 .DeliverySelect {display:none; color:#646464; line-height:27px; font-size:14px; text-align:left;}
-.ModifyShipAddr,
-.DeliverySelect input {margin-left:120px;}
+.ModifyShipAddr, .DeliverySelect input {margin-left:120px;}
 
 #CouponIdxSelect_Goods {padding:15px 22px; font-size:15px; color:#646464; line-height:30px; border:1px solid #646464; border-radius:5px;}
 #CouponIdxSelect_Goods .dcnumber {color:#ef0100;}
-
-.PayTypeRadio {float:left; width:50%; line-height:27px; text-align:left; font-size:16px; color:#646464; margin:0 0 15px 0;}
-
-.PayTypeComment {border:1px solid #646464; border-radius:5px; display:none;}
-.PayTypeComment .AgreeBox {padding:15px;}
-.PayTypeComment .AgreeBox.BT {border-top:1px solid #646464;}
-.PayTypeComment .AgreeAll {line-height:27px; text-align:left; font-size:16px; color:#646464; margin:0;}
-.PayTypeComment .AgreeTable {padding:15px; background-color:#f3f3f3; border-radius:5px; margin:15px 0 0 0; font-size:15px; line-height:25px;}
-.PayTypeComment .AgreeTable b {color:#464646;}
-.PayTypeComment .AgreeComment {line-height:25px; color:#9d9d9d; font-size:15px;}
-.PayTypeComment .AgreeComment b {display:block; color:#000000; font-weight:normal; font-size:17px; line-height:17px; margin:0 0 5px;}
-
-.PayTypeComment.ForeignY {display:block;}
-
 
 .trOrderAgree dt {width:100px; line-height:27px; text-align:left; font-size:16px; color:#646464; margin:0; text-align:right;}
 .trOrderAgree dd {width:*; line-height:27px; text-align:left; font-size:16px; color:#646464;}
 
 .trPrice dt {width:50%; line-height:34px; text-align:left; font-size:17px; color:#646464;}
 .trPrice dd {width:50%; line-height:34px; text-align:right; font-size:17px; color:#000000;}
-
 .trPrice dd img {vertical-align:top; width:auto; height:20px; margin:8px 2px 6px 2px;}
-
 .trPrice dt a {display:inline-block; width:18px; height:19px; margin:8px 0 7px 8px; background-repeat:no-repeat; background-position:center; background-size:18px 10px; vertical-align:top; opacity:0.5;}
 .trPrice dt a.Open  {background-image:url(../../Images/order/pc_arrow_up.png);}
 .trPrice dt a.Close {background-image:url(../../Images/order/pc_arrow_down.png);}
@@ -276,100 +212,9 @@ span.MobileBr {display:none;}
 .OrderPayAgree {display:block; color:#646464; line-height:27px; font-size:14px; text-align:center; padding:20px 0 30px;}
 .OrderPayAgree input[type=checkbox] {margin:0; float:null; vertical-align:top;}
 
-a#CallSixNum,
-a#CheckSixNum {display:block; width:100%; padding:0; text-align:center; margin:0 auto 0; line-height:56px; height:56px; color:#ffffff; font-size:16px; border:0; background-color:#424242; border-radius:5px;}
-
-/* 전자금융거래 이용약관 - 정보수집 영역 : jsp 부분은 지운 상태 */
-/* a.LayerCloseBtn {display:block; width:280px; padding:0; text-align:center; margin:0 auto; line-height:56px; height:56px; color:#ffffff; font-size:21px; border:0; background-color:#000000; border-radius:5px; } */
-
-/* .SectionLayer {padding:40px 0 40px; line-height:23px; font-size:15px; color:#9d9d9d;} */
-
-/* .PayAgreementWrap {padding:0; margin:0 auto; width:800px;} */
-/* .PayAgreementWrap .PayAgreementMenu {padding:0 0 0 0;} */
-
-/* .PayAgreementWrap .PayAgreementContents {border:1px solid #eeeeee; margin-top:0.9375rem; background-color:#f5f5f5; padding:0.3125rem; line-height:150%; font-size:0.625rem; color:#666666; border-radius:5px;} */
-/* .PayAgreementWrap .PayAgreementContents table {border-collapse:collapse;} */
-/* .PayAgreementWrap .PayAgreementContents table th {background-color:#e5e5e5; border:1px solid #dddddd; font-weight:normal; text-align:center; padding:0.15625rem;  font-size:0.625rem;} */
-/* .PayAgreementWrap .PayAgreementContents table td {border:1px solid #dddddd; line-height:150%; font-size:0.46875rem;} */
-/* 전자금융거래 이용약관 - 정보수집 영역 */
-
-.BottomFix {display:none;}
-
-
-/*구매금액별 사은품 증정 배너 영역*/
-.pc_eventbanner { display:block; }
-.mobile_eventbanner { display:none; }
-/*구매금액별 사은품 증정 배너 영역*/
-
-/*구매금액별 사은품 증정 선택 영역*/
-.GiftBox { margin-bottom:50px;  }
-.GiftBox .explain { font-size:19px; color:#000000; border-top:1px solid #e4e4e4; border-bottom:1px solid #e4e4e4; padding:15px 0; }
-.GiftBox .howmuch { font-weight:bold; font-size:19px; color:#4a4997; padding:20px 0 10px 0; }
-.GiftBox .whatgift ul:after { content:" "; display:block; clear:both; }
-.GiftBox .whatgift li { height:143px; text-align:center; background-color:#edebf9; padding:20px 0; border-right:1px solid #ffffff; border-bottom:1px solid #ffffff; }
-.GiftBox .whatgift li img { width:103px; height:103px; margin:0 18px 0 12px; vertical-align:middle; }
-.GiftBox .whatgift li span.nm { font-size:17px; color:#000000; display:inline-block; vertical-align:middle; text-align:left; }
-.GiftBox .whatgift li span.nm.pc { display:inline-block; }
-.GiftBox .whatgift li span.nm.mobile { display:none; }
-/*구매금액별 사은품 증정 선택 영역*/
-
-
-/* OrderPay.jsp 부분 css */
-		.OrderAgree {margin:32px 0;}
-		.OrderAgree .OrderAgreeAll {color:#000000; font-size:20px; line-height:20px; margin:0; vertical-align:middle;}
-		.OrderAgree .OrderAgreeAll input {vertical-align:middle;}
-
-		.OrderAgree .OrderAgreeTable {margin: 18px 0 32px 0; background-color: #f7f7f7; border-radius: 5px; padding: 15px; text-align: center; font-size: 20px; line-height: 20px; color: #565656;}
-		.OrderAgree .OrderAgreeTable dd {font-size:17px; color:#646464;}
-		.OrderAgree .OrderAgreeTable dd span {display:inline-block; margin:0 0 0 8px; font-size:14px; color:#949494; text-decoration:underline; cursor:pointer;}
-
-		.OrderPayAgree2 input[type=checkbox] {margin:0 0.3rem 0.3rem 0 !important;}
-
-		.OrderAgree .TermsInform {position:absolute; display:none; width:355px; border:1px solid #646464 ; background-color:#ffffff; padding:0.75rem; border-radius:5px;}
-		.OrderAgree .TermsInform span.tit {display:inline-block; color:#121212; padding:0 0 15px 0; font-size:0.75rem;}
-		.OrderAgree .TermsInform dl dt {font-weight:bold; color:#454545; padding:0 0 15px 0; font-size:0.625rem;}
-		.OrderAgree .TermsInform dl dd {color:#949494; line-height:0.875rem; font-size:0.525rem;}
-		.OrderAgree .TermsInform dl dd:before {content:"- ";}
-		.OrderAgree .TermsInform dl dd br:before {content:"* ";}
-		.OrderAgree .TermsInform ul {padding:0; border:1px solid #646464 ; height:55px; background-color:#f8f8f8; width:340px; font-size:0.575rem; border-radius:5px;}
-		.OrderAgree .TermsInform ul li {text-align:center; width:112px; border-right:1px solid #646464; background-color:#f4f4f4; cursor:pointer; height:100%; padding:10px 0; line-height:18px;}
-		.OrderAgree .TermsInform ul li.on {color:#121212; background-color:#ffffff;}
-		.OrderAgree .TermsInform ul li:nth-child(1) {border-top-left-radius:5px; border-bottom-left-radius:5px; line-height:35px;}
-		.OrderAgree .TermsInform ul li:last-child {border:0 !important;}
-		.OrderAgree .TermsInform div.sec {height:250px; background-color:#ffffff; margin-top:10px;}
-		.OrderAgree .TermsInform div.sec div.secD {display:none; padding:10px; overflow-y:scroll; height:230px; line-height:20px; font-size:0.4375rem;}
-		.OrderAgree .TermsInform div.sec div.secD:nth-child(1) {display:block;}
-		.OrderAgree .TermsInform div.sec div.secD table {border:1px solid #dedede; border-collapse:collapse; font-size:0.4375rem;}
-		.OrderAgree .TermsInform div.sec div.secD table th {border:1px solid #dedede;}
-		.OrderAgree .TermsInform div.sec div.secD table td {border:1px solid #dedede; padding:2px; font-size:0.4375rem;}
-
-		.OrderAgree #AgreeDetail_1 {z-index:10; margin-left:265px !important; margin-top:-445px !important;}
-		.OrderAgree #AgreeDetail_2 {z-index:10; width:380px !important; margin-left:300px !important; margin-top:-520px !important;}
-		.OrderAgree #AgreeDetail_1 div.addInform {padding:0 0 0.75rem 0; margin:0 0 0.75rem 0; color:#949494; font-size:0.525rem; line-height:0.875rem; border-bottom:1px solid #838383;}
-
-		.OrderAgree .TermsInform table {width:100%; border-collapse:collapse; border-style:hidden; }
-		.OrderAgree .TermsInform table tr {height:100%;}
-		.OrderAgree .TermsInform table tr td { text-align:center; border-right:1px solid #646464; font-size:0.625rem;}
-		.OrderAgree .TermsInform table tr td:last-child {border:0;}
-		
-		
-
-
-		.AgreeLayerBack {position:fixed; display:none; top:0; width:100%; height:100%; opacity:0.7; background-color:#000000; z-index:99998;}
-		.AgreeLayerFore {position:fixed; display:none; top:0; width:100%; height:2.0rem; z-index:99999;}
-		.AgreeLayerFore div.LayerBas {background-color:#ffffff; padding:1.0rem; margin:1.0rem; width:-webkit-fill-available; border-radius:5px;}
-		.AgreeLayerFore div.TermsInform {position:relative; display:block; width:100%; height:14.0rem; color:#949494;}
-		.AgreeLayerFore div.TermsInform div.TermsInformMenus {border:1px solid #646464; border-radius:5px; height:2.4rem; line-height:1.35rem;}
-		.AgreeLayerFore div.TermsInform div.TermsInformMenus li {display:inline-block; background-color:#f4f4f4; width:33.3%; font-size:0.575rem; padding:0.5rem 0; text-align:center; border-right:1px solid #646464;}
-		.AgreeLayerFore div.TermsInform div.TermsInformMenus li.on {color:#121212; background-color:#ffffff;}
-		.AgreeLayerFore div.TermsInform div.TermsInformMenus li:nth-child(1) {border-top-left-radius:5px; border-bottom-left-radius:5px; }
-		.AgreeLayerFore div.TermsInform div.TermsInformMenus li:last-child {border-right:0 !important; border-top-right-radius:5px; border-bottom-right-radius:5px; }
-		.AgreeLayerFore div.TermsInform div.TermsInformContents {width:100%; height:80%; padding:0; overflow-y:scroll; margin-top:10px;}
-		.AgreeLayerFore div.TermsInform div.TermsInformContents table {border-collapse:collapse;}
-		.AgreeLayerFore span.LayerTit {color:#121212; display:block; font-size:0.75rem; margin:0 0 1.0rem 0; padding:0 0 0 0.3125rem;}
-		.AgreeLayerFore span.LayerTit btn {float:right; background:url('/Images/order/img_close_button.png') center center; border:0; width:0.8375rem; height:0.75rem; background-size:100% 100%; background-repeat: no-repeat;}
-		.AgreeLayerFore dl dt {position:absolute; font-weight:normal; color:#949494; font-size:0.625rem; padding:0 0 0 0.3125rem;}
-		.AgreeLayerFore dl dt:before {content:"-"; }
-		.AgreeLayerFore dl dd {display:block; color:#949494; font-size:0.625rem; padding:0 0 0 0.8125rem;}
-		.AgreeLayerFore ul {display:block; width:100%; height:4rem; border-bottom:1px solid #a9a9a9; margin:0 0 0.75rem 0 ;}
-		.AgreeLayerFore ul li {display:block; color:#949494; font-size:0.625rem; padding:0 0 0 0.3125rem;}
+.OrderAgree {margin:32px 0;}
+.OrderAgree .OrderAgreeAll {color:#000000; font-size:20px; line-height:20px; margin:0; vertical-align:middle;}
+.OrderAgree .OrderAgreeAll input {vertical-align:middle;}
+.OrderAgree .OrderAgreeTable {margin: 18px 0 32px 0; background-color: #f7f7f7; border-radius: 5px; padding: 15px; text-align: center; font-size: 20px; line-height: 20px; color: #565656;}
+.OrderAgree .OrderAgreeTable dd {font-size:17px; color:#646464;}
+.OrderAgree .OrderAgreeTable dd span {display:inline-block; margin:0 0 0 8px; font-size:14px; color:#949494; text-decoration:underline; cursor:pointer;}

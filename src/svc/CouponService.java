@@ -113,7 +113,6 @@ public class CouponService {
 
 	// 상품 카테고리 = condition
 	public CouponBean getCouponList(String condition) {
-		System.out.println("couponBean - getCouponList");
 		CouponBean coupon = null;
 		
 		Connection con = getConnection();
@@ -127,6 +126,43 @@ public class CouponService {
 		close(con);
 		return coupon;
 	}
+
+	// 쿠폰 삭제
+	public Boolean deleteCoupon(String coupon_num) {
+		Boolean deleteC = false;
+		
+		Connection con = getConnection();
+		CouponDAO couponDAO = CouponDAO.getInstance();
+		couponDAO.setConnection(con);
+		
+		int deleleSucc = couponDAO.deleteCoupon(coupon_num);
+		
+		if(deleleSucc>0) {
+			commit(con);
+			deleteC = true;
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return deleteC;
+	}
+	
+	
+//	// 아이디가 쿠폰 갖고 있는지 확인
+//	public int selectCouponCheck(String id, String couponName) {
+//		int check = 0;
+//		
+//		Connection con = getConnection();
+//		CouponDAO couponDAO = CouponDAO.getInstance();
+//		couponDAO.setConnection(con);
+//		
+//		check = couponDAO.selectCouponCheck(id, couponName);
+//		
+//		
+//		return check;
+//	}
 
 	
 	

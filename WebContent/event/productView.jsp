@@ -7,8 +7,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
-ArrayList<CouponBean> couponList= (ArrayList<CouponBean>)request.getAttribute("couponList");
-ProductBean item= (ProductBean)request.getAttribute("item");
+// ArrayList<CouponBean> couponList= (ArrayList<CouponBean>)request.getAttribute("couponList");
+// ProductBean item= (ProductBean)request.getAttribute("item");
 %>
 <!DOCTYPE html>
 <html>
@@ -26,7 +26,7 @@ ProductBean item= (ProductBean)request.getAttribute("item");
 
 		alert(getId+" : "+coup_Num);
 		
-		if(getId == "null"){
+		if(getId == "null" || getId == ""){
 
 			moveCheck = confirm("로그인하시겠습니까?"+getId);
 			
@@ -37,14 +37,16 @@ ProductBean item= (ProductBean)request.getAttribute("item");
 			}
 			
 		
-	}else{
-		var url = "CouponIssued.event?getid="+getId+"&couponNum="+coup_Num;
-		alert("쿠폰 저장함"+url);
-		location.href=url;
-		
+
+	} else {
+			var url = "CouponIssued.coupon?getid=" + getId + "&couponNum="+ coup_Num;
+			
+			location.href = url;
+			
+		}
 	}
-		
-	}
+	
+	
 	
 </script>
 </head>
@@ -58,13 +60,7 @@ ProductBean item= (ProductBean)request.getAttribute("item");
  <div class="pageContent">
  <h1>상품 페이지</h1>
 
-	<%	
-// 		String sessionId = (String)session.getAttribute("id");
-// 		System.out.println("sessionId"+sessionId);
-// 		String loginId = "jini";	// 로그인한 아이디
-// 		String item_category = item.getProduct_category_code();// 불러온 상품의 카테고리
-			%>
-			<c:set var="sessionId" value="sessionScope.userId"/>
+			<c:set var="sessionId" value="${sessionScope.id}"/>
 			<c:set var="loginId" value="jini"/>
 			<c:set var="item_category" value="${item.product_category_code }"/>
 			<c:set var="realprice" value="${item.product_price}"/>
@@ -75,27 +71,8 @@ ProductBean item= (ProductBean)request.getAttribute("item");
 			<c:out value="${itemcoupon.coupon_name  }"/>
 		<span>카테고리 : ${item_category}</span>
 		
-		<input type="hidden" id="loginId" value="${loginId}">
+		<input type="hidden" id="loginId" value="${sessionId}">
 
-	<%
-// 		if (couponList != null) {
-// 			for (int i = 0; i < couponList.size(); i++) {
-// 				int realprice = item.getProduct_price();
-// 				// saleprice가 있을 시
-// 			if(item.getProduct_sale_price()!=0){
-// 				int coup_discount = couponList.get(i).getCoupon_price();
-// 				int event_discount =item.getProduct_sale_price();
-				
-// 				int e_sale_price = realprice - ((realprice * event_discount) / 100);
-// 				int c_sale_price = realprice - coup_discount;
-
-// 				String couponName = couponList.get(i).getCoupon_name();
-// 				int couponNum = couponList.get(i).getCoupon_num();
-				
-				
-// 					// 클릭한 상품의 카테고리에 쿠폰이 있을 때 
-// 				if (item_category.equals(couponList.get(i).getCoupon_condition())) {
-	%>
 
 		<span id="rprice">실가격 :${realprice }</span>
 		
@@ -107,15 +84,15 @@ ProductBean item= (ProductBean)request.getAttribute("item");
 			<style>span#rprice {text-decoration: line-through;color:grey;}</style>
 			
 <!-- 			할인 있을때 -->
-				<c:if test="${empty itemcoupon}">
-						<span>이벤트 할인가격 :  ${saleprice }</span> 
+				<c:if test="${empty itemcoupon.coupon_name}">
+						<span>이벤트 할인가격 :  ${realprice - saleprice }</span> 
 				</c:if>
 				
 <!-- 				쿠폰 있을때 -->
-			<c:if test="${!empty itemcoupon}">
-			<c:set var="coup_discount" value="${itemcoupon.coupon_price }"/>
-			<c:set var="c_sale_price" value="${realprice - itemcoupon.coupon_price }"/>
-				<span>쿠폰 할인가격 :  ${c_sale_price }</span> 
+			<c:if test="${not empty itemcoupon.coupon_name}">
+<%-- 			<c:set var="coup_discount" value="${itemcoupon.coupon_price }"/> --%>
+<%-- 			<c:set var="c_sale_price" value="${realprice - itemcoupon.coupon_price }"/> --%>
+				<span>쿠폰 할인가격 :  ${realprice - saleprice }</span> 
 					<input type="hidden" id="coupNum" value="${couponNum }">
 					<input type="button" id="coup_btn" value="${couponName }" onclick= "cpClick();" ><br>
 				</c:if>

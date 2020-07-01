@@ -32,7 +32,7 @@ public class BasketDAO {
 		this.con = con; // 이름이 똑같기 때문에 this. 적음
 	}
 	
-	// 장바구니 추가
+	// 장바구니 INSERT
 	public int insertBasket(BasketBean basketBean) {
 		// Service 클래스로부터 BasketBean 객체를 전달받아 DB 에 INSERT 작업 수행
 		// => 수행 결과 값으로 int형 insertCount 를 리턴받아 다시 Service 클래스로 리턴
@@ -73,10 +73,9 @@ public class BasketDAO {
 		return insertCount;
 	}
 	
-	// 장바구니 목록
+	// 장바구니 목록 출력 (Basket.jsp)
 	public List selectBasketList(String member_id) {
 		// member_id 에 해당하는 장바구니 목록 전체 조회
-		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		PreparedStatement pstmt2 = null;
@@ -85,14 +84,11 @@ public class BasketDAO {
 		List list = new ArrayList();
 		List basketList = new ArrayList();
 		List itemsList = new ArrayList();
-		
 		try {
-			String sql = "SELECT * FROM basket WHERE member_id = ?";
-			
+			String sql = "SELECT * FROM basket WHERE member_id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member_id);
 			rs = pstmt.executeQuery();
-			
 			while(rs.next()) {
 				BasketBean basket = new BasketBean();
 				basket.setBasket_num(rs.getInt("num"));
@@ -107,7 +103,7 @@ public class BasketDAO {
 				pstmt2 = con.prepareStatement(sql);
 				pstmt2.setInt(1, basket.getBasket_product_num());
 				rs2 = pstmt2.executeQuery();
-				if(rs2.next()) {
+				while(rs2.next()) {
 					ProductBean productBean = new ProductBean();
 					productBean.setProduct_code(rs2.getString("code"));
 					productBean.setProduct_price(rs2.getInt("price"));
@@ -124,10 +120,10 @@ public class BasketDAO {
 //			e.printStackTrace();
 			System.out.println("BasketDAO - selectBasketList() 실패! : " + e.getMessage());
 		} finally {
-			close(rs);
-			close(pstmt);
 //			close(rs2);
 //			close(pstmt2);
+			close(rs);
+			close(pstmt);
 		}
 		return list;
 	}
@@ -145,7 +141,7 @@ public class BasketDAO {
 			pstmt.setInt(2, basketBean.getBasket_product_num());
 			
 			rs=pstmt.executeQuery();
-			// rs 데이터 있으면 check=1
+			// rs 데이터 있으면 check = 1
 			if(rs.next()){
 				check = 1;
 				// 장바구니에 있는 상품일 경우, 상품 개수만 증가시킴
@@ -166,7 +162,7 @@ public class BasketDAO {
 		return check;
 	}
 	
-	// 수량 변경
+	// 상품 수량 변경
 	public int updateQuantity(int quantity, int num) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -177,7 +173,7 @@ public class BasketDAO {
 			pstmt.setInt(1, num);
 			
 			rs=pstmt.executeQuery();
-			// rs 데이터 있으면 updateCount=1
+			// rs 데이터 있으면 updateCount = 1
 			if(rs.next()){
 				updateCount = 1;
 				sql="UPDATE basket SET quantity=? WHERE num=?";
@@ -196,38 +192,19 @@ public class BasketDAO {
 		return updateCount;
 	}
 	
-	// 선택 삭제
-	public int deleteBasket(int basket_num){
+	// 상품 삭제
+	public int deleteBasket(String member_id, int product_num){
 		PreparedStatement pstmt = null;
 		int deleteCount = 0;
 		try {
-			String sql = "DELETE FROM basket WHERE num=?";
+			String sql = "DELETE FROM basket WHERE member_id=? AND product_num=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, basket_num);
-			
+			pstmt.setString(1, member_id);
+			pstmt.setInt(2, product_num);
 			deleteCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 //			e.printStackTrace();
 			System.out.println("BasketDAO - deleteBasket() 실패! : " + e.getMessage());
-		} finally {
-			close(pstmt);
-		}
-		return deleteCount;
-	}
-	
-	// 전체 삭제(주문페이지로 넘어갈 경우 장바구니 전체삭제)
-	public int deleteAllBasket(String member_id){
-		PreparedStatement pstmt = null;
-		int deleteCount = 0;
-		try {
-			String sql = "DELETE FROM basket WHERE member_id=?";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, member_id);
-			
-			deleteCount = pstmt.executeUpdate();
-		} catch (SQLException e) {
-//			e.printStackTrace();
-			System.out.println("BasketDAO - deleteAllBasket() 실패! : " + e.getMessage());
 		} finally {
 			close(pstmt);
 		}

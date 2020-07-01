@@ -1,8 +1,9 @@
 package svc.item;
 
+import static db.jdbcUtil.*;
+
 import java.sql.Connection;
 import java.util.ArrayList;
-import static db.jdbcUtil.*;
 
 import dao.ItemDAO;
 import vo.ProductBean;

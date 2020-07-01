@@ -1,0 +1,75 @@
+@charset "UTF-8";
+
+.body_box{
+	height:auto;
+}
+.myOrders{
+	text-align: center;
+}
+
+.myOrderstb{
+	width: 100%;
+
+}
+.myOrderstb td{
+	padding:10px;
+}
+.myOrderstb th{
+	padding:10px;
+	border-bottom: 0.5px solid grey;
+	
+}
+.body_box button{
+	display:block;
+	margin: 10px 0 10px 1125px;
+	padding:10px;
+	color:white;
+	border: 1px solid black;
+	background: black;
+	
+}
+
+.myPaytb{
+	width:100%;
+	border-collapse:collapse;
+	border: 1px solid #999999;
+	
+}
+
+.myPaytb th{
+	text-align: left;
+	padding:15px;
+	background: #F4F4F4;
+}
+
+.myPaytb td{
+	text-align: right;
+	padding:15px;
+	background: #F4F4F4;
+	
+}
+.myPaytb td:first-child{
+	text-align: left;
+	background: white;
+}
+.myPaytb span.total_price{
+	color:red;
+	font-size: 20px;
+}
+.myReceivertb{
+	width:100%;
+	border-collapse:collapse;
+	border: 1px solid #999999;
+	
+}
+.myReceivertb th{
+	text-align: center;
+	padding:15px;
+	background: #F4F4F4;
+}
+.myReceivertb td{
+	text-align: center;
+	padding:15px;
+	background: white;
+	border-bottom: 0.2px solid #999999;
+}

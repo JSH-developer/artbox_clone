@@ -1,103 +1,114 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ARTBOX</title>
-<link href="css/member/myPage.css" rel="stylesheet">
-<script src="../js/jquery-3.5.0.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){ 
-	  $(".MInfo").click(function(){    
-	   $(".MInfo").addClass("on");  
-	   $(".Pop_Menu").slideToggle("fast");   
-	  });
-	 
-	  $(".select .sub").mouseleave(function() {
-	   $(".MInfo").removeClass("on"); 
-	  $(this).hide();
-	 });
-	});
+<title>ARTBOX(포트폴리오)</title>
+<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script> --%>
+<script type="text/javascript" src="${pageContext.request.contextPath}/member/myPage.js"></script>
+<script>
+
+function cancel(orders_order_num,point){
+	cancel = confirm("구매취소 또는 반품 하시겠습니까?\n※취소 후 금액은 포인트로 환불됩니다.");
+	if(cancel){
+		location.href="cancel.member?orders_order_num="+orders_order_num+"&point="+point;
+	}
+}
+
+function buy(orders_order_num,point){
+	buy = confirm("구매확정 하시겠습니까?\n※구매확정이후 교환/환불 이 불가능합니다.");
+	if(buy){
+		location.href="buy.member?orders_order_num="+orders_order_num+"&point="+point;
+	}
+	
+}
+
 </script>
+<link href="${pageContext.request.contextPath}/css/member/myPage.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/member/myPageOrders.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
+<%-- <link href="${pageContext.request.contextPath}/css/slide.css" rel="stylesheet" type="text/css"> --%>
 </head>
 <body>
+
+	<!-- 헤더 -->
+	<jsp:include page="/inc/top.jsp"></jsp:include>
+	<!-- 헤더 -->
+
 	<div class = "body_box">
 		<div class="top_box">
-			<div class="whoes">
-				<span class="MNmSpan">안녕하세요, <span class="MNm">강상민</span> 님
-				</span> <span class="MInfo">회원정보
-					<div class="Pop_Menu" style="display: none;">
-						<ul>
-							<a href="#" onclick="GA_event('마이페이지', '상단 메뉴_팝업', '회원정보 변경');"><li>회원정보
-									변경</li></a>
-							<a href="#" onclick="GA_event('마이페이지', '상단 메뉴_팝업', '나의 배송지 관리');"><li>나의
-									배송지 관리</li></a>
-
-							<a href="#"
-								onclick="GA_event('마이페이지', '상단 메뉴_팝업', '나의 환불계좌 관리');"><li>나의
-									환불계좌 관리</li></a>
-							<a href="#" onclick="GA_event('마이페이지', '상단 메뉴_팝업', '로그아웃');"><li>로그아웃</li></a>
-						</ul>
-					</div>
-				</span><a href="#" onclick="GA_event('마이페이지_PC', '상단 메뉴', '이벤트 참여/당첨 내역');"><span
-					class="MEvent">이벤트 참여/당첨 내역</span></a>
-
-			</div>
-			<div class="three_box">
-				<ul>
-					<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '등급혜택보기');"><li
-						class="Tbox1"><span class="GName grade5">SILVER</span> <img
-							class="GImg" src="../Images/img/등급.png" /> <span class="GSee grade5">[등급혜택보기]</span>
-					</li></a>
-					<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '꿈캔디 내역');"><li
-						class="Tbox2"><img class="CImg" src="../Images/img/포인트.png" /> <span
-							class="CCandy">0</span></li></a>
-					<li class="Tbox3">
-						<ul>
-							<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '주문/배송');"><li>
-									<span>주문/배송</span><span>0</span>
-							</li></a>
-							<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '쿠폰');"><li>
-									<span>쿠폰</span><span>4</span>
-							</li></a>
-							<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '쿠매후기');"><li>
-									<span>구매후기</span><span>0</span>
-							</li></a>
-						</ul>
-					</li>
-				</ul>
-			</div>
-			<a href="#" onclick="GA_event('마이페이지_MO', '상단 메뉴', '이벤트 참여/당첨 내역');"><div
-					class="M_MEvent">이벤트 참여/당첨 내역</div></a>
+			<jsp:include page="/member/myPageHeader.jsp"></jsp:include>
 		</div>
+		
+		
 		<div class="MenuBar_Box">
 			<ul>
-				<li onclick="location.href='myPageOrders.jsp'" class="on">주문/배송</li>
-				<li onclick="location.href='myPageRe.jsp'">취소/반품/교환</li>
-				<li onclick="location.href='myPageWishlist.jsp'">위시리스트</li>
-				<li onclick="location.href='myPageQ&A.jsp'">상품Q&A</li>
-				<li onclick="location.href='myPageQuestion.jsp'">1:1 문의/상담</li>
+				<li onclick="location.href='myPageOrders.member'" class="on">주문/배송</li>
+				<li onclick="location.href='myPageRe.member'">취소/반품/교환</li>
+				<li onclick="location.href='myPageWishlist.member'">위시리스트</li>
+				<li onclick="location.href='myPageQ&A.member'">상품Q&A</li>
+				<li onclick="location.href='myPageQuestion.member'">1:1 문의/상담</li>
 			</ul>
 		</div>
 
 
 		<div class="sel_box">
-			<select name="Term">
-				<option value="1" selected>최근 1개월</option>
-				<option value="2">최근 2개월</option>
-				<option value="3">최근 3개월</option>
-				<option value="6">최근 6개월</option>
-
-				<option value="0">직접 입력</option>
-
-			</select>
+<!-- 			<select name="Term" id="term" onchange="select()"> -->
+<!-- 				<option value="0">전체보기</option> -->
+<!-- 				<option value="1" >최근 1개월</option> -->
+<!-- 				<option value="2" >최근 2개월</option> -->
+<!-- 				<option value="3" >최근 3개월</option> -->
+<!-- 				<option value="6" >최근 6개월</option> -->
+<!-- 			</select> -->
 		</div>
 
-
 		<div class="clear"></div>
+		<br>
+		
+		
+		<c:if test="${!empty myOrders }">
+		<c:forEach var="orders" items="${myOrders}">
+		<div class="myOrders">
+		<table class="myOrderstb">
+		<tr><td><span class="info_box">주문번호  </span>${orders.orders_order_num}
+		<a href="myPageOrdersDetail.member?num=${orders.orders_num}&orders_num=${orders.orders_order_num}"><strong>&nbsp;주문상세보기</strong></a></td><td rowspan="5" class="state_box">
+		<c:if test="${orders.orders_state eq 0 }">
+		배송준비중<br><button onclick="cancel(${orders.orders_order_num},${orders.orders_total_price})">주문취소</button>
+		</c:if>
+		<c:if test="${orders.orders_state eq 1 }">
+		배송진행중<br><button onclick="cancel(${orders.orders_order_num},${orders.orders_total_price})">주문취소</button>
+		</c:if>
+		<c:if test="${orders.orders_state eq 2 }">
+		배송완료<br><button class="confirm_btn" onclick="buy(${orders.orders_order_num},${orders.orders_point})">구매확정</button>
+		<br><button onclick="cancel(${orders.orders_order_num},${orders.orders_total_price})">반품하기</button>
+		</c:if>
+		<c:if test="${orders.orders_state eq 3 }">
+		구매확정이 된 상품입니다.
+		</c:if>
+		<c:if test="${orders.orders_state eq -1 }">
+		배송취소
+		</c:if>
+		</td></tr>
+		<tr><td colspan="2">※상품에 대한 자세한 정보는 <strong>'주문상세보기'</strong>를 클릭하면 확인하실수 있습니다.</td></tr>
+		<tr><td colspan="2"><span class="info_box">총가격  </span>${orders.orders_total_price}</td></tr>
+		<tr><td colspan="2"><span class="info_box">주문날짜  </span><fmt:formatDate value="${orders.orders_regdate}" pattern="yyyy.MM.dd" /></td></tr>
+		</table>
+		</div>
+		<br>
+		</c:forEach>
+		</c:if>
 
+		<c:if test="${empty myOrders}">
 		<div class="noData">주문내역이 없습니다.</div>
+		</c:if>
 	</div>
+	
+	
+	<!--  푸터 -->
+	<jsp:include page="/inc/bottom.jsp"></jsp:include>
+	<!--  푸터 -->
 </body>
 </html>

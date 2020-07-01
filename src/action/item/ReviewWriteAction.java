@@ -1,7 +1,6 @@
 package action.item;
 
 import java.io.PrintWriter;
-import java.util.Enumeration;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;

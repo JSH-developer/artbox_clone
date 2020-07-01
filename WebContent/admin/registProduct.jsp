@@ -111,35 +111,25 @@ $(document).ready(function() {
  <!-- 헤더 -->
 
 <div class="pageContent">
-<div class="admin_nav_wrap">
-<ul class="admin_nav">
-	<li><a href="home.admin">관리자 홈</a></li>
-	<li><a href="ProductList.admin">상품 목록</a></li>
-</ul>
-</div>
-<br>
 
 <h1 class="registTitle">상품등록</h1>
 <form action="ProductWritePro.admin" method="post" enctype="multipart/form-data">
 <table class="reg_tab">
-	<tr><th>상품카테고리</th><td><select id="product_category_code" name="product_category_code"><option>카테고리를 선택해주세요</option><c:out value="${categorySelectList}" escapeXml="false"/></select></td></tr>
-	<tr><th>상품옵션</th><td><select id="product_option_code" name="product_option_code"><option value="00">기본옵션(+0)</option><c:out value="${optionSelectList}" escapeXml="false"/></select></td></tr>
-	<tr><th>상품명</th><td><input type="text" name="product_name"></td></tr>
-	<tr><th>브랜드</th><td><input type="text" name="product_brand"></td></tr>
-	<tr><th>상품가격</th><td><input type="text" name="product_price"></td></tr>
-	<tr><th>상품상세</th><td style="margin-left:100px"><textarea id="summernote" name="product_description"></textarea></td></tr>
-	<tr><th>재고수량</th><td><input type="number" name="product_stock_count"></td></tr>
-	<tr><th>세일가격</th><td><input type="text" name="product_sale_price"></td></tr>
-	<tr><th>대표 이미지</th><td><input type="file" name="product_image" accept="image/*" multiple="multiple"></td></tr>
-	<tr><th>대표 이미지2</th><td><input type="file" name="product_image2" accept="image/*"></td></tr>
-	<tr><th>키워드 입력</th><td><input type="text" name="product_keywords" placeholder=" ex) #키워드1 #키워드2"></td></tr>
-	<tr class="btn_tr"><td colspan="2"><input type="submit" value="상품등록"></td></tr>
+	<tr><th>상품카테고리</th><td><select id="product_category_code" name="product_category_code" required><c:out value="${categorySelectList}" escapeXml="false"/></select></td></tr>
+	<tr><th>상품옵션</th><td><select id="product_option_code" name="product_option_code" required ><option value="00">기본옵션(+0)</option></select></td></tr>
+	<tr><th>상품명</th><td><input type="text" name="product_name" required></td></tr>
+	<tr><th>브랜드</th><td><input type="text" name="product_brand" required></td></tr>
+	<tr><th>상품가격</th><td><input type="text" name="product_price" required></td></tr>
+	<tr><th>상품상세</th><td style="margin-left:100px"><textarea id="summernote" name="product_description" required></textarea></td></tr>
+	<tr><th>재고수량</th><td><input type="number" name="product_stock_count" required></td></tr>
+	<tr><th>세일가격</th><td><input type="text" name="product_sale_price" required></td></tr>
+	<tr><th>대표 이미지</th><td><input type="file" name="product_image" accept="image/*"required></td></tr>
+	<tr><th>대표 이미지2</th><td><input type="file" name="product_image2" accept="image/*" required></td></tr>
+	<tr><th>키워드 입력</th><td><input type="text" name="product_keywords" placeholder=" ex) #키워드1 #키워드2" required></td></tr>
+	<tr class="btn_tr"><td colspan="2"><input type="button" value="돌아가기" onclick="history.back();"><input type="submit" value="상품등록"></td></tr>
 </table>
 </form>
 </div>
-
-<!-- // 지울 거 임 -->
-<p><% out.print(request.getRealPath("/upload")); %></p>
 
  <!--  푸터 -->
  <jsp:include page="/inc/bottom.jsp"></jsp:include>

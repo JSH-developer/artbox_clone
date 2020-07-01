@@ -127,11 +127,11 @@
         </div>
     </div>
  </div>
- <!— 메인 콘텐츠  —>
+<!-- 메인 콘텐츠 -->
  
-<!—  푸터 —>
+<!-- 푸터 -->
  <jsp:include page="../inc/bottom.jsp"></jsp:include>
-<!—  푸터 —>
+<!-- 푸터 -->
 </div>
 
 </body>

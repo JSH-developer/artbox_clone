@@ -1,12 +1,11 @@
 package svc.item;
 
+import static db.jdbcUtil.*;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import dao.ItemDAO;
-
-import static db.jdbcUtil.*;
-
 import vo.QuestionBean;
 import vo.QuestionPageInfo;
 
