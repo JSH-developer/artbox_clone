@@ -21,6 +21,7 @@
 // 		replaceMajor();
 		//문의 불러옴
 		goQuestionPage("${questionPageInfo.pageNum}");
+		fnCheckPriseSum();
 	}
 	//대분류 카테고리 replace
 	function replaceMajor(){
@@ -126,8 +127,12 @@
 	});
 	//수량 변동시 가격 변동
 	function fnCheckPriseSum(){
-		var returnValue = parseInt('${productBean.product_price}',10)* parseInt($("[name=stockqty]").val(),10);
-		$(".pdt-totalprice").html(commas(returnValue) + " 원");
+		var returnValue = parseInt('${productBean.product_price - productBean.product_sale_price }',10)* parseInt($("[name=stockqty]").val(),10);
+		if(returnValue < 0){
+			$(".pdt-totalprice").html(commas(0) + " 원");
+		}else{		
+			$(".pdt-totalprice").html(commas(returnValue) + " 원");
+		}
 	}
 	function commas(x) {
 	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -340,7 +345,7 @@
 								0 원
 							</c:when>
 							<c:otherwise>
-								<fmt:formatNumber value="${productBean.product_price}" type="number" /> 원
+								<fmt:formatNumber value="" type="number" /> 원
 							</c:otherwise>
 						</c:choose>
 					</div>

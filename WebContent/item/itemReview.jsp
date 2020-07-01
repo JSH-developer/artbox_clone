@@ -114,7 +114,6 @@
 						</span>
 						<a class="btnWrite modal" href="javascript:setOpen(${rl.product_num });">구매후기 쓰기</a>
 						<span class="deadline">작성기한: <fmt:formatDate value="${rl.product_regdate }" pattern="yyyy.MM.dd"/>까지</span>
- 						<span class="deadline">${rl.keywords }</span>
 					</li>
 				</c:forEach>
 				<li>
