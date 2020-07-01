@@ -25,7 +25,7 @@
 </div>
 <div class="three_box">
 	<ul>
-		<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '등급혜택보기');"><li
+		<a href="MypageGrade.event" onclick="GA_event('마이페이지', '상단 메뉴', '등급혜택보기');"><li
 			class="Tbox1"><span class="GName grade5">SILVER</span> <img
 				class="GImg" src="Images/img/silver.png" /> <span class="GSee grade5">[등급혜택보기]</span>
 		</li></a>
