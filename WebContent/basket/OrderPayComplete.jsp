@@ -12,8 +12,7 @@
 <title>ARTBOX(포트폴리오)</title>
 <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/css/order/Order.css" rel="stylesheet" type="text/css">
-
-<script type="text/javascript" src="../js/jquery-3.5.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 
 </head>
 <body>
