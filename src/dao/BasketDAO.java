@@ -85,7 +85,7 @@ public class BasketDAO {
 		List basketList = new ArrayList();
 		List itemsList = new ArrayList();
 		try {
-			String sql = "SELECT * FROM basket WHERE member_id=?";
+			String sql = "SELECT * FROM basket WHERE member_id=? ORDER BY regdate DESC";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member_id);
 			rs = pstmt.executeQuery();
