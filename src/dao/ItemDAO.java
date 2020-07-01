@@ -213,20 +213,24 @@ public class ItemDAO {
 		return insertCount;
 	}
 
-	public ArrayList<ProductBean> selectReviewList(String id) {
+	public ArrayList<ProductBean> selectReviewList(String id, int page, int limit) {
 		System.out.println("selectReviewList");
 		ArrayList<ProductBean> reviewList = new ArrayList<ProductBean>();
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
+		int startRow = (page - 1) * limit;
+		
 		try {
 			String sql = "SELECT detail.product_num, detail.image, detail.name, detail.price, DATE_ADD(orders.regdate, INTERVAL 6 MONTH) "
 					+ "FROM orders INNER JOIN orders_detail detail ON orders.order_num = detail.orders_order_num "
-					+ "WHERE orders.member_id = ? AND orders.state = ?";
+					+ "WHERE orders.member_id = ? AND orders.state = ? LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
-			pstmt.setInt(2, 3);
+			pstmt.setInt(2, 3);	// 3은 구매확정 상태
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, limit);
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -248,6 +252,35 @@ public class ItemDAO {
 		return reviewList;
 	}
 	
+	public int selectReviewListCount(String id) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			// board_num 컬럼의 전체 갯수를 조회하기(모든 컬럼을 뜻하는 * 기호 사용해도 됨)
+			String sql = "SELECT COUNT(orders.num) "
+					+ "FROM orders INNER JOIN orders_detail detail ON orders.order_num = detail.orders_order_num "
+					+ "WHERE orders.member_id = ? AND orders.state = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, 3);	// 3은 구매확정 상태
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt("COUNT(orders.num)");
+			}
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - selectReviewListCount() 실패! : " + e.getMessage());
+		} finally {
+			// DB 자원 반환
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
 	
 	public int insertQuestion(QuestionBean questionBean) {
 		int insertCount = 0;
@@ -378,6 +411,8 @@ public class ItemDAO {
 		System.out.println(categoryBean.getCategory_sub());
 		return categoryBean;
 	}
+
+
 
 
 }
