@@ -99,12 +99,12 @@ function buy(orders_order_num,point){
 		<tr><td colspan="2"><span class="info_box">주문날짜  </span><fmt:formatDate value="${orders.orders_regdate}" pattern="yyyy.MM.dd" /></td></tr>
 		</table>
 		</div>
-		<br>
+		<br><br><br>
 		</c:forEach>
 		</c:if>
 
 		<c:if test="${empty myOrders}">
-		<div class="noData">주문내역이 없습니다.</div>
+		<div class="noData">주문내역이 없습니다.</div><br><br><br><br>
 		</c:if>
 	</div>
 	

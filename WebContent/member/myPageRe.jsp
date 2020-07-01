@@ -68,12 +68,10 @@
 		</c:if>
 		
 		<c:if test="${empty myRes}">
-		<div class="noData">주문내역이 없습니다.</div>
+		<div class="noData">주문내역이 없습니다.</div><br><br><br><br>
 		</c:if>
-
 		
 	</div>
-	
 	
 	<!--  푸터 -->
 	<jsp:include page="/inc/bottom.jsp"></jsp:include>
