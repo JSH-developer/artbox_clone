@@ -41,6 +41,11 @@ public class ItemReviewAction implements Action {
 		
 		Timestamp now = new Timestamp(System.currentTimeMillis());
 		request.setAttribute("now", now);
+		System.out.println(now);
+		
+		for(ProductBean product : reviewList) {
+			System.out.println(product.getProduct_regdate());
+		}
 		
 		forward = new ActionForward();
 		forward.setPath("/item/itemReview.jsp");
