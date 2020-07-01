@@ -5,6 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+  <link rel=" shortcut icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
+  <link rel="icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
 <title>ARTBOX(포트폴리오)</title>
 
 

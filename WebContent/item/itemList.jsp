@@ -9,6 +9,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+	<link rel=" shortcut icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
+	<link rel="icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
 <title>ARTBOX(포트폴리오)</title>
 <link href="${pageContext.request.contextPath}/css/item/itemList.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
@@ -109,7 +111,7 @@ $(document).on("click",".basket", function(){
         <div class="item_list">
             <ul class="ul_list">
             	<c:forEach var="item" items="${productBean }" varStatus="status">
-                <li>
+                <li style="margin-right: 50px;">
                     <span class="item">
                             <div class="shopping_basket">
                                 <div class="shopping_basket_icon">

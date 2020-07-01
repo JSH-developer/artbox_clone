@@ -7,7 +7,9 @@
 <link href="css/slide.css" rel="stylesheet" type="text/css">
 <link href="css/member/deliveryAdd.css" rel="stylesheet">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+    <link rel=" shortcut icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
+    <link rel="icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
+<title>ARTBOX(포트폴리오)</title>
 </head>
 <body>
 	<!-- 헤더 -->
