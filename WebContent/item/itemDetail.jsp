@@ -365,7 +365,7 @@
 				<div class="another-list swiper-container">
 					<ul class="swiper-wrapper">
 						<c:forEach var="ool" items="${otherOptionList }">
-							<li class="swiper-slide" onclick="location.href='itmeDetail.item?product_num=${ool.product_num}'">
+							<li class="swiper-slide" onclick="location.href='itemDetail.item?product_num=${ool.product_num}'">
 								<img src="${pageContext.request.contextPath}/upload/${ool.product_image}">
 								<div class="another-info">
 									<span class="another-name">${ool.product_name}</span>
