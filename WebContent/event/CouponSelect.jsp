@@ -7,10 +7,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+  <link rel=" shortcut icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
+  <link rel="icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
 <script src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 <script src="https://code.jquery.com/jquery-latest.js"></script> 
-
-<title>Insert title here</title>
+<title>ARTBOX(포트폴리오)</title>
 <style>
 .c_select_td {
 	width: 150px;

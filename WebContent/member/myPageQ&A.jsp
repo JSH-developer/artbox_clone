@@ -4,7 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ARTBOX</title>
+    <link rel=" shortcut icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
+    <link rel="icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
+<title>ARTBOX(포트폴리오)</title>
 <link href="css/member/myPage.css" rel="stylesheet">
 <link href="css/front.css" rel="stylesheet" type="text/css">
 <link href="css/slide.css" rel="stylesheet" type="text/css">
@@ -47,7 +49,11 @@
 
 		<div class="clear"></div>
 
-		<div class="noData">등록된 내용이 없습니다.</div>
+		<div class="noData">등록된 내용이 없습니다.</div><br><br><br><br>
 	</div>
+	
+	<!--  푸터 -->
+    <jsp:include page="../inc/bottom.jsp"></jsp:include>
+	<!--  푸터 -->
 </body>
 </html>

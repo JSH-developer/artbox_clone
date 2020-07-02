@@ -7,6 +7,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+  <link rel=" shortcut icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
+  <link rel="icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
 <title>ARTBOX(포트폴리오)</title>
 <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/css/order/Order.css" rel="stylesheet" type="text/css">
@@ -166,7 +168,7 @@ function Select(id) {
 				<dt class="tdCheck">
 					<input type="checkbox" name="BasketIdx" id="Item${basketList.basket_num }" value="${basketList.basket_num }" data-product_num="${basketList.basket_product_num }" data-basketIdx="${basketList.basket_num }" realitemprice="${itemsList[status.index].product_sale_price}" itemprice="${itemsList[status.index].product_price}" data-itemquantity="${basketList.basket_quantity }" >
 				</dt>
-				<dt class="tdImage"><a href="productDetail.basket?product_num=${basketList.basket_product_num }"><img src="basket/${itemsList[status.index].product_image }"></a></dt>
+				<dt class="tdImage"><a href="itemDetail.item?product_num=${basketList.basket_product_num }"><img src="basket/${itemsList[status.index].product_image }"></a></dt>
 				<dt class="tdInner">
 					<div class="tableDiv">
 						<dl class="trInfo">

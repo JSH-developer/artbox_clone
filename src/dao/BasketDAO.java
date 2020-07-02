@@ -85,7 +85,7 @@ public class BasketDAO {
 		List basketList = new ArrayList();
 		List itemsList = new ArrayList();
 		try {
-			String sql = "SELECT * FROM basket WHERE member_id=?";
+			String sql = "SELECT * FROM basket WHERE member_id=? ORDER BY regdate DESC";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member_id);
 			rs = pstmt.executeQuery();
@@ -120,8 +120,8 @@ public class BasketDAO {
 //			e.printStackTrace();
 			System.out.println("BasketDAO - selectBasketList() 실패! : " + e.getMessage());
 		} finally {
-//			close(rs2);
-//			close(pstmt2);
+			close(rs2);
+			close(pstmt2);
 			close(rs);
 			close(pstmt);
 		}

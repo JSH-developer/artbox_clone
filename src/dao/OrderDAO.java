@@ -316,7 +316,7 @@ public class OrderDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List list = new ArrayList();
-		
+
 		try {
 			String sql = "SELECT * FROM receiver WHERE member_id=? AND receiver NOT IN('') ORDER BY basic_num DESC";
 			pstmt = con.prepareStatement(sql);
@@ -462,6 +462,7 @@ public class OrderDAO {
 	public List getDetailList(String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		ResultSet rs2 = null;
 		String order_num = null;
 		List list = new ArrayList();
 		
@@ -485,7 +486,6 @@ public class OrderDAO {
 				ordersDetailBean.setPrice(rs.getInt("price"));
 				order_num = rs.getString("orders_order_num");
 				
-				ResultSet rs2 = null;
 				sql = "SELECT msg, total_price, pay_method, regdate FROM orders WHERE order_num=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, order_num);
@@ -510,17 +510,15 @@ public class OrderDAO {
 					ordersDetailBean.setReceiver_addr_detail(rs2.getString("receiver_addr_detail"));
 				}
 				list.add(ordersDetailBean);
-				close(rs2);
 			}
-
 		} catch (SQLException e) {
 //			e.printStackTrace();
 			System.out.println("OrderDAO - getDetailList() 실패! : " + e.getMessage());
 		} finally {
+			close(rs2);
 			close(rs);
 			close(pstmt);
 		}
-		
 		return list;
 	}
 

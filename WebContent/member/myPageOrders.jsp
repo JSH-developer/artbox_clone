@@ -6,6 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+    <link rel=" shortcut icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
+    <link rel="icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
 <title>ARTBOX(포트폴리오)</title>
 <%-- <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script> --%>
 <script type="text/javascript" src="${pageContext.request.contextPath}/member/myPage.js"></script>
@@ -97,12 +99,12 @@ function buy(orders_order_num,point){
 		<tr><td colspan="2"><span class="info_box">주문날짜  </span><fmt:formatDate value="${orders.orders_regdate}" pattern="yyyy.MM.dd" /></td></tr>
 		</table>
 		</div>
-		<br>
+		<br><br><br>
 		</c:forEach>
 		</c:if>
 
 		<c:if test="${empty myOrders}">
-		<div class="noData">주문내역이 없습니다.</div>
+		<div class="noData">주문내역이 없습니다.</div><br><br><br><br>
 		</c:if>
 	</div>
 	

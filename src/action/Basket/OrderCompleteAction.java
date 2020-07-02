@@ -77,7 +77,7 @@ public class OrderCompleteAction implements Action {
 		ordersbean.setOrders_order_phone(request.getParameter("tel")); // 주문자번호
 		ordersbean.setOrders_msg(request.getParameter("shipalertdesc")); // 배송메세지
 		ordersbean.setOrders_point(0); // 포인트
-		ordersbean.setOrders_total_price(Integer.parseInt(request.getParameter("Total"))); // 총합계
+		ordersbean.setOrders_total_price(Integer.parseInt(request.getParameter("TotalPriceAmount"))); // 총합계
 		ordersbean.setOrders_payMethod("card"); // 결제 페이방법
 		ordersbean.setOrders_state(0); // 배송상태 (0 default:결제완료-배송준비중)
 		
