@@ -29,7 +29,7 @@
 	<h1>주문 완료!</h1>
 	<div class="OrderComplete">
 		<span class="CompleteImage"></span>
-		<b>주문번호 : ${list[0].orders_order_num}</b>
+		주문번호<a href="myPageOrdersDetail.member?num=${list[0].num}&orders_num=${list[0].orders_order_num}"><b>${list[0].orders_order_num}</b></a>
 <!-- 	확인용 -->
 <%-- 	번호 : ${list[0].num}<br> --%>
 <%-- 	주문번호 : ${list[0].orders_order_num}<br> --%>
@@ -54,7 +54,7 @@
 		&nbsp;<br />
 		&nbsp;<br />
 		
-		<a class="btn1" href="#">주문내역 확인</a>&nbsp;&nbsp;<a class="btn2" href="/artbox_clone/Home.home">쇼핑하러 가기</a>
+		<a class="btn1" href="/artbox_clone/myPageOrders.member">주문내역 확인</a>&nbsp;&nbsp;<a class="btn2" href="/artbox_clone/Home.home">쇼핑하러 가기</a>
 	</div>
 </div>
 
