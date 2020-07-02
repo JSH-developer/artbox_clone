@@ -55,6 +55,9 @@ public class ItemDetailAction implements Action {
 		OtherOptionListSVC otherOptionListSVC = new OtherOptionListSVC();
 		ArrayList<ProductBean> otherOptionList = otherOptionListSVC.getOtherOptionList(productBean.getProduct_option_code());
 		request.setAttribute("otherOptionList", otherOptionList);
+		for(ProductBean pb : otherOptionList) {
+			System.out.println(pb.getProduct_num());
+		}
 		
 		
 		//----------------------------------------------------------------------------------
@@ -75,7 +78,7 @@ public class ItemDetailAction implements Action {
 		//dispatcher 포워딩 
 		forward = new ActionForward();
 		forward.setPath("/item/itemDetail.jsp");
-		
+		System.out.println("액션끝");
 		return forward;
 	}
 

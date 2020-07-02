@@ -165,7 +165,7 @@ public class ItemDAO {
 	
 	
 	public ArrayList<ProductBean> selectOtherOptionList(String product_option_code) {
-		ArrayList<ProductBean> otherOptionList = null;
+		ArrayList<ProductBean> otherOptionList = new ArrayList<ProductBean>();
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -181,10 +181,10 @@ public class ItemDAO {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				ProductBean article = new ProductBean();
-				article.setProduct_num(Integer.parseInt(rs.getString("detail.product_num")));
-				article.setProduct_image(rs.getString("detail.image"));
-				article.setProduct_name(rs.getString("detail.name"));
-				article.setProduct_price(Integer.parseInt(rs.getString("detail.price")));
+				article.setProduct_num(Integer.parseInt(rs.getString("num")));
+				article.setProduct_image(rs.getString("image"));
+				article.setProduct_name(rs.getString("name"));
+				article.setProduct_price(Integer.parseInt(rs.getString("price")));
 				otherOptionList.add(article);
 			}
 		} catch (SQLException e) {
