@@ -12,7 +12,6 @@ public class OtherOptionListSVC {
 
 	public ArrayList<ProductBean> getOtherOptionList(String product_option_code) {
 		ArrayList<ProductBean> otherOptionList = null;
-		System.out.println("getOtherOptionList");
 		
 		Connection con = getConnection();
 		ItemDAO itemDAO = ItemDAO.getInstance();

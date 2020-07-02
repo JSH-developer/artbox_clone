@@ -405,9 +405,14 @@
 			</div>
 		</section>
 		<section class="item_content">
-			<div class="item_review">
 			<input class="btn-review" type="button" value="후기작성" onclick="location.href='${pageContext.request.contextPath}/itemReview.item'">
-		<div class="table">
+			<div class="review_content">
+				<!--review목록 -->
+				<!--/review목록 -->
+			</div>
+			
+			<div class="item_review">
+			<div class="table">
 				<div class="tr">
 					<span class="td">★★★★★</span>
 					<span class="td type2">평소에 캔디머신을 구매할까하고 생각했었는데, 대부분 컬러가 원색만 있어...</span>
@@ -429,7 +434,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
 			
 			<div class="paging">
 				<span class="box">
@@ -439,11 +443,15 @@
 					<a href="#"> <img class="paging_pc" src="${pageContext.request.contextPath}/Images/order/btn_board_next.gif"> </a>
 				</span>
 			</div>
+			
+			
+			</div>
 		</section>
 		<section class="item_content">
 			<input class="btn-QnA modal" type="button" value="Q&amp;A작성">
 			<div class="question_content">
-				<!--후기목록 -->
+				<!--question목록 -->
+				<!--/question목록 -->
 			</div>
 		</section>
 		<!-- </article> -->

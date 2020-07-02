@@ -6,37 +6,38 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import dao.ItemDAO;
-import vo.ReviewBean;
+import vo.ProductBean;
 
-public class ReviewListSVC {
-
-	public ArrayList<ReviewBean> getReviewList(int porduct_num, int page, int limit) {
+public class ItemReviewListSVC {
+	
+	
+	public ArrayList<ProductBean> getItemReviewList(String id,int page, int limit) {
+		ArrayList<ProductBean> itmeReviewList = null; 
 		
-		ArrayList<ReviewBean> articleList = null;
-		
+		// 공통작업
 		Connection con = getConnection();
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		itemDAO.setConnection(con);
 		
-		articleList = itemDAO.selectReviewList(porduct_num, page, limit);
-		
+		itmeReviewList = itemDAO.selectItemReviewList(id, page, limit);
+
 		close(con);
 		
-		return articleList;
+		return itmeReviewList;
 	}
 
-	public int getReviewListCount(int porduct_num) {
+	public int getItemReviewListCount(String id) {
 		int listCount = 0;
-
+		
 		Connection con = getConnection();
 		ItemDAO itemDAO = ItemDAO.getInstance();
 		itemDAO.setConnection(con);
 		
-		listCount = itemDAO.selecReviewtListCount(porduct_num);
+		listCount = itemDAO.selectItemReviewListCount(id);
 		
 		close(con);
 		
 		return listCount;
 	}
-
+	
 }

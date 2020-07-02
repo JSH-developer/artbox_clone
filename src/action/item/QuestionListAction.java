@@ -15,7 +15,6 @@ public class QuestionListAction implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("QuestionListAction");
 		ActionForward forward = null;
 		
 		int product_num = Integer.parseInt(request.getParameter("product_num"));
