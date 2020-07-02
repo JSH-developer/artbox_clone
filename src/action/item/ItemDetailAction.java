@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import action.Action;
 import svc.admin.ProductViewService;
 import svc.item.GetCategorySVC;
+import svc.item.OtherOptionListSVC;
 import svc.item.QuestionListSVC;
 import vo.ActionForward;
 import vo.ProductBean;
@@ -48,6 +49,12 @@ public class ItemDetailAction implements Action {
 		GetCategorySVC getCategorySVC = new GetCategorySVC();
 		String category_sub = getCategorySVC.getCategorySub(productBean.getProduct_category_code());
 		request.setAttribute("category_sub", category_sub);
+		
+		//----------------------------------------------------------------------------------
+		
+		OtherOptionListSVC otherOptionListSVC = new OtherOptionListSVC();
+		ArrayList<ProductBean> otherOptionList = otherOptionListSVC.getOtherOptionList(productBean.getProduct_option_code());
+		request.setAttribute("otherOptionList", otherOptionList);
 		
 		
 		//----------------------------------------------------------------------------------

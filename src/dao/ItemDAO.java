@@ -162,7 +162,41 @@ public class ItemDAO {
 		
 		return listProduct;
 	}	
-
+	
+	
+	public ArrayList<ProductBean> selectOtherOptionList(String product_option_code) {
+		ArrayList<ProductBean> otherOptionList = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String fulloption = product_option_code;
+		String option = product_option_code.substring(0, 3)+"__";
+		
+		try {
+			String sql = "SELECT * from product WHERE option_code LIKE ? AND option_code NOT LIKE ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, option);
+			pstmt.setString(2, fulloption);	// 3은 구매확정 상태
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ProductBean article = new ProductBean();
+				article.setProduct_num(Integer.parseInt(rs.getString("detail.product_num")));
+				article.setProduct_image(rs.getString("detail.image"));
+				article.setProduct_name(rs.getString("detail.name"));
+				article.setProduct_price(Integer.parseInt(rs.getString("detail.price")));
+				otherOptionList.add(article);
+			}
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - selectOtherOptionList() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return otherOptionList;
+	}
+	
 	
 	public int insertReview(ReviewBean reviewBean) {
 		int insertCount = 0;
@@ -414,4 +448,5 @@ public class ItemDAO {
 		return categoryBean;
 	}
 
+	
 }
