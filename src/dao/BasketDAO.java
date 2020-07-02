@@ -120,8 +120,8 @@ public class BasketDAO {
 //			e.printStackTrace();
 			System.out.println("BasketDAO - selectBasketList() 실패! : " + e.getMessage());
 		} finally {
-//			close(rs2);
-//			close(pstmt2);
+			close(rs2);
+			close(pstmt2);
 			close(rs);
 			close(pstmt);
 		}
