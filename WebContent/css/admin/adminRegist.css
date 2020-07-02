@@ -6,6 +6,10 @@ th, td, p, input, button, textarea, select, div, xmp {line-height:100%;}
  outline : none
 }
 
+button, input[type=button]{
+	cursor: pointer;
+}
+
 img {border:none;}
 
 select, .reg_tab input[type=text], .reg_tab input[type=number], textarea{

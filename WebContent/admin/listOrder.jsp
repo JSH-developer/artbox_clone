@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
@@ -61,7 +62,7 @@ function change_state(){
 		<td>${orderList[i].orders_num}</td>
 		<td>${orderList[i].orders_member_id}</td>
 		<td><a href='OrderView.admin?num=${orderList[i].orders_num}&page=${pageInfo.page}&state=${param.state}'>${orderList[i].orders_order_num}</a></td>
-		<td>${orderList[i].orders_regdate}</td>
+		<td><fmt:formatDate value="${orderList[i].orders_regdate}" pattern="yyyy-MM-dd"/> </td>
 		<td><span class="orders_state">
 		<c:if test="${orderList[i].orders_state eq 0}">
 		배송준비중

@@ -21,7 +21,7 @@
 	<!-- 헤더 -->
 	<jsp:include page="/inc/top.jsp"></jsp:include>
 	<!-- 헤더 -->
-
+	
 	<div class = "body_box">
 		<div class="top_box">
 			<jsp:include page="/member/myPageHeader.jsp"></jsp:include>
@@ -40,14 +40,14 @@
 
 		<br>
 		
-		
+<%-- 		<a href="./itemDetail.item?product_num=${bestItems[0].product_num}"> --%>
 		<h1>주문 리스트</h1>
 		<c:set var="each_total" value="0" />
 		<c:forEach var="details" items="${myDetailOrders}">
 			<div class="myOrders">
 			<table class="myOrderstb">
 			<tr><th>상품 이미지</th><th>상품명  ${details.name}</th><th>개당 가격</th><th>주문 수량</th><th>총가격</th></tr>
-			<tr><td><img src="${pageContext.request.contextPath}/upload/${details.image}" width="90" height="90"/></td>
+			<tr><td><a href="./itemDetail.item?product_num=${details.product_num}"><img src="${pageContext.request.contextPath}/upload/${details.image}" width="90" height="90"/></a></td>
 			<td>${details.name}</td><td><fmt:formatNumber value="${details.price }" pattern="#,###원" /></td><td>${details.quantity }</td>
 			<td><fmt:formatNumber value="${details.quantity * details.price}" pattern="#,###원" /></td></tr>
 			</table>
@@ -68,7 +68,7 @@
 		<tr><td colspan="2">주문번호&nbsp;${param.orders_num}</td></tr>
 		<tr><th>주문 금액</th><td><fmt:formatNumber value="${each_total}" pattern="#,###원" /></td></tr>
 		<tr><th>배송비</th><td><fmt:formatNumber value="${ship}" pattern="#,###원" /></td></tr>
-		<tr><th>할인금액</th><td><fmt:formatNumber value="${each_total - ordersBean.orders_total_price - ship}" pattern="#,###원" /></td></tr>
+		<tr><th>할인금액</th><td><fmt:formatNumber value="${each_total + ship - ordersBean.orders_total_price }" pattern="#,###원" /></td></tr>
 		<tr><th>결제수단</th><td>${ordersBean.orders_payMethod}</td></tr>
 		<tr><th>결제 금액</th><td><span class="total_price"><fmt:formatNumber value="${ordersBean.orders_total_price}" pattern="#,###원" /></span></td></tr>
 		</table>

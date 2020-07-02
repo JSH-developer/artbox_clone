@@ -70,7 +70,7 @@ $(document).ready(function(){
 	<td>${productList[i].product_num}</td>
 	<td>${productList[i].product_code}</td>
 	<td><a href='ProductView.admin?num=${productList[i].product_num}&page=${pageInfo.page}&opt=${param.opt}&kwd=${param.kwd}'>${productList[i].product_name}</a></td>
-	<td>${productList[i].product_stock_count}</td>
+	<td>${productList[i].product_stock_count}개</td>
 	<td>${productList[i].product_category_code}</td>
 	<td>${productList[i].product_option_code}</td>
 	</tr>
