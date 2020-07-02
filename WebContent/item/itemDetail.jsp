@@ -361,52 +361,35 @@
 			</form>
 		</section>
 		<div class="clear"></div>
-		<section class="item-another">
-			<div class="another-text">이 상품의 다른 옵션</div>
-			<div class="another-list swiper-container">
-				<ul class="swiper-wrapper">
-					<li class="swiper-slide" onclick='location.href="#"'>
-						<img src="http://www.poom.co.kr/Upload2/Product/201805/1805300288_detail1.jpg">
-						<div class="another-info">
-							<span class="another-name">베이비 캔디머신 (레드)(53008338)</span>
-							<span class="another-price">4,900원</span>
-						</div>
-					</li>
-					<li class="swiper-slide" onclick='location.href="#"'>
-						<img src="http://www.poom.co.kr/Upload2/Product/201805/1805300305_detail1.jpg">
-						<div class="another-info">
-							<span class="another-name">베이비 캔디머신 (네이비)(53008339)</span>
-							<span class="another-price">4,900원</span>
-						</div>
-					</li>
-					<li class="swiper-slide" onclick='location.href="#"'>
-						<img src="http://www.poom.co.kr/Upload2/Product/201805/1805300332_detail1.jpg">
-						<div class="another-info">
-							<span class="another-name">클래식 캔디머신 (베이비블루)(53008341)</span>
-							<span class="another-price">4,900원</span>
-						</div>
-					</li>
-					<li class="swiper-slide" onclick='location.href="#"'>
-						<img src="http://www.poom.co.kr/Upload2/Product/201805/1805300332_detail1.jpg">
-						<div class="another-info">
-							<span class="another-name">클래식 캔디머신 (베이비블루)(53008341)</span>
-							<span class="another-price">4,900원</span>
-						</div>
-					</li>
-				</ul>
-				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
-			</div>
-			<script type="text/javascript">
-				var subSwiper = new Swiper(".another-list.swiper-container", { 
-					slidesPerView:3,
-					navigation : {
-						nextEl : '.swiper-button-next', // 다음 버튼 클래스명
-						prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
-					},
-				});
-			</script>
-		</section>
+		<c:if test="${!empty otherOptionList }">
+			<section class="item-another">
+				<div class="another-text">이 상품의 다른 옵션</div>
+				<div class="another-list swiper-container">
+					<ul class="swiper-wrapper">
+						<c:forEach var="ool" items="${otherOptionList }">
+							<li class="swiper-slide" onclick="location.href='itemDetail.item?product_num=${ool.product_num}'">
+								<img src="${pageContext.request.contextPath}/upload/${ool.product_image}">
+								<div class="another-info">
+									<span class="another-name">${ool.product_name}</span>
+									<span class="another-price"><fmt:formatNumber value="${ool.product_price}" type="number" />원</span>
+								</div>
+							</li>
+						</c:forEach>
+					</ul>
+					<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+					<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+				</div>
+				<script type="text/javascript">
+					var subSwiper = new Swiper(".another-list.swiper-container", { 
+						slidesPerView:3,
+						navigation : {
+							nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+							prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+						},
+					});
+				</script>
+			</section>
+		</c:if>
 		<div class="clear"></div>
 		<section class="item_content_bar">
 			<div class="tabBar">
