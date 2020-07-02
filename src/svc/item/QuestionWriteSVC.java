@@ -1,11 +1,10 @@
 package svc.item;
 
+import static db.jdbcUtil.*;
+
 import java.sql.Connection;
 
 import dao.ItemDAO;
-
-import static db.jdbcUtil.*;
-
 import vo.QuestionBean;
 
 public class QuestionWriteSVC {

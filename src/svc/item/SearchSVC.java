@@ -1,12 +1,11 @@
 package svc.item;
 
-import java.sql.Connection;
+import static db.jdbcUtil.*;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 
 import dao.ItemDAO;
-
-import static db.jdbcUtil.*;
 import vo.ProductBean;
 
 public class SearchSVC {
