@@ -27,7 +27,7 @@
     <div class="content">
         <div class="head_img" style="background-image: url('${pageContext.request.contextPath}/Images/item/${code}.jpg')">
         	
-		<b class="categoryName">${name }</b>
+		<b class="categoryName">${cname }</b>
         </div>
         <div class="category">
             <span><a href="${pageContext.request.contextPath}/itemList.item?major=${code}&minor=&kwd=${kwd}&doOrder=&page=1">전체</a></span>
