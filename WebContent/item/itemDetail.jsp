@@ -366,10 +366,10 @@
 					<ul class="swiper-wrapper">
 						<c:forEach var="ool" items="${otherOptionList }">
 							<li class="swiper-slide" onclick="location.href='itmeDetail.item?product_num=${ool.product_num}'">
-								<img src="http://www.poom.co.kr/Upload2/Product/201805/1805300288_detail1.jpg">
+								<img src="${pageContext.request.contextPath}/upload/${ool.product_image}">
 								<div class="another-info">
-									<span class="another-name">베이비 캔디머신 (레드)(53008338)</span>
-									<span class="another-price">4,900원</span>
+									<span class="another-name">${ool.product_name}</span>
+									<span class="another-price"><fmt:formatNumber value="${ool.product_price}" type="number" />원</span>
 								</div>
 							</li>
 						</c:forEach>
