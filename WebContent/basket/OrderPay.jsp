@@ -301,10 +301,8 @@ function execDaumPostCode() {
 		}
 		
 		$("#TotalDiscountPriceSum").text(setComma(TotalUseBonusCoupon + TotalUseGoodsCoupon + TotalUseFreeCoupon + TotalPriceMemberLevelDiscount));
-		
-		$("input[name=TotalPriceAmount]").val(TotalPriceAmount);
+		$("input[name=RealTotalPrice]").val(TotalPriceAmount);
 		$("#TotalPriceAmount").text(setComma(TotalPriceAmount));
-		$("#TotalPriceAmount2").text(setComma(TotalPriceAmount));
 		$("#UseMileageAll").val(TotalPriceAmount);
 	}
 	
@@ -431,6 +429,11 @@ function execDaumPostCode() {
 		} else {
 			return nArr.join("");
 		}
+	}
+	
+	function uncomma(str) {
+	    str = String(str);
+	    return str.replace(/[^\d]+/g, '');
 	}
 </script>
 <style type="text/css">
@@ -1106,9 +1109,9 @@ span.scoup { /*     쿠폰 팝업 창  */
 </div>
 
 <input type="hidden" id="pd_name" name="pd_name" value="${orderListOne[0].itemName }"/>
-<input type="hidden" id="Total" name="Total" value="${tps+tpd}"/>
 <input type="hidden" name="stockqty" value="${stockqty}"/>
 <input type="hidden" name="product_num" value="${product_num}"/>
+<input type="hidden" name="RealTotalPrice" value="0"/>
 
 </form>
 

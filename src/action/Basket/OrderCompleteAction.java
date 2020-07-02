@@ -52,7 +52,7 @@ public class OrderCompleteAction implements Action {
 		if(request.getParameter("BasicAddr") != null) {
 			BasicAddr = 1;
 		}
-		
+		System.out.println("총결제금액 + " + request.getParameter("RealTotalPrice"));
 //		System.out.println("사용한 포인트" + request.getParameter("UseMileagePrice"));
 //		System.out.println("기본 배송지 여부 : " + BasicAddr);
 //		System.out.println("적립포인트 : " + request.getParameter("point"));
@@ -77,7 +77,7 @@ public class OrderCompleteAction implements Action {
 		ordersbean.setOrders_order_phone(request.getParameter("tel")); // 주문자번호
 		ordersbean.setOrders_msg(request.getParameter("shipalertdesc")); // 배송메세지
 		ordersbean.setOrders_point(0); // 포인트
-		ordersbean.setOrders_total_price(Integer.parseInt(request.getParameter("TotalPriceAmount"))); // 총합계
+		ordersbean.setOrders_total_price(Integer.parseInt(request.getParameter("RealTotalPrice"))); // 총합계
 		ordersbean.setOrders_payMethod("card"); // 결제 페이방법
 		ordersbean.setOrders_state(0); // 배송상태 (0 default:결제완료-배송준비중)
 		

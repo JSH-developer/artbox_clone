@@ -475,7 +475,6 @@ public class OrderDAO {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				OrdersDetailBean ordersDetailBean = new OrdersDetailBean();
-				ordersDetailBean.setNum(rs.getInt("num"));
 				ordersDetailBean.setQuantity(rs.getInt("quantity"));
 				ordersDetailBean.setOrders_order_num(rs.getString("orders_order_num"));
 				ordersDetailBean.setProduct_num(rs.getInt("product_num"));
@@ -486,11 +485,12 @@ public class OrderDAO {
 				ordersDetailBean.setPrice(rs.getInt("price"));
 				order_num = rs.getString("orders_order_num");
 				
-				sql = "SELECT msg, total_price, pay_method, regdate FROM orders WHERE order_num=?";
+				sql = "SELECT num, msg, total_price, pay_method, regdate FROM orders WHERE order_num=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, order_num);
 				rs2 = pstmt.executeQuery();
 				if(rs2.next()) {
+					ordersDetailBean.setNum(rs2.getInt("num")); // 원래 orders_detail 번호지만, 임시로 orders 번호 담음
 					ordersDetailBean.setOrders_msg(rs2.getString("msg"));
 					ordersDetailBean.setOrders_regdate(rs2.getTimestamp("regdate"));
 					ordersDetailBean.setOrders_total_price(rs2.getInt("total_price"));

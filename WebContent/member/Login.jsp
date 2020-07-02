@@ -11,7 +11,7 @@
 <link href="css/front.css" rel="stylesheet" type="text/css">
 <link href="css/slide.css" rel="stylesheet" type="text/css">
 <link href="css/post.css" rel="stylesheet" type="text/css">
-<script src="js/jquery-3.5.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 
 </head>
 <body>
