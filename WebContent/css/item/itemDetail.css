@@ -403,15 +403,15 @@ a {color: #808080; text-decoration:none}
 }
 .item_content.on .table .ps.on .ps_score {
     position: absolute;
-    top: 12px;
+    top: 16px;
     left: 44px;
     width: 62px;
     height: 62px;
-    background: url(/images/ver1/shop/img_postscript_score.png?v=20180814) no-repeat center;
+    background-image: url(../../Images/item/img_postscript_score.png);
     font-size: 18px;
     font-weight: bold;
-    color: #000000;
-    padding: 6px 0 0 8px;
+    color: #FFFFFF;
+    padding: 8px 0 0 10px;
 }
 .item_content.on .table .ps.on .ps_sub1 {
     padding: 37px 0 37px 0;

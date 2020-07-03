@@ -25,7 +25,7 @@
 				</div>
 				
 				<div class="ps">
-					<span class="ps_score">${score * 2}</span>
+					<span class="ps_score"><fmt:formatNumber value="${score * 2}" type="number" pattern="0" /></span>
 					<div class="ps_sub1">
 						<span>기능 <c:forEach var="i" begin="1" end="${rl.review_skill }" step="1">★</c:forEach><c:forEach var="i" begin="${rl.review_skill + 1}" end="5" step="1">☆</c:forEach></span>
 						<span>디자인 <c:forEach var="i" begin="1" end="${rl.review_design }" step="1">★</c:forEach><c:forEach var="i" begin="${rl.review_design + 1}" end="5" step="1">☆</c:forEach></span>
