@@ -28,7 +28,6 @@ public class AdminChangeMemStateService {
 		}
 		
 		close(con);
-		System.out.println("Service에서 isChange : " + isChange);
 		return isChange;
 	}
 

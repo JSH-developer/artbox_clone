@@ -356,6 +356,11 @@ a {color: #808080; text-decoration:none}
     border-radius: 5px;
     cursor: pointer;
 }
+.item_content.on .review_content img{
+	padding-bottom: 10px;
+    max-width: 800px;
+    width: 100%;
+}
 .item_content.on .table {
 	border-bottom: 1px solid #cacaca;
 }

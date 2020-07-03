@@ -1,10 +1,8 @@
-$(document).ready(function(){
-	 
+$(function(){
 	var lnb = $(".pageHeader").offset().top;
 	$(window).scroll(function() {
 	  	var window = $(this).scrollTop();
-
-	    if(lnb <= window) {
+	    if(lnb < window) {
 	      $(".pageHeader").addClass("fixed");
 		document.getElementById("orilogo").style.display="none";
 		document.getElementById("scrlogo").style.display="block";

@@ -1,22 +1,6 @@
 @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
 @import url(//fonts.googleapis.com/css?family=Saira+Condensed); /*font-family:'Saira Condensed'*/
 
-
-@media (max-width:359px) {html{font-size:15px;}}
-@media (min-width:360px) and (max-width:381px) {html{font-size:16px;}}
-@media (min-width:382px) and (max-width:404px) {html{font-size:17px;}}
-@media (min-width:405px) and (max-width:426px) {html{font-size:18px;}}
-@media (min-width:427px) and (max-width:449px) {html{font-size:19px;}}
-@media (min-width:450p0x) and (max-width:471px) {html{font-size:20px;}}
-@media (min-width:472px) and (max-width:494px) {html{font-size:21px;}}
-@media (min-width:495px) and (max-width:516px) {html{font-size:22px;}}
-@media (min-width:517px) and (max-width:539px) {html{font-size:23px;}}
-@media (min-width:540px) and (max-width:561px) {html{font-size:24px;}}
-@media (min-width:562px) and (max-width:584px) {html{font-size:25px;}}
-@media (min-width:585px) and (max-width:719px) {html{font-size:26px;}}
-@media (min-width:720px) {html{font-size:26px;}}
-
-
 html, body {width:100%; margin:0; padding:0;}
 
 body {background-color:#ffffff; position:relative; min-width:320px;}
@@ -129,11 +113,10 @@ a.privacy {/*font-weight:bold;*/color:#3a4b59;}
 
 input[type=button]{cursor:pointer;}
 
-.grade1 { color:#88d0cc !important;}
-.grade2 { color:#da6ca8 !important;}
-.grade3 { color:#66afdf !important;}
-.grade4 { color:#fad668 !important;}
-.grade5 { color:#bbbcbe !important;}
+.grade1 { color:#d06800!important;}
+.grade2 { color:#bbbcbe !important;}
+.grade3 { color:#fec603!important;}
+.grade4 { color:#00d7d7!important;}
 
 .tableDiv {display:table; width:100%;}
 .tableDiv dl {display: table-row;}
@@ -287,93 +270,3 @@ input[type=button]{cursor:pointer;}
     font-size: 17px;
 }
 
-@media only screen and (max-width:1199px)
-{
-	.noData { font-size:1.0625rem; text-align:center; padding:4.0625rem 0 5.3125rem 0; }
-
- .top_box { width:100%; margin:0.875rem 0 1.875rem 0; padding:1.5625rem 0.8125rem 1.25rem 0.8125rem; background-color:#f5f5f5; border-radius:5px;  }	
- .top_box .whoes { font-size:1rem; color:#000000; margin-bottom:0.6875rem; }
- .top_box .whoes span.MNmSpan { width:75%; display:inline-block; }
- .top_box .whoes span.MNm { font-size:1.1875rem; font-weight:bold;  }
- .top_box .whoes span.MInfo {
-		position: absolute;
-		top: 14%;
-		right: 0;
-		cursor: pointer;
-		font-size: 0.8125rem;
-		color: #999999;
-		padding-right: 1rem;
-		background: url(/images/ver1/common/sel_arrow.png) no-repeat;
-		background-size: 0.85rem 0.45rem;
-		background-position: right center;
-	}
-	
-	.top_box .whoes span.MInfo.on { background:url(/images/ver1/common/sel_arrow_on.png) no-repeat; background-size:0.85rem 0.45rem; background-position:right center; }
- .top_box .whoes span.MEvent { display:none; }
-
- .top_box .whoes .Pop_Menu {
-		position: absolute;
-		top: 1.25rem;
-		right: 0;
-		left: auto;
-		width: 9.0625rem;
-		height: 7.5rem;
-		padding: 1.125rem 1.1875rem;
-		background-color: #ffffff;
-		border: 1px solid #999999;
-		border-radius: 5px;
-	}
-	.top_box .whoes .Pop_Menu li { font-size:0.75rem; margin-bottom:0.625rem; }
-
- .top_box .M_MEvent { display:block; margin-top:1.375rem; text-align:center; font-size:0.875rem; }
-	
- .top_box .three_box li { height:6.25rem; background-color:#ffffff; border-radius:5px; }
- .top_box .three_box li.Tbox1 { width:49%; margin:0 1% 0 0; }
- .top_box .three_box li.Tbox2 { width:49%; margin:0 0 0 1%; }
- .top_box .three_box li.Tbox3 { width:100%; margin:2% 0 0 0; }
- .top_box .three_box li.Tbox3 li { padding-top:1.4375rem; width:33.3%; }
-	
- .top_box .three_box li.Tbox1 .GName { margin-top:1rem; display:block; font-size:0.875rem; font-weight:bold; text-align:center; }
- .top_box .three_box li.Tbox1 .GImg { margin:0.3125rem auto 0 auto; display:block; width:auto; height:1.5rem; }
- .top_box .three_box li.Tbox1 .GSee { margin-top:0.3125rem; display:block; font-size:0.8rem; text-align:center;  } 
-
- .top_box .three_box li.Tbox2 .CImg { margin:1.25rem auto 0 auto; display:block; width:2.0625rem; height:1.0625rem; }
- .top_box .three_box li.Tbox2 .CCandy { margin-top:1rem; display:block; font-size:1.5625rem; font-weight:bold; text-align:center; color:#94b7d1; }
-
- .top_box .three_box li.Tbox3 li span:nth-child(1) { font-size:0.9375rem; margin-bottom:0.75rem;  }
- .top_box .three_box li.Tbox3 li span:nth-child(2) { font-size:1.5rem; }
-	
-
- .MenuBar_Box { margin-bottom:1.875rem; }
- .MenuBar_Box li {
-		cursor: pointer;
-		text-align: center;
-		font-size: 0.8125rem;
-		color: #999999;
-		background-color: #f4f4f4;
-		border-left: 1px solid #000000;
-		border-top: 1px solid #000000;
-		border-bottom: 0;
-		border-right: 0;
-		width: 80%;
-		height: 2.3125rem;
-		line-height: 2.3125rem;
-		margin: 0 115px;
-	}
-	.MenuBar_Box li.on { color:#000000; background-color:#ffffff; }
- .MenuBar_Box li:nth-child(1) { border-radius:5px 5px 0 0; border-right:  1px solid #000;}
- .MenuBar_Box li:nth-child(2) { border-right:1px solid #000; border-bottom: 0;}
- .MenuBar_Box li:nth-child(3) { border-right:1px solid #000; line-height:2.25rem;}
- .MenuBar_Box li:nth-child(4) { border-right:1px solid #000; line-height:2.25rem;}
- .MenuBar_Box li:nth-child(5) { border-radius:0 0 5px 5px; border-right:1px solid #000000; border-bottom:1px solid #000000; }
- 
- .body_box .question_left_box{margin-left: 115px; }
- .body_box .question_right_box{margin-right: 125px;}
- .body_box .footer_box{margin-left: 115px;}
- .body_box .qna_box{margin-right: 125px;}
- .body_box .sel_box li:nth-child(1) {margin-left: 115px;}
- .body_box .sel_box li:nth-child(2),li:nth-child(2) {margin-right: 125px;}
- .body_box .sel_box select{margin-left: 115px;}
- 
-}
-	 

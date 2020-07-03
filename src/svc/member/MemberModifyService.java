@@ -9,17 +9,16 @@ import vo.MemberBean;
 
 public class MemberModifyService {
 
-	public int MemberUpdate(MemberBean mb) {
+	public void MemberUpdate(MemberBean mb) {
 		Connection con = getConnection();
 		MemberDAO dao = MemberDAO.getInstance();
 		dao.setConnection(con);
 		
-		int success = dao.memberUpdate(mb);
+		dao.memberUpdate(mb);
 		
 		commit(con);
 		close(con);
 		
-		return success;
 	}
 
 }

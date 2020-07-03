@@ -31,7 +31,7 @@ $(document).ready(function(){
 </head>
 <body>
 <h1><img src="${pageContext.request.contextPath}/Images/admin/otto.png" width="50px" height="50px"/>현재 회원상태는 '<span id="status_now"></span>' 입니다.<img src="${pageContext.request.contextPath}/Images/admin/otto.png" width="50px" height="50px"/></h1>
-<form action="changeStatePro.admin" method="post">
+<form action="changeMemStatePro.admin" method="post">
 <select id="status_select" name="state">
 <option value="1">활성</option>
 <option value="0">비활성</option>

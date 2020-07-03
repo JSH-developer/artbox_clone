@@ -10,8 +10,8 @@
 <link href="css/member/myPage.css" rel="stylesheet">
 <link href="css/front.css" rel="stylesheet" type="text/css">
 <link href="css/slide.css" rel="stylesheet" type="text/css">
-<script src="../js/jquery-3.5.0.js"></script>
-<script type="text/javascript" src="member/myPage.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/member/myPage.js"></script>
 </head>
 <body>
 
@@ -52,7 +52,6 @@
 
 		<div class="noData">주문내역이 없습니다.</div><br><br><br><br>
 	</div>
-	
 	<!--  푸터 -->
     <jsp:include page="../inc/bottom.jsp"></jsp:include>
 	<!--  푸터 -->

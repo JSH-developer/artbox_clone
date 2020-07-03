@@ -67,3 +67,7 @@
  	vertical-align: top;
 }
 
+button, input[type=button]{
+	cursor: pointer;
+}
+

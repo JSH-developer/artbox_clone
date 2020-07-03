@@ -59,8 +59,8 @@
 		<tr><td><span class="info_box">주문번호  </span>${res.orders_order_num}
 		<a href="myPageOrdersDetail.member?num=${res.orders_num}&orders_num=${res.orders_order_num}"><strong>&nbsp;주문상세보기</strong></a></td><td rowspan="5" class="state_box">주문이 취소된 상품입니다.</td></tr>
 		<tr><td colspan="2">※상품에 대한 자세한 정보는 <strong>'주문상세보기'</strong>를 클릭하면 확인하실수 있습니다.</td></tr>
-		<tr><td colspan="2"><span class="info_box">총가격  </span>${res.orders_total_price}</td></tr>
-		<tr><td colspan="2"><span class="info_box">주문날짜  </span><fmt:formatDate value="${res.orders_regdate}" pattern="yyyy.MM.dd" /></td></tr>
+		<tr><td colspan="2"><span class="info_box">총가격  </span><fmt:formatNumber value="${res.orders_total_price}" pattern="#,###원"/> </td></tr>
+		<tr><td colspan="2"><span class="info_box">주문날짜  </span><fmt:formatDate value="${res.orders_regdate}" pattern="yyyy-MM-dd" /></td></tr>
 		</table>
 		</div>
 		<br>
@@ -72,7 +72,6 @@
 		</c:if>
 		
 	</div>
-	
 	<!--  푸터 -->
 	<jsp:include page="/inc/bottom.jsp"></jsp:include>
 	<!--  푸터 -->

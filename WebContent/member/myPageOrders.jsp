@@ -9,7 +9,6 @@
     <link rel=" shortcut icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
     <link rel="icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
 <title>ARTBOX(포트폴리오)</title>
-<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script> --%>
 <script type="text/javascript" src="${pageContext.request.contextPath}/member/myPage.js"></script>
 <script>
 
@@ -39,6 +38,8 @@ function buy(orders_order_num,point){
 	<!-- 헤더 -->
 	<jsp:include page="/inc/top.jsp"></jsp:include>
 	<!-- 헤더 -->
+
+<!-- 	<img src="/Images/admin/event.png" height="1000px" width="140px"/> -->
 
 	<div class = "body_box">
 		<div class="top_box">
@@ -71,6 +72,7 @@ function buy(orders_order_num,point){
 		<br>
 		
 		
+		
 		<c:if test="${!empty myOrders }">
 		<c:forEach var="orders" items="${myOrders}">
 		<div class="myOrders">
@@ -95,8 +97,8 @@ function buy(orders_order_num,point){
 		</c:if>
 		</td></tr>
 		<tr><td colspan="2">※상품에 대한 자세한 정보는 <strong>'주문상세보기'</strong>를 클릭하면 확인하실수 있습니다.</td></tr>
-		<tr><td colspan="2"><span class="info_box">총가격  </span>${orders.orders_total_price}</td></tr>
-		<tr><td colspan="2"><span class="info_box">주문날짜  </span><fmt:formatDate value="${orders.orders_regdate}" pattern="yyyy.MM.dd" /></td></tr>
+		<tr><td colspan="2"><span class="info_box">총가격  </span><fmt:formatNumber value="${orders.orders_total_price}" pattern="#,###원"/> </td></tr>
+		<tr><td colspan="2"><span class="info_box">주문날짜  </span><fmt:formatDate value="${orders.orders_regdate}" pattern="yyyy-MM-dd" /></td></tr>
 		</table>
 		</div>
 		<br><br><br>
@@ -112,5 +114,6 @@ function buy(orders_order_num,point){
 	<!--  푸터 -->
 	<jsp:include page="/inc/bottom.jsp"></jsp:include>
 	<!--  푸터 -->
+	
 </body>
 </html>

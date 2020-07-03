@@ -23,6 +23,7 @@
 // 		replaceMajor();
 		//문의 불러옴
 		goQuestionPage("${questionPageInfo.pageNum}");
+		goReviewPage(1);
 		fnCheckPriseSum();
 	}
 	//대분류 카테고리 replace
@@ -214,20 +215,41 @@
 			}
 		});
 	}
+	function goReviewPage(page){
+		$.ajax({
+			url:'reviewList.item',
+			type:"POST",
+			dataType : 'html',
+			data:{
+				page:page,
+				product_num:'${productBean.product_num}',
+			},
+			success:function(rdata){
+				$('.review_content').html("");
+				$('.review_content').html(rdata);
+			}
+		});
+	}
 	
 	// '장바구니 담기' 및 '바로 구매하기' 버튼 클릭 이벤트
 	function Order(id) {
 		var product_num = $("input[name=product_num]").val();
 		var stockqty = $("input[name=stockqty]").val();
-		if(id=='AddBasket') { // '장바구니 담기' 버튼 클릭 시
-			var result = confirm("선택하신 상품이 장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?");
-			// 확인/취소 선택 시 장바구니 상품 담음
-			// result(확인/취소) 값을 넘겨줘서 Action 클래스에서 장바구니 페이지 이동여부 판별
-			document.gfr.action = "insertBasket.basket?result="+result+"&product_num="+product_num;
-			document.gfr.submit();
-		} else if(id=='DirectOrder') { // '바로 구매하기' 버튼 클릭 시
-			document.gfr.action = "orderDirect.order?product_num="+product_num+"&stockqty="+stockqty;
-			document.gfr.submit();
+		
+		if('${productBean.product_stock_count }' == 0){
+			alert("현재 재고량이 0개 입니다.");
+		}else{
+			if(id=='AddBasket') { // '장바구니 담기' 버튼 클릭 시
+				var result = confirm("선택하신 상품이 장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?");
+				// 확인/취소 선택 시 장바구니 상품 담음
+				// result(확인/취소) 값을 넘겨줘서 Action 클래스에서 장바구니 페이지 이동여부 판별
+				document.gfr.action = "insertBasket.basket?result="+result+"&product_num="+product_num;
+				document.gfr.submit();
+			} else if(id=='DirectOrder') { // '바로 구매하기' 버튼 클릭 시
+					document.gfr.action = "orderDirect.order?product_num="+product_num+"&stockqty="+stockqty;
+					document.gfr.submit();
+			}
+			
 		}
 	}
 	
@@ -324,7 +346,16 @@
 					<div class="pdt-right pdt-delivery">2,500원
 						<input type="button" class="btn-delivery modal" value="배송비 안내">
 					</div>
-					<div class="pdt-right pdt-candy"><fmt:formatNumber value="${productBean.product_price / 100}" type="number" />개</div>
+					<div class="pdt-right pdt-candy">
+						<c:choose>
+							<c:when test="${(productBean.product_price - productBean.product_sale_price) < 0}">
+								0 개
+							</c:when>
+							<c:otherwise>
+								<fmt:formatNumber value="${(productBean.product_price - productBean.product_sale_price) / 100}" type="number" pattern="0" />개
+							</c:otherwise>
+						</c:choose>
+					</div>
 					<div class="pdt-right pdt-code">${productBean.product_code}</div>
 					<div class="pdt-right pdt-ok">1% 적립</div>
 					<div class="pdt-right pdt-count">
@@ -361,56 +392,39 @@
 			</form>
 		</section>
 		<div class="clear"></div>
-		<section class="item-another">
-			<div class="another-text">이 상품의 다른 옵션</div>
-			<div class="another-list swiper-container">
-				<ul class="swiper-wrapper">
-					<li class="swiper-slide" onclick='location.href="#"'>
-						<img src="http://www.poom.co.kr/Upload2/Product/201805/1805300288_detail1.jpg">
-						<div class="another-info">
-							<span class="another-name">베이비 캔디머신 (레드)(53008338)</span>
-							<span class="another-price">4,900원</span>
-						</div>
-					</li>
-					<li class="swiper-slide" onclick='location.href="#"'>
-						<img src="http://www.poom.co.kr/Upload2/Product/201805/1805300305_detail1.jpg">
-						<div class="another-info">
-							<span class="another-name">베이비 캔디머신 (네이비)(53008339)</span>
-							<span class="another-price">4,900원</span>
-						</div>
-					</li>
-					<li class="swiper-slide" onclick='location.href="#"'>
-						<img src="http://www.poom.co.kr/Upload2/Product/201805/1805300332_detail1.jpg">
-						<div class="another-info">
-							<span class="another-name">클래식 캔디머신 (베이비블루)(53008341)</span>
-							<span class="another-price">4,900원</span>
-						</div>
-					</li>
-					<li class="swiper-slide" onclick='location.href="#"'>
-						<img src="http://www.poom.co.kr/Upload2/Product/201805/1805300332_detail1.jpg">
-						<div class="another-info">
-							<span class="another-name">클래식 캔디머신 (베이비블루)(53008341)</span>
-							<span class="another-price">4,900원</span>
-						</div>
-					</li>
-				</ul>
-				<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-				<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
-			</div>
-			<script type="text/javascript">
-				var subSwiper = new Swiper(".another-list.swiper-container", { 
-					slidesPerView:3,
-					navigation : {
-						nextEl : '.swiper-button-next', // 다음 버튼 클래스명
-						prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
-					},
-				});
-			</script>
-		</section>
+		<c:if test="${!empty otherOptionList }">
+			<section class="item-another">
+				<div class="another-text">이 상품의 다른 옵션</div>
+				<div class="another-list swiper-container">
+					<ul class="swiper-wrapper">
+						<c:forEach var="ool" items="${otherOptionList }">
+							<li class="swiper-slide" onclick="location.href='itemDetail.item?product_num=${ool.product_num}'">
+								<img src="${pageContext.request.contextPath}/upload/${ool.product_image}">
+								<div class="another-info">
+									<span class="another-name">${ool.product_name}</span>
+									<span class="another-price"><fmt:formatNumber value="${ool.product_price}" type="number" />원</span>
+								</div>
+							</li>
+						</c:forEach>
+					</ul>
+					<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+					<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+				</div>
+				<script type="text/javascript">
+					var subSwiper = new Swiper(".another-list.swiper-container", { 
+						slidesPerView:3,
+						navigation : {
+							nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+							prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+						},
+					});
+				</script>
+			</section>
+		</c:if>
 		<div class="clear"></div>
 		<section class="item_content_bar">
 			<div class="tabBar">
-				<span>상품상세</span> <span>상품후기(2)</span> <span>상품Q&amp;A(${questionPageInfo.boardCount})</span>
+				<span>상품상세</span> <span>상품후기(${reviewCount })</span> <span>상품Q&amp;A(${questionPageInfo.boardCount})</span>
 			</div>
 		</section>
 		<div class="clear"></div>
@@ -422,45 +436,21 @@
 			</div>
 		</section>
 		<section class="item_content">
-			<div class="item_review">
-			<input class="btn-review" type="button" value="후기작성" onclick="location.href='${pageContext.request.contextPath}/itemReview.item'">
-		<div class="table">
-				<div class="tr">
-					<span class="td">★★★★★</span>
-					<span class="td type2">평소에 캔디머신을 구매할까하고 생각했었는데, 대부분 컬러가 원색만 있어...</span>
-					<span class="td">2019-12-28</span>
-					<span class="td">besi**</span>
-				</div>
-				<div class="ps">
-					<span class="ps_score">10</span>
-					<div class="ps_sub1">
-						<span>기능 ★★★★★</span> <span>디자인 ★★★★★</span> <span>가격 ★★★★★</span> <span>품질 ★★★★★</span>
-					</div>
-					<div class="ps_sub2">평소에 캔디머신을 구매할까 하고 생각했었는데, 대부분 컬러가 원색만
-						있어서 좀 망설여졌었어요. 근데 아트박스에서 너무 예쁜 베이비핑크 컬러로 캔디머신이 나왔기에 냉큼 구입했습니다.
-						생각했던 컬러 그대로라 너무 만족합니다ㅎㅎ 크기도 너무 작지 않아서 좋아요. 그리고 위 아래로 통이 분리된다는게 최대
-						장점입니다. 세척하기도 편하고 용이해서 더 좋아요.
-					</div>
-					<div class="ps_sub3">
-						<img src="http://www.poom.co.kr/Upload2/PostScript/201912/1805300328_0_123034_1.jpg">
-					</div>
-				</div>
-			</div>
-		</div>
-			
-			<div class="paging">
-				<span class="box">
-					<a href="#"> <img class="opacity" src="${pageContext.request.contextPath}/Images/order/btn_board_prev.gif"> </a>
-					<a href="#" class="btn_pageon">1</a>
-					<a href="#">2</a>
-					<a href="#"> <img class="paging_pc" src="${pageContext.request.contextPath}/Images/order/btn_board_next.gif"> </a>
-				</span>
+			<c:if test="${!empty id}">
+				<input class="btn-review" type="button" value="후기작성" onclick="location.href='${pageContext.request.contextPath}/itemReview.item'">
+			</c:if>
+			<div class="review_content">
+				<!--review목록 -->
+				<!--/review목록 -->
 			</div>
 		</section>
 		<section class="item_content">
-			<input class="btn-QnA modal" type="button" value="Q&amp;A작성">
+			<c:if test="${!empty id}">
+				<input class="btn-QnA modal" type="button" value="Q&amp;A작성">
+			</c:if>
 			<div class="question_content">
-				<!--후기목록 -->
+				<!--question목록 -->
+				<!--/question목록 -->
 			</div>
 		</section>
 		<!-- </article> -->

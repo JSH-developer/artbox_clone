@@ -12,7 +12,6 @@ import vo.QuestionPageInfo;
 public class QuestionListSVC {
 
 	public ArrayList<QuestionBean> getQuestionList(int product_num, int q_pageNum, int q_pageSize) {
-		System.out.println("getQuestionList");
 		ArrayList<QuestionBean> questionList = null;
 		
 		// 공통작업

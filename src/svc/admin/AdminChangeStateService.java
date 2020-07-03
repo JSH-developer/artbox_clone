@@ -18,7 +18,7 @@ public class AdminChangeStateService {
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
 		
-		int changeCount = adminDAO.changeMemState(state, num);
+		int changeCount = adminDAO.changeState(state, num);
 		
 		if(changeCount>0) {
 			commit(con);

@@ -164,7 +164,7 @@ public class ItemDAO {
 	
 	
 	public ArrayList<ProductBean> selectOtherOptionList(String product_option_code) {
-		ArrayList<ProductBean> otherOptionList = null;
+		ArrayList<ProductBean> otherOptionList = new ArrayList<ProductBean>();
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -180,10 +180,10 @@ public class ItemDAO {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				ProductBean article = new ProductBean();
-				article.setProduct_num(Integer.parseInt(rs.getString("detail.product_num")));
-				article.setProduct_image(rs.getString("detail.image"));
-				article.setProduct_name(rs.getString("detail.name"));
-				article.setProduct_price(Integer.parseInt(rs.getString("detail.price")));
+				article.setProduct_num(rs.getInt("num"));
+				article.setProduct_image(rs.getString("image"));
+				article.setProduct_name(rs.getString("name"));
+				article.setProduct_price(rs.getInt("price"));
 				otherOptionList.add(article);
 			}
 		} catch (SQLException e) {
@@ -244,11 +244,37 @@ public class ItemDAO {
 		
 		return insertCount;
 	}
+
+	public int selectItemReviewListCount(String id) {
+		int listCount=0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT COUNT(detail.num) "
+					+ "FROM orders INNER JOIN orders_detail detail ON orders.order_num = detail.orders_order_num "
+					+ "WHERE orders.member_id = ? AND orders.state = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, 3);	
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - selectItemReviewListCount() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
 	
-	
-	public ArrayList<ProductBean> selectReviewList(String id, int page, int limit) {
-		System.out.println("selectReviewList");
-		ArrayList<ProductBean> reviewList = new ArrayList<ProductBean>();
+	public ArrayList<ProductBean> selectItemReviewList(String id, int page, int limit) {
+		ArrayList<ProductBean> itemReviewList = new ArrayList<ProductBean>();
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -268,11 +294,86 @@ public class ItemDAO {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				ProductBean article = new ProductBean();
-				article.setProduct_num(Integer.parseInt(rs.getString("detail.product_num")));
+				article.setProduct_num(rs.getInt("detail.product_num"));
 				article.setProduct_image(rs.getString("detail.image"));
 				article.setProduct_name(rs.getString("detail.name"));
-				article.setProduct_price(Integer.parseInt(rs.getString("detail.price")));
+				article.setProduct_price(rs.getInt("detail.price"));
 				article.setProduct_regdate(rs.getTimestamp("DATE_ADD(orders.regdate, INTERVAL 6 MONTH)"));
+				itemReviewList.add(article);
+			}
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - selectReviewList() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return itemReviewList;
+	}
+
+	public int selecReviewtListCount(int porduct_num) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT COUNT(num) FROM review WHERE product_num=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, porduct_num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - selecReviewtListCount() 실패! : " + e.getMessage());
+		} finally {
+			// DB 자원 반환
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	public ArrayList<ReviewBean> selectReviewList(int porduct_num, int page, int limit) {
+		ArrayList<ReviewBean> reviewList = new ArrayList<ReviewBean>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int startRow = (page - 1) * limit;
+		
+		try {
+			String sql = "SELECT * FROM review WHERE product_num=? LIMIT ?,?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, porduct_num);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, limit);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ReviewBean article = new ReviewBean();
+				article.setReview_num(rs.getInt("num"));
+				article.setReview_skill(rs.getInt("skill"));
+				article.setReview_design(rs.getInt("design"));
+				article.setReview_price(rs.getInt("price"));
+				article.setReview_quality(rs.getInt("quality"));
+				article.setReview_regdate(rs.getTimestamp("regdate"));
+				article.setReview_content(rs.getString("content"));
+				article.setReview_re_check(rs.getInt("re_check"));
+				article.setReview_re_name(rs.getString("re_name"));
+				article.setReview_re_regdate(rs.getTimestamp("re_regdate"));
+				article.setReview_re_content(rs.getString("re_content"));
+				article.setReview_member_id(rs.getString("member_id"));
+				article.setReview_product_num(rs.getInt("product_num"));
+				article.setReview_img1(rs.getString("img1"));
+				article.setReview_img2(rs.getString("img2"));
+				article.setReview_img3(rs.getString("img3"));
+				article.setReview_img4(rs.getString("img4"));
+				article.setReview_img5(rs.getString("img5"));
 				reviewList.add(article);
 			}
 		} catch (SQLException e) {
@@ -284,38 +385,6 @@ public class ItemDAO {
 		
 		return reviewList;
 	}
-
-	
-	public int selectReviewListCount(String id) {
-		int listCount = 0;
-		
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			// board_num 컬럼의 전체 갯수를 조회하기(모든 컬럼을 뜻하는 * 기호 사용해도 됨)
-			String sql = "SELECT COUNT(orders.num) "
-					+ "FROM orders INNER JOIN orders_detail detail ON orders.order_num = detail.orders_order_num "
-					+ "WHERE orders.member_id = ? AND orders.state = ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id);
-			pstmt.setInt(2, 3);	// 3은 구매확정 상태
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				listCount = rs.getInt("COUNT(orders.num)");
-			}
-		} catch (SQLException e) {
-			System.out.println("ItemDAO - selectReviewListCount() 실패! : " + e.getMessage());
-		} finally {
-			// DB 자원 반환
-			close(rs);
-			close(pstmt);
-		}
-		
-		return listCount;
-	}
-	
 	
 	public int insertQuestion(QuestionBean questionBean) {
 		int insertCount = 0;
@@ -361,7 +430,6 @@ public class ItemDAO {
 
 
 	public ArrayList<QuestionBean> selectQuestionList(int product_num, int q_startRow, int q_pageSize) {
-		System.out.println("selectQuestionList");
 		ArrayList<QuestionBean> questionList = new ArrayList<QuestionBean>();
 
 		PreparedStatement pstmt = null;
@@ -395,7 +463,6 @@ public class ItemDAO {
 
 
 	public int getQuestionCount(int product_num) {
-		System.out.println("getQuestionCount");
 		int count = 0;
 		
 		PreparedStatement pstmt = null;
@@ -446,6 +513,13 @@ public class ItemDAO {
 		System.out.println(categoryBean.getCategory_sub());
 		return categoryBean;
 	}
+
+
+
+
+	
+
+
 
 	
 }

@@ -11,6 +11,7 @@ import svc.admin.ProductViewService;
 import svc.item.GetCategorySVC;
 import svc.item.OtherOptionListSVC;
 import svc.item.QuestionListSVC;
+import svc.item.ReviewListSVC;
 import vo.ActionForward;
 import vo.ProductBean;
 import vo.QuestionBean;
@@ -24,11 +25,12 @@ public class ItemDetailAction implements Action {
 		ProductBean productBean = null;
 		//파라미터로 전달된 게시물 넘버값 
 		int product_num = Integer.parseInt(request.getParameter("product_num"));
-		//로그인 안했으면 id값 guest
+
 		HttpSession session = request.getSession();
-		if(session.getAttribute("id") == null) {
-			session.setAttribute("id", "guest");
-		}
+		String id = (String)session.getAttribute("id");
+		request.setAttribute("id", id);
+		System.out.println("id = " + id);
+		
 		//admin의 svc.ProductViewService 객체 재활용 
 		ProductViewService pvs = new ProductViewService();
 		productBean = pvs.infoProduct(product_num);
@@ -54,12 +56,16 @@ public class ItemDetailAction implements Action {
 		
 		OtherOptionListSVC otherOptionListSVC = new OtherOptionListSVC();
 		ArrayList<ProductBean> otherOptionList = otherOptionListSVC.getOtherOptionList(productBean.getProduct_option_code());
-		request.setAttribute("otherOptionList", otherOptionList);
-		
+		request.setAttribute("otherOptionList", otherOptionList);		
 		
 		//----------------------------------------------------------------------------------
 		
-		System.out.println("question시작");
+		ReviewListSVC reviewListSVC = new ReviewListSVC();
+		int reviewCount = reviewListSVC.getReviewListCount(product_num);
+		request.setAttribute("reviewCount", reviewCount);		
+		
+		//----------------------------------------------------------------------------------
+		
 		int q_pageNum = 1;	// 현재 페이지 번호
 		int q_pageSize = 2;	// 한 페이지에 보여줄 게시물 수
 		int q_pageBlock = 2;// 한 화면에 보여줄 페이지 수
@@ -75,7 +81,6 @@ public class ItemDetailAction implements Action {
 		//dispatcher 포워딩 
 		forward = new ActionForward();
 		forward.setPath("/item/itemDetail.jsp");
-		
 		return forward;
 	}
 

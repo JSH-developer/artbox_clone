@@ -56,10 +56,22 @@
 		$("#img5").attr('src', "${pageContext.request.contextPath}/Images/item/img_uploadimage.png");
 		$("#img5").attr('title', "선택된 파일 없음");
 	}
-		
+	//reviewTab 클릭시
+	$(document).on('click','.reviewWrite',function(){
+		$('.reviewMod').removeClass("on");
+		$('.reviewWrite').addClass("on");
+		$('.reviewModList').css('display','none');
+		$('.reviewWriteList').css('display','block');
+	})
+	$(document).on('click','.reviewMod',function(){
+		$('.reviewWrite').removeClass("on");
+		$('.reviewMod').addClass("on");
+		$('.reviewWriteList').css('display','none');
+		$('.reviewModList').css('display','block');
+	})
+	// 후기 작성시 체크
 	function reviewcheck() {
 		var result = false;
-		
 		if($('input[name=skill]').val() == ""){
 			alert("별점(기능)을 입력해 주세요.");
 		}else if($('input[name=design]').val() == ""){
@@ -76,6 +88,7 @@
 		}
 		return result;
 	}
+	
 	
 	</script>
 </head>
@@ -94,28 +107,28 @@
 			<span class="reviewWarning">* 구매/취소/반품하신 상품과 무관한 내용이나 이미지, 비방, 도배성 글 등 부적합한 내용일 때는 통보없이 삭제 및 지급된 꿈캔디가 회수될 수 있습니다.</span>
 		</div>
 		<div class="reviewTab">		
-			<a class="on" href="#">구매후기 쓰기</a>
-			<a href="#">구매후기 수정</a>
+			<span class="reviewWrite on">구매후기 쓰기</span>
+			<span class="reviewMod ">구매후기 수정</span>
 		</div>
 		<div class="reviewWriteList">
 		<c:choose>
-			<c:when test="${empty reviewList }">
+			<c:when test="${empty itemReviewList }">
 				<div class="empty">주문 내역이 없습니다.</div>
 			</c:when>
 			<c:otherwise>
 			<ul class="ItemList">
-				<c:forEach var="rl" items="${reviewList }">
+				<c:forEach var="irl" items="${itemReviewList }">
 					<li>
-						<a href="itemDetail.item?product_num=${rl.product_num }">
-							<img src="${pageContext.request.contextPath}/upload/${rl.product_image }">
+						<a href="itemDetail.item?product_num=${irl.product_num }">
+							<img src="${pageContext.request.contextPath}/upload/${irl.product_image }">
 						</a>
-						<span class="itemname">${rl.product_name }</span>
+						<span class="itemname">${irl.product_name }</span>
 						<span class="itemname"> </span>
 						<span class="itemamt">
-							<span class="itemprice sale_N">${rl.product_price }원</span>
+							<span class="itemprice sale_N">${irl.product_price }원</span>
 						</span>
-						<a class="btnWrite modal" href="javascript:setOpen(${rl.product_num });">구매후기 쓰기</a>
-						<span class="deadline">작성기한: <fmt:formatDate value="${rl.product_regdate }" pattern="yyyy.MM.dd"/>까지</span>
+						<a class="btnWrite modal" href="javascript:setOpen(${irl.product_num });">구매후기 쓰기</a>
+						<span class="deadline">작성기한: <fmt:formatDate value="${irl.product_regdate }" pattern="yyyy.MM.dd"/>까지</span>
 					</li>
 				</c:forEach>
 				<li>
@@ -155,6 +168,53 @@
 			<div class="clear"></div>
 			</c:otherwise>
 		</c:choose>
+		</div>
+		<div class="reviewModList">
+			<c:choose>
+				<c:when test="${empty itemReviewModList }">
+					<div class="empty">작성한 후기가 없습니다.</div>
+				</c:when>
+				<c:otherwise>
+					<ul class="ItemList">
+						<c:forEach var="irml" items="${itemReviewModList }">
+							<li>
+							</li>
+						</c:forEach>
+						<li>
+							<div class="paging">
+								<span class="box">
+									<c:choose>
+										<c:when test="${pageInfo.page == 1 }">
+											<a href="javascript:prev();"> <img class="opacity" src="${pageContext.request.contextPath}/Images/order/btn_board_prev.gif"> </a>
+										</c:when>
+										<c:otherwise>
+											<a href="itemReview.item?page=${pageInfo.page-1 }"> <img src="${pageContext.request.contextPath}/Images/order/btn_board_prev.gif"> </a>
+										</c:otherwise>
+									</c:choose>
+									<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+										<c:choose>
+											<c:when test="${i == pageInfo.page }">
+												<a href="itemReview.item?page=${i }" class="btn_pageon">${i }</a>
+											</c:when>
+											<c:otherwise>
+												<a href="itemReview.item?page=${i }">${i }</a>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+									<c:choose>
+										<c:when test="${pageInfo.page == pageInfo.endPage }">
+											<a href="javascript:next();"> <img class="opacity" src="${pageContext.request.contextPath}/Images/order/btn_board_next.gif"> </a>
+										</c:when>
+										<c:otherwise>
+											<a href="itemReview.item?page=${pageInfo.page+1 }"> <img src="${pageContext.request.contextPath}/Images/order/btn_board_next.gif"> </a>
+										</c:otherwise>
+									</c:choose>
+								</span>
+							</div>
+						</li>
+					</ul>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<div class="full-screen">
 			<div class="full-screen-close"></div>

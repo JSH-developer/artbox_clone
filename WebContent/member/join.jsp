@@ -96,7 +96,7 @@
 		var idcheck = /^(?!(?:[0-9]+)$)([a-zA-Z]|[0-9a-zA-Z]){4,16}$/;
 		var pwcheck = /^(?!(?:[0-9]+)$)([a-zA-Z]|[0-9a-zA-Z]){4,16}$/;
 		var birthcheck = /^[0-9]{8}$/;
-		var phonecheck = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+		var phonecheck = /^01([0|1|6|7|8|9]?)[-]?([0-9]{3,4})[-]?([0-9]{4})$/;
 		var emailcheck = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 		
 		var id = $('#id').val();
@@ -258,7 +258,7 @@
 							$('#removeid').show();
 							$('#removeid').html('아이디를 넣어주세요.')
 							$('#removeid').css("color", "red");
-						} else if (!idcheck.test($('#id').val())) { //정규식 틀림
+						} else if (!idcheck.test($('#id').val())) { //정규표현식 틀림
 							$('#removeid').show();
 							$('#removeid').html('4~16자 영문 또는 영문숫자 조합해주세요.')
 							$('#removeid').css("color", "red");

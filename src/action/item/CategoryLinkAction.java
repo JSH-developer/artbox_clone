@@ -227,7 +227,7 @@ public class CategoryLinkAction implements Action {
 			HttpSession session) {
 
 		session.setAttribute("code", majorCategory);
-		session.setAttribute("name", name);
+		session.setAttribute("cname", name);
 		request.setAttribute("select", majorCategory);
 		session.setAttribute("printCategory", printCategory);
 	}

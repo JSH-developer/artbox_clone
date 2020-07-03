@@ -257,7 +257,7 @@ $(document).ready(function(){
 		fnDeliveryInfo(1); // 배송지 정보 - '기본'으로 설정된 배송지를 기본으로 설정
 		$("#MyDelivery1 select option:eq(1)").prop("selected", true);
 		$("#MyDelivery1 select").trigger("change");
-    
+		fnTotalPriceAmount();
 });
 
 // 우편번호 (API)
@@ -301,10 +301,8 @@ function execDaumPostCode() {
 		}
 		
 		$("#TotalDiscountPriceSum").text(setComma(TotalUseBonusCoupon + TotalUseGoodsCoupon + TotalUseFreeCoupon + TotalPriceMemberLevelDiscount));
-		
-		$("input[name=TotalPriceAmount]").val(TotalPriceAmount);
+		$("input[name=RealTotalPrice]").val(TotalPriceAmount);
 		$("#TotalPriceAmount").text(setComma(TotalPriceAmount));
-		$("#TotalPriceAmount2").text(setComma(TotalPriceAmount));
 		$("#UseMileageAll").val(TotalPriceAmount);
 	}
 	
@@ -432,6 +430,11 @@ function execDaumPostCode() {
 			return nArr.join("");
 		}
 	}
+	
+	function uncomma(str) {
+	    str = String(str);
+	    return str.replace(/[^\d]+/g, '');
+	}
 </script>
 <style type="text/css">
  .btn_c_cancle {display:block; width:100%; padding:0; text-align:center; margin:0; line-height:56px; height:56px; color:#ffffff; font-size:21px; border:0; background-color:#000000; border-radius:5px; font-weight:bold; } 
@@ -525,7 +528,7 @@ span.scoup { /*     쿠폰 팝업 창  */
    <c:set var="qqq" value="${price*orderList[0].quantity }"/>
          <div class="tableDiv">
             <dl class="trOrderItem 2002200265">
-               <dt class="tdImage"><a href="itemDetail.item?product_num=${orderList[0].itemNum }"><img src="basket/${orderList[0].itemImage }"/></a></dt>
+               <dt class="tdImage"><a href="itemDetail.item?product_num=${orderList[0].itemNum }"><img src="${pageContext.request.contextPath}/upload/${orderList[0].itemImage }"/></a></dt>
                <dt class="tdInner">
                   <div class="BasketListItemName">${orderList[0].itemName } (${orderList[0].itemCode })
                   </div>
@@ -1106,9 +1109,9 @@ span.scoup { /*     쿠폰 팝업 창  */
 </div>
 
 <input type="hidden" id="pd_name" name="pd_name" value="${orderListOne[0].itemName }"/>
-<input type="hidden" id="Total" name="Total" value="${tps+tpd}"/>
 <input type="hidden" name="stockqty" value="${stockqty}"/>
 <input type="hidden" name="product_num" value="${product_num}"/>
+<input type="hidden" name="RealTotalPrice" value="0"/>
 
 </form>
 

@@ -12,28 +12,67 @@
 	text-align: center;
 }
 
-.mydelivery .top {
-	width:300px;
+.mydelivery .top{
+	display: table-cell;
 	text-align:center;
 	background-color: #e4e4e4;
     color: #646464;
     font-size: 18px;
     height: 55px;
     line-height: 55px;
-    display: table-cell;
 }
+.mydelivery .top:nth-child(1) {	width:130px;}
+.mydelivery .top:nth-child(2) {	width:100px;}
+.mydelivery .top:nth-child(3){	width:670px;}
+.mydelivery .top:nth-child(4) {	width:230px;}
+.mydelivery .top:nth-child(5) {	width:70px;}
 
-.mydelivery .middle {
-	width:100%;
-	height:300px;
+.mydelivery .bottom{
+	height: 65px;
+	line-height: 65px;
 	text-align:center;
     color: #646464;
     font-size: 18px;
-    height: 55px;
-    line-height: 55px;
-    margin-bottom: 70px;
-    line-height: 100px;
+    display: table-cell;
+    border-bottom: 1px solid #e4e4e4;
 }
+.mydelivery .bottom:nth-child(1){width:30px;}
+.mydelivery .bottom:nth-child(2){width:100px;}
+.mydelivery .bottom:nth-child(3){width:100px;}
+.mydelivery .bottom:nth-child(4){width:670px;}
+.mydelivery .bottom:nth-child(5){width:230px;}
+.mydelivery .bottom:nth-child(6){width:70px;}
+
+input[type="radio"]{
+	position:relative;
+	left:0px;
+	width: 30px;
+	height: 30px;
+	margin-top: 20px;
+}
+
+.middle0{
+	text-align: center;
+    padding: 70px 0;
+    font-size: 20px;
+    vertical-align: middle;
+    border-bottom: 1px solid #e4e4e4;
+    color: #808080;
+}
+
+.middle1{
+	text-align: center;
+    padding: 0px;
+    font-size: 20px;
+    vertical-align: middle;
+    border-bottom: 1px solid #e4e4e4;
+    color: #808080;
+}
+
+.button{
+	margin-top: 50px;
+}
+
 .button span{
 	display:inline-block;
 	border: 1px solid #646464;
@@ -48,3 +87,17 @@
 .button .modify, .delete{width: 85px;}
 .button .basic{width:175px;}
 .button .add{width: 140px; float: right; color: #ffffff; background-color: #424242;}
+.basicButton {
+	margin-left:10px;
+	display: inline-block;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    padding: 2px 10px;
+    line-height: 20px;
+    cursor: pointer;
+    position: relative;
+    right: 0;
+}
+
+
+
