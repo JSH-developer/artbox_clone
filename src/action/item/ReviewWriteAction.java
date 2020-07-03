@@ -19,7 +19,6 @@ public class ReviewWriteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("ReviewWriteAction");
 		ActionForward forward = new ActionForward();
 		ReviewBean reviewBean = new ReviewBean();
 		
@@ -85,7 +84,6 @@ public class ReviewWriteAction implements Action {
 			out.println("history.back()");
 			out.println("</script>");
 		} else {
-			System.out.println("review 등록 성공!");
 			forward.setRedirect(true);
 			forward.setPath("itemReview.item");
 		}

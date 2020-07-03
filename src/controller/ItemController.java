@@ -15,6 +15,7 @@ import action.item.ItemDetailAction;
 import action.item.ItemReviewAction;
 import action.item.QuestionListAction;
 import action.item.QuestionWriteAction;
+import action.item.ReviewListAction;
 import action.item.ReviewWriteAction;
 import vo.ActionForward;
 
@@ -52,8 +53,8 @@ public class ItemController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/itemReview.item")) {
-			action = new ItemReviewAction();
+		}else if(command.equals("/reviewList.item")) {
+			action = new ReviewListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -68,6 +69,13 @@ public class ItemController extends HttpServlet {
 			}
 		}else if(command.equals("/questionList.item")) {
 			action = new QuestionListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/itemReview.item")) {
+			action = new ItemReviewAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
