@@ -588,7 +588,7 @@ span.scoup { /*     쿠폰 팝업 창  */
                <c:set var="phone" value="${fn:split(phonearr, '-')}" />
                <dd>
 	              <input type="hidden" id="tel" name="tel" value="${orderListOne[0].phone}"/>
-                  <input type="tel" id="i_memcpnum1" name="memcpnum1" maxlength="2" value="${phone[0] }" />
+                  <input type="tel" id="i_memcpnum1" name="memcpnum1" maxlength="3" value="${phone[0] }" />
                   <p class="null"></p>
                </dd>
                <dd class="blank">&#8210;</dd>

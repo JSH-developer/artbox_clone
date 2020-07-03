@@ -30,6 +30,13 @@
 <script type="text/javascript">
 	// 장바구니 추가 및 제거 이벤트
 	$(document).on("click", ".basket", function() {
+		if(${empty sessionScope.id}) {
+			var result = confirm("로그인 후 이용가능합니다.\n로그인 페이지로 이동하시겠습니까?");
+			if(result==true) {
+				location.href = "loginForm.member";
+			}
+			return false;
+		}
 		var product_name = $(this).attr("data-pdName"); // 상품이름
 		var product_num = $(this).attr("data-pdNum"); // 상품번호
 		var stockqty = 1; // 수량
@@ -85,7 +92,7 @@
 					<c:when test="${empty kwd}">
 						<div class="head_img"
 							style="background-image: url('${pageContext.request.contextPath}/Images/item/${code}.jpg')">
-							<b class="categoryName">${name }</b>
+							<b class="categoryName">${cname }</b>
 						</div>
 					</c:when>
 					<c:when test="${!empty kwd }">

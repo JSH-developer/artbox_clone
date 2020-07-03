@@ -188,7 +188,7 @@ function Select(id) {
 							<dd><a class="BasketButton" href="javascript:fnChangeOption('${basketList.basket_num }');">옵션변경</a></dd>
 							
 							<dd class="tdBtn1"><a class="BasketButton" href="javascript:fnBasketOne('WISH','${basketList.basket_num }',0,0);">위시리스트</a></dd>
-							<dd class="tdBtn2"><a class="BasketButtonDark" href="javascript:fnBasketOne('BUY','${basketList.basket_num }',0,${basketList.basket_product_num });">바로주문</a></dd>
+							<dd class="tdBtn2"><a class="BasketButtonDark" href="javascript:fnBasketOne('BUY','${basketList.basket_num }',${basketList.basket_quantity },${basketList.basket_product_num });">바로주문</a></dd>
 						</dl>
 					</div>
 					<div class="ItemListChangeOption" id="ItemListChangeOption${basketList.basket_num }">
