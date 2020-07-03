@@ -11,6 +11,7 @@ import svc.admin.ProductViewService;
 import svc.item.GetCategorySVC;
 import svc.item.OtherOptionListSVC;
 import svc.item.QuestionListSVC;
+import svc.item.ReviewListSVC;
 import vo.ActionForward;
 import vo.ProductBean;
 import vo.QuestionBean;
@@ -58,7 +59,12 @@ public class ItemDetailAction implements Action {
 		
 		//----------------------------------------------------------------------------------
 		
-		System.out.println("question시작");
+		ReviewListSVC reviewListSVC = new ReviewListSVC();
+		int reviewCount = reviewListSVC.getReviewListCount(product_num);
+		request.setAttribute("reviewCount", reviewCount);		
+		
+		//----------------------------------------------------------------------------------
+		
 		int q_pageNum = 1;	// 현재 페이지 번호
 		int q_pageSize = 2;	// 한 페이지에 보여줄 게시물 수
 		int q_pageBlock = 2;// 한 화면에 보여줄 페이지 수

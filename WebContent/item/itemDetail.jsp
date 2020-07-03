@@ -23,6 +23,7 @@
 // 		replaceMajor();
 		//문의 불러옴
 		goQuestionPage("${questionPageInfo.pageNum}");
+		goReviewPage(1);
 		fnCheckPriseSum();
 	}
 	//대분류 카테고리 replace
@@ -214,6 +215,21 @@
 			}
 		});
 	}
+	function goReviewPage(page){
+		$.ajax({
+			url:'reviewList.item',
+			type:"POST",
+			dataType : 'html',
+			data:{
+				page:page,
+				product_num:'${productBean.product_num}',
+			},
+			success:function(rdata){
+				$('.review_content').html("");
+				$('.review_content').html(rdata);
+			}
+		});
+	}
 	
 	// '장바구니 담기' 및 '바로 구매하기' 버튼 클릭 이벤트
 	function Order(id) {
@@ -393,7 +409,7 @@
 		<div class="clear"></div>
 		<section class="item_content_bar">
 			<div class="tabBar">
-				<span>상품상세</span> <span>상품후기(2)</span> <span>상품Q&amp;A(${questionPageInfo.boardCount})</span>
+				<span>상품상세</span> <span>상품후기(${reviewCount })</span> <span>상품Q&amp;A(${questionPageInfo.boardCount})</span>
 			</div>
 		</section>
 		<div class="clear"></div>
@@ -405,45 +421,17 @@
 			</div>
 		</section>
 		<section class="item_content">
-			<div class="item_review">
 			<input class="btn-review" type="button" value="후기작성" onclick="location.href='${pageContext.request.contextPath}/itemReview.item'">
-		<div class="table">
-				<div class="tr">
-					<span class="td">★★★★★</span>
-					<span class="td type2">평소에 캔디머신을 구매할까하고 생각했었는데, 대부분 컬러가 원색만 있어...</span>
-					<span class="td">2019-12-28</span>
-					<span class="td">besi**</span>
-				</div>
-				<div class="ps">
-					<span class="ps_score">10</span>
-					<div class="ps_sub1">
-						<span>기능 ★★★★★</span> <span>디자인 ★★★★★</span> <span>가격 ★★★★★</span> <span>품질 ★★★★★</span>
-					</div>
-					<div class="ps_sub2">평소에 캔디머신을 구매할까 하고 생각했었는데, 대부분 컬러가 원색만
-						있어서 좀 망설여졌었어요. 근데 아트박스에서 너무 예쁜 베이비핑크 컬러로 캔디머신이 나왔기에 냉큼 구입했습니다.
-						생각했던 컬러 그대로라 너무 만족합니다ㅎㅎ 크기도 너무 작지 않아서 좋아요. 그리고 위 아래로 통이 분리된다는게 최대
-						장점입니다. 세척하기도 편하고 용이해서 더 좋아요.
-					</div>
-					<div class="ps_sub3">
-						<img src="http://www.poom.co.kr/Upload2/PostScript/201912/1805300328_0_123034_1.jpg">
-					</div>
-				</div>
-			</div>
-		</div>
-			
-			<div class="paging">
-				<span class="box">
-					<a href="#"> <img class="opacity" src="${pageContext.request.contextPath}/Images/order/btn_board_prev.gif"> </a>
-					<a href="#" class="btn_pageon">1</a>
-					<a href="#">2</a>
-					<a href="#"> <img class="paging_pc" src="${pageContext.request.contextPath}/Images/order/btn_board_next.gif"> </a>
-				</span>
+			<div class="review_content">
+				<!--review목록 -->
+				<!--/review목록 -->
 			</div>
 		</section>
 		<section class="item_content">
 			<input class="btn-QnA modal" type="button" value="Q&amp;A작성">
 			<div class="question_content">
-				<!--후기목록 -->
+				<!--question목록 -->
+				<!--/question목록 -->
 			</div>
 		</section>
 		<!-- </article> -->

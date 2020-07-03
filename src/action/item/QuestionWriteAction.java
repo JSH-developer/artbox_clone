@@ -36,7 +36,6 @@ public class QuestionWriteAction implements Action {
 			out.println("history.back()");
 			out.println("</script>");
 		} else {
-			System.out.println("qna 등록 성공!");
 			request.setAttribute("product_num", request.getParameter("product_num"));
 			forward.setRedirect(true);
 			forward.setPath("itemDetail.item?product_num="+request.getParameter("product_num"));
