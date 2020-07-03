@@ -135,16 +135,16 @@
 					<div class="paging">
 						<span class="box">
 						<c:choose>
-							<c:when test="${pageInfo.page == 1 }">
+							<c:when test="${writePageInfo.page == 1 }">
 								<a href="javascript:prev();"> <img class="opacity" src="${pageContext.request.contextPath}/Images/order/btn_board_prev.gif"> </a>
 							</c:when>
 							<c:otherwise>
-								<a href="itemReview.item?page=${pageInfo.page-1 }"> <img src="${pageContext.request.contextPath}/Images/order/btn_board_prev.gif"> </a>
+								<a href="itemReview.item?page=${writePageInfo.page-1 }"> <img src="${pageContext.request.contextPath}/Images/order/btn_board_prev.gif"> </a>
 							</c:otherwise>
 						</c:choose>
-						<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+						<c:forEach var="i" begin="${writePageInfo.startPage}" end="${writePageInfo.endPage}">
 							<c:choose>
-								<c:when test="${i == pageInfo.page }">
+								<c:when test="${i == writePageInfo.page }">
 									<a href="itemReview.item?page=${i }" class="btn_pageon">${i }</a>
 								</c:when>
 								<c:otherwise>
@@ -153,11 +153,11 @@
 							</c:choose>
 						</c:forEach>
 						<c:choose>
-							<c:when test="${pageInfo.page == pageInfo.endPage }">
+							<c:when test="${writePageInfo.page == writePageInfo.endPage }">
 								<a href="javascript:next();"> <img class="opacity" src="${pageContext.request.contextPath}/Images/order/btn_board_next.gif"> </a>
 							</c:when>
 							<c:otherwise>
-								<a href="itemReview.item?page=${pageInfo.page+1 }"> <img src="${pageContext.request.contextPath}/Images/order/btn_board_next.gif"> </a>
+								<a href="itemReview.item?page=${writePageInfo.page+1 }"> <img src="${pageContext.request.contextPath}/Images/order/btn_board_next.gif"> </a>
 							</c:otherwise>
 						</c:choose>
 					</span>

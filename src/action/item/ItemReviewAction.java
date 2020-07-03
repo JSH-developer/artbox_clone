@@ -21,11 +21,14 @@ public class ItemReviewAction implements Action {
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
 		System.out.println(id);
+		
+		
 		int page = 1; // 현재 페이지 번호를 저장할 변수
 		int limit = 10; // 한 페이지 당 출력할 게시물 수 지정
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
+		String type = request.getParameter("tab");
 		
 		ItemReviewListSVC itemReviewListSVC = new ItemReviewListSVC();
 		ArrayList<ProductBean> itemReviewList = itemReviewListSVC.getItemReviewList(id,page,limit);
@@ -50,7 +53,7 @@ public class ItemReviewAction implements Action {
 		PageInfo pageInfo = new PageInfo(page, maxPage, startPage, endPage, listCount);
 		
 		// request 객체에 PageInfo 객체와 ArrayList 객체 저장
-		request.setAttribute("pageInfo", pageInfo);
+		request.setAttribute("writePageInfo", pageInfo);
 		
 		
 		
