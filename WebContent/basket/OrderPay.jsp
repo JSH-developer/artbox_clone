@@ -257,7 +257,7 @@ $(document).ready(function(){
 		fnDeliveryInfo(1); // 배송지 정보 - '기본'으로 설정된 배송지를 기본으로 설정
 		$("#MyDelivery1 select option:eq(1)").prop("selected", true);
 		$("#MyDelivery1 select").trigger("change");
-    
+		fnTotalPriceAmount();
 });
 
 // 우편번호 (API)
@@ -528,7 +528,7 @@ span.scoup { /*     쿠폰 팝업 창  */
    <c:set var="qqq" value="${price*orderList[0].quantity }"/>
          <div class="tableDiv">
             <dl class="trOrderItem 2002200265">
-               <dt class="tdImage"><a href="itemDetail.item?product_num=${orderList[0].itemNum }"><img src="basket/${orderList[0].itemImage }"/></a></dt>
+               <dt class="tdImage"><a href="itemDetail.item?product_num=${orderList[0].itemNum }"><img src="${pageContext.request.contextPath}/upload/${orderList[0].itemImage }"/></a></dt>
                <dt class="tdInner">
                   <div class="BasketListItemName">${orderList[0].itemName } (${orderList[0].itemCode })
                   </div>
