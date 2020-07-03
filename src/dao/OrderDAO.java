@@ -82,7 +82,7 @@ public class OrderDAO {
 		List<SelectOrderBean> OrderList = new ArrayList<SelectOrderBean>();
 		try {
 			String sql = "SELECT member.name, member.email, member.phone, member.point, product.num,"
-					+ " product.code, product.name, product.image, product.price, basket.quantity, product.category_code"
+					+ " product.code, product.name, product.image, product.price, basket.quantity, product.category_code, product.sale_price"
 					+ " FROM member JOIN basket ON member.id = basket.member_id"
 					+ " JOIN product ON product.num = basket.product_num"
 					+ " WHERE member_id=? AND basket.product_num=?";
@@ -102,6 +102,8 @@ public class OrderDAO {
 				bean.setItemprice(rs.getInt("price"));
 				bean.setQuantity(rs.getInt("quantity"));
 				bean.setItemCategory(rs.getString("category_code"));
+				bean.setItem_sale_price(rs.getInt("sale_price"));
+				
 				OrderList.add(bean);
 			}
 		} catch (SQLException e) {

@@ -109,6 +109,7 @@ public class BasketDAO {
 					productBean.setProduct_price(rs2.getInt("price"));
 					productBean.setProduct_name(rs2.getString("name"));
 					productBean.setProduct_image(rs2.getString("image"));
+					productBean.setProduct_sale_price(rs2.getInt("sale_price"));
 					itemsList.add(productBean);
 				}
 			}

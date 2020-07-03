@@ -525,21 +525,54 @@ span.scoup { /*     쿠폰 팝업 창  */
 <c:set var="tps" value="0"/>
 <c:forEach var="orderList" items="${orderList }" varStatus="status">
    <c:set var="price" value="${orderList[0].itemprice }"/>
+   <c:set var="sale_price" value="${orderList[0].item_sale_price }"/>
+   <c:set var="result_price" value="${price}"/>
    <c:set var="qqq" value="${price*orderList[0].quantity }"/>
+   
+   
          <div class="tableDiv">
             <dl class="trOrderItem 2002200265">
                <dt class="tdImage"><a href="itemDetail.item?product_num=${orderList[0].itemNum }"><img src="${pageContext.request.contextPath}/upload/${orderList[0].itemImage }"/></a></dt>
                <dt class="tdInner">
                   <div class="BasketListItemName">${orderList[0].itemName } (${orderList[0].itemCode })
                   </div>
+                  
+                  <c:if test="${sale_price ==0 }">
                   <div class="BasketListPrice">
                    / <fmt:formatNumber value="${price }" pattern="#,###"/>원 X ${orderList[0].quantity }개
                   </div>
+                  </c:if>
+                  
+                   <c:if test="${sale_price > 0 }">
+                   <c:if test="${!empty mycouponList }">
+                     <div class="BasketListPrice">
+                   / <fmt:formatNumber value="${price }" pattern="#,###"/>원 X ${orderList[0].quantity }개
+                  </div>
+                   </c:if>
+                   
+                    <c:if test="${empty mycouponList }">
+                  <div class="BasketListPrice">
+                     <c:set var="result_price" value="${price- sale_price}"/>
+                   / <span style="color:grey;text-decoration: line-through;"><fmt:formatNumber value="${price }" pattern="#,###"/>원</span>
+				<span style="color: red;"><fmt:formatNumber value="${result_price}" pattern="#,###"/> 원 </span>
+                   X ${orderList[0].quantity }개
+                  </div>
+                  </c:if>
+                  
+                   <c:if test="${fn:contains(orderList[0].itemCategory, orderList[0].itemCategory)}">
+                  </c:if>
+                  
+                  </c:if>
+                  
+                  
                </dt>
                <dt class="tdPrice">
-                  <fmt:formatNumber value="${qqq }" pattern="#,###"/>원
-                  <c:set var="tps" value="${tps+qqq }"/>
+                  <fmt:formatNumber value="${result_price*orderList[0].quantity }" pattern="#,###"/>원
+                  <c:set var="tps" value="${tps + result_price*orderList[0].quantity }"/>
                </dt>
+               
+               
+               
             </dl>
          </div>
 </c:forEach>
