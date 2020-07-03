@@ -8,6 +8,31 @@
 <link href="css/member/deliveryAdd.css" rel="stylesheet">
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="js/jquery-3.5.0.js"></script>
+<script type="text/javascript">
+
+var phonecheck = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+	function check(){
+		if ($('#receiver').val() == '') {
+			alert('배송지 이름을 입력해주세요');
+			$.trim($('#receiver').focus());
+			 return false;
+		}else if ($('#receiver_name').val() == '') {
+			alert('받으시는 분 성함을 입력해주세요.');
+			$.trim($('#receiver_name').focus());
+			 return false;
+		}else if ($('#phone').val() == '') {
+			alert('핸드폰번호를 입력해주세요.');
+			$.trim($('#receiver_name').focus());
+			 return false;
+		}else if (!phonecheck.test($('#phone').val())) {
+			alert('핸드폰번호 형식에 맞춰주세요');
+			$.trim($('#phone').focus());
+			 return false;
+		}
+	}
+
+</script>
 </head>
 <body>
 	<!-- 헤더 -->
@@ -18,16 +43,16 @@
 		<p class="title">나의 배송지 추가/수정</p>
 		<p class="message">*자주 쓰는 배송지를 등록하고 관리할 수 있습니다.</p>
 		<div class="main">
-			<form action="deliveryAdd.member" method="post">
+			<form action="deliveryAdd.member" method="post" onsubmit="return check()">
 				<div>
-					<span class="left">배송지명</span><input type="text" name="receiver">
+					<span class="left">배송지명</span><input type="text" name="receiver" id="receiver">
 					<input type="hidden" name="id" value="${id }">
 				</div>
 				<div>
-					<span class="left">받는사람</span><input type="text" name="receiver_name">
+					<span class="left">받는사람</span><input type="text" name="receiver_name" id="receiver_name">
 				</div>
 				<div>
-					<span class="left">휴대전화</span><input type="text" name="receiver_phone">
+					<span class="left">휴대전화</span><input type="text" name="receiver_phone" id="phone" placeholder="ex)010-XXXX-XXXX">
 				</div>
 
 				<!-- 			-------------------------------우편번호 API-----------------------------------          -->

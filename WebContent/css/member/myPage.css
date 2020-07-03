@@ -113,11 +113,10 @@ a.privacy {/*font-weight:bold;*/color:#3a4b59;}
 
 input[type=button]{cursor:pointer;}
 
-.grade1 { color:#88d0cc !important;}
-.grade2 { color:#da6ca8 !important;}
-.grade3 { color:#66afdf !important;}
-.grade4 { color:#fad668 !important;}
-.grade5 { color:#bbbcbe !important;}
+.grade1 { color:#d06800!important;}
+.grade2 { color:#bbbcbe !important;}
+.grade3 { color:#fec603!important;}
+.grade4 { color:#00d7d7!important;}
 
 .tableDiv {display:table; width:100%;}
 .tableDiv dl {display: table-row;}

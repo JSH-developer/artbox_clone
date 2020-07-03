@@ -47,7 +47,7 @@ public class MemberDAO {
 			pstmt.setString(8, bb.getPhone());
 			pstmt.setString(9, bb.getGender());
 			pstmt.setString(10, bb.getBirth());
-			pstmt.setString(11, "bronz");
+			pstmt.setString(11, "BRONZ");
 			
 			insertCount = pstmt.executeUpdate();
 			
@@ -68,7 +68,7 @@ public class MemberDAO {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "select * from member where id = ?";
+			String sql = "SELECT * FROM member WHERE id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
@@ -90,7 +90,7 @@ public class MemberDAO {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "select pw from member where id = ?";
+			String sql = "SELECT pw FROM member WHERE id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
@@ -153,7 +153,7 @@ public class MemberDAO {
 		
 		
 	}
-	public void pwModify(String id, String newpw) { // 
+	public void pwModify(String id, String newpw) { // 비밀번호 변경
 		PreparedStatement pstmt = null;
 		try {
 			String sql = "UPDATE member SET pw = ? WHERE id = ?";
@@ -168,7 +168,7 @@ public class MemberDAO {
 		}
 	}
 
-	public void memberUpdate(MemberBean mb) {
+	public void memberUpdate(MemberBean mb) { //회원정보 변경
 		PreparedStatement pstmt = null;
 		try {
 			String sql = "UPDATE member SET gender=?,birth=?,postcode=?,addr_basic=?,addr_detail=?,email=?,phone=? where id=?";
@@ -190,7 +190,7 @@ public class MemberDAO {
 		
 	}
 
-	public void memberDelete(String id) {
+	public void memberDelete(String id) { // 회원탈퇴
 		PreparedStatement pstmt = null;
 		try {
 			String sql = "DELETE FROM member WHERE id = ?";
@@ -204,7 +204,7 @@ public class MemberDAO {
 		}
 	}
 
-	public ReceiverBean ReceiverModify(int receiverNum) {
+	public ReceiverBean ReceiverModify(int receiverNum) { // 배송지 리스트
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ReceiverBean rb = new ReceiverBean();
@@ -233,6 +233,70 @@ public class MemberDAO {
 		
 		
 		return rb;
+	}
+
+	public void rModifyUpdate(ReceiverBean rb) { //배송지 수정
+		PreparedStatement pstmt = null;
+		try {
+//			System.out.println(rb.getReceiver()+", "+rb.getReceiver_name()+", "+rb.getReceiver_phone()+", "+rb.getReceiver_postcode()+", "+rb.getReceiver_addr()+", "+rb.getReceiver_addr_detail()+", "+rb.getReceiver_num());
+			String sql = "UPDATE receiver SET receiver=?,receiver_name=?,receiver_phone=?,receiver_postcode=?,receiver_addr=?,receiver_addr_detail=? WHERE num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1,rb.getReceiver() );
+			pstmt.setString(2,rb.getReceiver_name() );
+			pstmt.setString(3,rb.getReceiver_phone() );
+			pstmt.setString(4,rb.getReceiver_postcode() );
+			pstmt.setString(5,rb.getReceiver_addr() );
+			pstmt.setString(6,rb.getReceiver_addr_detail() );
+			pstmt.setInt(7,rb.getReceiver_num() );
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("rModifyUpdate오류 - "+e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		
+	}
+
+	public void ReceiverDelete(int receiverNum) { // 배송지 삭제
+		System.out.println("DAO - ReceiverDelete");
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "DELETE FROM receiver WHERE num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1,receiverNum );
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println("ReceiverDelete오류 - "+e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+	}
+
+	public void ReceiverBasic(int receiverNum, String id) { // 기본배송지 설정
+		System.out.println("DAO - ReceiverBasic");
+		PreparedStatement pstmt = null;
+		int rs = 0;
+		
+		try {
+			String sql = "UPDATE receiver SET basic_num = 0 WHERE member_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1,id );
+			rs = pstmt.executeUpdate();
+			System.out.println("rs - "+rs);
+			if(rs != 0) {
+				sql = "UPDATE receiver SET basic_num = 1 WHERE num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1,receiverNum );
+				pstmt.executeUpdate();
+			}
+			
+		} catch (Exception e) {
+			System.out.println("ReceiverBasic오류 - "+e.getMessage());
+		}finally {
+			close(pstmt);
+		}
 	}
 
 }

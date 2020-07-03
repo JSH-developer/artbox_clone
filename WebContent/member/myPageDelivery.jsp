@@ -24,6 +24,7 @@
 			<span class="top">받는사람</span>
 			<span class="top">주소</span>
 			<span class="top">휴대전화</span>
+			<span class="top"></span>
 			</div>
 			
 			<c:if test="${empty list }">
@@ -31,7 +32,7 @@
 					등록된 배송지가 없습니다.
 				</div>
 			</c:if>
-			
+			<input type="hidden" value="${id }">
 			<c:if test="${!empty list }">
 				<c:forEach var="rb" items="${list }" varStatus="status">
 
@@ -41,6 +42,7 @@
 						<span class="bottom">${rb.receiver_name}</span>
 						<span class="bottom">${rb.receiver_addr} ${rb.receiver_addr_detail }</span>
 						<span class="bottom">${rb.receiver_phone}</span>
+						<span class="bottom"><c:if test="${rb.receiver_basic_num eq 1 }"><span class="basicButton">기본</span></c:if></span>
 					</div>
 	
 				</c:forEach>
@@ -51,19 +53,43 @@
 		<div class="button">
 			<span class="modify" onclick="rModify()">수정</span>
 			<span class="delete" onclick="rDelete()">삭제</span>
-			<span class="basic">기본 배송지로 선택</span>
+			<span class="basic" onclick="rBasic()">기본 배송지로 선택</span>
 			<span class="add" onclick="location.href='MyPageDeliveryAdd.member'">배송지 추가</span>
 		</div>
 	
 	<script src="js/jquery-3.5.0.js"></script>
 	<script type="text/javascript">
-// 		$(document).ready(function() {
 	
 			function rModify() {
 				var boxcheck = $('input[name="box"]:checked').val();
-				location.href="deliveryModify.member?num="+boxcheck;
+				var rcheck = $('input:radio[name="box"]').is(':checked');
+				if(rcheck == true){
+					location.href="deliveryModify.member?num="+boxcheck;
+				}else {
+					alert('수정하실 배송지를 선택해주세요.')
+				}
 			}
-// 		});
+			function rDelete() {
+				var rcheck = $('input:radio[name="box"]').is(':checked');
+				if(rcheck == true){
+				var isDelete = confirm("배송지를 삭제하시겠습니까?")
+					if(isDelete == true){
+						location.href="deliveryDelete.member?num="+boxcheck;	
+					}
+				}else{
+					alert('삭제하실 배송지를 선택해주세요.')
+				}
+			}
+			function rBasic() {
+				var rcheck = $('input:radio[name="box"]').is(':checked');
+				if(rcheck == true){
+					var boxcheck = $('input[name="box"]:checked').val();
+					var id = $('input[type=hidden]').val();
+					location.href="deliveryBasic.member?num="+boxcheck+"&id="+id;
+				}else{
+					alert('배송지를 선택해주세요.')
+				}
+			}
 	</script>
 
 	</div>

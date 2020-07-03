@@ -17,6 +17,8 @@ import action.member.Action;
 import action.member.MemberCheckAction;
 import action.member.MemberDeleteAction;
 import action.member.MemberDeliveryAddAction;
+import action.member.MemberDeliveryBasicAction;
+import action.member.MemberDeliveryDeleteAction;
 import action.member.MemberDeliveryModifyAction;
 import action.member.MemberDeliveryModifyProAction;
 import action.member.MemberJoinAction;
@@ -187,6 +189,20 @@ public class MemberFrontController extends HttpServlet {
 			}
     	}else if(command.equals("/deliveryModifyPro.member")) {
     		action = new MemberDeliveryModifyProAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/deliveryDelete.member")) {
+    		action = new MemberDeliveryDeleteAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/deliveryBasic.member")) {
+    		action = new MemberDeliveryBasicAction();
     		try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

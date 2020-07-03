@@ -336,7 +336,7 @@ public class OrderDAO {
 		List list = new ArrayList();
 		
 		try {
-			String sql = "SELECT * FROM receiver WHERE member_id=? AND receiver IS NOT NULL";
+			String sql = "SELECT * FROM receiver WHERE member_id=? AND receiver IS NOT NULL ORDER BY basic_num DESC";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			
@@ -352,7 +352,7 @@ public class OrderDAO {
 				receiverBean.setReceiver_addr_detail(rs.getString("receiver_addr_detail"));
 				receiverBean.setReceiver_date(rs.getString("receiver_date"));
 				receiverBean.setReceiver_member_id(rs.getString("member_id"));
-				receiverBean.setReceiver_basic_num(0);
+				receiverBean.setReceiver_basic_num(rs.getInt("basic_num"));
 				list.add(receiverBean);
 			}
 

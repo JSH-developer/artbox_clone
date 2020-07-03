@@ -1,6 +1,5 @@
 package action.member;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +32,7 @@ public class MemberDeliveryAddAction implements Action {
 			List list = ReceiverSelectService.ReceiverSelect(rb.getReceiver_member_id());
 			
 			request.setAttribute("list", list);
-			System.out.println("lisy - "+list);
+			System.out.println("list - "+list);
 		}
 		
 		forward = new ActionForward();
