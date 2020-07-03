@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import svc.item.QuestionWriteSVC;
@@ -16,13 +17,17 @@ public class QuestionWriteAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = new ActionForward();
 		
+
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
+		
 		request.setCharacterEncoding("UTF-8");
 		QuestionBean questionBean = new QuestionBean();
 		questionBean.setQuestion_email(request.getParameter("email"));
 		questionBean.setQuestion_field(request.getParameter("fild"));
 		questionBean.setQuestion_title(request.getParameter("title"));
 		questionBean.setQuestion_content(request.getParameter("content"));
-		questionBean.setQuestion_member_id(request.getParameter("id"));
+		questionBean.setQuestion_member_id(id);
 		questionBean.setQuestion_product_num(Integer.parseInt(request.getParameter("product_num")));
 		
 		QuestionWriteSVC questionWriteSVC = new QuestionWriteSVC();
