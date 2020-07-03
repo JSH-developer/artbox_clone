@@ -30,6 +30,7 @@ article{
 	line-height: 55px;
 	border-radius: 5px;
 	margin: 0 3px 0 40px;
+	cursor: pointer;
 }
 
 .main input[type="text"]{
@@ -53,9 +54,11 @@ article{
 	border-radius: 5px;
 	background-color: #000000;
 	color: #ffffff;
+	cursor: pointer;
 }
 
 .main input[type="button"]{
+	cursor: pointer;
 	margin-left:10px;
 	width: 100px;
 	height: 56px;

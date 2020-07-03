@@ -72,7 +72,6 @@
 		</c:if>
 		
 	</div>
-	
 	<!--  푸터 -->
 	<jsp:include page="/inc/bottom.jsp"></jsp:include>
 	<!--  푸터 -->

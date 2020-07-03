@@ -17,6 +17,10 @@ import action.member.Action;
 import action.member.MemberCheckAction;
 import action.member.MemberDeleteAction;
 import action.member.MemberDeliveryAddAction;
+import action.member.MemberDeliveryBasicAction;
+import action.member.MemberDeliveryDeleteAction;
+import action.member.MemberDeliveryModifyAction;
+import action.member.MemberDeliveryModifyProAction;
 import action.member.MemberJoinAction;
 import action.member.MemberJoinCheckAction;
 import action.member.MemberLoginAction;
@@ -28,6 +32,7 @@ import action.member.MyPageOrdersProAction;
 import action.member.MyPageReProAction;
 import action.member.MemberModifyAction;
 import action.member.memberProfileAction;
+import action.member.receiverList;
 import vo.ActionForward;
 
 @WebServlet("*.member")
@@ -174,8 +179,12 @@ public class MemberFrontController extends HttpServlet {
     		forward.setRedirect(true);
     		forward.setPath("/artbox_clone/Home.home");
     	}else if(command.equals("/delivery.member")) {
-    		forward = new ActionForward();
-    		forward.setPath("/member/myPageDelivery.jsp");
+    		action = new receiverList();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
     	}else if(command.equals("/MyPageDeliveryAdd.member")) {
     		forward = new ActionForward();
     		forward.setPath("/member/myPageDeliveryAdd.jsp");
@@ -205,6 +214,34 @@ public class MemberFrontController extends HttpServlet {
     		forward.setPath("/member/memberDelete.jsp");
     	}else if(command.equals("/deleteCheck.member")) {
     		action = new MemberDeleteAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/deliveryModify.member")) {
+    		action = new MemberDeliveryModifyAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/deliveryModifyPro.member")) {
+    		action = new MemberDeliveryModifyProAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/deliveryDelete.member")) {
+    		action = new MemberDeliveryDeleteAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/deliveryBasic.member")) {
+    		action = new MemberDeliveryBasicAction();
     		try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

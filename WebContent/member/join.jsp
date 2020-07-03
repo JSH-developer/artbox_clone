@@ -258,7 +258,7 @@
 							$('#removeid').show();
 							$('#removeid').html('아이디를 넣어주세요.')
 							$('#removeid').css("color", "red");
-						} else if (!idcheck.test($('#id').val())) { //정규식 틀림
+						} else if (!idcheck.test($('#id').val())) { //정규표현식 틀림
 							$('#removeid').show();
 							$('#removeid').html('4~16자 영문 또는 영문숫자 조합해주세요.')
 							$('#removeid').css("color", "red");

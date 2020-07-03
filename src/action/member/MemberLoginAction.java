@@ -20,9 +20,13 @@ public class MemberLoginAction {
 			
 			MemberBean bb = MemberBeanService.myName(id);
 			String name = bb.getName();
+			String grade = bb.getGrade();
+			
 			HttpSession session = request.getSession();
 			session.setAttribute("name", name);
 			session.setAttribute("id", id);
+			session.setAttribute("grade", grade);
+			System.out.println(grade);
 			System.out.println(name);
 		}
 		

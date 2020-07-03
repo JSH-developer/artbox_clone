@@ -7,34 +7,7 @@
 <link href="css/slide.css" rel="stylesheet" type="text/css">
 <link href="css/member/deliveryAdd.css" rel="stylesheet">
 <meta charset="UTF-8">
-    <link rel=" shortcut icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
-    <link rel="icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
-<title>ARTBOX(포트폴리오)</title>
-<script src="js/jquery-3.5.0.js"></script>
-<script type="text/javascript">
-
-var phonecheck = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
-	function check(){
-		if ($('#receiver').val() == '') {
-			alert('배송지 이름을 입력해주세요');
-			$.trim($('#receiver').focus());
-			 return false;
-		}else if ($('#receiver_name').val() == '') {
-			alert('받으시는 분 성함을 입력해주세요.');
-			$.trim($('#receiver_name').focus());
-			 return false;
-		}else if ($('#phone').val() == '') {
-			alert('핸드폰번호를 입력해주세요.');
-			$.trim($('#receiver_name').focus());
-			 return false;
-		}else if (!phonecheck.test($('#phone').val())) {
-			alert('핸드폰번호 형식에 맞춰주세요');
-			$.trim($('#phone').focus());
-			 return false;
-		}
-	}
-
-</script>
+<title>Insert title here</title>
 </head>
 <body>
 	<!-- 헤더 -->
@@ -45,16 +18,17 @@ var phonecheck = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 		<p class="title">나의 배송지 추가/수정</p>
 		<p class="message">*자주 쓰는 배송지를 등록하고 관리할 수 있습니다.</p>
 		<div class="main">
-			<form action="deliveryAdd.member" method="post" onsubmit="return check()">
+			<form action="deliveryModifyPro.member" method="post">
 				<div>
-					<span class="left">배송지명</span><input type="text" name="receiver" id="receiver">
+					<span class="left">배송지명</span><input type="text" name="receiver" value="${rb.receiver }">
 					<input type="hidden" name="id" value="${id }">
+					<input type="hidden" name="num" value="${rb.receiver_num }">
 				</div>
 				<div>
-					<span class="left">받는사람</span><input type="text" name="receiver_name" id="receiver_name">
+					<span class="left">받는사람</span><input type="text" name="receiver_name" value="${rb.receiver_name }">
 				</div>
 				<div>
-					<span class="left">휴대전화</span><input type="text" name="receiver_phone" id="phone" placeholder="ex)010-XXXX-XXXX">
+					<span class="left">휴대전화</span><input type="text" name="receiver_phone" value="${rb.receiver_phone }">
 				</div>
 
 				<!-- 			-------------------------------우편번호 API-----------------------------------          -->
@@ -62,17 +36,17 @@ var phonecheck = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 					<table>
 						<tr>
 							<td rowspan="3" style="width: 131px; color: #646464;">주소</td>
-							<td><input type="text" id="sample6_postcode"
-								placeholder="우편번호" name="postcode" readonly="readonly" style="width: 285px;"></td>
+							<td><input type="text" id="sample6_postcode" value="${rb.receiver_postcode }"
+								placeholder="우편번호" name="postcode" style="width: 285px;"></td>
 							<td><input type="button"
 								onclick="sample6_execDaumPostcode()" value="주소 찾기"></td>
 						</tr>
 						<tr>
-							<td colspan="2"><input type="text" id="sample6_address"
-								placeholder="주소" name="addr" readonly="readonly"></td>
+							<td colspan="2"><input type="text" id="sample6_address" value="${rb.receiver_addr }"
+								placeholder="주소" name="addr"></td>
 						</tr>
 						<tr>
-							<td colspan="2"><input type="text"
+							<td colspan="2"><input type="text" value="${rb.receiver_addr_detail }"
 								id="sample6_detailAddress" name="addr_detail" placeholder="상세주소"
 								style="margin-bottom: 40px;"></td>
 						</tr>
