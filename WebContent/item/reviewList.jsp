@@ -17,7 +17,7 @@
 				<c:set var="score" value="${(rl.review_skill + rl.review_design + rl.review_price + rl.review_quality) / 4 }"/>
 				<div class="tr">
 					<span class="td">
-						<c:forEach var="i" begin="1" end="${score }" step="1">★</c:forEach>
+						<c:forEach var="i" begin="1" end="${score }" step="1">★</c:forEach><c:forEach var="i" begin="${score + 1}" end="5" step="1">☆</c:forEach>
 					</span>
 					<span class="td type2">${rl.review_content }</span>
 					<span class="td"><fmt:formatDate value="${rl.review_regdate }" pattern="yyyy-MM-dd"/></span>
@@ -25,12 +25,12 @@
 				</div>
 				
 				<div class="ps">
-					<span class="ps_score">${score }</span>
+					<span class="ps_score">${score * 2}</span>
 					<div class="ps_sub1">
-						<span>기능 <c:forEach var="i" begin="1" end="${rl.review_skill }" step="1">★</c:forEach></span>
-						<span>디자인 <c:forEach var="i" begin="1" end="${rl.review_design }" step="1">★</c:forEach></span>
-						<span>가격 <c:forEach var="i" begin="1" end="${rl.review_price }" step="1">★</c:forEach></span>
-						<span>품질 <c:forEach var="i" begin="1" end="${rl.review_quality }" step="1">★</c:forEach></span>
+						<span>기능 <c:forEach var="i" begin="1" end="${rl.review_skill }" step="1">★</c:forEach><c:forEach var="i" begin="${rl.review_skill + 1}" end="5" step="1">☆</c:forEach></span>
+						<span>디자인 <c:forEach var="i" begin="1" end="${rl.review_design }" step="1">★</c:forEach><c:forEach var="i" begin="${rl.review_design + 1}" end="5" step="1">☆</c:forEach></span>
+						<span>가격 <c:forEach var="i" begin="1" end="${rl.review_price }" step="1">★</c:forEach><c:forEach var="i" begin="${rl.review_price + 1}" end="5" step="1">☆</c:forEach></span>
+						<span>품질 <c:forEach var="i" begin="1" end="${rl.review_quality }" step="1">★</c:forEach><c:forEach var="i" begin="${rl.review_quality + 1}" end="5" step="1">☆</c:forEach></span>
 					</div>
 					<div class="ps_sub2">${rl.review_content }</div>
 					<div class="ps_sub3">

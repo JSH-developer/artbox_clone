@@ -15,14 +15,13 @@ public class ReviewListAction  implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("ReviewListAction");
 		ActionForward forward = null;
 		
 		request.setCharacterEncoding("UTF-8");
 		int porduct_num = Integer.parseInt(request.getParameter("product_num"));
 		
 		int page = 1; // 현재 페이지 번호를 저장할 변수
-		int limit = 2; // 한 페이지 당 출력할 게시물 수 지정
+		int limit = 5; // 한 페이지 당 출력할 게시물 수 지정
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		}

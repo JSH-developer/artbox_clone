@@ -59,7 +59,9 @@ public class ItemDetailAction implements Action {
 		
 		//----------------------------------------------------------------------------------
 		
-		
+		ReviewListSVC reviewListSVC = new ReviewListSVC();
+		int reviewCount = reviewListSVC.getReviewListCount(product_num);
+		request.setAttribute("reviewCount", reviewCount);		
 		
 		//----------------------------------------------------------------------------------
 		
