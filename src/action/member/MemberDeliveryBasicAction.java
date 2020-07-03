@@ -15,7 +15,7 @@ public class MemberDeliveryBasicAction implements Action {
 		
 		int receiverNum = Integer.parseInt(request.getParameter("num"));
 		String id = request.getParameter("id");
-
+		System.out.println("action id - "+id);
 		MemberReceiverModifyService ReceiverBasic = new MemberReceiverModifyService();
 		ReceiverBasic.ReceiverBasic(receiverNum, id);
 		

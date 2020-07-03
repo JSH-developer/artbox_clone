@@ -277,7 +277,7 @@ public class MemberDAO {
 	public void ReceiverBasic(int receiverNum, String id) { // 기본배송지 설정
 		System.out.println("DAO - ReceiverBasic");
 		PreparedStatement pstmt = null;
-		int rs = 0;
+		int rs = -1;
 		
 		try {
 			String sql = "UPDATE receiver SET basic_num = 0 WHERE member_id = ?";
@@ -285,12 +285,10 @@ public class MemberDAO {
 			pstmt.setString(1,id );
 			rs = pstmt.executeUpdate();
 			System.out.println("rs - "+rs);
-			if(rs != 0) {
 				sql = "UPDATE receiver SET basic_num = 1 WHERE num = ?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1,receiverNum );
 				pstmt.executeUpdate();
-			}
 			
 		} catch (Exception e) {
 			System.out.println("ReceiverBasic오류 - "+e.getMessage());

@@ -34,7 +34,7 @@
 					등록된 배송지가 없습니다.
 				</div>
 			</c:if>
-			<input type="hidden" value="${id }">
+			<input type="hidden" id="hiddin_id" value="${id }">
 			<c:if test="${!empty list }">
 				<c:forEach var="rb" items="${list }" varStatus="status">
 
@@ -61,32 +61,36 @@
 	
 	<script src="js/jquery-3.5.0.js"></script>
 	<script type="text/javascript">
-	
 			function rModify() {
-				var boxcheck = $('input[name="box"]:checked').val();
-				var rcheck = $('input:radio[name="box"]').is(':checked');
+				var rcheck = $('input:radio[name="box"]').is(':checked'); // 라디오박스 체크여부
 				if(rcheck == true){
+				var boxcheck = $('input[name="box"]:checked').val(); // 0,1 값 들고오기
 					location.href="deliveryModify.member?num="+boxcheck;
 				}else {
 					alert('수정하실 배송지를 선택해주세요.')
 				}
 			}
+
 			function rDelete() {
-				var rcheck = $('input:radio[name="box"]').is(':checked');
+				var rcheck = $('input:radio[name="box"]').is(':checked'); // 라디오박스 체크여부
 				if(rcheck == true){
-				var isDelete = confirm("배송지를 삭제하시겠습니까?")
-					if(isDelete == true){
-						location.href="deliveryDelete.member?num="+boxcheck;	
-					}
+					var isDelete = confirm("배송지를 삭제하시겠습니까?");
+						if(isDelete == true){
+							var boxcheck = $('input[name="box"]:checked').val(); // 0,1 값 들고오기
+							location.href = "deliveryDelete.member?num="+boxcheck;
+						}
 				}else{
-					alert('삭제하실 배송지를 선택해주세요.')
+					alert('삭제할 배송지를 선택해주세요.');
 				}
 			}
+
+			
+			
 			function rBasic() {
 				var rcheck = $('input:radio[name="box"]').is(':checked');
 				if(rcheck == true){
 					var boxcheck = $('input[name="box"]:checked').val();
-					var id = $('input[type=hidden]').val();
+					var id = $('#hiddin_id').val();
 					location.href="deliveryBasic.member?num="+boxcheck+"&id="+id;
 				}else{
 					alert('배송지를 선택해주세요.')

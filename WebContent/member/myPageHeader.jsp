@@ -62,7 +62,7 @@
 				<a href="MypageCouponList.coupon" onclick="GA_event('마이페이지', '상단 메뉴', '쿠폰');"><li>
 						<span>쿠폰</span><span>4</span>
 				</li></a>
-				<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '쿠매후기');"><li>
+				<a href="itemReview.item" onclick="GA_event('마이페이지', '상단 메뉴', '쿠매후기');"><li>
 						<span>구매후기</span><span>0</span>
 				</li></a>
 			</ul>
