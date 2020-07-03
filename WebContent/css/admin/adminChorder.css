@@ -26,3 +26,7 @@ body{
 	color:white;
 	
 }
+
+button, input[type=button]{
+	cursor: pointer;
+}

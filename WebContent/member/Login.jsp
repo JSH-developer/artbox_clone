@@ -4,12 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ARTBOX</title>
+    <link rel=" shortcut icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
+    <link rel="icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
+<title>ARTBOX(포트폴리오)</title>
 <link href="css/member/Login.css" rel="stylesheet">
 <link href="css/front.css" rel="stylesheet" type="text/css">
 <link href="css/slide.css" rel="stylesheet" type="text/css">
 <link href="css/post.css" rel="stylesheet" type="text/css">
-<script src="js/jquery-3.5.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 
 </head>
 <body>
@@ -35,9 +37,7 @@
 
 
 			<div class="joinLink">
-				<span class="leftWrap"> <input type="checkbox">아이디
-					저장하기
-				</span>
+				<span class="leftWrap"><input type="checkbox">&nbsp;아이디 저장하기</span>
 				<div class="rightWrap">
 					<a href="findId.member">아이디/비밀번호 찾기</a> | <a href="memberJoinForm.member">회원가입</a>
 				</div>

@@ -2,6 +2,10 @@
 
 *{font-family: 'Noto Sans KR', sans-serif;}
 
+button, input[type=button]{
+	cursor: pointer;
+}
+
 
 .admin_nav{
 	list-style-type: none;

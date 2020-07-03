@@ -85,7 +85,7 @@ public class BasketDAO {
 		List basketList = new ArrayList();
 		List itemsList = new ArrayList();
 		try {
-			String sql = "SELECT * FROM basket WHERE member_id=?";
+			String sql = "SELECT * FROM basket WHERE member_id=? ORDER BY regdate DESC";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member_id);
 			rs = pstmt.executeQuery();
@@ -120,8 +120,8 @@ public class BasketDAO {
 //			e.printStackTrace();
 			System.out.println("BasketDAO - selectBasketList() 실패! : " + e.getMessage());
 		} finally {
-//			close(rs2);
-//			close(pstmt2);
+			close(rs2);
+			close(pstmt2);
 			close(rs);
 			close(pstmt);
 		}
@@ -193,25 +193,6 @@ public class BasketDAO {
 	}
 	
 	// 상품 삭제
-	public int deleteBasket(int basket_num){
-		PreparedStatement pstmt = null;
-		int deleteCount = 0;
-		try {
-			String sql = "DELETE FROM basket WHERE num=?";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, basket_num);
-			
-			deleteCount = pstmt.executeUpdate();
-		} catch (SQLException e) {
-//			e.printStackTrace();
-			System.out.println("BasketDAO - deleteBasket() 실패! : " + e.getMessage());
-		} finally {
-			close(pstmt);
-		}
-		return deleteCount;
-	}
-	
-	// itemList.jsp 에서 상품 바로 삭제
 	public int deleteBasket(String member_id, int product_num){
 		PreparedStatement pstmt = null;
 		int deleteCount = 0;
@@ -223,7 +204,7 @@ public class BasketDAO {
 			deleteCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 //			e.printStackTrace();
-			System.out.println("BasketDAO - deleteBasket() 2개짜리 실패! : " + e.getMessage());
+			System.out.println("BasketDAO - deleteBasket() 실패! : " + e.getMessage());
 		} finally {
 			close(pstmt);
 		}

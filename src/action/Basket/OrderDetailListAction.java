@@ -1,5 +1,6 @@
 package action.Basket;
 
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
+import svc.Basket.BasketDeleteService;
 import svc.Basket.OrderDetailListService;
 import vo.ActionForward;
 
@@ -15,8 +17,8 @@ public class OrderDetailListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.setCharacterEncoding("UTF-8");
 		System.out.println("OrderDetailListAction");
+		request.setCharacterEncoding("UTF-8");
 		
 		// 세션값(id) 가져오기
 		HttpSession session = request.getSession();
@@ -31,6 +33,9 @@ public class OrderDetailListAction implements Action {
 			return forward;
 		}
 		
+		String product_num = request.getParameter("product_num");
+		System.out.println("주문완료 페이지 넘" + product_num);
+		BasketDeleteService.deleteBasket(id, product_num); // 장바구니 삭제(상품개수 수정은 Admin 에서 관리!)
 		// OrderDetailListService 인스턴스 생성 후 getOrderDetailList() 메서드 호출하여 주문정보 가져오기
 		// => 파라미터 : id , 리턴타입 : List
 		OrderDetailListService orderDetailListService = new OrderDetailListService();

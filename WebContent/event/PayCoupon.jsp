@@ -10,7 +10,9 @@ ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute(
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+  <link rel=" shortcut icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
+  <link rel="icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
+<title>ARTBOX(포트폴리오)</title>
 <script src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 

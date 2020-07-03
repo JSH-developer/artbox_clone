@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+.myOrders{
+		border-top: 1px solid grey; 
+		border-bottom: 1px solid grey;
+	height: auto;
+	padding: 10px;
+}
+.myOrderstb{
+	width: 100%;
+}
+
+.myOrderstb td{
+	padding:10px;
+}
+
+.myOrders button{
+	margin-top:5px;
+	padding:3px;
+}
+
+.myOrderstb a:hover{
+	font-size: 20px;
+}
+
+.state_box{
+	width:300px;
+	text-align: center;
+}
+
+.info_box{
+	color:#eb5280;
+}
+		

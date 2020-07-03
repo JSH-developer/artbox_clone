@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import action.Basket.BasketDeleteOneAction;
-import action.Basket.BasketDirectDeleteAction;
+import action.Basket.BasketDeleteAction;
 import action.Basket.BasketInsertAction;
 import action.Basket.BasketListAction;
 import action.Basket.BasketQuantityUpdateAction;
@@ -49,15 +48,8 @@ public class BasketFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/deleteOne.basket")) { // 장바구니 상품 삭제
-			action = new BasketDeleteOneAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/deleteDirect.basket")) { // 특정 상품 삭제
-			action = new BasketDirectDeleteAction();
+		} else if(command.equals("/deleteBasket.basket")) { // 장바구니 상품 삭제
+			action = new BasketDeleteAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

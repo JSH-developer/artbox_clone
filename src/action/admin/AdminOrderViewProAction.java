@@ -25,8 +25,9 @@ public class AdminOrderViewProAction implements Action{
 		
 		AdminOrderViewService orderViewService = new AdminOrderViewService();
 		ordersBean = orderViewService.infoOrders(orders_num);
-		receiverBean = orderViewService.infoReceiver(ordersBean.getOrders_order_num());
 		ordersDetailBeans = orderViewService.infoOrdersDetail(ordersBean.getOrders_order_num());
+		receiverBean = orderViewService.infoReceiver(ordersDetailBeans.get(0).getReceiver_num());
+		
 		
 		request.setAttribute("ordersBean", ordersBean);
 		request.setAttribute("orders_num", orders_num);

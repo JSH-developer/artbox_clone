@@ -2,6 +2,10 @@
 
 th, td, p, input, button, textarea, select, div, xmp {font-family:'Spoqa Han Sans', 'Malgun Gothic', Dotum, Gulim, Tahoma, Helvetica, AppleGothic, Helvetica, Sans-serif; color:#808080; line-height:100%;}
 
+button, input[type=button]{
+	cursor: pointer;
+}
+
 img {border:none;}
 
 select, .reg_tab input[type=text], .reg_tab input[type=number], textarea{

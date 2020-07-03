@@ -74,7 +74,7 @@ public class OrderDAO {
 	}
 	
 	// 주문 목록 출력(OrderPay.jsp) - 장바구니를 거치는 주문
-	public List<SelectOrderBean> OrderOneList(String member_id, int basket_num) {
+	public List<SelectOrderBean> OrderList(String member_id, int product_num) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		SelectOrderBean bean = new SelectOrderBean();
@@ -85,10 +85,10 @@ public class OrderDAO {
 					+ " product.code, product.name, product.image, product.price, basket.quantity, product.category_code"
 					+ " FROM member JOIN basket ON member.id = basket.member_id"
 					+ " JOIN product ON product.num = basket.product_num"
-					+ " WHERE member_id=? AND basket.num=?";
+					+ " WHERE member_id=? AND basket.product_num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member_id);
-			pstmt.setInt(2, basket_num);
+			pstmt.setInt(2, product_num);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				bean.setName(rs.getString("member.name"));
@@ -106,7 +106,7 @@ public class OrderDAO {
 			}
 		} catch (SQLException e) {
 //				e.printStackTrace();
-			System.out.println("OrderDAO - selectOrderList() 실패! : " + e.getMessage());
+			System.out.println("OrderDAO - OrderList() 실패! : " + e.getMessage());
 		} finally {
 			close(rs);
 			close(pstmt);
@@ -316,7 +316,7 @@ public class OrderDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List list = new ArrayList();
-		
+
 		try {
 			String sql = "SELECT * FROM receiver WHERE member_id=? AND receiver NOT IN('') ORDER BY basic_num DESC";
 			pstmt = con.prepareStatement(sql);
@@ -339,7 +339,7 @@ public class OrderDAO {
 			}
 		} catch (SQLException e) {
 //			e.printStackTrace();
-			System.out.println("OrderDAO - getReceiverList() 실패! : " + e.getMessage());
+			System.out.println("OrderDAO - getBasicReceiverList() 실패! : " + e.getMessage());
 		} finally {
 			close(rs);
 			close(pstmt);
@@ -377,7 +377,7 @@ public class OrderDAO {
 			}
 		} catch (SQLException e) {
 //			e.printStackTrace();
-			System.out.println("OrderDAO - getReceiverList() 실패! : " + e.getMessage());
+			System.out.println("OrderDAO - getLastReceiverList() 실패! : " + e.getMessage());
 		} finally {
 			close(rs);
 			close(pstmt);
@@ -423,33 +423,28 @@ public class OrderDAO {
 				receiver_num = rs.getInt(1);
 			}
 			// 주문상품만큼 INSERT
-			System.out.println(orderList+"1 get() 출력 값");
-			for(int i=0;i<orderList.size();i++) {
-				System.out.println("이거 orderList 사이즈" + orderList.size());
-				System.out.println(orderList.get(i)+" 2 get() 출력 값");
+			for(int i = 0; i < orderList.size(); i++) {
 				List list =  (List)orderList.get(i);
-				System.out.println(i+"i값");
-				System.out.println("이거 List 사이즈" + list.size());
-				SelectOrderBean selectOrderBean = (SelectOrderBean) list.get(0);
+				ProductBean bean = (ProductBean)list.get(0);
 				sql="INSERT INTO orders_detail VALUES(?,?,?,?,?,?,?,?,?)";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, num);
-				pstmt.setInt(2, selectOrderBean.getQuantity());
+				pstmt.setInt(2, bean.getProduct_stock_count());
 				pstmt.setString(3, orders_num);//주문번호
-				pstmt.setInt(4, selectOrderBean.getItemNum());
+				pstmt.setInt(4, bean.getProduct_num());
 				pstmt.setInt(5, receiver_num); // 배송지번호
-				pstmt.setString(6, selectOrderBean.getItemCode());
-				pstmt.setString(7, selectOrderBean.getItemName());
-				pstmt.setString(8, selectOrderBean.getItemImage());
-				pstmt.setInt(9, selectOrderBean.getItemprice());
+				pstmt.setString(6, bean.getProduct_code());
+				pstmt.setString(7, bean.getProduct_name());
+				pstmt.setString(8, bean.getProduct_image());
+				pstmt.setInt(9, bean.getProduct_price());
 				
 				insertDetailCount = pstmt.executeUpdate();
 				num++; //일련번호증가
 				if(insertDetailCount > 0) {
 					sql="UPDATE product SET stock_count=stock_count-? WHERE code=?";
 					pstmt=con.prepareStatement(sql);
-					pstmt.setInt(1, selectOrderBean.getQuantity());
-					pstmt.setString(2, selectOrderBean.getItemCode());
+					pstmt.setInt(1, bean.getProduct_stock_count());
+					pstmt.setString(2, bean.getProduct_code());
 					updateCount = pstmt.executeUpdate();
 				}
 			}
@@ -467,6 +462,7 @@ public class OrderDAO {
 	public List getDetailList(String id) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		ResultSet rs2 = null;
 		String order_num = null;
 		List list = new ArrayList();
 		
@@ -479,7 +475,6 @@ public class OrderDAO {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				OrdersDetailBean ordersDetailBean = new OrdersDetailBean();
-				ordersDetailBean.setNum(rs.getInt("num"));
 				ordersDetailBean.setQuantity(rs.getInt("quantity"));
 				ordersDetailBean.setOrders_order_num(rs.getString("orders_order_num"));
 				ordersDetailBean.setProduct_num(rs.getInt("product_num"));
@@ -490,12 +485,12 @@ public class OrderDAO {
 				ordersDetailBean.setPrice(rs.getInt("price"));
 				order_num = rs.getString("orders_order_num");
 				
-				ResultSet rs2 = null;
-				sql = "SELECT msg, total_price, pay_method, regdate FROM orders WHERE order_num=?";
+				sql = "SELECT num, msg, total_price, pay_method, regdate FROM orders WHERE order_num=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, order_num);
 				rs2 = pstmt.executeQuery();
 				if(rs2.next()) {
+					ordersDetailBean.setNum(rs2.getInt("num")); // 원래 orders_detail 번호지만, 임시로 orders 번호 담음
 					ordersDetailBean.setOrders_msg(rs2.getString("msg"));
 					ordersDetailBean.setOrders_regdate(rs2.getTimestamp("regdate"));
 					ordersDetailBean.setOrders_total_price(rs2.getInt("total_price"));
@@ -515,18 +510,45 @@ public class OrderDAO {
 					ordersDetailBean.setReceiver_addr_detail(rs2.getString("receiver_addr_detail"));
 				}
 				list.add(ordersDetailBean);
-				close(rs2);
 			}
-
 		} catch (SQLException e) {
 //			e.printStackTrace();
 			System.out.println("OrderDAO - getDetailList() 실패! : " + e.getMessage());
 		} finally {
+			close(rs2);
 			close(rs);
 			close(pstmt);
 		}
-		
 		return list;
+	}
+
+	public List OrderItemList(int product_num, int qty) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductBean bean = new ProductBean();
+		List OrderList = new ArrayList();
+		try {
+			String sql = "SELECT code, name, image, price FROM product WHERE num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, product_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				bean.setProduct_stock_count(qty); // 수량 담음
+				bean.setProduct_num(product_num);
+				bean.setProduct_code(rs.getString("code"));
+				bean.setProduct_name(rs.getString("name"));
+				bean.setProduct_image(rs.getString("image"));
+				bean.setProduct_price(rs.getInt("price"));
+				OrderList.add(bean);
+			}
+		} catch (SQLException e) {
+//				e.printStackTrace();
+			System.out.println("OrderDAO - OrderItemList() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return OrderList;
 	}
 
 }

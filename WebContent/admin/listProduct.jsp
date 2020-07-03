@@ -9,6 +9,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+  <link rel=" shortcut icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
+  <link rel="icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
 <title>ARTBOX(포트폴리오)</title>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
@@ -68,7 +70,7 @@ $(document).ready(function(){
 	<td>${productList[i].product_num}</td>
 	<td>${productList[i].product_code}</td>
 	<td><a href='ProductView.admin?num=${productList[i].product_num}&page=${pageInfo.page}&opt=${param.opt}&kwd=${param.kwd}'>${productList[i].product_name}</a></td>
-	<td>${productList[i].product_stock_count}</td>
+	<td>${productList[i].product_stock_count}개</td>
 	<td>${productList[i].product_category_code}</td>
 	<td>${productList[i].product_option_code}</td>
 	</tr>
@@ -114,6 +116,8 @@ $(document).ready(function(){
 <table class="table_content">
 <tr><td colspan="6">표시할 항목이 없습니다.</td></tr>
 </table>
+<a href="ProductWriteForm.admin"><button class="table_btn">기본상품 등록</button></a>
+<a href="OptionWriteForm.admin"><button class="table_btn">옵션상품 등록</button></a>
 <br><br>
 </c:if>
 

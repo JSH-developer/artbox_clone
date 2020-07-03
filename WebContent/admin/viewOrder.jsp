@@ -2,11 +2,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+  <link rel=" shortcut icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
+  <link rel="icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
 <title>ARTBOX(포트폴리오)</title>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
@@ -20,6 +23,8 @@ $(document).ready(function(){
 		$("#order_state").text('배송완료');
 	}else if(${ordersBean.orders_state} == -1){
 		$("#order_state").text('배송취소');
+	}else if(${ordersBean.orders_state} == 3){
+		$("#order_state").text('구매확정');
 	}
 })
 
@@ -66,10 +71,10 @@ function changeStatus(){
 <tr><th>주문 이메일</th><td><c:out value="${ordersBean.orders_order_email}"/></td></tr>
 <tr><th>주문 연락처</th><td><c:out value="${ordersBean.orders_order_phone}"/></td></tr>
 <tr><th>포인트</th><td><c:out value="${ordersBean.orders_point}"/></td></tr>
-<tr><th>주문 총금액</th><td><c:out value="${ordersBean.orders_total_price}"/></td></tr>
+<tr><th>주문 총금액</th><td><fmt:formatNumber value="${ordersBean.orders_total_price}" pattern="#,###원"/></td></tr>
 <tr><th>결제수단</th><td><c:out value="${ordersBean.orders_payMethod}"/></td></tr>
 <tr><th>배송현황</th><td><span id="order_state"></span><br><button onclick="changeStatus()">배송상태 변경</button></td></tr>
-<tr><th>주문날짜</th><td><c:out value="${ordersBean.orders_regdate}"/></td></tr>
+<tr><th>주문날짜</th><td><fmt:formatDate value="${ordersBean.orders_regdate}" pattern="yyyy-MM-dd"/></td></tr>
 </table>
 
 <table class="viewTable vt_child2">
@@ -93,8 +98,8 @@ function changeStatus(){
 <c:forEach var="i" begin="0" end="${fn:length(ordersDetailBeans)-1}" step="1">
 <tr><td><c:out value="${ordersDetailBeans[i].num}"/></td><td><c:out value="${ordersDetailBeans[i].code}"/></td>
 <td><c:out value="${ordersDetailBeans[i].name}"/></td><td><img src="${pageContext.request.contextPath}/upload/<c:out value="${ordersDetailBeans[i].image}"/>" width="100px" height="100px"/></td>
-<td><c:out value="${ordersDetailBeans[i].quantity}"/>개</td><td><c:out value="${ordersDetailBeans[i].price}"/>원</td>
-<td>${ordersDetailBeans[i].quantity * ordersDetailBeans[i].price}원</td></tr>
+<td><c:out value="${ordersDetailBeans[i].quantity}"/>개</td><td><fmt:formatNumber value="${ordersDetailBeans[i].price}" pattern="#,###원"/></td>
+<td><fmt:formatNumber value="${ordersDetailBeans[i].quantity * ordersDetailBeans[i].price}" pattern="#,###원"/></td></tr>
 </c:forEach>
 </table>
 <br><br>

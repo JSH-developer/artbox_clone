@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+button, input[type=button]{
+	cursor: pointer;
+}
+
 .homeTitle{
 	text-align: center;
 }

@@ -2,10 +2,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+  <link rel=" shortcut icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
+  <link rel="icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
 <title>ARTBOX(포트폴리오)</title>
 
 <script>
@@ -47,10 +50,11 @@ function deleteProduct(){
 <tr><th>상품 대표 이미지</th><td><img src="${pageContext.request.contextPath}/upload/<c:out value="${productBean.product_image}"/>" width="200px" height="200px"/></td></tr>
 <tr><th>상품 대표 이미지2</th><td><img src="${pageContext.request.contextPath}/upload/<c:out value="${productBean.product_image2}"/>" width="200px" height="200px"/></td></tr>
 <tr><th>상품 상세 </th><td><c:out value="${productBean.product_description}" escapeXml="false"/></td></tr>
-<tr><th>상품 가격</th><td><c:out value="${productBean.product_price}"/></td></tr>
-<tr><th>상품 세일 가격</th><td><c:out value="${productBean.product_sale_price}"/></td></tr>
-<tr><th>상품 재고수량</th><td><c:out value="${productBean.product_stock_count}"/></td></tr>
+<tr><th>상품 가격</th><td><fmt:formatNumber value="${productBean.product_price}" pattern="#,###원"/></td></tr>
+<tr><th>상품 세일 가격</th><td><fmt:formatNumber value="${productBean.product_sale_price}" pattern="#,###원"/></td></tr>
+<tr><th>상품 재고수량</th><td><c:out value="${productBean.product_stock_count}"/>개</td></tr>
 <tr><th>상품 키워드</th><td><c:out value="${productBean.product_keywords}"/></td></tr>
+<tr><th>상품 등록일</th><td><fmt:formatDate value="${productBean.product_regdate}" pattern="yyyy-MM-dd"/></td></tr>
 </table>
 <br><br>
 <button onclick="location.href='ProductList.admin?page=${param.page}&opt=${param.opt}&kwd=${param.kwd}'" class="viewBtn">목록가기</button>

@@ -24,7 +24,7 @@ public class BasketListService {
 		
 		// 4. basketDAO 클래스의 selectBasketList() 메서드를 호출하여
 		//    파라미터 : member_id
-		//    리턴타입 : Vector
+		//    리턴타입 : List
 		List list = basketDAO.selectBasketList(member_id);
 		
 		// 5. Connection 객체 반환

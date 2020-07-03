@@ -7,11 +7,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+  <link rel=" shortcut icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
+  <link rel="icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
 <title>ARTBOX(포트폴리오)</title>
 <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/css/order/Order.css" rel="stylesheet" type="text/css">
-
-<script type="text/javascript" src="../js/jquery-3.5.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 
 </head>
 <body>
@@ -28,7 +29,8 @@
 	<h1>주문 완료!</h1>
 	<div class="OrderComplete">
 		<span class="CompleteImage"></span>
-		<b>주문번호 ${list[0].orders_order_num}</b>
+		주문번호<a href="myPageOrdersDetail.member?num=${list[0].num}&orders_num=${list[0].orders_order_num}"><b>${list[0].orders_order_num}</b></a>
+<!-- 	확인용 -->
 	번호 : ${list[0].num}<br>
 	주문번호 : ${list[0].orders_order_num}<br>
 	product 테이블의 num(인덱스) : ${list[0].product_num}<br>
@@ -52,10 +54,9 @@
 		&nbsp;<br />
 		&nbsp;<br />
 		
-		<a class="btn1" href="#">주문내역 확인</a>&nbsp;&nbsp;<a class="btn2" href="/artbox_clone/Home.home">쇼핑하러 가기</a>
+		<a class="btn1" href="/artbox_clone/myPageOrders.member">주문내역 확인</a>&nbsp;&nbsp;<a class="btn2" href="/artbox_clone/Home.home">쇼핑하러 가기</a>
 	</div>
 </div>
-
 
  </div>
  <!-- 메인 콘텐츠  -->

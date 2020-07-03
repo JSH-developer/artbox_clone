@@ -79,7 +79,6 @@ public class ItemDAO {
 	}
 	
 	
-	
 	public ArrayList<ProductBean> selectMinorLink(String minorCategory) {
 		String sql = "select * from count where category_code=? order by num desc";
 		ProductBean productBean = null;
@@ -163,7 +162,41 @@ public class ItemDAO {
 		
 		return listProduct;
 	}	
-
+	
+	
+	public ArrayList<ProductBean> selectOtherOptionList(String product_option_code) {
+		ArrayList<ProductBean> otherOptionList = new ArrayList<ProductBean>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String fulloption = product_option_code;
+		String option = product_option_code.substring(0, 3)+"__";
+		
+		try {
+			String sql = "SELECT * from product WHERE option_code LIKE ? AND option_code NOT LIKE ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, option);
+			pstmt.setString(2, fulloption);	// 3은 구매확정 상태
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ProductBean article = new ProductBean();
+				article.setProduct_num(Integer.parseInt(rs.getString("num")));
+				article.setProduct_image(rs.getString("image"));
+				article.setProduct_name(rs.getString("name"));
+				article.setProduct_price(Integer.parseInt(rs.getString("price")));
+				otherOptionList.add(article);
+			}
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - selectOtherOptionList() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return otherOptionList;
+	}
+	
 	
 	public int insertReview(ReviewBean reviewBean) {
 		int insertCount = 0;
@@ -183,7 +216,7 @@ public class ItemDAO {
 			if(rs.next()) {
 				num = rs.getInt(1) + 1;
 			} 
-			sql = "INSERT INTO review(num,skill,design,price,quality,regdate,content,re_check,member_id,product_num) VALUES (?,?,?,?,?,now(),?,?,?,?)";
+			sql = "INSERT INTO review(num,skill,design,price,quality,regdate,content,re_check,img1,img2,img3,img4,img5,member_id,product_num) VALUES (?,?,?,?,?,now(),?,?,?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num); // 계산된 새 글 번호 사용
 			pstmt.setInt(2, reviewBean.getReview_skill());
@@ -192,8 +225,13 @@ public class ItemDAO {
 			pstmt.setInt(5, reviewBean.getReview_quality());
 			pstmt.setString(6, reviewBean.getReview_content());
 			pstmt.setInt(7, 0);
-			pstmt.setString(8, reviewBean.getReview_member_id());
-			pstmt.setInt(9, reviewBean.getReview_product_num());
+			pstmt.setString(8, reviewBean.getReview_img1());
+			pstmt.setString(9, reviewBean.getReview_img2());
+			pstmt.setString(10, reviewBean.getReview_img3());
+			pstmt.setString(11, reviewBean.getReview_img4());
+			pstmt.setString(12, reviewBean.getReview_img5());
+			pstmt.setString(13, reviewBean.getReview_member_id());
+			pstmt.setInt(14, reviewBean.getReview_product_num());
 
 			// INSERT 구문 실행 후 리턴되는 결과값을 insertCount 변수에 저장
 			insertCount = pstmt.executeUpdate();
@@ -207,6 +245,78 @@ public class ItemDAO {
 		
 		return insertCount;
 	}
+	
+	
+	public ArrayList<ProductBean> selectReviewList(String id, int page, int limit) {
+		System.out.println("selectReviewList");
+		ArrayList<ProductBean> reviewList = new ArrayList<ProductBean>();
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int startRow = (page - 1) * limit;
+		
+		try {
+			String sql = "SELECT detail.product_num, detail.image, detail.name, detail.price, DATE_ADD(orders.regdate, INTERVAL 6 MONTH) "
+					+ "FROM orders INNER JOIN orders_detail detail ON orders.order_num = detail.orders_order_num "
+					+ "WHERE orders.member_id = ? AND orders.state = ? LIMIT ?,?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, 3);	// 3은 구매확정 상태
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, limit);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ProductBean article = new ProductBean();
+				article.setProduct_num(Integer.parseInt(rs.getString("detail.product_num")));
+				article.setProduct_image(rs.getString("detail.image"));
+				article.setProduct_name(rs.getString("detail.name"));
+				article.setProduct_price(Integer.parseInt(rs.getString("detail.price")));
+				article.setProduct_regdate(rs.getTimestamp("DATE_ADD(orders.regdate, INTERVAL 6 MONTH)"));
+				reviewList.add(article);
+			}
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - selectReviewList() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return reviewList;
+	}
+
+	
+	public int selectReviewListCount(String id) {
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			// board_num 컬럼의 전체 갯수를 조회하기(모든 컬럼을 뜻하는 * 기호 사용해도 됨)
+			String sql = "SELECT COUNT(orders.num) "
+					+ "FROM orders INNER JOIN orders_detail detail ON orders.order_num = detail.orders_order_num "
+					+ "WHERE orders.member_id = ? AND orders.state = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, 3);	// 3은 구매확정 상태
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt("COUNT(orders.num)");
+			}
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - selectReviewListCount() 실패! : " + e.getMessage());
+		} finally {
+			// DB 자원 반환
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
 	
 	public int insertQuestion(QuestionBean questionBean) {
 		int insertCount = 0;
@@ -338,4 +448,5 @@ public class ItemDAO {
 		return categoryBean;
 	}
 
+	
 }

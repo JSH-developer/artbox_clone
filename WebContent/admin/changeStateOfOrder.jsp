@@ -5,6 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+  <link rel=" shortcut icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
+  <link rel="icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
 <title>ARTBOX(포트폴리오)</title>
 
 
@@ -27,6 +29,9 @@ $(document).ready(function(){
 	}else if(${param.status} == -1){
 		$("#status_select").val("-1").prop("selected", true);
 		$("#status_now").text('배송취소')
+	}else if(${param.status} == 3){
+		$("#status_select").val("3").prop("selected", true);
+		$("#status_now").text('구매확정')
 	}
 })
 </script>
@@ -41,6 +46,7 @@ $(document).ready(function(){
 <option value="1">배송진행중</option>
 <option value="2">배송완료</option>
 <option value="-1">배송취소</option>
+<option value="3">구매확정</option>
 </select><br>
 <input type="hidden" name="num" value="${param.num}"/>
 <input class="viewBtn" type="submit" value="변경"/>

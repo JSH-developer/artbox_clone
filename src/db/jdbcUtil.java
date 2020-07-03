@@ -35,45 +35,25 @@ public class jdbcUtil {
 	}
 	
 	// 메서드 오버로딩을 활용하여 Connection, PreparedStatement, ResultSet 객체 자원 반환 구현
-	
 	public static void close(Connection con) {
-		try {
-			con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		if(con!=null) try {con.close();} catch (SQLException e) {e.printStackTrace();}
 	}
 	
 	public static void close(PreparedStatement pstmt) {
-		try {
-			pstmt.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		if(pstmt!=null) try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
 	}
 	
 	public static void close(ResultSet rs) {
-		try {
-			rs.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		if(rs!=null) try {rs.close();} catch (SQLException e) {e.printStackTrace();}
 	}
 	
 	// Auto Commit 해제로 인해 Commit, Rollback 기능을 수행하는 각각의 메서드 정의
 	public static void commit(Connection con) {
-		try {
-			con.commit();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		if(con!=null) try {con.commit();} catch (SQLException e) {e.printStackTrace();}
 	}
-
+	
 	public static void rollback(Connection con) {
-		try {
-			con.rollback();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		if(con!=null) try {con.rollback();} catch (SQLException e) {e.printStackTrace();}
 	}
+	
 }

@@ -2,10 +2,8 @@
 */META-INF/
 */WEB-INF/
 */bin/
-*/classes/
+/build/
 .classpath
 .deployables
 .project
-.project
 .settings/
-/build/

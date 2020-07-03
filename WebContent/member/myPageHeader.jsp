@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="css/member/myPage.css" rel="stylesheet">
-<script src="../js/jquery-3.5.0.js"></script>
-<script type="text/javascript" src="member/myPage.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/member/myPage.js"></script>
 
 <c:if test="${empty sessionScope.id }">
 	<c:redirect url="loginForm.member"/>

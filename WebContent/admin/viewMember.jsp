@@ -2,10 +2,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+  <link rel=" shortcut icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
+  <link rel="icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
 <title>ARTBOX(포트폴리오)</title>
 
 <script>
@@ -51,7 +54,7 @@ function deleteMember(){
 	<c:if test="${memberBean.status eq 0}">비활성</c:if>
 	<c:if test="${memberBean.status eq 1}">활성</c:if></span><br>
 <button onclick="window.open('./changeMemState.admin?num='+${memberBean.num}+'&status='+${memberBean.status}, '', 'width=700,height=250,left=250,top=250');">회원상태 변경</button></td></tr>
-<tr><th>회원 등록일</th><td><c:out value="${memberBean.regdate}"/></td></tr>
+<tr><th>회원 등록일</th><td><fmt:formatDate value="${memberBean.regdate}" pattern="yyyy-MM-dd"/></td></tr>
 </table>
 <button onclick="deleteMember()" class="viewBtn deleteBtn">회원삭제하기</button>
 <button onclick="location.href='MemberList.admin?page=${param.page}&opt=${param.opt}&kwd=${param.kwd}'" class="viewBtn">목록가기</button>
