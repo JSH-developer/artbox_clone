@@ -198,13 +198,14 @@ function Select(id) {
 <!-- 								할인가격이 있을때 -->
 								<c:if test="${saleyn}">
 								<c:forEach var="itembean" items="${itemcoupon}">
-								
+								${itembean.coupon_condition  } :
+								${itemsList[status.index].product_category_code }
+
 								<c:choose>
-								 <c:when test="${itembean.coupon_condition eq itemsList[status.index].itemCategory}">쿠폰있음
-<%-- 								<c:if test="${ itemcoupon.coupon_category eq itemsList[status.index].itemCategory }">쿠폰있음 --%>
+								 <c:when test="${itembean.coupon_condition eq itemsList[status.index].product_category_code}"><!--쿠폰 있을때 -->
 									<fmt:formatNumber value="${price }" pattern="#,###"/> 원 X ${basketList.basket_quantity }개 = <fmt:formatNumber value="${price*basketList.basket_quantity}" pattern="#,###"/>원
 								</c:when>
-								<c:otherwise>
+								<c:otherwise><!--쿠폰 없을때 -->
 								<span style="color:grey;text-decoration: line-through;"><fmt:formatNumber value="${price }" pattern="#,###"/> 원 </span>&nbsp;
 								<span style="color: red;"><fmt:formatNumber value="${result_price}" pattern="#,###"/> 원 </span>
 								

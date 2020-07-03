@@ -21,7 +21,7 @@ public class MypagePointListAction implements Action {
 		
 		HttpSession session = request.getSession();
 //		String id = (String)session.getAttribute("id");
-		String id = "jini";
+		String id = (String)session.getAttribute("id");
 
 		EventService memberService = new EventService();
 		ArrayList<PointBean> Mypointrecode= memberService.selectMyPoint(id);

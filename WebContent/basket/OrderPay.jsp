@@ -536,32 +536,34 @@ span.scoup { /*     쿠폰 팝업 창  */
                <dt class="tdInner">
                   <div class="BasketListItemName">${orderList[0].itemName } (${orderList[0].itemCode })
                   </div>
-                  
+<!--                   세일안할때 -->
                   <c:if test="${sale_price ==0 }">
                   <div class="BasketListPrice">
                    / <fmt:formatNumber value="${price }" pattern="#,###"/>원 X ${orderList[0].quantity }개
                   </div>
                   </c:if>
-                  
-                   <c:if test="${sale_price > 0 }">
-                   <c:if test="${!empty mycouponList }">
+<!--                   세일할때 -->
+   	                <c:if test="${sale_price > 0 }"> 
+ 			<c:forEach var="itembean" items="${itemcoupon}">
+			<c:choose>
+                  <c:when test="${orderList[0].itemCategory eq itembean.coupon_condition}"><!-- 쿠폰이벤트 -->
                      <div class="BasketListPrice">
                    / <fmt:formatNumber value="${price }" pattern="#,###"/>원 X ${orderList[0].quantity }개
                   </div>
-                   </c:if>
+                   </c:when>
                    
-                    <c:if test="${empty mycouponList }">
+                    <c:otherwise><!-- 세일이벤트 -->
                   <div class="BasketListPrice">
                      <c:set var="result_price" value="${price- sale_price}"/>
                    / <span style="color:grey;text-decoration: line-through;"><fmt:formatNumber value="${price }" pattern="#,###"/>원</span>
 				<span style="color: red;"><fmt:formatNumber value="${result_price}" pattern="#,###"/> 원 </span>
                    X ${orderList[0].quantity }개
                   </div>
-                  </c:if>
+                  </c:otherwise>
                   
-                   <c:if test="${fn:contains(orderList[0].itemCategory, orderList[0].itemCategory)}">
-                  </c:if>
                   
+                  	</c:choose>
+                  </c:forEach>
                   </c:if>
                   
                   

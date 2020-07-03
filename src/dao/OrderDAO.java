@@ -156,6 +156,16 @@ public class OrderDAO {
 			 + ", " + ordersbean.getOrders_order_name() + ", " + ordersbean.getOrders_order_email() + ", " + ordersbean.getOrders_order_phone() 
 			 + ", " + ordersbean.getOrders_msg() + ", " + ordersbean.getOrders_point() + ", " + ordersbean.getOrders_total_price() 
 			 + ", " + ordersbean.getOrders_payMethod() + ", " + ordersbean.getOrders_state());
+			
+			if(ordersbean.getOrders_point()!=0) {
+			sql="CALL update_point('구매시 사용',-?,'사용',-?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1,ordersbean.getOrders_point() );
+			pstmt.setInt(1,ordersbean.getOrders_point() );
+			pstmt.setString(2, ordersbean.getOrders_member_id());
+			pstmt.executeUpdate();
+			}
+			
 		}  catch (SQLException e) {
 //			e.printStackTrace();
 			System.out.println("OrderDAO - insertOrder() 실패! : " + e.getMessage());
