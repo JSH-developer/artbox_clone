@@ -13,7 +13,7 @@
 <script src="js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 
-var phonecheck = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+var phonecheck = /^01([0|1|6|7|8|9]?)[-]?([0-9]{3,4})[-]?([0-9]{4})$/;
 	function check(){
 		if ($('#receiver').val() == '') {
 			alert('배송지 이름을 입력해주세요');
