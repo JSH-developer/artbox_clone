@@ -21,13 +21,11 @@ public class AdminChangeMemStateProAction implements Action {
 		AdminChangeMemStateService adminChangeMemStateService = new AdminChangeMemStateService();
 		boolean isChange = adminChangeMemStateService.changeMemState(state, num);
 		
-		System.out.println("Action에서 isChange : " + isChange);
-		
 		if(isChange) {
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script type=\"text/javascript\">");
-			out.println("alert('변경에 성공하였습니다!!');");
+			out.println("alert('회원상태 변경에 성공하였습니다!!');");
 			out.println("opener.location.reload();"); 
 			out.println("window.close();");
 			out.println("</script>");
@@ -35,7 +33,7 @@ public class AdminChangeMemStateProAction implements Action {
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script type=\"text/javascript\">");
-			out.println("alert('변경에 실패하였습니다!!')");
+			out.println("alert('회원상태 변경에 실패하였습니다!!')");
 			out.println("</script>");
 		}
 		

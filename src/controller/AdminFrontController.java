@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.admin.Action;
+import action.admin.AdminChangeMemStateProAction;
 import action.admin.AdminChangeStateProAction;
 import action.admin.CategoryDeleteProAction;
 import action.admin.CategoryListProAction;
@@ -217,8 +218,8 @@ public class AdminFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/changeMemStatePro.admin")) { // 배송 상태변경 수행 
-//			action = new AdminChangeMemStateProAction();
+		}else if(command.equals("/changeMemStatePro.admin")) { // 회원 상태변경 수행 
+			action = new AdminChangeMemStateProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
