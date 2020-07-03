@@ -23,10 +23,7 @@ public class ReviewWriteAction implements Action {
 		ReviewBean reviewBean = new ReviewBean();
 		
 		HttpSession session = request.getSession();
-		if(session.getAttribute("id") == null) {
-			session.setAttribute("id", "guest");
-		}
-		String member_id = (String)session.getAttribute("id");
+		String id = (String)session.getAttribute("id");
 		
 		
 		// 현재 컨텍스트(객체) 정보 가져오기 위해 request 객체로부터 getServletContext() 메서드 호출
@@ -70,7 +67,7 @@ public class ReviewWriteAction implements Action {
 		reviewBean.setReview_img3(multi.getFilesystemName("review_img3"));
 		reviewBean.setReview_img4(multi.getFilesystemName("review_img4"));
 		reviewBean.setReview_img5(multi.getFilesystemName("review_img5"));
-		reviewBean.setReview_member_id(member_id);
+		reviewBean.setReview_member_id(id);
 		reviewBean.setReview_product_num(Integer.parseInt(multi.getParameter("product_num")));
 		
 		ReviewWriteSVC reviewWriteSVC = new ReviewWriteSVC();

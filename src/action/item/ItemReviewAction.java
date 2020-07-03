@@ -18,13 +18,9 @@ public class ItemReviewAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		
-		//로그인 안했으면 id값 guest
 		HttpSession session = request.getSession();
-		if(session.getAttribute("id") == null) {
-			session.setAttribute("id", "guest");
-		}
-		session.setAttribute("id", "guest");
-
+		String id = (String)session.getAttribute("id");
+		System.out.println(id);
 		int page = 1; // 현재 페이지 번호를 저장할 변수
 		int limit = 10; // 한 페이지 당 출력할 게시물 수 지정
 		if(request.getParameter("page") != null) {
@@ -32,12 +28,12 @@ public class ItemReviewAction implements Action {
 		}
 		
 		ItemReviewListSVC itemReviewListSVC = new ItemReviewListSVC();
-		ArrayList<ProductBean> reviewList = itemReviewListSVC.getItemReviewList((String)session.getAttribute("id"),page,limit);
-		request.setAttribute("reviewList",reviewList);
+		ArrayList<ProductBean> itemReviewList = itemReviewListSVC.getItemReviewList(id,page,limit);
+		request.setAttribute("itemReviewList",itemReviewList);
 		
 		
 		
-		int listCount = itemReviewListSVC.getItemReviewListCount((String)session.getAttribute("id"));
+		int listCount = itemReviewListSVC.getItemReviewListCount(id);
 		// 1. 최대 페이지 번호 계산 : 전체 게시물 수 / limit 결과를 반올림 처리 위해 0.95 더함
 		int maxPage = (int)((double)listCount / limit + 0.95);
 		// 2. 현재 페이지에서 표시할 시작 페이지 번호 계산(1, 11, 21 등)

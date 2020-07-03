@@ -235,15 +235,21 @@
 	function Order(id) {
 		var product_num = $("input[name=product_num]").val();
 		var stockqty = $("input[name=stockqty]").val();
-		if(id=='AddBasket') { // '장바구니 담기' 버튼 클릭 시
-			var result = confirm("선택하신 상품이 장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?");
-			// 확인/취소 선택 시 장바구니 상품 담음
-			// result(확인/취소) 값을 넘겨줘서 Action 클래스에서 장바구니 페이지 이동여부 판별
-			document.gfr.action = "insertBasket.basket?result="+result+"&product_num="+product_num;
-			document.gfr.submit();
-		} else if(id=='DirectOrder') { // '바로 구매하기' 버튼 클릭 시
-			document.gfr.action = "orderDirect.order?product_num="+product_num+"&stockqty="+stockqty;
-			document.gfr.submit();
+		
+		if('${productBean.product_stock_count }' == 0){
+			alert("현재 재고량이 0개 입니다.");
+		}else{
+			if(id=='AddBasket') { // '장바구니 담기' 버튼 클릭 시
+				var result = confirm("선택하신 상품이 장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?");
+				// 확인/취소 선택 시 장바구니 상품 담음
+				// result(확인/취소) 값을 넘겨줘서 Action 클래스에서 장바구니 페이지 이동여부 판별
+				document.gfr.action = "insertBasket.basket?result="+result+"&product_num="+product_num;
+				document.gfr.submit();
+			} else if(id=='DirectOrder') { // '바로 구매하기' 버튼 클릭 시
+					document.gfr.action = "orderDirect.order?product_num="+product_num+"&stockqty="+stockqty;
+					document.gfr.submit();
+			}
+			
 		}
 	}
 	
@@ -340,7 +346,16 @@
 					<div class="pdt-right pdt-delivery">2,500원
 						<input type="button" class="btn-delivery modal" value="배송비 안내">
 					</div>
-					<div class="pdt-right pdt-candy"><fmt:formatNumber value="${productBean.product_price / 100}" type="number" />개</div>
+					<div class="pdt-right pdt-candy">
+						<c:choose>
+							<c:when test="${(productBean.product_price - productBean.product_sale_price) < 0}">
+								0 개
+							</c:when>
+							<c:otherwise>
+								<fmt:formatNumber value="${(productBean.product_price - productBean.product_sale_price) / 100}" type="number" pattern="0" />개
+							</c:otherwise>
+						</c:choose>
+					</div>
 					<div class="pdt-right pdt-code">${productBean.product_code}</div>
 					<div class="pdt-right pdt-ok">1% 적립</div>
 					<div class="pdt-right pdt-count">
@@ -421,14 +436,18 @@
 			</div>
 		</section>
 		<section class="item_content">
-			<input class="btn-review" type="button" value="후기작성" onclick="location.href='${pageContext.request.contextPath}/itemReview.item'">
+			<c:if test="${!empty id}">
+				<input class="btn-review" type="button" value="후기작성" onclick="location.href='${pageContext.request.contextPath}/itemReview.item'">
+			</c:if>
 			<div class="review_content">
 				<!--review목록 -->
 				<!--/review목록 -->
 			</div>
 		</section>
 		<section class="item_content">
-			<input class="btn-QnA modal" type="button" value="Q&amp;A작성">
+			<c:if test="${!empty id}">
+				<input class="btn-QnA modal" type="button" value="Q&amp;A작성">
+			</c:if>
 			<div class="question_content">
 				<!--question목록 -->
 				<!--/question목록 -->
