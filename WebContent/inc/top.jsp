@@ -51,8 +51,9 @@
 				<div id="CommonSearch">
 				<form action="${pageContext.request.contextPath}/itemList.item" method="get">
 					<input type="hidden" name="page" value="1">		
-					<input type="hidden" name="doOrder" value="">	
-					<input style="border: 0;outline: 0;font-size: 20px;vertical-align: top;height: 30px;" type="text" name="kwd">
+					<input type="hidden" name="doOrder" value="">
+					<input type="hidden" name="src" value="">
+					<input style="border: 0;outline: 0;font-size: 20px;vertical-align: top;height: 30px;" type="text" name="kwd" required="required">
 					<button style="border: 0;outline: 0;background-color: white;" type="submit">
 						<img src="${pageContext.request.contextPath}/Images/common/top_icon_search.png">
 					</button>

@@ -73,7 +73,6 @@ public class ItemDAO {
 			close(pstmt);
 			close(con);
 		}
-		System.out.println(listProduct);
 		return 	listProduct;
 		
 	}

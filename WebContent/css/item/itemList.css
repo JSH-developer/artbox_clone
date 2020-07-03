@@ -1,5 +1,17 @@
 @charset "UTF-8";
 
+
+
+.nfd{
+	text-align: center;
+}
+.item_name{
+	display:inline-block;
+	width: 200px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
 .content {
     width: 1100px;
     margin: 50px auto;
@@ -200,4 +212,10 @@
 	position: absolute;
 	left: 30px;
 	bottom: 10px;
+}
+.categoryName_search{
+	font-size: 3em;
+	position: absolute;
+	left: 30%;
+	bottom: 50%;
 }

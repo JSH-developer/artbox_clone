@@ -2,6 +2,28 @@ package vo;
 
 public class PrintCategory {
 	
+	private String category;
+	private String code;
+	
+	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	
+	
 	public String[] 인형토이() {
 		String[] toy = {"FUN/TOY","PARTY","쿠션인형","미니인형","DIY취미","피규어"};		
 		return toy;
