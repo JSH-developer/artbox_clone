@@ -25,9 +25,9 @@ public class MemberDeliveryAddAction implements Action {
 		rb.setReceiver_addr_detail(request.getParameter("addr_detail")); // 수신자 상세주소
 		
 		MemberDeliveryAddService MemberDeliveryAddService = new MemberDeliveryAddService();
-		int success = MemberDeliveryAddService.MemberDeliveryAdd(rb);
+		int success = MemberDeliveryAddService.MemberDeliveryAdd(rb); // 배송지 추가
 		
-		if(success == 1) {
+		if(success == 1) { //리스트 뽑아가기
 			ReceiverSelectService ReceiverSelectService = new ReceiverSelectService();
 			List list = ReceiverSelectService.ReceiverSelect(rb.getReceiver_member_id());
 			

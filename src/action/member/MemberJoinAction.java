@@ -5,9 +5,11 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import svc.member.MemberDeliveryAddService;
 import svc.member.MemberJoinService;
 import vo.ActionForward;
 import vo.MemberBean;
+import vo.ReceiverBean;
 
 public class MemberJoinAction implements Action {
 
@@ -43,10 +45,20 @@ public class MemberJoinAction implements Action {
 			bb.setGender(gender);
 			bb.setBirth(birth);
 
-
-
+			ReceiverBean rb = new ReceiverBean();
+			rb.setReceiver_member_id(id); // 아이디
+			rb.setReceiver("최소주소"); // 배송지명
+			rb.setReceiver_name(name); // 수신자 이름
+			rb.setReceiver_phone(phone); // 수신자 폰번호
+			rb.setReceiver_postcode(postcode);
+			rb.setReceiver_addr(addr_basic);
+			rb.setReceiver_addr_detail(addr_detail);
+			
 			boolean joinSuccess = service.JoinSuccess(bb);
 //			System.out.println("joinSuccess ??"+joinSuccess);
+			
+			MemberDeliveryAddService DeliveryAddService = new MemberDeliveryAddService();
+			DeliveryAddService.MemberDeliveryAdd(rb);
 			
 			
 			if(!joinSuccess) {

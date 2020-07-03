@@ -51,6 +51,8 @@ public class MemberDAO {
 			
 			insertCount = pstmt.executeUpdate();
 			
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("MemberDAO - JoinInsert() 실패 : "+e.getMessage());
