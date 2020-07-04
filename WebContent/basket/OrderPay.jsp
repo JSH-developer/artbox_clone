@@ -574,7 +574,7 @@ span.scoup { /*     쿠폰 팝업 창  */
             <dl class="trOrder">
                <dt>이메일</dt>
                <dd>
-                  <input type="text" id="i_mememail" name="mememail" maxlength="50" value="${orderListOne[0].email }" placeholder="예) example@artbox.co.kr" />
+                  <input type="text" id="i_mememail" name="mememail" maxlength="50" value="${orderListOne[0].email }" placeholder="예) example@artfox.com" />
                   <p class="null"></p>
                   <input type="hidden" name="mememail1" />
                   <input type="hidden" name="mememail2" />
