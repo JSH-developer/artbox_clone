@@ -507,14 +507,6 @@ public class EventDAO {
 				rowData.setReg_date(rs.getTimestamp("p.reg_date"));
 				rowData.setMypoint(rs.getInt("m.point"));
 				
-				
-				System.out.println(rs.getString("p.title"));
-				System.out.println(rs.getString("p.content"));
-				System.out.println(rs.getString("p.type"));
-				System.out.println(rs.getInt("p.point"));
-				System.out.println(rs.getString("p.member_id"));
-				System.out.println(rs.getInt("m.point"));
-				
 			
 				articleList.add(rowData);
 				
@@ -529,6 +521,39 @@ public class EventDAO {
 		
 		
 		return articleList;
+	}
+
+	
+	public ArrayList<ProductBean> selectNewList() {
+		ArrayList<ProductBean> newList= new ArrayList<ProductBean>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql="SELECT num,name,image,price,sale_price,regdate FROM product order by regdate desc limit 1,10";
+			pstmt =con.prepareStatement(sql);
+			
+			rs= pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ProductBean productBean = new ProductBean();
+				productBean = new ProductBean();
+				productBean.setProduct_num(rs.getInt("num"));
+				productBean.setProduct_name(rs.getString("name"));
+				productBean.setProduct_image(rs.getString("image"));
+				productBean.setProduct_price(rs.getInt("price"));
+				productBean.setProduct_sale_price(rs.getInt("sale_price"));
+//				productBean.setProduct_regdate(rs.getTimestamp("regdate"));
+				newList.add(productBean);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return newList;
 	}
 
 

@@ -56,8 +56,8 @@ public class OrderCompleteAction implements Action {
 //		System.out.println("사용한 포인트" + request.getParameter("UseMileagePrice"));
 //		System.out.println("기본 배송지 여부 : " + BasicAddr);
 //		System.out.println("적립포인트 : " + request.getParameter("point"));
-		System.out.println("저장할 포인트"+request.getParameter("TotalUseMileage") );
-		System.out.println("int 저장할 포인트"+Integer.parseInt(request.getParameter("TotalUseMileage")) );
+		
+
 //		System.out.println("가격 : " + request.getParameter("Total"));
 //		System.out.println("이름 : " + request.getParameter("memname"));
 //		System.out.println("이메일 : " + request.getParameter("mememail"));
@@ -77,10 +77,21 @@ public class OrderCompleteAction implements Action {
 		ordersbean.setOrders_order_email(request.getParameter("mememail")); // 주문자이메일
 		ordersbean.setOrders_order_phone(request.getParameter("tel")); // 주문자번호
 		ordersbean.setOrders_msg(request.getParameter("shipalertdesc")); // 배송메세지
-		ordersbean.setOrders_point(Integer.parseInt(request.getParameter("TotalUseMileage"))); // 포인트
+
 		ordersbean.setOrders_total_price(Integer.parseInt(request.getParameter("RealTotalPrice"))); // 총합계
 		ordersbean.setOrders_payMethod("card"); // 결제 페이방법
 		ordersbean.setOrders_state(0); // 배송상태 (0 default:결제완료-배송준비중)
+		
+		// 포인트 공백제거 / 쿠폰 ,제거
+		String use_coupon = request.getParameter("select_coupon");
+		if (use_coupon.endsWith(",")) {
+			use_coupon = use_coupon.substring(0, use_coupon.length() - 1);
+			}
+		String use_point= request.getParameter("TotalUseMileage").replace(" ", "");
+		System.out.println("int 저장할 포인트"+Integer.parseInt(use_point));
+		System.out.println("쓴 쿠폰"+request.getParameter("select_coupon"));
+		ordersbean.setOrders_point(Integer.parseInt(use_point)); // 포인트
+		ordersbean.setOrders_use_coupon(use_coupon);
 		
 		// 배송지 추가를 위해 입력받은 데이터를 저장할 ReceiverBean 객체 생성
 		ReceiverBean receiverBean = new ReceiverBean();

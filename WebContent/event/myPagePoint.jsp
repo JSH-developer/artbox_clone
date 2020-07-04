@@ -47,7 +47,7 @@
 				<li>
 					<div class="inner_box">
 						<div class="subj pc">사용가능 꿈캔디</div>
-						<div class="cont type1">${mpoint }</div>
+						<div class="cont type1">${Mypointrecode[0].mypoint }</div>
 					</div>
 				</li>
 				<li>

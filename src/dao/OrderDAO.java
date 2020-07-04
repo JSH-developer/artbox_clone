@@ -157,6 +157,7 @@ public class OrderDAO {
 			 + ", " + ordersbean.getOrders_msg() + ", " + ordersbean.getOrders_point() + ", " + ordersbean.getOrders_total_price() 
 			 + ", " + ordersbean.getOrders_payMethod() + ", " + ordersbean.getOrders_state());
 			
+			// 포인트 사용시 깎임
 			if(ordersbean.getOrders_point()!=0) {
 			sql="CALL update_point('구매시 사용',?,'사용',?,?)";
 			pstmt = con.prepareStatement(sql);
@@ -165,6 +166,15 @@ public class OrderDAO {
 			pstmt.setString(3, ordersbean.getOrders_member_id());
 			pstmt.executeUpdate();
 			}
+			
+			if(ordersbean.getOrders_use_coupon() != null) {
+			System.out.println( ordersbean.getOrders_use_coupon());
+			sql="UPDATE coupon SET coup_use =0 WHERE num IN ("+ordersbean.getOrders_use_coupon()+")";
+			pstmt = con.prepareStatement(sql);
+			pstmt.executeUpdate();
+			
+			}
+			
 			
 		}  catch (SQLException e) {
 //			e.printStackTrace();

@@ -376,7 +376,13 @@ function execDaumPostCode() {
 		var st = $(":input:radio[name=f_coupongroup]:checked").val();
 		total_sum.value = 0;
 		
-		if(st !="bonus"){
+		 var select_coupon = document.getElementById("select_coupon");
+		 select_coupon.value ="";
+		 var c_name= $(":input:radio[name=f_coupongroup]:checked").attr("coup_num");
+		 select_coupon.value = c_name;
+		
+		 
+		if(st !="bonus"){ // bonus가 아니면 check 초기화
 			 
 			 $('input:checkbox[name="f_couponmemberno"]').each(function() {
 				 $('input:checkbox[name=f_couponmemberno]').prop('checked', false);
@@ -398,6 +404,9 @@ function execDaumPostCode() {
 		 
 		 var sum = 0;
 		 var total_sum = document.getElementById("bonus_goods");
+		 var select_coupon = document.getElementById("select_coupon");
+		 select_coupon.value ="";
+		 
 		// checkbox의 name값이 current_product이면서 체크되어 있는 함수를 each함수로 호출한다.
 		$("input[name=f_couponmemberno]:checked").each(function() { 
 			
@@ -406,6 +415,10 @@ function execDaumPostCode() {
 			 total_sum.value = sum;
 			 
 			 sumCouponTotal(0,sum);
+			 
+			 var c_name= $(this).attr("coup_num");
+			 select_coupon.value += c_name+",";
+			 
 			 
 //	 		 $("#TotalUseGoodsCoupon").text(sum);
 		});
@@ -819,11 +832,11 @@ span.scoup { /*     쿠폰 팝업 창  */
 				<tr>
 <!-- 				|| tps>mycouponList[i].coupon_condition} -->
 					<td class="c_select_td">
-						<input type="radio" name="f_coupongroup" id="f_coupongroup_b${i}" value="${mycouponList[i].coupon_price}" onclick="selectCouponGroup(${mycouponList[i].coupon_price})"> 
+						<input type="radio" name="f_coupongroup" id="f_coupongroup_b${i}" value="${mycouponList[i].coupon_price}" onclick="selectCouponGroup(${mycouponList[i].coupon_price})" coup_num="${mycouponList[i].coupon_num}"> 
 						<label for="f_coupongroup_b${i}" style="cursor: pointer; cursor: hand;">
 						<font color="#696969"><b>보너스쿠폰</b></font></label></td>
 					<td  class="c_select_td_name">
-					<input type="checkbox" name="f_couponmemberno_1_1" id="f_couponmemberno_1_1" value="TI20060493648306" onclick="selectCouponMember(1, 1)" style="display: none;">
+<!-- 					<input type="checkbox" name="f_couponmemberno_1_1" id="f_couponmemberno_1_1" value="TI20060493648306" onclick="selectCouponMember(1, 1)" style="display: none;"> -->
 						
 						<label for="f_coupongroup_${i}" style="cursor: pointer; cursor: hand;">${mycouponList[i].coupon_name}</label></td>
 					<td class="c_select_td"><font color="#9e9e9e">${mycouponList[i].coupon_condition }</font></td>
@@ -878,7 +891,7 @@ span.scoup { /*     쿠폰 팝업 창  */
 							<tr>
 								<td height="5" colspan="4" align="left"></td>
 							</tr>
-<c:if test="${!empty mycouponList}"> 
+<%-- <c:if test="${!empty mycouponList}">  --%>
 	<c:forEach items="${orderList}" var="orderList">
          <c:forEach var="i" begin="0" end="${fn:length(mycouponList)-1}" step="1">
          <c:set var="myCoupon" value="${mycouponList[i].coupon_category }" />
@@ -889,7 +902,7 @@ span.scoup { /*     쿠폰 팝업 창  */
              <fmt:parseNumber integerOnly="true" var="coup_discount" value="${orderList[0].itemprice * mycouponList[i].coupon_price /100}"/>
                <tr>
                   <td  align="left"  class="c_select_td_name">
-                  <input type="checkbox" name="f_couponmemberno" id="f_couponmemberno_3_${i}" value="${coup_discount}" onclick="selectCouponMember('bonus', ${i})" >
+                  <input type="checkbox" name="f_couponmemberno" id="f_couponmemberno_3_${i}" value="${coup_discount}" onclick="selectCouponMember('bonus', ${i})" coup_num="${mycouponList[i].coupon_num}" >
                   <label for="f_couponmemberno_3_${i }" style="cursor: pointer; cursor: hand;">
                   <font color="#696969">『${mycouponList[i].coupon_name}』<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 할인 쿠폰
                      </font></label></td>
@@ -907,7 +920,7 @@ span.scoup { /*     쿠폰 팝업 창  */
          </c:if>
          </c:forEach>
          </c:forEach>
-</c:if>			
+<%-- </c:if>			 --%>
 						</tbody>
 					</table>
 				</td>
@@ -1082,7 +1095,8 @@ span.scoup { /*     쿠폰 팝업 창  */
             <dl class="trPrice">
                <dt>상품 쿠폰</dt>
                <dd><span id="TotalUseGoodsCoupon">- 0</span> 원
-               <input type="hidden" name="TotalUseGoodsCoupon" value="0" alt="0" /></dd>
+               <input type="hidden" name="TotalUseGoodsCoupon" value="0" alt="0" />
+               <input type="hidden" id="select_coupon" name="select_coupon" value="0" alt="0" /></dd>
             </dl>
             <dl class="trPrice">
                <dt>무료배송 쿠폰</dt>

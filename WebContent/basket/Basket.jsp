@@ -89,6 +89,7 @@ $(document).ready(function(){
 		var TotalPriceDelivery = 0; //총 배송비
 		var TotalPriceAmount = 0; //총 합계금액
 
+
 		$("input[name=BasketIdx]").each(function(){ //금액 계산
 			if ($(this).prop("checked")) {
 				
@@ -165,14 +166,21 @@ function Select(id) {
 <c:forEach var="basketList" items="${basketList }" varStatus="status">
 	<c:set var="price" value="${itemsList[status.index].product_price }"/>
 	<c:set var="sale_price" value="${itemsList[status.index].product_sale_price }"/>
+	<c:set var="result_price" value="${price}"/>
 	
+<!-- 	할인없을때 -->
 	<c:if test="${itemsList[status.index].product_sale_price == 0 }">
-	<c:set var="saleyn" value="false"></c:set>
 	<c:set var="result_price" value="${price}"/>
 	</c:if>
-	<c:if test="${itemsList[status.index].product_sale_price > 0 }">
-	<c:set var="saleyn" value="true"></c:set>
-	<c:set var="result_price" value="${price - sale_price}"/>
+	
+<!-- 	할인 있을때 -->
+	<c:if test="${itemsList[status.index].product_sale_price > 0 }">	
+	<c:forEach var="itembean" items="${itemcoupon}">
+	 <c:if test="${itembean.coupon_condition ne itemsList[status.index].product_category_code}"><!--쿠폰 있을때 -->
+	 	<c:set var="result_price" value="${price - sale_price}"/>
+	 </c:if>
+	 </c:forEach>
+	 
 	</c:if>
 	
 	
@@ -192,14 +200,12 @@ function Select(id) {
 								<div class="BasketListPrice">
 								
 <!-- 								할인가격이 없을때 -->
-								<c:if test="${saleyn==false }">
+								<c:if test="${itemsList[status.index].product_sale_price == 0}">
 								<fmt:formatNumber value="${price }" pattern="#,###"/> 원 X ${basketList.basket_quantity }개 = <fmt:formatNumber value="${price*basketList.basket_quantity}" pattern="#,###"/>원
 								</c:if>
 <!-- 								할인가격이 있을때 -->
-								<c:if test="${saleyn}">
+								<c:if test="${itemsList[status.index].product_sale_price > 0}">
 								<c:forEach var="itembean" items="${itemcoupon}">
-								${itembean.coupon_condition  } :
-								${itemsList[status.index].product_category_code }
 
 								<c:choose>
 								 <c:when test="${itembean.coupon_condition eq itemsList[status.index].product_category_code}"><!--쿠폰 있을때 -->
@@ -207,14 +213,14 @@ function Select(id) {
 								</c:when>
 								<c:otherwise><!--쿠폰 없을때 -->
 								<span style="color:grey;text-decoration: line-through;"><fmt:formatNumber value="${price }" pattern="#,###"/> 원 </span>&nbsp;
-								<span style="color: red;"><fmt:formatNumber value="${result_price}" pattern="#,###"/> 원 </span>
-								
-								X ${basketList.basket_quantity }개 = <fmt:formatNumber value="${result_price *basketList.basket_quantity}" pattern="#,###"/>원
+								<span style="color: red;"><fmt:formatNumber value="${price - sale_price}" pattern="#,###"/> 원 </span>
+								X ${basketList.basket_quantity }개 = <fmt:formatNumber value="${(price - sale_price) *basketList.basket_quantity}" pattern="#,###"/>원
 								
 								</c:otherwise>
 								
 								</c:choose>
 								</c:forEach>
+<%-- 								<input type="hidden" id="result_price" value="${result_price}"/> --%>
 								</c:if>
 								
 								</div>

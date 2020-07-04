@@ -85,8 +85,8 @@ ${eventArticle.event_content }
 
 <!-- 		상품불러오는코드		 -->
 <!-- itemDetail.item?product_num=6 -->
-		<div class="event_content" onclick="location.href='Eventproductview.event?product_num=${itemList[i].product_num}&page=${nowpage}&condition=${itemList[i].product_category_code}'">
-<%-- 	<div class="event_content" onclick="location.href='itemDetail.item?product_num=${itemList[i].product_num}'"> --%>
+<%-- 		<div class="event_content" onclick="location.href='itemDetail.item?product_num=${itemList[i].product_num}&page=${nowpage}&condition=${itemList[i].product_category_code}'"> --%>
+	<div class="event_content" onclick="location.href='itemDetail.item?product_num=${itemList[i].product_num}'">
 				<img src="${pageContext.request.contextPath}/Images/event/${itemList[i].product_image}" width="358px" height="250px">
 			
 				<p>${itemList[i].product_name}</p>
