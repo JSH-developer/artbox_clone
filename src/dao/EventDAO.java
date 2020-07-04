@@ -80,7 +80,6 @@ public class EventDAO {
 			
 			}
 			
-			
 			updateCount = pstmt.executeUpdate();
 			if(updateCount>0) {
 				System.out.println("상품 할인 적용 성공");
@@ -343,6 +342,23 @@ public class EventDAO {
 			
 			
 			modifyCount = pstmt.executeUpdate();
+			
+			int ediscount = eventBean.getEvent_discount();
+			
+			
+			if(eventBean.getEvent_category().equals("sale_event") || eventBean.getEvent_category().equals("coup_event")) {
+			String discount="(price * "+ediscount+")/100";
+				
+			sql = "UPDATE product SET sale_price="+discount+" WHERE category_code=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, eventBean.getEvent_condition());
+			
+			}
+			
+			int updateCount = pstmt.executeUpdate();
+			if(updateCount>0) {
+				System.out.println("상품 할인 적용 성공");
+			}
 			
 			
 		} catch (SQLException e) {

@@ -338,12 +338,12 @@
 							<!-- 			할인 있을때 -->
 							<c:if test="${empty itemcoupon.coupon_name}">
 								<fmt:parseNumber integerOnly="true" var="persent" value="${productBean.product_sale_price/productBean.product_price *100 }" />
-								<span style="color:red;"> ${productBean.product_price - productBean.product_sale_price }원 [ ${persent}% ]</span>
+								<span style="color:red;"><fmt:formatNumber value="${productBean.product_price - productBean.product_sale_price }" pattern="#,###"/>원 [ ${persent}% ]</span>
 							</c:if>
 							<!-- 				쿠폰 있을때 -->
 							<c:if test="${not empty itemcoupon.coupon_name}">
 								<fmt:parseNumber integerOnly="true" var="persent" value="${productBean.product_sale_price/productBean.product_price *100 }" />
-								<span style="color:red;">${productBean.product_price - productBean.product_sale_price }원  [ ${persent}% ]</span>
+								<span style="color:red;"><fmt:formatNumber value="${productBean.product_price - productBean.product_sale_price }" pattern="#,###"/>원  [ ${persent}% ]</span>
 								<input type="hidden" id="loginId" value="${sessionScope.id}">
 								<input type="hidden" id="coupNum" value="${itemcoupon.coupon_num}">
 								<input type="button" id="coup_btn" value="쿠폰받기" onclick= "cpClick();" ><br>

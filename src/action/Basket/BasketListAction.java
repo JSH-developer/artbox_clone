@@ -1,5 +1,6 @@
 package action.Basket;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,8 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
+import svc.CouponService;
 import svc.Basket.BasketListService;
 import vo.ActionForward;
+import vo.CouponBean;
 
 // 장바구니 목록(Basket.jsp)을 보여주는 BasketListAction 클래스 정의
 public class BasketListAction implements Action {
@@ -30,6 +33,14 @@ public class BasketListAction implements Action {
 			forward.setPath("/artbox_clone/loginForm.member");
 			return forward;
 		}
+		
+
+		//---쿠폰-------------------------------------------------------------------------------
+		// 쿠폰 불러오기
+		CouponService couponService = new CouponService();
+		ArrayList<CouponBean> itemcoupon = couponService.getCouponAllList();
+		request.setAttribute("itemcoupon", itemcoupon);
+		
 		
 		// BasketListService 인스턴스 생성 후 getBasketList() 메서드 호출하여 장바구니 목록 가져오기
 		// 파라미터 : id , 리턴타입 : List

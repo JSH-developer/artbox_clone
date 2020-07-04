@@ -74,7 +74,7 @@ $(document).ready(function(){
 			}
 			$(this).val(maxValue);
 		}
-		$("input[name=TotalUseMileage]").val($(this).val());
+		$("input[name=TotalUseMileage]").val($(this).val(),10);
 		$("#TotalUseMileage").text("- " + parseInt($(this).val(), 10));
 		fnTotalPriceAmount();
 	});
@@ -285,7 +285,7 @@ function execDaumPostCode() {
 		var TotalPriceSum                 = parseInt($("input[name=TotalPriceSum]").val(), 10);
 		var TotalPriceDelivery            = parseInt($("input[name=TotalPriceDelivery]").val(), 10);
 		var TotalPriceMemberLevelDiscount = parseInt($("input[name=TotalPriceMemberLevelDiscount]").val(), 10);
-		var TotalUseMileage               = parseInt($("input[name=TotalUseMileage]").val(), 10);
+		var TotalUseMileage               = parseInt($("input[name=TotalUseMileage]").val(),10);
 		
 		var TotalUseBonusCoupon           = parseInt($("input[name=TotalUseBonusCoupon]").val(), 10);
 		var TotalUseGoodsCoupon           = parseInt($("input[name=TotalUseGoodsCoupon]").val(), 10);
@@ -525,21 +525,56 @@ span.scoup { /*     쿠폰 팝업 창  */
 <c:set var="tps" value="0"/>
 <c:forEach var="orderList" items="${orderList }" varStatus="status">
    <c:set var="price" value="${orderList[0].itemprice }"/>
+   <c:set var="sale_price" value="${orderList[0].item_sale_price }"/>
+   <c:set var="result_price" value="${price}"/>
    <c:set var="qqq" value="${price*orderList[0].quantity }"/>
+   
+   
          <div class="tableDiv">
             <dl class="trOrderItem 2002200265">
                <dt class="tdImage"><a href="itemDetail.item?product_num=${orderList[0].itemNum }"><img src="${pageContext.request.contextPath}/upload/${orderList[0].itemImage }"/></a></dt>
                <dt class="tdInner">
                   <div class="BasketListItemName">${orderList[0].itemName } (${orderList[0].itemCode })
                   </div>
+<!--                   세일안할때 -->
+                  <c:if test="${sale_price ==0 }">
                   <div class="BasketListPrice">
                    / <fmt:formatNumber value="${price }" pattern="#,###"/>원 X ${orderList[0].quantity }개
                   </div>
+                  </c:if>
+<!--                   세일할때 -->
+   	                <c:if test="${sale_price > 0 }"> 
+ 			<c:forEach var="itembean" items="${itemcoupon}">
+			<c:choose>
+                  <c:when test="${orderList[0].itemCategory eq itembean.coupon_condition}"><!-- 쿠폰이벤트 -->
+                     <div class="BasketListPrice">
+                   / <fmt:formatNumber value="${price }" pattern="#,###"/>원 X ${orderList[0].quantity }개
+                  </div>
+                   </c:when>
+                   
+                    <c:otherwise><!-- 세일이벤트 -->
+                  <div class="BasketListPrice">
+                     <c:set var="result_price" value="${price- sale_price}"/>
+                   / <span style="color:grey;text-decoration: line-through;"><fmt:formatNumber value="${price }" pattern="#,###"/>원</span>
+				<span style="color: red;"><fmt:formatNumber value="${result_price}" pattern="#,###"/> 원 </span>
+                   X ${orderList[0].quantity }개
+                  </div>
+                  </c:otherwise>
+                  
+                  
+                  	</c:choose>
+                  </c:forEach>
+                  </c:if>
+                  
+                  
                </dt>
                <dt class="tdPrice">
-                  <fmt:formatNumber value="${qqq }" pattern="#,###"/>원
-                  <c:set var="tps" value="${tps+qqq }"/>
+                  <fmt:formatNumber value="${result_price*orderList[0].quantity }" pattern="#,###"/>원
+                  <c:set var="tps" value="${tps + result_price*orderList[0].quantity }"/>
                </dt>
+               
+               
+               
             </dl>
          </div>
 </c:forEach>

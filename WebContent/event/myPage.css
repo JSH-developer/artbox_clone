@@ -390,7 +390,7 @@ input[type=button]{cursor:pointer;}
 	.wrap .grade_bottom_tab_in ul:after { content:" "; display:block; clear:both; }
 
 	.wrap .grade_bottom_tab_in dl dt { font-size:18px; color:#999999; text-align:center; margin:50px 0 10px 0;}
-	.wrap .grade_bottom_tab_in dl dd ul li { font-size:21px; color:#000000; text-align:center; width:100%; }
+	.wrap .grade_bottom_tab_in dl dd ul li { font-size:21px; color:#000000; text-align:center; width:100%;height: 25px; }
 
 	.wrap .top_box .next_info					{ padding:35px 0 0 0; }
 	.wrap .top_box .next_info p					{ margin:0; text-align:center; }

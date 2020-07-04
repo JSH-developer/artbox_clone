@@ -12,6 +12,8 @@ public class OrdersDetailBean {
 	private String name; // 상품이름
 	private String image; // 대표이미지 파일명
 	private int price; // 상품가격
+	private int sale_price;
+
 	// ---------------------------------------------------
 	private String orders_msg; // 배송메세지
 	private Timestamp orders_regdate; // 승인(결제)날짜
@@ -131,5 +133,10 @@ public class OrdersDetailBean {
 	public void setReceiver_addr_detail(String receiver_addr_detail) {
 		this.receiver_addr_detail = receiver_addr_detail;
 	}
-	
+	public int getSale_price() {
+		return sale_price;
+	}
+	public void setSale_price(int sale_price) {
+		this.sale_price = sale_price;
+	}
 }
