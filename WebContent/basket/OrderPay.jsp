@@ -74,7 +74,7 @@ $(document).ready(function(){
 			}
 			$(this).val(maxValue);
 		}
-		$("input[name=TotalUseMileage]").val($(this).val());
+		$("input[name=TotalUseMileage]").val($(this).val(),10);
 		$("#TotalUseMileage").text("- " + parseInt($(this).val(), 10));
 		fnTotalPriceAmount();
 	});
@@ -285,7 +285,7 @@ function execDaumPostCode() {
 		var TotalPriceSum                 = parseInt($("input[name=TotalPriceSum]").val(), 10);
 		var TotalPriceDelivery            = parseInt($("input[name=TotalPriceDelivery]").val(), 10);
 		var TotalPriceMemberLevelDiscount = parseInt($("input[name=TotalPriceMemberLevelDiscount]").val(), 10);
-		var TotalUseMileage               = parseInt($("input[name=TotalUseMileage]").val(), 10);
+		var TotalUseMileage               = parseInt($("input[name=TotalUseMileage]").val(),10);
 		
 		var TotalUseBonusCoupon           = parseInt($("input[name=TotalUseBonusCoupon]").val(), 10);
 		var TotalUseGoodsCoupon           = parseInt($("input[name=TotalUseGoodsCoupon]").val(), 10);

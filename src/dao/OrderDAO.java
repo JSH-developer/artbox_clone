@@ -158,11 +158,11 @@ public class OrderDAO {
 			 + ", " + ordersbean.getOrders_payMethod() + ", " + ordersbean.getOrders_state());
 			
 			if(ordersbean.getOrders_point()!=0) {
-			sql="CALL update_point('구매시 사용',-?,'사용',-?,?)";
+			sql="CALL update_point('구매시 사용',?,'사용',?,?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1,ordersbean.getOrders_point() );
-			pstmt.setInt(1,ordersbean.getOrders_point() );
-			pstmt.setString(2, ordersbean.getOrders_member_id());
+			pstmt.setString(1,"-"+ordersbean.getOrders_point() );
+			pstmt.setInt(2,-ordersbean.getOrders_point() );
+			pstmt.setString(3, ordersbean.getOrders_member_id());
 			pstmt.executeUpdate();
 			}
 			

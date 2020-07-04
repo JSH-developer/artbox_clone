@@ -56,7 +56,8 @@ public class OrderCompleteAction implements Action {
 //		System.out.println("사용한 포인트" + request.getParameter("UseMileagePrice"));
 //		System.out.println("기본 배송지 여부 : " + BasicAddr);
 //		System.out.println("적립포인트 : " + request.getParameter("point"));
-//		System.out.println("저장할 포인트" );
+		System.out.println("저장할 포인트"+request.getParameter("TotalUseMileage") );
+		System.out.println("int 저장할 포인트"+Integer.parseInt(request.getParameter("TotalUseMileage")) );
 //		System.out.println("가격 : " + request.getParameter("Total"));
 //		System.out.println("이름 : " + request.getParameter("memname"));
 //		System.out.println("이메일 : " + request.getParameter("mememail"));
