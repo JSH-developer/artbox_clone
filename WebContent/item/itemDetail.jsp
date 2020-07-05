@@ -266,7 +266,6 @@
 		var getId  = document.getElementById("loginId").value;
 		var coup_Num  = document.getElementById("coupNum").value;
 		
-		alert(getId);
 		
 		if(getId == "null" || getId == ""){
 			moveCheck = confirm("로그인하시겠습니까?"+getId);
@@ -274,11 +273,12 @@
 			if(moveCheck){
 				location.href = "loginForm.member";
 			}else{
-				alert("그대로 유지");
+// 				alert("그대로 유지");
 			}
 	} else {
-			var url = "CouponIssued.coupon?getid=" + getId + "&couponNum="+ coup_Num;
-			location.href = url;
+		var url = "CouponIssued.coupon?getid=" + getId + "&couponNum="+ coup_Num;
+		location.href = url;
+			
 		}
 	}
 	</script>

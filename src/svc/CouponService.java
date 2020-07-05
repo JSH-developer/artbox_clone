@@ -1,17 +1,12 @@
 package svc;
 
-import static db.jdbcUtil.close;
-import static db.jdbcUtil.commit;
-import static db.jdbcUtil.getConnection;
-import static db.jdbcUtil.rollback;
+import static db.jdbcUtil.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import dao.CouponDAO;
-import dao.EventDAO;
 import vo.CouponBean;
-import vo.EventBean;
 
 public class CouponService {
 
@@ -147,6 +142,19 @@ public class CouponService {
 		close(con);
 		
 		return deleteC;
+	}
+
+	public ArrayList getCouponCategory() {
+		ArrayList categotyList = null;
+		
+		Connection con = getConnection();
+		CouponDAO couponDAO = CouponDAO.getInstance();	
+		couponDAO.setConnection(con);
+		
+		categotyList = couponDAO.selectCouponCategory();
+		
+		close(con);
+		return categotyList;
 	}
 
 	
