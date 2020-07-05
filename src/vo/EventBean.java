@@ -13,12 +13,13 @@ public class EventBean {
 	private String event_start;
 	private String event_limit;
 	private String event_img,event_category;
-
-
+	private int event_state;
+	
 	public EventBean() {}
 
-	public EventBean(int event_num, String event_titie, String event_content, Timestamp event_time, String event_condition,
-			int event_discount, String event_start, String event_limit, String event_img) {
+	public EventBean(int event_num, String event_titie, String event_content, Timestamp event_time,
+			String event_condition, int event_discount, String event_start, String event_limit, String event_img,
+			String event_category, int event_state) {
 		super();
 		this.event_num = event_num;
 		this.event_titie = event_titie;
@@ -29,6 +30,18 @@ public class EventBean {
 		this.event_start = event_start;
 		this.event_limit = event_limit;
 		this.event_img = event_img;
+		this.event_category = event_category;
+		this.event_state = event_state;
+	}
+
+
+
+	public int getEvent_state() {
+		return event_state;
+	}
+
+	public void setEvent_state(int event_state) {
+		this.event_state = event_state;
 	}
 
 	public int getEvent_num() {

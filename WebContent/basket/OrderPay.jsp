@@ -557,9 +557,8 @@ span.scoup { /*     쿠폰 팝업 창  */
                   </c:if>
 <!--                   세일할때 -->
    	                <c:if test="${sale_price > 0 }"> 
- 			<c:forEach var="itembean" items="${itemcoupon}">
 			<c:choose>
-                  <c:when test="${orderList[0].itemCategory eq itembean.coupon_condition}"><!-- 쿠폰이벤트 -->
+                  <c:when test="${fn:contains(itemcoupon, orderList[0].itemCategory)}"><!-- 쿠폰이벤트 -->
                      <div class="BasketListPrice">
                    / <fmt:formatNumber value="${price }" pattern="#,###"/>원 X ${orderList[0].quantity }개
                   </div>
@@ -576,7 +575,6 @@ span.scoup { /*     쿠폰 팝업 창  */
                   
                   
                   	</c:choose>
-                  </c:forEach>
                   </c:if>
                   
                   
@@ -893,18 +891,66 @@ span.scoup { /*     쿠폰 팝업 창  */
 							</tr>
 <%-- <c:if test="${!empty mycouponList}">  --%>
 	<c:forEach items="${orderList}" var="orderList">
+	
+<%-- 	 ${orderList[0].itemCategory } --%>
+	 
+              
+              
+<%--               <jsp:useBean id="itemMap" class="java.util.HashMap"/> --%>
+<%--               <c:set var="sss" value="${s+1}" /> --%>
+              
+<%--               <c:if test="${fn:contains(itemMap,orderList[0].itemCategory)}"> --%>
+<%--                <c:set value="${orderList[0].itemprice +itemMap.orderList[0].itemprice}" target="${itemMap}" property="${orderList[0].itemCategory}" /><br> --%>
+<%--  				</c:if> --%>
+ 				
+<%--  				  <c:if test="${!fn:contains(itemMap,orderList[0].itemCategory)}"> --%>
+<%--                <c:set value="${orderList[0].itemprice }" target="${itemMap}" property="${orderList[0].itemCategory}" /><br> --%>
+<%--  				</c:if> --%>
+ 				
+ 				
+<%--  				<c:out value="${itemMap}" /> // ${orderList[0].itemCategory } --%>
+
+
+<!-- ---------------------- -->
+ 				
+
+ 				
+
+<%-- <c:forEach var="itemcategory" items="${orderList[0].itemCategory}" varStatus="status"> --%>
+	 
+<%-- 	   <c:if test="${itemcategory == mycouponList[i].coupon_condition}"> --%>
+<%-- 	       ${itemcategory} / ${mycouponList[i].coupon_condition } --%>
+<%--     <jsp:useBean id="itemMap1" class="java.util.HashMap"/> --%>
+<%-- 	   <c:set value="${orderList[0].itemprice= itemMap1.orderList[0].itemprice+orderList[0].itemprice}" target="${itemMap1}" property="${orderList[0].itemCategory}" /> --%>
+	   
+<%-- 	  <c:out value="${itemMap1}" /> --%>
+	  
+<%-- 	  </c:if></c:forEach> --%>
+              
+              
          <c:forEach var="i" begin="0" end="${fn:length(mycouponList)-1}" step="1">
          <c:set var="myCoupon" value="${mycouponList[i].coupon_category }" />
-         
-          <c:if test="${fn:contains(orderList[0].itemCategory, mycouponList[i].coupon_condition)}">
+
+           
+          <c:forEach var="itemcategory" items="${orderList[0].itemCategory}" varStatus="status">
+          	 
+          	   <c:if test="${itemcategory == mycouponList[i].coupon_condition}">
+          	   
+          	   <c:set var="s" value="${s+1}"/>
+<%--             ${itemcategory} +${s} --%>
+           
+            
          <c:if test="${myCoupon == 'goodscoupon' }">
              <c:set var="GoodsCoupontCnt" value="${GoodsCoupontCnt= GoodsCoupontCnt+1 }"/>
              <fmt:parseNumber integerOnly="true" var="coup_discount" value="${orderList[0].itemprice * mycouponList[i].coupon_price /100}"/>
+             
+             
+             
                <tr>
                   <td  align="left"  class="c_select_td_name">
                   <input type="checkbox" name="f_couponmemberno" id="f_couponmemberno_3_${i}" value="${coup_discount}" onclick="selectCouponMember('bonus', ${i})" coup_num="${mycouponList[i].coupon_num}" >
                   <label for="f_couponmemberno_3_${i }" style="cursor: pointer; cursor: hand;">
-                  <font color="#696969">『${mycouponList[i].coupon_name}』<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 할인 쿠폰
+                  <font color="#696969">『${mycouponList[i].coupon_name}』할인 쿠폰
                      </font></label></td>
                   <td  class="c_select_td">
                    <font color="#9e9e9e">${mycouponList[i].coupon_condition}</font></td>
@@ -916,8 +962,17 @@ span.scoup { /*     쿠폰 팝업 창  */
                   <td  class="c_select_td"><font
                      color="#9e9e9e">${mycouponList[i].coupon_limit}</font></td>
                </tr>
+               
+               
+               
+               
+               
          </c:if>
-         </c:if>
+         
+          </c:if>
+            
+              </c:forEach>
+         
          </c:forEach>
          </c:forEach>
 <%-- </c:if>			 --%>

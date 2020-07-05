@@ -201,23 +201,15 @@
 									</div>
 									<p class="item_name">${item.product_name }
 										(${item.product_code })</p> <span> 
-										<c:choose>
-											<c:when test="${item.product_sale_price == 0 }">
-												<fmt:formatNumber value="${item.product_price }"
-													pattern="#,###원" />
-											</c:when>
-											<c:otherwise>
-											
-												<del><fmt:formatNumber
-													value="${item.product_price }"
-													pattern="#,###원" /></del>
-												<br>
-												<fmt:formatNumber
-													value="${item.product_price - item.product_sale_price }"
-													pattern="#,###원" />
+										
+											<c:if test="${item.product_sale_price == 0 }">
+												<span ><fmt:formatNumber value="${item.product_price}" pattern="#,###원" /></span>
+											</c:if>
+											<c:if test="${item.product_sale_price > 0 }">
+				<fmt:parseNumber integerOnly="true" var="persent" value="${item.product_sale_price/item.product_price *100 }" />
+		<span style="color:red;"><fmt:formatNumber value="${item.product_price - item.product_sale_price }" pattern="#,###"/>원 [ ${persent}% ]</span>
 													
-											</c:otherwise>
-										</c:choose>
+												</c:if>	
 								</span> <span> <c:if test="${status.count<6 }">
 											<img
 												src="${pageContext.request.contextPath}/Images/item/new.png">

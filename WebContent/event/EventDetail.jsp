@@ -87,22 +87,33 @@ ${eventArticle.event_content }
 <!-- itemDetail.item?product_num=6 -->
 <%-- 		<div class="event_content" onclick="location.href='itemDetail.item?product_num=${itemList[i].product_num}&page=${nowpage}&condition=${itemList[i].product_category_code}'"> --%>
 	<div class="event_content" onclick="location.href='itemDetail.item?product_num=${itemList[i].product_num}'">
-				<img src="${pageContext.request.contextPath}/Images/event/${itemList[i].product_image}" width="358px" height="250px">
+	<div>
+				<img src="${pageContext.request.contextPath}/upload/${itemList[i].product_image}" width="215px" height="215px">
 			
-				<p>${itemList[i].product_name}</p>
+				<b style="padding:0;">${itemList[i].product_name}</b>
 <%-- 				<p style="color:red;">${itemList[i].product_category_code}</p> --%>
 				<p>
-				<span id="rprice" >${realprice}원</span>
+<%-- 				<span id="rprice" >${realprice}원</span> --%>
 				
-				<c:if test="${ eventArticle.event_category eq 'coup_event' or  eventArticle.event_category eq 'sale_event'}" > 
-				<style>
-				span#rprice{text-decoration: line-through;color: grey;}
-				</style>
-				&nbsp; <span style="color: black;">${realprice - saleprice}원</span>
-				</c:if>
+<%-- 				<c:if test="${ eventArticle.event_category eq 'coup_event' or  eventArticle.event_category eq 'sale_event'}" >  --%>
+<!-- 				<style> -->
+<!-- /* 				span#rprice{text-decoration: line-through;color: grey;} */ -->
+<!-- 				</style> -->
+<%-- 				&nbsp; <span style="color: black;">${realprice - saleprice}원</span> --%>
+<%-- 				</c:if> --%>
+				
+	<c:if test="${itemList[i].product_sale_price == 0 }">
+		<span ><fmt:formatNumber value="${item.product_price}" pattern="#,###원" /></span>
+	</c:if>
+	<c:if test="${itemList[i].product_sale_price > 0 }">
+<fmt:parseNumber integerOnly="true" var="persent" value="${itemList[i].product_sale_price/itemList[i].product_price *100 }" />
+<span style="color:red;"><fmt:formatNumber value="${itemList[i].product_price - itemList[i].product_sale_price }" pattern="#,###"/>원 [ ${persent}% ]</span>
+			
+		</c:if>
+				
 				
 				</p>
-				
+		</div>		
 	</div>
 		</c:forEach>
 

@@ -144,6 +144,19 @@ public class CouponService {
 		return deleteC;
 	}
 
+	public ArrayList getCouponCategory() {
+		ArrayList categotyList = null;
+		
+		Connection con = getConnection();
+		CouponDAO couponDAO = CouponDAO.getInstance();	
+		couponDAO.setConnection(con);
+		
+		categotyList = couponDAO.selectCouponCategory();
+		
+		close(con);
+		return categotyList;
+	}
+
 	
 //	// 아이디가 쿠폰 갖고 있는지 확인
 //	public int selectCouponCheck(String id, String couponName) {

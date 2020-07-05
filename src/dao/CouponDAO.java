@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.eclipse.jdt.internal.compiler.ast.PrefixExpression;
 
@@ -48,7 +50,7 @@ public class CouponDAO {
 		try {
 			System.out.println("insertArticle- try ");
 			
-			String sql = "INSERT INTO couponlist VALUES(null,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO couponlist VALUES(null,?,?,?,?,?,?,?,1)";
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setString(1, couponBean.getCoupon_name());
@@ -92,7 +94,7 @@ public class CouponDAO {
 			while(rs.next()) {
 				CouponBean couponBean = new CouponBean();
 				couponBean.setCoupon_num(rs.getInt("num"));
-				couponBean.setCoupon_name(rs.getString("coup_name"));
+				couponBean.setCoupon_name(rs.getString("c_name"));
 				couponBean.setCoupon_price(rs.getInt("coup_price"));
 				couponBean.setCoupon_condition(rs.getString("coup_condition"));
 				couponBean.setCoupon_start(rs.getString("coup_start"));
@@ -141,7 +143,7 @@ public class CouponDAO {
 				pstmt.setString(3, rs.getString("coup_condition"));
 				pstmt.setString(4,rs.getString("coup_start"));
 				pstmt.setString(5,rs.getString("coup_limit"));
-				pstmt.setInt(6, 0); // 사용여부
+				pstmt.setInt(6, rs.getInt("coup_state")); // 사용여부
 				pstmt.setString(7, rs.getString("coup_reason"));
 				pstmt.setString(8, id);
 				pstmt.setString(9, rs.getString("coup_category"));
@@ -183,8 +185,30 @@ public class CouponDAO {
 				couponBean.setCoupon_limit(rs.getString("coup_limit"));
 				couponBean.setCoupon_reason(rs.getString("coup_reason"));
 				couponBean.setCoupon_category(rs.getString("coup_category"));
+				couponBean.setCoupon_state(rs.getInt("coup_state"));
 				
 				couponList.add(couponBean);
+				
+				// 이벤트 종료 안되었을 때
+				if(rs.getInt("coup_state")==1) {
+					Date nowDate = new Date();
+					SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+					String limitdate = rs.getString("coup_limit").replaceAll("-","");
+					int limitdate1 = Integer.parseInt(limitdate);
+					int nowwDate = Integer.parseInt(sf.format(nowDate));
+
+					if(nowwDate>limitdate1 ) {
+						sql = "DELETE FROM couponlist WHERE num=?";
+						pstmt = con.prepareStatement(sql);
+						pstmt.setInt(1, rs.getInt("num"));
+
+						pstmt.executeUpdate();
+					}
+
+				}
+				
+				
+				
 				
 			}
 			
@@ -224,6 +248,7 @@ public class CouponDAO {
 				couponBean.setCoupon_limit(rs.getString("coup_limit"));
 				couponBean.setCoupon_reason(rs.getString("coup_reason"));
 				couponBean.setCoupon_category(rs.getString("coup_category"));
+				couponBean.setCoupon_state(rs.getInt("coup_state"));
 				
 				System.out.println("couponBean - getItemcoupon +"+couponBean.getCoupon_name());
 			}
@@ -275,7 +300,37 @@ public class CouponDAO {
 //		return check;
 //	}
 
-	
+	// 쿠폰 카테고리만 불러오기
+		public ArrayList<CouponBean> selectCouponCategory() {
+			ArrayList couponList = new ArrayList();
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				String sql = "SELECT * FROM couponlist";
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					
+					couponList.add(rs.getString("coup_condition"));
+					
+				}
+				
+				
+			}catch (SQLException e) {
+				System.out.println("CouponDAO- selectCouponCategory()실패!"+e.getMessage());
+			} finally {
+				close(pstmt);
+				close(rs);
+			}
+			
+			
+			
+			return couponList;
+		}
+
 	
 	
 	

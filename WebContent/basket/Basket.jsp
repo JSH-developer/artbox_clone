@@ -175,11 +175,15 @@ function Select(id) {
 	
 <!-- 	할인 있을때 -->
 	<c:if test="${itemsList[status.index].product_sale_price > 0 }">	
-	<c:forEach var="itembean" items="${itemcoupon}">
-	 <c:if test="${itembean.coupon_condition ne itemsList[status.index].product_category_code}"><!--쿠폰 있을때 -->
+	
+<%-- 	<c:forEach var="itembean" items="${itemcoupon}"> --%>
+	 <c:if test="${!fn:contains(itemcoupon , itemsList[status.index].product_category_code)}"><!--쿠폰 있을때 -->
 	 	<c:set var="result_price" value="${price - sale_price}"/>
+	 	<c:set var="item_event" value="coupon"/>
+	 	
 	 </c:if>
-	 </c:forEach>
+
+<%-- 	 </c:forEach> --%>
 	 
 	</c:if>
 	
@@ -205,12 +209,11 @@ function Select(id) {
 								</c:if>
 <!-- 								할인가격이 있을때 -->
 								<c:if test="${itemsList[status.index].product_sale_price > 0}">
-								<c:forEach var="itembean" items="${itemcoupon}">
-
 								<c:choose>
-								 <c:when test="${itembean.coupon_condition eq itemsList[status.index].product_category_code}"><!--쿠폰 있을때 -->
+								 <c:when test="${fn:contains(itemcoupon, itemsList[status.index].product_category_code)}"><!--쿠폰 있을때 -->
 									<fmt:formatNumber value="${price }" pattern="#,###"/> 원 X ${basketList.basket_quantity }개 = <fmt:formatNumber value="${price*basketList.basket_quantity}" pattern="#,###"/>원
 								</c:when>
+								
 								<c:otherwise><!--쿠폰 없을때 -->
 								<span style="color:grey;text-decoration: line-through;"><fmt:formatNumber value="${price }" pattern="#,###"/> 원 </span>&nbsp;
 								<span style="color: red;"><fmt:formatNumber value="${price - sale_price}" pattern="#,###"/> 원 </span>
@@ -219,7 +222,8 @@ function Select(id) {
 								</c:otherwise>
 								
 								</c:choose>
-								</c:forEach>
+<%-- 								</c:if> --%>
+<%-- 								</c:forEach> --%>
 <%-- 								<input type="hidden" id="result_price" value="${result_price}"/> --%>
 								</c:if>
 								
