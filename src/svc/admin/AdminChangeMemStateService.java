@@ -17,7 +17,7 @@ public class AdminChangeMemStateService {
 		Connection con = getConnection(); 
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
-		
+		// 수정된 member 테이블 튜플 수 반환
 		int changeCount = adminDAO.changeMemState(state, num);
 		
 		if(changeCount>0) {

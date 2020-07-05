@@ -50,7 +50,7 @@ public class AdminDAO {
 			String sql = "";
 			
 			if(productBean.getProduct_option_code().substring(3).equals("00")) {
-				sql = "INSERT INTO product_option VALUES(null,?,?,0)";
+				sql = "INSERT INTO product_option VALUES(null,?,?,0)"; //기본옵션등록 수행
 				pstmt=con.prepareStatement(sql);
 				pstmt.setString(1, productBean.getProduct_option_code());
 				pstmt.setString(2, productBean.getProduct_option_code().substring(0,3)+"의 기본옵션" );
@@ -62,7 +62,7 @@ public class AdminDAO {
 			sql="INSERT INTO product("
 					+ "code,name,image,image2,description,price,brand,stock_count,"
 					+ "sale_price,keywords,category_code,option_code) "
-					+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+					+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)"; // product 테이블에 상품 등록
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, productBean.getProduct_code());
 			pstmt.setString(2, productBean.getProduct_name());
@@ -94,7 +94,7 @@ public class AdminDAO {
 		ProductBean productBean = null;
 		
 		try {
-			String sql="SELECT * FROM product WHERE num=?";
+			String sql="SELECT * FROM product WHERE num=?"; //인덱스번호를 참조하여 상품상세 조회
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, product_num);
 			
@@ -128,12 +128,12 @@ public class AdminDAO {
 		return productBean;
 	}
 	
-	// 상품 정보를 뽑아서 옵션등록 페이지에서 사용하기
+	// 오버로딩, 상품 정보를 뽑아서 옵션등록 페이지에서 사용하기
 	public ProductBean toViewProduct(String product_code) {
 		ProductBean productBean = null;
 		
 		try {
-			String sql="SELECT * FROM product WHERE code=?";
+			String sql="SELECT * FROM product WHERE code=?"; // 상품코드를 통해 상품정보 조회
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, product_code);
 			
@@ -159,10 +159,10 @@ public class AdminDAO {
 	public ArrayList<ProductBean> toListProduct(int page, int limit) {
 		ArrayList<ProductBean> productList = new ArrayList<ProductBean>();
 		
-		int startRow = (page-1)*limit;
+		int startRow = (page-1)*limit; // 페이지와 출력갯수를 변수로 받아서 limit에 대입한다
 		
 		try {
-			String sql="SELECT * FROM product ORDER BY num DESC limit ?,?";
+			String sql="SELECT * FROM product ORDER BY num DESC limit ?,?"; // 상품 인덱스 역 순으로 출력
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, limit);
@@ -198,6 +198,7 @@ public class AdminDAO {
 		return productList;
 	}
 	
+	// 오버로딩 : kwd와 opt변수가 존재할 시(검색기능 사용) 사용하는 상품리스트 출력 함수
 	public ArrayList<ProductBean> toListProduct(int page, int limit, String opt, String kwd) {
 		ArrayList<ProductBean> productList = new ArrayList<ProductBean>();
 		
@@ -205,11 +206,11 @@ public class AdminDAO {
 		
 		try {
 			String sql = "";
-			if(opt.equals("name")) {
+			if(opt.equals("name")) { // 분류가 상품명 일때
 				sql="SELECT * FROM product WHERE name LIKE ? ORDER BY num DESC limit ?,?";
-			}else if(opt.equals("code")){
+			}else if(opt.equals("code")){ // 분류가 상품코드 일때
 				sql="SELECT * FROM product WHERE code LIKE ? ORDER BY num DESC limit ?,?";
-			}else if(opt.equals("keywords")){
+			}else if(opt.equals("keywords")){ // 분류가 상품 키워드 일때
 				sql="SELECT * FROM product WHERE keywords LIKE ? ORDER BY num DESC limit ?,?";
 			}
 			
@@ -249,12 +250,12 @@ public class AdminDAO {
 		return productList;
 	}
 	
-	// 상품 최대 갯수 세기
+	// 상품 최대 갯수 세기 -> 페이징 처리시 사용되는 함수
 	public int productCount() {
 		int listCount = 0;
 		
 		try {
-			String sql ="SELECT COUNT(num) FROM product";
+			String sql ="SELECT COUNT(num) FROM product"; // product테이블의 인덱스 수를 계산한다.
 			pstmt=con.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
@@ -272,16 +273,17 @@ public class AdminDAO {
 		return listCount;
 	}
 	
+	//검색기능 활용시 상품갯수 세기 -> 페이징처리시 사용
 	public int productCount(String opt, String kwd) {
 		int listCount = 0;
 		
 		try {
 			String sql = "";
-			if(opt.equals("name")) {
+			if(opt.equals("name")) { // 분류가 상품명 일 때
 				sql ="SELECT COUNT(num) FROM product WHERE name LIKE ?";
-			}else if(opt.equals("code")){
+			}else if(opt.equals("code")){ // 분류가 상품코드 일 때
 				sql ="SELECT COUNT(num) FROM product WHERE code LIKE ?";
-			}else if(opt.equals("keywords")){
+			}else if(opt.equals("keywords")){ // 분류가 상품 키워드 일 때
 				sql ="SELECT COUNT(num) FROM product WHERE keywords LIKE ?";
 			}
 			
@@ -309,6 +311,7 @@ public class AdminDAO {
 		
 		try {
 			String sql ="SELECT LPAD(IFNULL(MAX(num),0)+1,3,'0') FROM product";
+			// 상품 최대 인덱스에 1을 더하고 총 3자리 숫자로 만드는 구문 ex) 001, 010, 099
 			pstmt=con.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
@@ -331,8 +334,9 @@ public class AdminDAO {
 		int insertCount = 0;
 		
 		try {
-			//
-			String sql="INSERT INTO category VALUES (null, (SELECT code FROM ( SELECT concat(?, LPAD(IFNULL(COUNT(num)+1,0),'2','0')) 'code' FROM category WHERE category_sup=? ) as ctemp), ?, ?)"; 
+			// category 테이블에 등록
+			String sql="INSERT INTO category VALUES (null, (SELECT code FROM ( SELECT concat(?, LPAD(IFNULL(COUNT(num)+1,0),'2','0')) 'code' FROM category WHERE category_sup=? ) as ctemp), ?, ?)";
+			// 같은 대분류명 뒤에 순서대로 소분류 번호가 지정되도록 하는 구문 ex) DT01, DT02, DT03, ...
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, categoryBean.getCategory_sup());
 			pstmt.setString(2, categoryBean.getCategory_sup());
@@ -359,6 +363,7 @@ public class AdminDAO {
 		int startRow = (page-1)*limit;
 		
 		try {
+			// 카테고리 삭제시 XX가 맨앞에 붙도록 업데이트 되는데, 그 값을 제외하고 출력한다
 			String sql="SELECT * FROM category WHERE category_code NOT LIKE 'XX%' ORDER BY category_code DESC limit ?,?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
@@ -414,6 +419,7 @@ public class AdminDAO {
 		
 		try {
 			String sql="UPDATE category SET category_code='XX"+num+"' WHERE num=?";
+			// 카테고리 삭제시 카테고리코드 앞에 XX가 붙도록 수정됨
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			
@@ -434,7 +440,7 @@ public class AdminDAO {
 		int insertCount=0;
 		
 		try {
-			String sql = "INSERT INTO product_option VALUES(null,?,?,?)";
+			String sql = "INSERT INTO product_option VALUES(null,?,?,?)"; // option 테이블에 등록
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, optionBean.getOption_code());
 			pstmt.setString(2, optionBean.getOption_name());
@@ -458,6 +464,7 @@ public class AdminDAO {
 		
 		try {
 			String sql = "SELECT LPAD(COUNT(num),2,'0') 'option_num' FROM product_option WHERE option_code LIKE ?";
+			// 상품 인덱스 두자리와 옵션번호를 합쳐서 5자리 옵션코드를 만든다 ex)01001, 01002, 01003, 11001
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, opt_base+"%");
 			
@@ -486,6 +493,7 @@ public class AdminDAO {
 		
 		try {
 			String sql="SELECT * FROM product_option WHERE option_code NOT LIKE '%XX' ORDER BY option_code DESC limit ?,?";
+			// 옵션삭제시 옵션코드 앞자리에 XX가 붙도록 업데이트 되는데, 그것을 제외하고 출력한다
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, limit);
@@ -538,8 +546,8 @@ public class AdminDAO {
 	public int deleteOption(String option_code) {
 		int deleteCount = 0;
 		try {
-//			String sql="DELETE FROM product_option WHERE num=?";
 			String sql="UPDATE product_option SET option_code = concat(option_code,'XX') WHERE option_code=?";
+			// 옵션사제시 옵션코드 앞자리에 XX가 붙도록 구현
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, option_code);
 			
@@ -559,6 +567,7 @@ public class AdminDAO {
 		
 		try {
 			String sql="SELECT * FROM category WHERE category_code <> 'XX' ORDER BY category_code DESC";
+			// 상품등록 select박스에 출력하기위한 용도, XX가 붙은것을 제외한 카테고리목록 출력 
 			pstmt=con.prepareStatement(sql);
 			
 			rs= pstmt.executeQuery();
@@ -583,6 +592,7 @@ public class AdminDAO {
 		
 		try {
 			String sql="SELECT * FROM product_option WHERE option_code NOT LIKE '%00' AND option_code NOT LIKE '%XX'  ORDER BY option_code DESC ";
+			// 상품등록 select 박스에서 출력하기 위한 구문, 기본옵션뒤에는 00이 붙는데 그것을 제외하고 출력
 			pstmt=con.prepareStatement(sql);
 			
 			rs= pstmt.executeQuery();
@@ -607,6 +617,7 @@ public class AdminDAO {
 		
 		try {
 			String sql="SELECT CONCAT(category_code,LEFT(option_code,3)) 'num2', name, code FROM product WHERE code LIKE '%00'";
+			//옵션상품 등록시 select 박스에 출력하기 위한 구문,기본옵션 뒤에는 00이 붙는데 00이 포함되는 것만 출력 -> 기본옵션의 상품만 출력
 			pstmt=con.prepareStatement(sql);
 			
 			rs= pstmt.executeQuery();
@@ -630,8 +641,8 @@ public class AdminDAO {
 		int updateCount = 0;
 		
 		try {
-//			String sql="UPDATE product SET code=?, name=?, image=?, image2=?, description=?, price=?, brand=?, stock_count=?, sale_price=?, keywords=?, category_code=?, option_code=? WHERE num=?";
 			String sql="UPDATE product SET code=?, name=?, image=?, image2=?, description=?, price=?, brand=?, stock_count=?, sale_price=?, keywords=?, category_code=? WHERE num=?";
+			// 상품 인덱스를 기준으로 상품 정보 수정
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, productBean.getProduct_code());
 			pstmt.setString(2, productBean.getProduct_name());
@@ -664,6 +675,7 @@ public class AdminDAO {
 		
 		try {
 			String sql="DELETE FROM product WHERE num=?";
+			// 상품 인덱스를 기준으로 삭제 수행
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			
@@ -684,6 +696,7 @@ public class AdminDAO {
 		
 		try {
 			String sql ="SELECT COUNT(num) FROM member";
+			// member 테이블의 인덱스 갯수 세기
 			pstmt=con.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
@@ -701,14 +714,15 @@ public class AdminDAO {
 		return listCount;
 	}
 	
+	// 오버로딩 : 멤버 갯수 세기, opt와 kwd가 존재할 시 (검색 기능 사용시)
 	public int memberCount(String opt, String kwd) {
 		int listCount = 0;
 		
 		try {
 			String sql = "";
-			if(opt.equals("id")) {
+			if(opt.equals("id")) { // 분류가 회원아이디 일 때
 				sql ="SELECT COUNT(num) FROM member WHERE id LIKE ?";
-			}else if(opt.equals("name")){
+			}else if(opt.equals("name")){ // 분류가 회원이름 일 때
 				sql ="SELECT COUNT(num) FROM member WHERE name LIKE ?";
 			}
 			pstmt=con.prepareStatement(sql);
@@ -775,6 +789,7 @@ public class AdminDAO {
 		return memberList;
 	}
 	
+	// 오버로딩 : 멤버 리스트를 출력하기 위한 함수, opt와 kwd가 존재할 시 (검색기능 사용시)
 	public ArrayList<MemberBean> toListMember(int page, int limit, String opt, String kwd) {
 		ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
 		
@@ -782,9 +797,9 @@ public class AdminDAO {
 		
 		try {
 			String sql = "";
-			if(opt.equals("id")) {
+			if(opt.equals("id")) { // 분류가 회원아이디 일 때
 				sql ="SELECT * FROM member WHERE id LIKE ? ORDER BY num DESC limit ?,?";
-			}else if(opt.equals("name")){
+			}else if(opt.equals("name")){ // 분류가 회원이름 일 때
 				sql ="SELECT * FROM member WHERE name LIKE ? ORDER BY num DESC limit ?,?";
 			}
 			pstmt=con.prepareStatement(sql);
@@ -829,7 +844,7 @@ public class AdminDAO {
 		MemberBean memberBean = null;
 		
 		try {
-			String sql="SELECT * FROM member WHERE num=?";
+			String sql="SELECT * FROM member WHERE num=?"; // member의 index를 기준으로 조회
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			
@@ -870,7 +885,7 @@ public class AdminDAO {
 		int deleteCount = 0;
 		
 		try {
-			String sql="DELETE FROM member WHERE num=?";
+			String sql="DELETE FROM member WHERE num=?"; // member의 인덱스를 기준으로 삭제
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			
@@ -889,7 +904,7 @@ public class AdminDAO {
 		int listCount = 0;
 		
 		try {
-			String sql ="SELECT COUNT(num) FROM orders";
+			String sql ="SELECT COUNT(num) FROM orders"; // orders 테이블의 인덱스 갯수 세기
 			pstmt=con.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
@@ -907,11 +922,13 @@ public class AdminDAO {
 		return listCount;
 	}
 	
+	// 오버로딩 : orders 갯수 세기, state가 존재할 시 (select박스로 주문상태 선택시)
 	public int orderCount(int state) {
 		int listCount = 0;
 		
 		try {
 			String sql ="SELECT COUNT(num) FROM orders WHERE state=?";
+			
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, state);
 			
@@ -938,6 +955,7 @@ public class AdminDAO {
 		
 		try {
 			String sql="SELECT * FROM orders ORDER BY regdate DESC limit ?,?";
+			// 날짜를 기준으로 내림차순 정렬
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, limit);
@@ -964,6 +982,7 @@ public class AdminDAO {
 		return orderList;
 	}
 	
+	// 오버로딩 : order 리스트 만들기, state가 존재할 시 (select박스로 주문상태 선택시)
 	public ArrayList<OrdersBean> toListOrder(int page, int limit, int state) {
 		ArrayList<OrdersBean> orderList = new ArrayList<OrdersBean>();
 		
@@ -1003,7 +1022,7 @@ public class AdminDAO {
 		OrdersBean ordersBean = null;
 		
 		try {
-			String sql="SELECT * FROM orders WHERE num=?";
+			String sql="SELECT * FROM orders WHERE num=?"; // orders의 인덱스를 기준으로 조회
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, orders_num);
 			
@@ -1039,7 +1058,7 @@ public class AdminDAO {
 		ReceiverBean receiverBean = null;
 		
 		try {
-			String sql="SELECT * FROM receiver WHERE num=?";
+			String sql="SELECT * FROM receiver WHERE num=?"; // receiver의 인덱스를 기준으로 조회
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			
@@ -1073,6 +1092,7 @@ public class AdminDAO {
 		
 		try {
 			String sql="SELECT * FROM orders_detail WHERE orders_order_num=?";
+			// orders_detail에 인덱슬르 기준으로 조회
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, orders_order_num);
 			
@@ -1108,6 +1128,7 @@ public class AdminDAO {
 		
 		try {
 			String sql="UPDATE orders SET state = ? WHERE num=?";
+			// orders의 num을 기준으로 state 변경
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, state);
 			pstmt.setInt(2, num);
@@ -1127,6 +1148,7 @@ public class AdminDAO {
 		
 		try {
 			String sql="UPDATE member SET status = ? WHERE num=?";
+			// memver 테이블의 num을 기준으로 status 변경
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, state);
 			pstmt.setInt(2, num);
@@ -1141,12 +1163,13 @@ public class AdminDAO {
 		return changeCount;
 	}
 
-	// 아이디로 orders의 정보를 조회
+	// 마이페이지용, 아이디로 orders의 정보를 조회
 	public List<OrdersBean> getMyOrders(String id) {
 		List<OrdersBean> myOrders = new ArrayList<OrdersBean>();
 		
 		try {
 			String sql="SELECT * FROM orders WHERE member_id=? AND state <> -1 ORDER BY regdate DESC";
+			// id로 orders 테이블 조회 단, 주문취소 상태가 아닌 튜플만 출력
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			
@@ -1174,12 +1197,13 @@ public class AdminDAO {
 		return myOrders;
 	}
 	
-	// 취소 및 반품목록
+	// 마이페이지용, 취소 및 반품목록
 	public List<OrdersBean> getMyCancleOrders(String id) {
 		List<OrdersBean> myOrders = new ArrayList<OrdersBean>();
 		
 		try {
 			String sql="SELECT * FROM orders WHERE member_id=? AND state = -1 ORDER BY regdate DESC";
+			// id로 orders 테이블 조회 단,주문취소 상태인 튜플만 출력
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			
@@ -1212,6 +1236,7 @@ public class AdminDAO {
 		int changeCount = 0;
 		try {
 			String sql="UPDATE orders SET state = 3 WHERE order_num=?";
+			// 주문코드를 기준으로 state 값 변경
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, orders_order_num);
 			
@@ -1231,6 +1256,7 @@ public class AdminDAO {
 		
 		try {
 			String sql="CALL update_point('구매 확정','구매 확정에 따른 포인트 적립','적립',?,?)";
+			//update_point 프로시저 사용, point 테이블에 튜플 추가 및 member 테이블에 point값 변경
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, point);
 			pstmt.setString(2, id);
@@ -1251,6 +1277,7 @@ public class AdminDAO {
 		
 		try {
 			String sql="UPDATE orders SET state = -1 WHERE order_num=?";
+			//주문코드를 기준으로 조회, 주문취소 시 state값 변경
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, orders_order_num);
 			
@@ -1270,6 +1297,7 @@ public class AdminDAO {
 		
 		try {
 			String sql="CALL update_point('구매 취소','구매 취소에 따른 금액 포인트로 환불','적립',?,?)";
+			//update_point 프로시저 사용, point 테이블에 튜플 추가 및 member 테이블에 point값 변경
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, point);
 			pstmt.setString(2, id);
@@ -1284,7 +1312,7 @@ public class AdminDAO {
 		return changeCount;
 	}
 	
-	// 회원 등급 최신화
+	// 구매확정 버튼 클릭시, 회원 등급 최신화
 	public int changeGrade(String id) {
 		int changeCount = 0;
 		
@@ -1293,6 +1321,8 @@ public class AdminDAO {
 					"IF((SELECT SUM(total_price) FROM orders WHERE member_id=?)>=200000," + 
 					"'GOLD',IF((SELECT SUM(total_price) FROM orders WHERE member_id=?)>=500000,'DIAMOND','SILVER')) " + 
 					"WHERE id=?";
+			// orders테이블에서 member_id를 통해 구매액 총합을 구하고 그 값이 500000 이상이면 DIAMOND, 200000 이상이면 GOLD, 그 이하이면 SILVER이다.
+			// 참고로 회원가입 최초시 기본값은 BRONZ 이고 구매 1회  이상시 SILVER로 변경됨
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, id);
@@ -1308,11 +1338,13 @@ public class AdminDAO {
 		return changeCount;
 	}
 
+	// 베스트10 구하기
 	public ArrayList<ProductBean> toBestProduct() {
 		ArrayList<ProductBean> bestList= new ArrayList<ProductBean>();
 		
 		try {
 			String sql="SELECT num,name,image,price,sale_price FROM count ORDER BY cnt_order DESC, regdate DESC limit 0,10";
+			// count 뷰를 활용해 1차적으로 주문량이 가장 많은 상품을 구하고 2차적으로 등록날짜 내림차순 기준으로 10개의 상품을 구한다.
 			pstmt=con.prepareStatement(sql);
 			
 			rs= pstmt.executeQuery();

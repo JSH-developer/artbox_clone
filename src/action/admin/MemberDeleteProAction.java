@@ -15,6 +15,7 @@ public class MemberDeleteProAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		
+		// 상품 인덱스, 페이지, opt(분류기준), kwd(검색단어) 받아오기 -> 원래 페이지 이동을 위해
 		int num = Integer.parseInt(request.getParameter("num"));
 		String page = request.getParameter("page");
 		String opt = request.getParameter("opt"); 
@@ -22,7 +23,7 @@ public class MemberDeleteProAction implements Action {
 		
 		
 		MemberDeleteService memberDeleteService = new MemberDeleteService();
-		boolean isDelete = memberDeleteService.deleteMember(num);
+		boolean isDelete = memberDeleteService.deleteMember(num); // svc에서 삭제 수행
 		
 		if(isDelete) {
 			forward = new ActionForward();

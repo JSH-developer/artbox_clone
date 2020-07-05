@@ -26,7 +26,7 @@ public class OptionListProAction implements Action {
 		
 		OptionListService optionListService = new OptionListService();
 		int listCount = optionListService.getListCount();
-		ArrayList<OptionBean> optionList =optionListService.getOptionList(page, limit);
+		ArrayList<OptionBean> optionList =optionListService.getOptionList(page, limit); // svc에서 ArrayList 받아오기
 		
 		int maxPage = (int)((double)listCount / limit + 0.95);
 		int startPage = (((int)((double)page / 10 + 0.9))-1)*10 +1 ;
@@ -37,7 +37,7 @@ public class OptionListProAction implements Action {
 		
 		PageInfo pageInfo = new PageInfo(page, maxPage, startPage, endPage, listCount);
 		
-		
+		// request에 값 저장
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("optionList", optionList);
 		

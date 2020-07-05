@@ -14,10 +14,12 @@ public class ProductViewProAction implements Action{
 		ActionForward forward = new ActionForward();
 		ProductBean productBean = null;
 		
-		int product_num = Integer.parseInt(request.getParameter("num"));
+		int product_num = Integer.parseInt(request.getParameter("num")); // svc에 전달할 product 인덱스
 		
 		ProductViewService productViewService = new ProductViewService();
-		productBean = productViewService.infoProduct(product_num);
+		productBean = productViewService.infoProduct(product_num); // svc에서 상품정보 담긴 ProductBean 반환
+		
+		// request에 값 저장
 		request.setAttribute("productBean", productBean);
 		request.setAttribute("product_num", product_num);
 		

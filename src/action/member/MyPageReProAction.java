@@ -15,14 +15,15 @@ public class MyPageReProAction implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = new ActionForward();
+		// id 받아오기
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
 		
 		MyPageReService myPageReService = new MyPageReService();
-		List<OrdersBean> myRes = myPageReService.getMyRes(id);
+		List<OrdersBean> myRes = myPageReService.getMyRes(id); // svc에서 ArrayList 받아오기
 		
+		// request에 값 저장
 		request.setAttribute("myRes", myRes);
-		
 		
 		forward.setPath("/member/myPageRe.jsp");
 		return forward;

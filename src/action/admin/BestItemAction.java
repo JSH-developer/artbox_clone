@@ -17,8 +17,9 @@ public class BestItemAction implements action.Action{
 		
 		BestItemService bestItemService = new BestItemService();
 		
-		List<ProductBean> bestItems = bestItemService.getBestList();
+		List<ProductBean> bestItems = bestItemService.getBestList(); // svc에서 ArrayList 받아오기
 		
+		// request에 저장
 		request.setAttribute("bestItems", bestItems);
 		
 		forward.setPath("/home/home.jsp");

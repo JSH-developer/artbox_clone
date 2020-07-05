@@ -15,6 +15,7 @@ public class ProductDeleteService {
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
 		
+		// Product 테이블에서 삭제한 튜플 수를 int값으로 출력
 		int deleteCount = adminDAO.deleteProduct(num);
 		
 		if(deleteCount>0) {

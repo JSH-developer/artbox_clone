@@ -18,6 +18,7 @@ public class AdminOrderListService {
 		
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
+		//orders테이블의 index 갯수를 int값으로 반환
 		listCount = adminDAO.orderCount();
 		
 		if(listCount>0) {
@@ -31,6 +32,7 @@ public class AdminOrderListService {
 		return listCount;
 	}
 	
+	// 오버로딩
 	public int getListCount(int state) {
 		int listCount=0;
 		
@@ -38,6 +40,7 @@ public class AdminOrderListService {
 		
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
+		// state 값을 기준으로 일치하는 orders테이블의 index 갯수를 int값으로 반환
 		listCount = adminDAO.orderCount(state);
 		
 		if(listCount>0) {
@@ -59,6 +62,7 @@ public class AdminOrderListService {
 		
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
+		// OrdersBean을 ArrayList에 담아서 반환
 		orderList=adminDAO.toListOrder(page, limit);
 		
 		if(!orderList.isEmpty()) {
@@ -72,6 +76,7 @@ public class AdminOrderListService {
 		return orderList;
 	}
 	
+	// 오버로딩
 	public ArrayList<OrdersBean> getOrderList(int page, int limit, int state) {
 		ArrayList<OrdersBean> orderList = null;
 		
@@ -80,6 +85,7 @@ public class AdminOrderListService {
 		
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
+		// state 값을 기준으로 일치하는 OrdersBean을 ArrayList에 담아서 반환
 		orderList=adminDAO.toListOrder(page, limit, state);
 		
 		if(!orderList.isEmpty()) {

@@ -14,7 +14,7 @@ public class CategoryWriteProAction implements Action{
 		ActionForward forward = null;
 		
 		CategoryWriteService categoryWriteService = new CategoryWriteService();
-		CategoryBean categoryBean = new CategoryBean();
+		CategoryBean categoryBean = new CategoryBean(); // svc에 전달할  CategoryBean 생성
 		categoryBean.setCategory_sup(request.getParameter("category_sup"));
 		categoryBean.setCategory_sub(request.getParameter("category_sub"));
 		boolean isRegist = categoryWriteService.registCategory(categoryBean);

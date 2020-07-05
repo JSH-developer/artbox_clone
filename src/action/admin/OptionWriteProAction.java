@@ -21,6 +21,7 @@ public class OptionWriteProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// 옵션 상품 등록 페이지
 		ActionForward forward = new ActionForward();
 		
 		ServletContext context = request.getServletContext();
@@ -47,7 +48,7 @@ public class OptionWriteProAction implements Action {
 
 		
 		ProductWriteService productWriteService = new ProductWriteService();
-		ProductBean productBean = new ProductBean();
+		ProductBean productBean = new ProductBean(); //svc에 전달할 ProductBean 생성
 		
 		ProductViewService productViewService = new ProductViewService();
 		ProductBean pb_base = productViewService.infoProduct(multi.getParameter("product_code_base")+"00");
@@ -68,13 +69,12 @@ public class OptionWriteProAction implements Action {
 		productBean.setProduct_option_code(option_code);
 		
 		
-		boolean isRegist = optionWriteService.registOption(optionBean);
-		boolean isRegist2 = productWriteService.registProduct(productBean);
+		boolean isRegist = optionWriteService.registOption(optionBean); //svc에서 옵션등록
+		boolean isRegist2 = productWriteService.registProduct(productBean);// svc에서 상품등록
 		
 		if(isRegist && isRegist2) {
-			// dispatch 방식으로 이동
 			forward.setPath("ProductList.admin");
-		}else {
+		}else { // 실패시 alert창 생성
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script type=\"text/javascript\">");

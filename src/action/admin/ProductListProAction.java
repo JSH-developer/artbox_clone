@@ -27,6 +27,7 @@ public class ProductListProAction implements Action {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 		
+		// 검색기능 사용시 opt(분류기준)와 kwd(검색단어)값 담기
 		String opt = request.getParameter("opt");
 		String kwd = "";
 		if(request.getParameter("kwd") != null) {
@@ -36,12 +37,12 @@ public class ProductListProAction implements Action {
 		ProductListService productListService = new ProductListService();
 		int listCount = 0;
 		ArrayList<ProductBean> productList = null;
-		if(kwd.equals("")) {
+		if(kwd.equals("")) { // 검색 안했을 때
 			listCount = productListService.getListCount();
-			productList = productListService.getProductList(page, limit);
-		}else {
+			productList = productListService.getProductList(page, limit); // svc에서 ArrayList값 받아오기
+		}else { // 검색 했을 때
 			listCount = productListService.getListCount(opt, kwd);
-			productList = productListService.getProductList(page, limit, opt, kwd);
+			productList = productListService.getProductList(page, limit, opt, kwd); // svc에서 ArrayList값 받아오기
 		}
 		
 		int maxPage = (int)((double)listCount / limit + 0.95);
@@ -53,6 +54,7 @@ public class ProductListProAction implements Action {
 		
 		PageInfo pageInfo = new PageInfo(page, maxPage, startPage, endPage, listCount);
 		
+		// request에 값 저장
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("productList", productList);
 		

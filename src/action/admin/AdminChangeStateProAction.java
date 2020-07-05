@@ -14,11 +14,12 @@ public class AdminChangeStateProAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward= null;
 		
+		// 주문상태와 인덱스 받아오기
 		int state = Integer.parseInt(request.getParameter("state"));
 		int num = Integer.parseInt(request.getParameter("num"));
 		
 		AdminChangeStateService adminChangeStateService = new AdminChangeStateService();
-		boolean isChange = adminChangeStateService.changeState(state, num);
+		boolean isChange = adminChangeStateService.changeState(state, num); // svc에서 변경 수행
 		
 		if(isChange) {
 			response.setContentType("text/html;charset=UTF-8");
