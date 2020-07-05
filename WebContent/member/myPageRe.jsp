@@ -13,7 +13,6 @@
 <link href="${pageContext.request.contextPath}/css/member/myPageRe.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/css/slide.css" rel="stylesheet" type="text/css">
-<script src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/member/myPage.js"></script>
 
 </head>

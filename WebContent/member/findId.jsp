@@ -43,17 +43,14 @@
 				onsubmit="return check()">
 				<div class="form">
 					<div class="radioMargin">
-						<input type="radio" id="phoneCheck" name="pmail" checked="checked"><span
-							class="radioName">휴대전화</span> <input type="radio" id="emailCheck"
-							name="pmail"><span class="radioName">이메일</span>
+						<input type="radio" id="phoneCheck" name="pmail"><span class="radioName">휴대전화</span>
+						<input type="radio" id="emailCheck"	name="pmail"><span class="radioName">이메일</span>
 					</div>
 					<div>
 						<input type="text" id="name" name="name" placeholder="이름을 입력해주세요.">
 
-						<input type="text" id="phone" name="phone"
-							placeholder="핸드폰 번호를 입력해주세요."> <input type="text"
-							id="email" name="email" placeholder="예)example@artfox.co.kr"
-							style="display: none">
+						<input type="text" id="phone" name="phone" placeholder="핸드폰 번호를 입력해주세요.">
+						<input type="text" id="email" name="email" placeholder="예)example@artfox.co.kr"	style="display: none">
 					</div>
 					<div>
 						<input type="submit" name="submit" value="확인">
@@ -71,6 +68,7 @@
 
 	<script src="js/jquery-3.5.0.js"></script>
 	<script type="text/javascript">
+	
 		$('#phoneCheck').click(function() {
 			$('#email').hide();
 			$('#phone').show();
@@ -83,10 +81,13 @@
 	</script>
 
 	<script type="text/javascript">
-		var phonecheck = /^01([0|1|6|7|8|9]?)([-]{1})([0-9]{3,4})([-]{1})([0-9]{4})$/; // 핸드폰번호 유효성 검사
+	var phonecheck = /^01([0|1|6|7|8|9]?)([-]{1})([0-9]{3,4})([-]{1})([0-9]{4})$/; // 핸드폰번호 유효성 검사
+	var emailcheck = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+// 	var phone = $("input:radio[id='phoneCheck']").is(':checked');
 
-		function check() {
 
+	function check() {
+		if($("input:radio[id='phoneCheck']").is(':checked') == true){
 			if ($('#name').val() == '') {
 				alert('이름을 입력해주세요.');
 				$.trim($('#name').focus());
@@ -100,7 +101,21 @@
 				$.trim($('#phone').focus());
 				return false;
 			}
+		}else if($("input:radio[id='emailCheck']").is(':checked') == true){
+			if($('#name').val() == ''){
+				alert('이름을 입력해주세요.');
+				$.trim($('#name').focus());
+				return false;
+			} else if ($('#email').val() == '') {
+				alert('이메일을 입력해주세요.');
+				$.trim($('#email').focus());
+				return false;
+			}
 		}
+	}
+
+			
+			
 	</script>
 
 

@@ -11,6 +11,7 @@ import vo.MemberBean;
 
 public class MemberFindIdAction implements Action {
 
+	@SuppressWarnings("unused")
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
@@ -27,6 +28,11 @@ public class MemberFindIdAction implements Action {
 		
 		MemberFindId MemberFindId = new MemberFindId();
 		String id = MemberFindId.findId(bb);
+		
+		String first = id.substring(0,3);
+		String last = id.substring(3);
+		String start = last.replaceAll("[a-zA-Z0-9]", "*");
+		id = first+start;
 		
 		if(id != null) {
 			request.setAttribute("id", id);
