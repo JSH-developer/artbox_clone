@@ -185,9 +185,9 @@ a {color: #808080; text-decoration:none}
 
 .item-info .text-info .pdt-btnlist {width: 100%; margin-top:23px; float: left;}
 .item-info .text-info .pdt-btnlist .btnCart  { width:38%; padding:0 5px 0 0; float: left;}
-.item-info .text-info .pdt-btnlist .btnCart input[type=button] { width:100%; height:55px; padding:0; margin:0; border:1px solid #646464; background-color:#ffffff; border-radius:5px; font-size:20px; color:#000000; }
+.item-info .text-info .pdt-btnlist .btnCart input[type=button] { width:100%; height:55px; padding:0; margin:0; border:1px solid #646464; background-color:#ffffff; border-radius:5px; font-size:20px; color:#000000; cursor: pointer;}
 .item-info .text-info .pdt-btnlist .btnOrder { width:38%; padding:0 0 0 5px; float: left;}
-.item-info .text-info .pdt-btnlist .btnOrder input[type=button] { width:100%; height:55px; padding:0; margin:0; border:1px solid #e71e22; background-color:#e71e22; border-radius:5px; font-size:20px; color:#ffffff; font-weight:bold; }
+.item-info .text-info .pdt-btnlist .btnOrder input[type=button] { width:100%; height:55px; padding:0; margin:0; border:1px solid #e71e22; background-color:#e71e22; border-radius:5px; font-size:20px; color:#ffffff; cursor: pointer; font-weight:bold; }
 .item-info .text-info .pdt-btnlist .btn-wish { right:60px; width:55px; height:55px; cursor:pointer; float:right;}
 .item-info .text-info .pdt-btnlist .btn-wish.off { background:url(../../Images/item/wish_off.png) no-repeat center; }
 .item-info .text-info .pdt-btnlist .btn-wish.on  { background:url(../../Images/item/wish_on.png) no-repeat center;  }

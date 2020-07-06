@@ -13,13 +13,19 @@
     <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 	<script src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 	<script type="text/javascript">
-	
+	// 시작시
+	window.onload = function (){
+		if("${tab }" == "mod"){
+			$('.reviewWrite').removeClass("on");
+			$('.reviewMod').addClass("on");
+			$('.reviewWriteList').css('display','none');
+			$('.reviewModList').css('display','block');
+		}
+	}
 	// modal버튼 클릭시 팝업
 	$(document).on('click','.modal',function(){
 		$('.full-screen').css('display','block');
-		if($(this).hasClass('btnWrite')){
-			$('.review-overlay').css('display','block');
-		}
+		$('.review-overlay').css('display','block');
 	})
 	// 닫기버튼 클릭시 종료
 	$(document).on('click','.overlay-close',function(){
@@ -35,10 +41,25 @@
 	// 모달팝업시 설정
 	function setOpen(productnum){
 		$('input[name=product_num]').val(productnum);
+		$('.overlay-header span').html("상품후기 작성하기");
+		$('.regist').val("등록하기");
+	}
+	function fnPopPostScriptMod(review_num){
+		$('input[name=review_num]').val(review_num);
+		$('.overlay-header span').html("상품후기 수정하기");
+		$('.regist').val("수정하기");
+	}
+	// 후기 삭제
+	function fnDelete(review_num){
+		var result = confirm("구매후기를 삭제하시겠습니까?");
+		if(result){
+			location.href="reviewDelete.item?review_num="+review_num;
+		}
 	}
 	// 모달종료시 설정
 	function setClose(){
 		$('input[name=product_num]').val("");
+		$('input[name=review_num]').val("");
 		$('.score').children("b").removeClass("on");
     	$("input[name=skill]").val("");
     	$("input[name=design]").val("");
@@ -71,6 +92,7 @@
 	})
 	// 후기 작성시 체크
 	function reviewcheck() {
+		alert("체크");
 		var result = false;
 		if($('input[name=skill]').val() == ""){
 			alert("별점(기능)을 입력해 주세요.");
@@ -84,7 +106,11 @@
 			alert("내용을 입력해 주세요.");
 			$('textarea[name=content]').focus();
 		}else{
-			result = confirm("상품후기를 작성 하시겠습니까?");
+			if($('.regist').val() == "등록하기"){
+				result = confirm("상품후기를 작성 하시겠습니까?");
+			}else {
+				result = confirm("상품후기를 수정 하시겠습니까?");
+			}
 		}
 		return result;
 	}
@@ -139,16 +165,16 @@
 								<a href="javascript:prev();"> <img class="opacity" src="${pageContext.request.contextPath}/Images/order/btn_board_prev.gif"> </a>
 							</c:when>
 							<c:otherwise>
-								<a href="itemReview.item?page=${writePageInfo.page-1 }"> <img src="${pageContext.request.contextPath}/Images/order/btn_board_prev.gif"> </a>
+								<a href="itemReview.item?page=${writePageInfo.page-1 }&modPage=${modPageInfo.page }"> <img src="${pageContext.request.contextPath}/Images/order/btn_board_prev.gif"> </a>
 							</c:otherwise>
 						</c:choose>
 						<c:forEach var="i" begin="${writePageInfo.startPage}" end="${writePageInfo.endPage}">
 							<c:choose>
 								<c:when test="${i == writePageInfo.page }">
-									<a href="itemReview.item?page=${i }" class="btn_pageon">${i }</a>
+									<a href="itemReview.item?page=${i }&modPage=${modPageInfo.page }" class="btn_pageon">${i }</a>
 								</c:when>
 								<c:otherwise>
-									<a href="itemReview.item?page=${i }">${i }</a>
+									<a href="itemReview.item?page=${i }&modPage=${modPageInfo.page }">${i }</a>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -157,7 +183,7 @@
 								<a href="javascript:next();"> <img class="opacity" src="${pageContext.request.contextPath}/Images/order/btn_board_next.gif"> </a>
 							</c:when>
 							<c:otherwise>
-								<a href="itemReview.item?page=${writePageInfo.page+1 }"> <img src="${pageContext.request.contextPath}/Images/order/btn_board_next.gif"> </a>
+								<a href="itemReview.item?page=${writePageInfo.page+1 }&modPage=${modPageInfo.page }"> <img src="${pageContext.request.contextPath}/Images/order/btn_board_next.gif"> </a>
 							</c:otherwise>
 						</c:choose>
 					</span>
@@ -175,38 +201,62 @@
 					<div class="empty">작성한 후기가 없습니다.</div>
 				</c:when>
 				<c:otherwise>
-					<ul class="ItemList">
+					<ul class="ModItemList">
 						<c:forEach var="irml" items="${itemReviewModList }">
 							<li>
+								<span class="img">
+									<a href="itemDetail.item?product_num=${irml.review_product_num }">
+										<img src="${pageContext.request.contextPath}/upload/${irml.review_re_name }">
+									</a>
+								</span>
+								<span class="modbox">
+									<span class="sub1">
+										<span class="point s"><c:forEach var="i" begin="1" end="${irml.review_skill }" step="1">★</c:forEach><c:forEach var="i" begin="${irml.review_skill + 1}" end="5" step="1">☆</c:forEach></span>
+										<span class="point d"><c:forEach var="i" begin="1" end="${irml.review_design }" step="1">★</c:forEach><c:forEach var="i" begin="${irml.review_design + 1}" end="5" step="1">☆</c:forEach></span>
+										<span class="point p"><c:forEach var="i" begin="1" end="${irml.review_price }" step="1">★</c:forEach><c:forEach var="i" begin="${irml.review_price + 1}" end="5" step="1">☆</c:forEach></span>
+										<span class="point q"><c:forEach var="i" begin="1" end="${irml.review_quality }" step="1">★</c:forEach><c:forEach var="i" begin="${irml.review_quality + 1}" end="5" step="1">☆</c:forEach></span>	
+										<span class="totalpoint"><fmt:formatNumber value="${(irml.review_skill + irml.review_design + irml.review_price + irml.review_quality) / 2 }" type="number" pattern="0" /></span>
+									</span>
+									<span class="sub2">
+										<div><span class="sub2_cont">${irml.review_content }</span></div>
+										<span class="sub2_img"><c:if test="${!empty irml.review_img1 }"><img src="${pageContext.request.contextPath}/upload/${irml.review_img1 }"></c:if></span>
+										<span class="sub2_img"><c:if test="${!empty irml.review_img2 }"><img src="${pageContext.request.contextPath}/upload/${irml.review_img2 }"></c:if></span>
+										<span class="sub2_img"><c:if test="${!empty irml.review_img3 }"><img src="${pageContext.request.contextPath}/upload/${irml.review_img3 }"></c:if></span>
+										<span class="sub2_img"><c:if test="${!empty irml.review_img4 }"><img src="${pageContext.request.contextPath}/upload/${irml.review_img4 }"></c:if></span>
+										<span class="sub2_img"><c:if test="${!empty irml.review_img5 }"><img src="${pageContext.request.contextPath}/upload/${irml.review_img5 }"></c:if></span>
+									</span>
+									<input class="btnEpilogueModify modal" type="button" onclick="fnPopPostScriptMod(${irml.review_num })" value="수정">
+									<input class="btnEpilogueDelete" type="button" onclick="fnDelete(${irml.review_num });" value="삭제">
+								</span>
 							</li>
 						</c:forEach>
 						<li>
 							<div class="paging">
 								<span class="box">
 									<c:choose>
-										<c:when test="${pageInfo.page == 1 }">
+										<c:when test="${ModPageInfo.page == 1 }">
 											<a href="javascript:prev();"> <img class="opacity" src="${pageContext.request.contextPath}/Images/order/btn_board_prev.gif"> </a>
 										</c:when>
 										<c:otherwise>
-											<a href="itemReview.item?page=${pageInfo.page-1 }"> <img src="${pageContext.request.contextPath}/Images/order/btn_board_prev.gif"> </a>
+											<a href="itemReview.item?page=${writePageInfo.page }&modPage=${ModPageInfo.page-1 }&tab=mod"> <img src="${pageContext.request.contextPath}/Images/order/btn_board_prev.gif"> </a>
 										</c:otherwise>
 									</c:choose>
-									<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}">
+									<c:forEach var="i" begin="${ModPageInfo.startPage}" end="${ModPageInfo.endPage}">
 										<c:choose>
-											<c:when test="${i == pageInfo.page }">
-												<a href="itemReview.item?page=${i }" class="btn_pageon">${i }</a>
+											<c:when test="${i == ModPageInfo.page }">
+												<a href="itemReview.item?page=${writePageInfo.page }&modPage=${i }&tab=mod" class="btn_pageon">${i }</a>
 											</c:when>
 											<c:otherwise>
-												<a href="itemReview.item?page=${i }">${i }</a>
+												<a href="itemReview.item?page=${writePageInfo.page }&modPage=${i }&tab=mod">${i }</a>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
 									<c:choose>
-										<c:when test="${pageInfo.page == pageInfo.endPage }">
+										<c:when test="${ModPageInfo.page == ModPageInfo.endPage }">
 											<a href="javascript:next();"> <img class="opacity" src="${pageContext.request.contextPath}/Images/order/btn_board_next.gif"> </a>
 										</c:when>
 										<c:otherwise>
-											<a href="itemReview.item?page=${pageInfo.page+1 }"> <img src="${pageContext.request.contextPath}/Images/order/btn_board_next.gif"> </a>
+											<a href="itemReview.item?page=${writePageInfo.page }&modPage=${ModPageInfo.page+1 }&tab=mod"> <img src="${pageContext.request.contextPath}/Images/order/btn_board_next.gif"> </a>
 										</c:otherwise>
 									</c:choose>
 								</span>
@@ -219,10 +269,11 @@
 		<div class="full-screen">
 			<div class="full-screen-close"></div>
 			<div class="review-overlay">
-			<form action="reviewWrite.item" method="post" id="fr" enctype="multipart/form-data" onsubmit="return reviewcheck()">
-				<div class="overlay-header">상품후기 작성하기<input class="overlay-close" type="button" value=""></div>
+			<form action="reviewWrite.item" method="post" id="fr" name="fr" enctype="multipart/form-data" onsubmit="return reviewcheck()">
+				<div class="overlay-header"><span>상품후기 작성하기</span><input class="overlay-close" type="button" value=""></div>
 				<div class="overlay-body">
-					<input type="hidden" name="product_num" value="0">
+					<input type="hidden" name="review_num" value="">
+					<input type="hidden" name="product_num" value="">
 					<img class="candy-img" src="${pageContext.request.contextPath}/Images/item/img_epilogue_bg.png">
 					<div class="input">
 						<span class="tt">별점</span>
@@ -283,7 +334,7 @@
 					</div>
 				</div>
 				<div class="overlay-footer">
-					<input class="regist" type="submit" value="등록하기">
+					<input class="regist" type="submit" value="">
 				</div>
 			</form>
 			</div>

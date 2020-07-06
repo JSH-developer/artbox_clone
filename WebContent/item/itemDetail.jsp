@@ -13,7 +13,7 @@
     <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
     <link href="${pageContext.request.contextPath}/css/item/itemDetail.css" rel="stylesheet" type="text/css">
 	<link href="${pageContext.request.contextPath}/css/item/swiper.min.css" rel="stylesheet" type="text/css">
-	<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/swiper.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 	
 	<script type="text/javascript">
@@ -23,7 +23,9 @@
 // 		replaceMajor();
 		//문의 불러옴
 		goQuestionPage("${questionPageInfo.pageNum}");
+		//리뷰 불러옴
 		goReviewPage(1);
+		//합계금액
 		fnCheckPriseSum();
 	}
 	//대분류 카테고리 replace
@@ -140,12 +142,6 @@
 	function commas(x) {
 	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
-	// 장바구니 버튼 눌렀을때
-	function cartCheck(){
-		var result = confirm("선택하신 상품이 장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?");
-		document.gfr.action = "addCart.cart?result=" + result;
-		document.gfr.submit();
-	}	
 	// 위시 버튼 눌렀을때
 	$(document).on("click",".btn-wish", function(){
 		var isId = false;
