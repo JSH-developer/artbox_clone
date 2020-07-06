@@ -9,9 +9,6 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
-import org.eclipse.jdt.internal.compiler.ast.PrefixExpression;
 
 import vo.EventBean;
 import vo.PointBean;
@@ -418,6 +415,7 @@ public class EventDAO {
 	// admin용 전체 이벤트 리스트 / main에 리스트 불러올때
 	public ArrayList<EventBean> selectAllArticleList(int page, int limit) {
 		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
 		ResultSet rs = null;
 		int updateCount = 0;
 		
@@ -449,41 +447,16 @@ public class EventDAO {
 				rowData.setEvent_state(rs.getInt("event_state"));
 			
 				articleList.add(rowData);
-				
-				// 이벤트 종료 안되었을 때
-				if(rs.getInt("event_state")==1) {
-					Date nowDate = new Date();
-					SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
-					String limitdate = rs.getString("event_limit").replaceAll("-","");
-					int limitdate1 = Integer.parseInt(limitdate);
-					int nowwDate = Integer.parseInt(sf.format(nowDate));
-					
-
-
-					if(nowwDate>limitdate1 ) {
-						System.out.println("limitdate1"+limitdate1);
-						System.out.println("nowwDate"+nowwDate);
-						System.out.println(rs.getString("event_condition"));
-						
-						sql = "CALL drop_event1('?',1)";
-						pstmt.setString(1, rs.getString("event_condition"));
-						pstmt = con.prepareStatement(sql);
-						pstmt.executeUpdate();
-
-
-					}
-
-				}
 	
 			}
-			
-
 			
 		} catch (SQLException e) {
 			System.out.println("EventDAO- selectArticleList()실패!"+e.getMessage());
 		} finally {
+			close(pstmt2);
 			close(rs);
 			close(pstmt);
+			
 		}
 		
 		return articleList;
@@ -562,6 +535,60 @@ public class EventDAO {
 			close(pstmt);
 		}
 		return newList;
+	}
+
+	public int dropEvent(ArrayList<EventBean> eventList) {
+		
+		PreparedStatement pstmt = null;
+		int updateCount = 0;
+		try {
+			
+			for(int i=0;i<eventList.size();i++) {
+				
+				
+			// 이벤트 종료 안되었을 때
+			if(eventList.get(i).getEvent_state() ==1) {
+				System.out.println(eventList.get(i).getEvent_condition());
+				
+				
+				
+				
+				
+				Date nowDate = new Date();
+				SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+				String limitdate = eventList.get(i).getEvent_limit().replaceAll("-","");
+				int limitdate1 = Integer.parseInt(limitdate);
+				int nowwDate = Integer.parseInt(sf.format(nowDate));
+				
+
+
+				if(nowwDate>limitdate1 ) {
+					System.out.println("limitdate1"+limitdate1);
+					System.out.println("nowwDate"+nowwDate);
+					System.out.println(eventList.get(i).getEvent_condition());
+					
+					String sql2 = "CALL drop_event(?)";
+					pstmt = con.prepareStatement(sql2);
+					pstmt.setString(1, eventList.get(i).getEvent_condition());
+					updateCount = pstmt.executeUpdate();
+
+					System.out.println("성공");
+
+				}
+
+			}
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return updateCount;
+		
 	}
 
 

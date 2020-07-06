@@ -34,19 +34,22 @@
 					<span class="GSee grade1">회원님의 등급입니다.</span></a>
 				</c:if>
 				<c:if test="${grade eq 'SILVER' }">
+				<a href="MypageGrade.event">
 					<span class="GName grade2">SILVER</span>
 					<img class="GImg" src="${pageContext.request.contextPath}/Images/img/silver.png" />
-					<span class="GSee grade2">회원님의 등급입니다.</span>
+					<span class="GSee grade2">회원님의 등급입니다.</span></a>
 				</c:if>
 				<c:if test="${grade eq 'GOLD' }">
+				<a href="MypageGrade.event">
 					<span class="GName grade3">GOLD</span>
 					<img class="GImg" src="${pageContext.request.contextPath}/Images/img/gold.png" />
-					<span class="GSee grade3">회원님의 등급입니다.</span>
+					<span class="GSee grade3">회원님의 등급입니다.</span></a>
 				</c:if>
 				<c:if test="${grade eq 'DIAMOND' }">
+				<a href="MypageGrade.event">
 					<span class="GName grade4">DIAMOND</span>
 					<img class="GImg" src="${pageContext.request.contextPath}/Images/img/diamond.png" />
-					<span class="GSee grade4">회원님의 등급입니다.</span>
+					<span class="GSee grade4">회원님의 등급입니다.</span></a>
 				</c:if>
 			</li>
 

@@ -47,7 +47,17 @@
 				<li>
 					<div class="inner_box">
 						<div class="subj pc">사용가능 꿈캔디</div>
+<%-- 						point :${Mypointrecode[0].mypoint}/${mpoint } --%>
+						
+						<c:if test="${Mypointrecode[0].mypoint != '' } ">
 						<div class="cont type1">${Mypointrecode[0].mypoint }</div>
+						</c:if>
+						
+<%-- 						<c:if test="${Mypointrecode[0].mypoint == '' || Mypointrecode[0].mypoint == null } "> --%>
+						<div class="cont type1">${mpoint }</div>
+<%-- 						</c:if> --%>
+						
+						
 					</div>
 				</li>
 				<li>
