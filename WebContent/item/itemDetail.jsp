@@ -29,17 +29,17 @@
 		fnCheckPriseSum();
 	}
 	//대분류 카테고리 replace
-	function replaceMajor(){
-		var major = '${categoryBean.category_sup }';		
-		if(major == 'DT') {$('.major').html('인형/토이');}
-		else if(major == 'FA') {$('.major').html('문구');}
-		else if(major == 'FS') {$('.major').html('패션');}
-		else if(major == 'KB') {$('.major').html('주방/욕실');}
-		else if(major == 'LD') {$('.major').html('리빙/데코');}
-		else if(major == 'DI') {$('.major').html('디지털/가전');}
-		else if(major == 'TR') {$('.major').html('여행');}
-		else if(major == 'BE') {$('.major').html('뷰티');}
-	}
+// 	function replaceMajor(){
+// 		var major = '${categoryBean.category_sup }';		
+// 		if(major == 'DT') {$('.major').html('인형/토이');}
+// 		else if(major == 'FA') {$('.major').html('문구');}
+// 		else if(major == 'FS') {$('.major').html('패션');}
+// 		else if(major == 'KB') {$('.major').html('주방/욕실');}
+// 		else if(major == 'LD') {$('.major').html('리빙/데코');}
+// 		else if(major == 'DI') {$('.major').html('디지털/가전');}
+// 		else if(major == 'TR') {$('.major').html('여행');}
+// 		else if(major == 'BE') {$('.major').html('뷰티');}
+// 	}
 	// 후기,문의 테이블 클릭시 토글 오픈
 	$(document).on('click','.tr',function(){
 		if ($(this).parent().find(".ps").hasClass("on"))
@@ -229,7 +229,7 @@
 	
 	// '장바구니 담기' 및 '바로 구매하기' 버튼 클릭 이벤트
 	function Order(id) {
-		if(${empty sessionScope.id}) {
+		if('${empty sessionScope.id}') {
 			var result = confirm("로그인 후 이용가능합니다.\n로그인 페이지로 이동하시겠습니까?");
 			if(result==true) {
 				location.href = "loginForm.member";
@@ -317,9 +317,9 @@
 				<div class="text-info">
 					<div class="pdt-name">${productBean.product_name } (${productBean.product_code})</div>
 					<div class="pdt-category">
-						<a href="${pageContext.request.contextPath}/itemList.item?major=${fn:substring(productBean.product_code,0,2)}" class="major">${category_sup }</a>
+						<a href="${pageContext.request.contextPath}/itemList.item?major=${fn:substring(productBean.product_code,0,2)}&minor=&page=1&kwd=&doOrder=&src=" class="major">${category_sup }</a>
 						&gt;
-						<a href="${pageContext.request.contextPath}/itemList.item?minor=${productBean.product_category_code}" class="minor">${category_sub }</a>
+						<a href="${pageContext.request.contextPath}/itemList.item?major=${fn:substring(productBean.product_code,0,2)}&minor=${productBean.product_category_code}&page=1&kwd=&doOrder=&src=" class="minor">${category_sub }</a>
 					</div>
 					<div class="pdt-right pdt-price">
 						<span id="rprice">

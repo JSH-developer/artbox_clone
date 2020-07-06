@@ -361,6 +361,9 @@ a {color: #808080; text-decoration:none}
     max-width: 800px;
     width: 100%;
 }
+.item_content.on .topline {
+	border-top: 1px solid #cacaca;
+}
 .item_content.on .table {
 	border-bottom: 1px solid #cacaca;
 }
@@ -443,6 +446,23 @@ a {color: #808080; text-decoration:none}
     max-width: 800px;
     margin: 10px 0 0 0;
 }
+.item_content.on .table .ps.on .ps_sub4 {
+    position: absolute;
+    top:0px;
+    left:0px;
+    width:150px;
+    padding-top:30px;  
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+	text-align: center;
+}
+.item_content.on .table .ps.on .ps_sub5 {
+    padding-top:30px;
+    color: black;
+	max-width:800px;
+	word-break:break-all;
+}
 .item_content.on .paging {
 	padding:35px 0 50px 0;
 	text-align: center;
@@ -496,6 +516,42 @@ a {color: #808080; text-decoration:none}
     font-size: 28px;
     color: #ff8e8e;
     text-align: center;
+}
+.item_content.on .table .ps.on textarea{
+	height: 105px;
+    border: 0;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    width: 85%;
+    margin: 10px 0 0 0;
+    padding: 20px;
+    font-size: 16px;
+    line-height: 22px;
+    color: #000000;
+    outline: none;
+    resize: none;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+.item_content.on .table .ps.on input[type=text]{
+    border: 0;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    width: 20%;
+    height:25px;
+    margin: 10px 0 0 0;
+    padding: 20px;
+    font-size: 16px;
+    line-height: 22px;
+    color: #000000;
+}
+.item_content.on .table .ps.on input[type=submit]{
+	border: 1px solid black;
+    border-radius: 5px;
+	color: black;
+	height: 107px;
+	vertical-align: bottom;
 }
 .full-screen{
 	display: none;

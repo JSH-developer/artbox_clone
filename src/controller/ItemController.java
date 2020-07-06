@@ -13,8 +13,10 @@ import action.Action;
 import action.item.CategoryLinkAction;
 import action.item.ItemDetailAction;
 import action.item.ItemReviewAction;
+import action.item.QuestionAnswerAction;
 import action.item.QuestionListAction;
 import action.item.QuestionWriteAction;
+import action.item.ReviewAnswerAction;
 import action.item.ReviewDeleteAction;
 import action.item.ReviewListAction;
 import action.item.ReviewWriteAction;
@@ -68,6 +70,13 @@ public class ItemController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if(command.equals("/reviewAnswer.item")) {
+			action = new ReviewAnswerAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}else if(command.equals("/questionWrite.item")) {
 			action = new QuestionWriteAction();
 			try {
@@ -77,6 +86,13 @@ public class ItemController extends HttpServlet {
 			}
 		}else if(command.equals("/questionList.item")) {
 			action = new QuestionListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/questionAnswer.item")) {
+			action = new QuestionAnswerAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

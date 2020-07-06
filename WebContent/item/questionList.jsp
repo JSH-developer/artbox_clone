@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:choose>
 	<c:when test="${empty questionList }">
 		<div class="empty">등록된 상품 문의 내역이 없습니다.</div>
@@ -29,9 +30,19 @@
 					<span>A</span>
 						<c:choose>
 							<c:when test="${empty ql.question_answer }">답변 준비중입니다.</c:when>
-							<c:otherwise>${ql.question_ansert }</c:otherwise>
+							<c:otherwise>${ql.question_answer }</c:otherwise>
 						</c:choose>
 					</div>
+					<c:if test="${id eq 'admin'}">
+						<c:if test="${empty ql.question_answer }">
+							<form action="questionAnswer.item" method="post">
+								<input type="hidden" name="product_num" value="${ql.question_product_num }">
+								<input type="hidden" name="qnaNum" value="${ql.question_num }">
+								<textarea name="qnaContent"></textarea>
+								<input type="submit" value="답변하기">
+							</form>
+						</c:if>
+					</c:if>
 				</div>
 			</div>
 		</c:forEach> 

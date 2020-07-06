@@ -522,7 +522,33 @@ public class ItemDAO {
 		
 		return reviewList;
 	}
-	
+
+	public int updateReviewAnswer(int reNum, String reName, String reContent) {
+		int updateCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "UPDATE review SET re_check=?,re_name=?,re_regdate=now(),re_content=? WHERE num=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, 1);
+			pstmt.setString(2, reName);
+			pstmt.setString(3, reContent);
+			pstmt.setInt(4, reNum);
+			
+			updateCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - updateReviewAnswer() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return updateCount;
+	}
 	
 	public int insertQuestion(QuestionBean questionBean) {
 		int insertCount = 0;
@@ -582,10 +608,12 @@ public class ItemDAO {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				QuestionBean article = new QuestionBean();
+				article.setQuestion_num(rs.getInt("num"));
 				article.setQuestion_title(rs.getString("title"));
 				article.setQuestion_content(rs.getString("content"));
 				article.setQuestion_answer(rs.getString("answer"));
 				article.setQuestion_member_id(rs.getString("member_id"));
+				article.setQuestion_product_num(rs.getInt("product_num"));
 				article.setQuestion_regdate(rs.getTimestamp("regdate"));
 				questionList.add(article);
 			}
@@ -625,8 +653,33 @@ public class ItemDAO {
 	}
 
 
+	public int updateQuestionAnswer(int qnaNum, String qnaContent) {
+		int updateCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "UPDATE question SET answer=? WHERE num=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, qnaContent);
+			pstmt.setInt(2, qnaNum);
+			
+			updateCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - updateQuestionAnswer() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return updateCount;
+	}
+	
+	
 	public CategoryBean getCategory(String product_category_code) {
-		System.out.println("getCategory");
 		CategoryBean categoryBean = new CategoryBean();
 		
 		PreparedStatement pstmt = null;
@@ -651,6 +704,5 @@ public class ItemDAO {
 		System.out.println(categoryBean.getCategory_sub());
 		return categoryBean;
 	}
-
 
 }
