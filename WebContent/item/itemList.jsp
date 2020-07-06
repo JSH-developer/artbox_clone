@@ -186,15 +186,18 @@
 							<li style="margin-right: 50px;"><span class="item">
 									<div class="shopping_basket">
 										<div class="shopping_basket_icon">
-											<i class="far fa-heart"></i> <a class="basket off"
+											<i class="far fa-heart"></i> 
+											<a class="basket off"
 												data-pdNum='${item.product_num }'
 												data-pdName='${item.product_name } (${item.product_code })'
-												style="color: white;"><i class="fas fa-shopping-cart"></i></a>
+												style="color: white;">
+											<i class="fas fa-shopping-cart"></i>
+											</a>
 											<i class="far fa-comment-dots"></i>
 										</div>
 										<a
 											href="${pageContext.request.contextPath}/itemDetail.item?product_num=${item.product_num }">
-											<img
+										<img
 											src="${pageContext.request.contextPath}/upload/${item.product_image}"
 											class="item_img">
 										</a>
@@ -203,7 +206,7 @@
 										(${item.product_code })</p> <span> <c:choose>
 											<c:when test="${item.product_sale_price == 0 }">
 												<fmt:formatNumber value="${item.product_price }"
-													pattern="0원" />
+													pattern="#,###원" />
 											</c:when>
 											<c:otherwise>
 												<del>${item.product_price }</del>
