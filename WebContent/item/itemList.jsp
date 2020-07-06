@@ -80,6 +80,10 @@
 </script>
 </head>
 <body>
+<c:set var="showAllUrl" value="${pageContext.request.contextPath}/itemList.item?major=${code}&minor=&kwd=${kwd}&doOrder=&page=1&src="/>
+<c:set var="selectBoxUrl" value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&page=${page}&src=${src}"/>	
+<c:set var="pagerUrl" value="${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=${doOrder}&page=${startPage+i}&src=${src}"/>	
+<c:set var="categoryUrl" value="${pageContext.request.contextPath}/itemList.item?major=${code}&kwd=${kwd}&doOrder=&page=1&src="/>	
 	<div class="page">
 		<!-- 헤더 -->
 		<jsp:include page="../inc/top.jsp"></jsp:include>
@@ -118,7 +122,7 @@
 						<c:when test="${effectiveness==0 }"></c:when>
 						<c:otherwise>
 							<span><a
-								href="${pageContext.request.contextPath}/itemList.item?major=${code}&minor=&kwd=${kwd}&doOrder=&page=1&src=">전체</a></span>
+								href="${showAllUrl }">전체</a></span>
 						</c:otherwise>
 					</c:choose>
 					<c:forEach var="category" items="${printCategory}"
@@ -126,7 +130,7 @@
 						<c:choose>
 							<c:when test="${empty kwd}">
 								<span class="category_menu"><a
-									href="${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${code}<fmt:formatNumber value="${status.count}" pattern="00" />&kwd=${kwd}&doOrder=&page=1&src=">${category}</a></span>
+									href="${categoryUrl }&minor=${code}<fmt:formatNumber value="${status.count}" pattern="00" />">${category}</a></span>
 							</c:when>
 							<c:otherwise>
 								<c:choose>
@@ -134,7 +138,7 @@
 									</c:when>
 									<c:otherwise>
 										<span class="category_menu"><a id="atag"
-											href="${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${code}<fmt:formatNumber value="${status.count}" pattern="00" />&kwd=${kwd}&doOrder=&page=1&src=${category.code}">${category.category}</a></span>
+											href="${categoryUrl }${category.code}&minor=${code}<fmt:formatNumber value="${status.count}" pattern="00" />">${category.category}</a></span>
 									</c:otherwise>
 								</c:choose>
 							</c:otherwise>
@@ -156,22 +160,22 @@
 
 									<option>선택하세요</option>
 									<option
-										value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=1&page=${page}&src=${src}">
+										value="${selectBoxUrl }&doOrder=1">
 										신상품순</option>
 									<option
-										value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=2&page=${page}&src=${src}">
+										value="${selectBoxUrl }&doOrder=2">
 										인기상품순</option>
 									<option
-										value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=3&page=${page}&src=${src}">
+										value="${selectBoxUrl }&doOrder=3">
 										낮은가격순</option>
 									<option
-										value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=4&page=${page}&src=${src}">
+										value="${selectBoxUrl }&doOrder=4">
 										높은가격순</option>
 									<option
-										value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=5&page=${page}&src=${src}">
+										value="${selectBoxUrl }&doOrder=5">
 										높은할인율순</option>
 									<option
-										value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=6&page=${page}&src=${src}">
+										value="${selectBoxUrl }&doOrder=6">
 										상품평순</option>
 
 							</select>
@@ -213,14 +217,15 @@
 		<span style="color:red;"><fmt:formatNumber value="${item.product_price - item.product_sale_price }" pattern="#,###"/>원 [ ${persent}% ]</span>
 													
 												</c:if>	
-								</span> <span> <c:if test="${status.count<6 }">
-											<img
-												src="${pageContext.request.contextPath}/Images/item/new.png">
-										</c:if> 
-										<c:if test="${item.product_sale_price != 0 }">
-											<img
-												src="${pageContext.request.contextPath}/Images/item/sale.png">
-										</c:if> &nbsp; <!-- 기본값으로 공백 꼭 들어가야함 -->
+								</span> 
+								<span> 
+									<c:if test="${item.isNew >(-30) }">
+										<img src="${pageContext.request.contextPath}/Images/item/new.png">
+									</c:if> 
+									<c:if test="${item.product_sale_price != 0 }">
+										<img src="${pageContext.request.contextPath}/Images/item/sale.png">
+									</c:if> 
+									&nbsp; <!-- 기본값으로 공백 꼭 들어가야함 -->
 								</span>
 							</span></li>
 						</c:forEach>
@@ -233,7 +238,7 @@
 					<c:forEach var="i" begin="0" end="4" step="1">
 						<c:if test="${(startPage+i)<=lastPage }">
 							<span class="page_num"><a
-								href="${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=${doOrder}&page=${startPage+i}&src=${src}">${startPage+i}</a></span>
+								href="${pagerUrl }">${startPage+i}</a></span>
 						</c:if>
 					</c:forEach>
 					<c:if test="${startPage+5<=lastPage }">
