@@ -32,7 +32,7 @@
 	<c:set var="bonusCouponCount" value="0"/>
 <c:set var="freeCouponCount" value="0"/>
 <c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
-<c:if test="${mycouponList[i].coupon_state eq 1 }">
+<c:if test="${mycouponList[i].coupon_use eq 1 }">
 
 <c:set var="Coupon" value="${mycouponList[i].coupon_category}" />
 <c:if test="${Coupon eq 'bonuscoupon' }">
@@ -100,7 +100,7 @@
 <!-- 가지고 있는 쿠폰 목록 -->
 				<div class="coupon_tab on">온라인 전용 쿠폰 (${bonusCouponCount+goodsCouponCount+freeCouponCount })</div>
 		
-		<c:if test="${!empty mycouponList && mycouponList[i].coupon_state eq 1}">
+		<c:if test="${!empty mycouponList}">
 		
 		
 				<div class="coupon_box">
@@ -110,7 +110,7 @@
 						<ul>
 		<c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
 		<c:set var="myCoupon" value="${mycouponList[i].coupon_category}" />
-		<c:if test="${myCoupon eq 'bonuscoupon' }">
+		<c:if test="${myCoupon eq 'bonuscoupon'  && mycouponList[i].coupon_use eq 1}">
 							<li>
 								<div class="CouponImage">
 									<img
@@ -135,7 +135,7 @@
 						<ul>
 		<c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
 		<c:set var="myCoupon" value="${mycouponList[i].coupon_category}" />
-		<c:if test="${myCoupon eq 'goodscoupon' }">
+		<c:if test="${myCoupon eq 'goodscoupon' && mycouponList[i].coupon_use eq 1}">
 							<li>
 								<div class="CouponImage">
 									<img
@@ -161,7 +161,7 @@
 						<ul>
 							<c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
 								<c:set var="myCoupon" value="${mycouponList[i].coupon_category}" />
-								<c:if test="${myCoupon eq 'freecoupon' }">
+								<c:if test="${myCoupon eq 'freecoupon' && mycouponList[i].coupon_use eq 1}">
 									<li>
 										<div class="CouponImage"> <img src="http://www.poom.co.kr/Images/Ver2/Mypoom/sale2000.jpg"></div>
 										<div class="CouponName" title="${ mycouponList[i].coupon_name}">${mycouponList[i].coupon_name}</div>

@@ -13,7 +13,7 @@ public class CouponDeleteProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+		// 쿠폰 삭제 action
 		ActionForward forward = null;
 		
 		String coupon_num =request.getParameter("coupon_num");

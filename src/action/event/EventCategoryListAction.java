@@ -15,12 +15,13 @@ public class EventCategoryListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// 세일/ 할인으로 이동할때 이벤트 리스트 불러오는 action
 		ActionForward forward = null;
 		
 		int page = 1;
 		int limit = 10;
 		
-		
+		// 카테고리가 세일인지 할인인지 확인함
 		String event_category = request.getParameter("event_category");
 		
 		if(request.getParameter("page")!=null) {
@@ -28,9 +29,8 @@ public class EventCategoryListAction implements Action {
 		}
 		
 		
-		
 		EventService eventService = new EventService();
-		
+		// 리스트 카운트 구함
 		int listCount = eventService.getListCount(event_category);
 		System.out.println("EventListAction - listCount : "+listCount);
 		

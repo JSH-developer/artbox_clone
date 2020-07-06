@@ -18,6 +18,7 @@ public class listEventAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// admin용 모든 리스트 불러오기
 		ActionForward forward = null;
 		
 		int page = 1;

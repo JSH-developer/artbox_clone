@@ -43,6 +43,12 @@ $(document).ready(function(){
 			$(this).html(text.replace('BE', '뷰티'));	
 		}
 		
+		
+		if (text ="직접입력") {
+			var p = document.getElementById("hid_price");
+			p.style.display = 'block';
+		}
+		
 		});
 	
 })
@@ -74,8 +80,8 @@ $(document).ready(function(){
 <table class="reg_tab">
 	<tr><th>쿠폰이름</th><td><input type="text" name="coupon_name"></td></tr>
 	<tr><th>할인가격</th><td><input type="text" name="coupon_price"></td></tr>
-	<tr><th>조건</th><td><select id="coupon_condition" name="coupon_condition"><option>카테고리를 선택해주세요</option>${categorySelectList}<option>직접입력</option></select></td></tr>
-	<tr ><th id="hid_price" style="display: none;">가격 조건</th><td id="hid_price" style="display: none;"><input type="number" name="coupon_p_condition"></td></tr>
+	<tr><th>조건</th><td><select id="coupon_condition" name="coupon_condition"><option>카테고리를 선택해주세요</option>${categorySelectList}<option value="self">직접입력</option></select></td></tr>
+	<tr><th>가격 조건</th><td><div><input type="number" name="coupon_p_condition"></div></td></tr>
 	<tr><th>지급일</th><td><input type="date" name="coupon_start"></td></tr>
 	<tr><th>유효기간</th><td><input type="date" name="coupon_limit"></td></tr>
 	<tr><th>사유</th><td><input type="text" name="coupon_reason"></td></tr>

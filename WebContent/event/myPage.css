@@ -68,9 +68,9 @@ a.privacy {/*font-weight:bold;*/color:#3a4b59;}
 input[type=button]{cursor:pointer;}
 
 .grade1 { color:#88d0cc !important;}
-.grade2 { color:#da6ca8 !important;}
-.grade3 { color:#66afdf !important;}
-.grade4 { color:#fad668 !important;}
+.grade2 { color:#fad668 !important;}
+.grade3 { color:#bbbcbe !important;}
+.grade4 { color:#91570f !important;}
 .grade5 { color:#bbbcbe !important;}
 
 .tableDiv {display:table; width:100%;}
@@ -373,18 +373,8 @@ input[type=button]{cursor:pointer;}
 	.wrap .grade_bottom .grade_tab ul.pc li.btnGradeTab.G3.on { background:#ffffff url(../Images/mypage/3_on.png) no-repeat; background-size:157px 45px; background-position:center center; }
 	.wrap .grade_bottom .grade_tab ul.pc li.btnGradeTab.G4 { background:#f4f4f4 url(../Images/mypage/4_off.png) no-repeat; background-size:157px 45px; background-position:center center; }
 	.wrap .grade_bottom .grade_tab ul.pc li.btnGradeTab.G4.on { background:#ffffff url(../Images/mypage/4_on.png) no-repeat; background-size:157px 45px; background-position:center center; }
-	.wrap .grade_bottom .grade_tab ul.pc li.btnGradeTab.G5 { background:#f4f4f4 url(../Images/mypage/5_off.png) no-repeat; background-size:157px 45px; background-position:center center; }
-	.wrap .grade_bottom .grade_tab ul.pc li.btnGradeTab.G5.on { background:#ffffff url(../Images/mypage/5_on.png) no-repeat; background-size:157px 45px; background-position:center center; }
-	.wrap .grade_bottom .grade_tab ul.mobile li.btnGradeTab.G1 { background:#f4f4f4 url(../Images/mypage/m_1_off.png) no-repeat; background-size:3.84375rem 1.96875rem; background-position:center center; }
-	.wrap .grade_bottom .grade_tab ul.mobile li.btnGradeTab.G1.on { background:#ffffff url(../Images/mypage/m_1_on.png) no-repeat; background-size:3.84375rem 1.96875rem; background-position:center center; }
-	.wrap .grade_bottom .grade_tab ul.mobile li.btnGradeTab.G2 { background:#f4f4f4 url(../Images/mypage/m_2_off.png) no-repeat; background-size:3.84375rem 1.96875rem; background-position:center center; }
-	.wrap .grade_bottom .grade_tab ul.mobile li.btnGradeTab.G2.on { background:#ffffff url(../Images/mypage/m_2_on.png) no-repeat; background-size:3.84375rem 1.96875rem; background-position:center center; }
-	.wrap .grade_bottom .grade_tab ul.mobile li.btnGradeTab.G3 { background:#f4f4f4 url(../Images/mypage/m_3_off.png) no-repeat; background-size:3.84375rem 1.96875rem; background-position:center center; }
-	.wrap .grade_bottom .grade_tab ul.mobile li.btnGradeTab.G3.on { background:#ffffff url(../Images/mypage/m_3_on.png) no-repeat; background-size:3.84375rem 1.96875rem; background-position:center center; }
-	.wrap .grade_bottom .grade_tab ul.mobile li.btnGradeTab.G4 { background:#f4f4f4 url(../Images/mypage/m_4_off.png) no-repeat; background-size:3.84375rem 1.96875rem; background-position:center center; }
-	.wrap .grade_bottom .grade_tab ul.mobile li.btnGradeTab.G4.on { background:#ffffff url(../Images/mypage/m_4_on.png) no-repeat; background-size:3.84375rem 1.96875rem; background-position:center center; }
-	.wrap .grade_bottom .grade_tab ul.mobile li.btnGradeTab.G5 { background:#f4f4f4 url(../Images/mypage/m_5_off.png) no-repeat; background-size:3.84375rem 1.96875rem; background-position:center center; }
-	.wrap .grade_bottom .grade_tab ul.mobile li.btnGradeTab.G5.on { background:#ffffff url(../Images/mypage/m_5_on.png) no-repeat; background-size:3.84375rem 1.96875rem; background-position:center center; }
+	.wrap .grade_bottom .grade_tab ul.pc li.btnGradeTab.G5 { background:#f4f4f4 url(../Images/mypage/mine_off.png) no-repeat; background-size:157px 45px; background-position:center center; }
+	.wrap .grade_bottom .grade_tab ul.pc li.btnGradeTab.G5.on { background:#ffffff url(../Images/mypage/mine_on.png) no-repeat; background-size:157px 45px; background-position:center center; }
 
 	.wrap .grade_bottom_tab_in { display:none; padding-bottom:70px; }
 	.wrap .grade_bottom_tab_in ul:after { content:" "; display:block; clear:both; }

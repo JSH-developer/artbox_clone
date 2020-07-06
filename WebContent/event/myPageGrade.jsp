@@ -47,6 +47,36 @@ for(var i=1;i<=5;i++){
 // 		$("p").removeClass("hilite");
 }
 
+function cpClick(num){
+	var moveCheck;
+// 	var getId  = document.getElementById("loginId").value;
+	var getId  = "test";
+// 	var coup_Num  = document.getElementById("coupNum").value;
+
+	alert(getId+" : "+num);
+	
+	if(getId == "null" || getId == ""){
+
+		moveCheck = confirm("로그인하시겠습니까?"+getId);
+		
+		if(moveCheck){
+			alert("로그인창으로 이동");
+		}else{
+			alert("그대로 유지");
+		}
+		
+	
+
+} else {
+		var url = "CouponIssued.coupon?getid=" + getId + "&couponNum="+ num;
+		
+		location.href = url;
+		
+	}
+}
+
+
+
 
 </script>
 
@@ -68,7 +98,30 @@ for(var i=1;i<=5;i++){
 		<div class="top_inner">
 			<ul>
 				<li>
-					<p class="grade_icon"><img src="${pageContext.request.contextPath}/Images/mypage/pc_top_grade5.png"></p><p class="grade_ment"><span class="grade5">SILVER</span></p><p class="grade_me">조해진님의 통합멤버십 등급은 <span class="grade5">실버</span>입니다.</p><p class="grade_etc">(등급적용기간 2020-06-01 ~ 2020-06-30)</p>
+					
+					<c:if test="${grade eq 'BRONZ' }">
+					<p class="grade_icon"><img src="${pageContext.request.contextPath}/Images/mypage/common_icon_bronze.jpg"></p>
+					<p class="grade_ment"><span class="grade4">BRONZ</span></p>
+<%-- 					<c:set var="myGrade" value="BRONZE"/> --%>
+				</c:if>
+				<c:if test="${grade eq 'SILVER' }">
+				<p class="grade_icon"><img src="${pageContext.request.contextPath}/Images/mypage/common_icon_silver.png"></p>
+					<p class="grade_ment"><span class="grade3">SILVER</span></p>
+				</c:if>
+				<c:if test="${grade eq 'GOLD' }">
+				<p class="grade_icon"><img src="${pageContext.request.contextPath}/Images/mypage/common_icon_gold.png"></p>
+					<p class="grade_ment"><span class="grade2">GOLD</span></p>
+				</c:if>
+				<c:if test="${grade eq 'DIAMOND' }">
+				<p class="grade_icon"><img src="${pageContext.request.contextPath}/Images/mypage/common_icon_diamond.png"></p>
+					<p class="grade_ment"><span class="grade1">DIAMOND</span></p>
+				</c:if>
+				
+				
+					
+					<p class="grade_me">${name }님의 통합멤버십 등급은 <span class="grade5">${grade }</span>입니다.</p>
+					
+					<p class="grade_etc">(등급적용기간 2020-06-01 ~ 2020-06-30)</p>
 				</li>
 				<li>
 					<div class="grape_back">
@@ -78,20 +131,20 @@ for(var i=1;i<=5;i++){
 						<div style="border-right:1px solid #b9b9b9; width:25%; height:6px; float:left;"></div>
 						<div style="clear:both;"></div>
 					</div>
-					<div class="grade_bar"><div class="bar_in"><span class="blank">	<span class="range per0"></span></span><span class="blank">	<span class="range per0"></span></span><span class="blank">	<span class="range per0"></span></span><span class="blank">	<span class="range per0"></span></span></div></div>
+					<div class="grade_bar"><div class="bar_in"><span class="blank">	<span class="range per0"></span></span><span class="blank">	<span class="range per0"></span></span><span class="blank">	<span class="range per0"></span></span></div></div>
 					<div class="grade_icon_box">
+						<span class="grad_icon"><img src="${pageContext.request.contextPath}/Images/mypage/common_icon_bronze.jpg"></span>
 						<span class="grad_icon"><img src="${pageContext.request.contextPath}/Images/mypage/common_icon_silver.png"></span>
 						<span class="grad_icon"><img src="${pageContext.request.contextPath}/Images/mypage/common_icon_gold.png"></span>
-						<span class="grad_icon"><img src="${pageContext.request.contextPath}/Images/mypage/common_icon_sapphire.png"></span>
-						<span class="grad_icon"><img src="${pageContext.request.contextPath}/Images/mypage/common_icon_ruby.png"></span>
 						<span class="grad_icon"><img src="${pageContext.request.contextPath}/Images/mypage/common_icon_diamond.png"></span>
+<!-- 						<span class="grad_icon"><img src=""></span> -->
 					</div>
-					<div class="infor">	<span>등급선정</span>	<span>2019-12-01 ~ 2020-05-31</span></div><div class="infor">	<span>구매금액</span>	<span>0원 (온라인 0원, 오프라인 0원)</span></div><div class="infor">	<span>구매건수</span>	<span>0회 (온라인 0회, 오프라인 0회)</span></div><div class="infor">	<span>구매후기</span>	<span>0회</span></div>
+					<div class="infor">	<span>등급선정</span>	<span>2019-12-01 ~ 2020-07-31</span></div><div class="infor">	<span>구매금액</span>	<span>0원 (온라인 0원, 오프라인 0원)</span></div><div class="infor">	<span>구매건수</span>	<span>0회 (온라인 0회, 오프라인 0회)</span></div><div class="infor">	<span>구매후기</span>	<span>0회</span></div>
 				</li>
 			</ul>
 		</div>
 		<div class="next_info">
-			<p class="next_grade">7월에 <span class="grade4">골드</span> 회원이 되시려면?</p><p>구매금액 : <b>50,000</b>원 남음</p><p>구매건수 및 상품 후기작성 : <b>1</b>회 남음</p>
+			<p class="next_grade">8월에 <span class="grade4">실버</span> 회원이 되시려면?</p><p>구매금액 : <b>50,000</b>원 남음</p><p>구매건수 및 상품 후기작성 : <b>1</b>회 남음</p>
 		</div>
 	</div>
 
@@ -120,17 +173,14 @@ for(var i=1;i<=5;i++){
 				<dt>등급 산정기준</dt>
 				<dd>
 				   <ul>
-						<li>구매건수 또는 상품후기 : 10회 이상</li>
-						<li>구매금액 : 100만원 이상</li>
+						<li>구매금액 : 50만원 이상</li>
 					</ul>
 				</dd>
 				<dt>혜택</dt>
 				<dd>
 					<ul>
-						<li>아트박스/POOM 온라인 쇼핑몰 및 전국 직영매장</li>
-						<li>상시 <span class="text_e72922">10% 할인</span> (행사 상품, 상품 쿠폰 중복할인 가능)</li>
-						<li>아트박스/POOM 배송상품 상시 무료배송/무료반품</li>
-						<li>업체 상품 무료배송 쿠폰 4장</li>
+						<li>5,000원 할인쿠폰 3장(금액상관없이)</li>
+						<li>무료배송 쿠폰 2장</li>
 					</ul>
 				</dd>
 				<dt class="text_mint">다이아몬드 회원 추가혜택</dt>
@@ -155,18 +205,14 @@ for(var i=1;i<=5;i++){
 				<dt>등급 산정기준</dt>
 				<dd>
 				   <ul>
-						<li>구매건수 또는 상품후기 : 5회 이상 ~ 10회 미만</li>
-						<li>구매금액 : 50만원 이상 ~ 100만원 미만</li>
+						<li>구매금액 : 20만원  이상 ~ 50만원 미만</li>
 					</ul>
 				</dd>
 				<dt>혜택</dt>
 				<dd>
 					<ul>
-						<li>아트박스/POOM 온라인 쇼핑몰 및 전국 직영매장</li>
-						<li>상시 <span class="text_e72922">5% 할인</span> (행사 상품, 상품 쿠폰 중복할인 가능)</li>
-						<li>아트박스/POOM 배송상품 조건부 무료배송</li>
-						<li>(1만원 이상 구매시)</li>
-						<li>업체 상품 무료배송 쿠폰 2장</li>
+						<li>5,000원 할인쿠폰 1장 (1만원 이상 구매 시)</li>
+						<li>무료배송 쿠폰 2장</li>
 					</ul>
 				</dd>
 				<dt>마일리지</dt>
@@ -182,17 +228,14 @@ for(var i=1;i<=5;i++){
 				<dt>등급 산정기준</dt>
 				<dd>
 				   <ul>
-						<li>구매건수 또는 상품후기 : 3회 이상 ~ 5회 미만</li>
-						<li>구매금액 : 20만원 이상 ~ 50만원 미만</li>
+						<li>구매건수 : 1회 이상 ~ 3회 미만</li>
 					</ul>
 				</dd>
 				<dt>혜택</dt>
 				<dd>
 					<ul>
-						<li><span class="text_e72922">5% 할인</span>쿠폰 1장 (구매금액 무관)</li>
-						<li>아트박스/POOM 배송상품 조건부 무료배송</li>
-						<li>(2만원 이상 구매 시)</li>
-						<li>업체 상품 무료배송 쿠폰 2장 (1만원 이상 구매 시)</li>
+						<li>3,000원 할인쿠폰 1장 (2만원 이상 구매 시)</li>
+						<li>무료배송 쿠폰 1장</li>
 					</ul>
 				</dd>
 				<dt>마일리지</dt>
@@ -208,15 +251,15 @@ for(var i=1;i<=5;i++){
 				<dt>등급 산정기준</dt>
 				<dd>
 				   <ul>
-						<li>구매건수 또는 상품후기 : 1회 이상 ~ 3회 미만</li>
-						<li>구매금액 : 5만원 이상 ~ 20만원 미만</li>
+						<li>구매건수 또는 상품후기 : 신규가입회원/구매경험이 없는 회원</li>
+						<li>구매금액 : 5만원 미만</li>
 					</ul>
 				</dd>
 				<dt>혜택</dt>
 				<dd>
 					<ul>
 						<li>2,000원 할인쿠폰 1장 (3만원 이상 구매 시)</li>
-						<li>업체 상품 무료배송 쿠폰 2장 (2만원 이상 구매 시)</li>
+						<li>무료배송 쿠폰 1장</li>
 					</ul>
 				</dd>
 				<dt>마일리지</dt>
@@ -229,20 +272,44 @@ for(var i=1;i<=5;i++){
 		</div>
 		<div id="grade_tab_in_5" class="grade_bottom_tab_in" style="display: block;">
 			<dl>
-				<dt>등급 산정기준</dt>
-				<dd>
-				   <ul>
-						<li>구매건수 또는 상품후기 : 신규가입회원/구매경험이 없는 회원</li>
-						<li>구매금액 : 5만원 미만</li>
-					</ul>
-				</dd>
-				<dt>혜택</dt>
+				<dt>회원님 혜택</dt>
 				<dd>
 					<ul>
-						<li>2,000원 할인쿠폰 1장 (3만원 이상 구매 시)</li>
-						<li>업체 상품 무료배송 쿠폰 1장 (2만원 이상 구매시)</li>
+						
+				<c:if test="${grade eq 'BRONZ' }">
+						<li>2,000원 할인쿠폰 1장 (3만원 이상 구매 시)<input type="button" id="coup_btn" value="발급받기" onclick= "cpClick(4);" ></li>
+						<li>무료배송 쿠폰 1장<input type="button" id="coup_btn" value="발급받기" onclick= "cpClick(5);" ></li>
+				</c:if>
+				<c:if test="${grade eq 'SILVER' }">
+						<li>3,000원 할인쿠폰 1장 (2만원 이상 구매 시)<input type="button" id="coup_btn" value="발급받기" onclick= "cpClick(3);" ></li>
+						<li>무료배송 쿠폰 1장<<input type="button" id="coup_btn" value="발급받기" onclick= "cpClick(5);" ></li>
+				</c:if>
+				<c:if test="${grade eq 'GOLD' }">
+						<li>5,000원 할인쿠폰 1장 (1만원 이상 구매 시)<input type="button" id="coup_btn" value="발급받기" onclick= "cpClick(2);" ></li>
+						<li>무료배송 쿠폰 2장</li>
+						<li><input type="button" id="coup_btn" value="발급받기" onclick= "cpClick(6);" >
+						<input type="button" id="coup_btn" value="발급받기" onclick= "cpClick(5);" ></li>
+				</c:if>
+				<c:if test="${grade eq 'DIAMOND' }">
+						<li>15,000원 할인쿠폰 1장(금액상관없이)<input type="button" id="coup_btn" value="발급받기" onclick= "cpClick(1);" ></li>
+						<li>무료배송 쿠폰 2장</li>
+						<li><input type="button" id="coup_btn" value="발급받기" onclick= "cpClick(6);" >
+						<input type="button" id="coup_btn" value="발급받기" onclick= "cpClick(5);" ></li>
+				</c:if>
+						
+						
+						
+						
+						
+						
+						
+						
 					</ul>
 				</dd>
+				
+				
+				
+				
 				<dt>마일리지</dt>
 				<dd>
 					<ul>
