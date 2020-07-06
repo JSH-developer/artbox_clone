@@ -16,6 +16,7 @@ public class CategoryWriteService {
 		
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
+		// category 테이블에 등록된 튜플 수 int값으로 반환
 		int insertCount = adminDAO.regCategory(categoryBean);
 		
 		if(insertCount>0) {

@@ -15,8 +15,15 @@ public class CouponBean {
 	private String coupon_reason;
 	private String coupon_member_id;
 	private String coupon_category;
+	private int coupon_state;
 	
 	
+	public int getCoupon_state() {
+		return coupon_state;
+	}
+	public void setCoupon_state(int coupon_state) {
+		this.coupon_state = coupon_state;
+	}
 	public int getCoupon_num() {
 		return coupon_num;
 	}

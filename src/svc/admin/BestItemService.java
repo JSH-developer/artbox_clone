@@ -20,6 +20,7 @@ public class BestItemService {
 		
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
+		// 베스트 상품 10 ProductBean 10개를 ArrayList에 담아서 반환
 		bestList=adminDAO.toBestProduct();
 		
 		if(!bestList.isEmpty()) {

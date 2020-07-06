@@ -15,11 +15,12 @@ public class AdminChangeMemStateProAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward= null;
 		
+		// 회원상태와 인덱스 받아오기
 		int state = Integer.parseInt(request.getParameter("state"));
 		int num = Integer.parseInt(request.getParameter("num"));
 		
 		AdminChangeMemStateService adminChangeMemStateService = new AdminChangeMemStateService();
-		boolean isChange = adminChangeMemStateService.changeMemState(state, num);
+		boolean isChange = adminChangeMemStateService.changeMemState(state, num); // svc에서 변경 수행
 		
 		if(isChange) {
 			response.setContentType("text/html;charset=UTF-8");

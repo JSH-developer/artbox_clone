@@ -1,8 +1,10 @@
 package action.item;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,16 +26,20 @@ public class CategoryLinkAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		ActionForward actionForward = new ActionForward();
-		String majorCategory = request.getParameter("major");
-		String minorCategory = request.getParameter("minor");
-		String kwd = request.getParameter("kwd");
-		String doOrder = request.getParameter("doOrder");
-		int page = Integer.parseInt(request.getParameter("page"));
-		List<ProductBean> productBean = new ArrayList<ProductBean>();
+		String majorCategory = request.getParameter("major"); //대분류 카테고리 값 
+		String minorCategory = request.getParameter("minor"); //소분류 카테고리 값 
+		String kwd = request.getParameter("kwd"); // 검색시 입력값 
+		String doOrder = request.getParameter("doOrder"); // 셀렉트박스 정렬시 정렬종류 값 
+		int page = Integer.parseInt(request.getParameter("page")); // 현재 페이지가 몇 페이지인지에 대한 값 
+		// 셀렉트박스 정렬시 Comparator 객체가 List를 파라미터로 받으므로 List타입으로 선언 
+		List<ProductBean> productBean = new ArrayList<ProductBean>(); 
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd"); // 최근등록상품 표시를 위한 현재 날짜의 데이터 포멧 
+		Date time = new Date();
+		String now = date.format(time); // 현재시간이 년월일만 출력되도록 셋팅 
 		int count = 0;
 		if (!kwd.equals("")) { // 검색시
 			SearchSVC searchSVC = new SearchSVC();
-			// 검색한 List에서 소분류 클릭시 사용할 파라미터 
+			// 검색한 List에서 소분류 클릭시 사용할 파라미터 (대분류 카테고리가 넘어옴) 
 			String src = request.getParameter("src");
 			// 검색된 상품
 			productBean = searchSVC.search(kwd);
@@ -59,6 +65,7 @@ public class CategoryLinkAction implements Action {
 			// 검색한 전체 List를 각 소분류 List로 분해
 			listRefactoring(productBean, DT, FA, FS, KB, LD, DI, TR, BE);
 			// listRefactoring 에서 분해 해놓은 List를 productBean 변수에 다시 저장
+			// 해당 카테고리 선택시 선택한 카테고리의 아이템만 불러오기 위함 
 			productBean = listInject(productBean, DT, FA, FS, KB, LD, DI, TR, BE, src);
 			//각 카테고리별로 검색된 item이 몇개인지 저장
 			String di = "디지털/가전(" + DI.size() + ")";
@@ -69,6 +76,7 @@ public class CategoryLinkAction implements Action {
 			String dt = "인형/토이(" + DT.size() + ")";
 			String kb = "주방/욕실(" + KB.size() + ")";
 			String fs = "패션(" + FS.size() + ")";
+			//해당 링크이름과 링크시 넘겨줄 파라미터를 각각 세팅하기위한 ArrayList 
 			ArrayList<PrintCategory> print = new ArrayList<PrintCategory>();
 			PrintCategory cate = null;
 			String[] category = { dt, fa, fs, kb, ld, di, tr, be }; //view에 출력되는 링크 이름 
@@ -112,17 +120,19 @@ public class CategoryLinkAction implements Action {
 		// 셀렉트박스 정렬
 		if (!doOrder.equals("")) {
 			request.setAttribute("doOrder", doOrder);
-			for (ProductBean a : productBean) {// null값 0으로 초기화 (null pointer exception 방지)
-				if (a.getProduct_cnt_review() == null) {
-					a.setProduct_cnt_review("0");
+			for (ProductBean pb : productBean) {// null값 0으로 초기화 (null pointer exception 방지)
+				if (pb.getProduct_cnt_review() == null) {
+					pb.setProduct_cnt_review("0");
 				}
-				if (a.getProduct_cnt_order() == null) {
-					a.setProduct_cnt_order("0");
+				if (pb.getProduct_cnt_order() == null) {
+					pb.setProduct_cnt_order("0");
 				}
 			}
 			productBean = selectBox(doOrder, productBean);
 		}
-		// --------------------------페이징처리-----------------------------
+		
+
+		// --------------------------페이징처리 start-----------------------------
 		// startPage 구하기
 		int startPage = page - (page - 1) % 5;
 		int startIndex = 0;
@@ -138,9 +148,9 @@ public class CategoryLinkAction implements Action {
 			lastPage = (count / 20) + 1;
 		else if (count % 20 == 0)
 			lastPage = count / 20;
-		// --------------------------페이징처리-------------------------------
-
-		// 페이지에 따른 상품 불러오기
+		// --------------------------페이징처리 end-------------------------------
+		
+		// --------------------------페이지에 따른 상품 불러오기 start-------------------------------
 		List<ProductBean> productBeanPaging = new ArrayList<ProductBean>();
 		if (page == lastPage || lastPage == 0) {
 			productBeanPaging = productBean.subList(startIndex, productBean.size());
@@ -148,7 +158,16 @@ public class CategoryLinkAction implements Action {
 		} else {
 			productBeanPaging = productBean.subList(startIndex, startIndex + 20);
 		}
+		// --------------------------페이지에 따른 상품 불러오기 end-------------------------------
 
+		// --------------------------newItem 처리 start-----------------------------
+				for(ProductBean pbp : productBeanPaging) {
+					String itemTime = date.format(pbp.getProduct_regdate());
+					int i =itemTime.compareTo(now);
+					pbp.setIsNew(i);
+				}
+		// --------------------------newItem 처리 end-----------------------------
+		
 		request.setAttribute("lastPage", lastPage);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("page", page);
@@ -158,6 +177,7 @@ public class CategoryLinkAction implements Action {
 		return actionForward;
 	}
 
+	// 검색 후 카테고리 선택시 선택한 카테고리에 해당하는 아이템만 불러오기 위한 변수명 변경작업 
 	private List<ProductBean> listInject(List<ProductBean> productBean, List<ProductBean> DT, List<ProductBean> FA,
 			List<ProductBean> FS, List<ProductBean> KB, List<ProductBean> LD, List<ProductBean> DI,
 			List<ProductBean> TR, List<ProductBean> BE, String src) {
@@ -190,6 +210,8 @@ public class CategoryLinkAction implements Action {
 		return productBean;
 	}
 
+	
+	// 검색 후 productBean 에서 해당 카테고리별로 분류하여 각각의 ArrayList에 담는 작업 
 	private void listRefactoring(List<ProductBean> productBean, List<ProductBean> DT, List<ProductBean> FA,
 			List<ProductBean> FS, List<ProductBean> KB, List<ProductBean> LD, List<ProductBean> DI,
 			List<ProductBean> TR, List<ProductBean> BE) {

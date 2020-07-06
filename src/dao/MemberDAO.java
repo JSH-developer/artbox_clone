@@ -299,4 +299,31 @@ public class MemberDAO {
 		}
 	}
 
+	public String findId(MemberBean bb) { // 아이디 찾기
+		System.out.println("DAO - findId");
+		String id = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "SELECT id FROM member WHERE name=? AND (phone=? OR email=?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1,bb.getName());
+			pstmt.setString(2,bb.getPhone());
+			pstmt.setString(3,bb.getEmail());
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				id = rs.getString("id");
+				System.out.println("id 값 - "+id);
+			}
+			
+		} catch (Exception e) {
+			System.out.println("findId오류 - "+e.getMessage());
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return id;
+	}
+
 }

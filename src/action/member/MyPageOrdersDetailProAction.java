@@ -20,21 +20,22 @@ public class MyPageOrdersDetailProAction implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = new ActionForward();
+		// svc에 전달할 주문인덱스, 주문코드 받아오기
 		int orders_num = Integer.parseInt(request.getParameter("num"));
 		String orders_order_num = request.getParameter("orders_num");
 		
 		AdminOrderViewService adminOrderViewService = new AdminOrderViewService();
 		List<OrdersDetailBean> myDetailOrders = adminOrderViewService.infoOrdersDetail(orders_order_num);
+		// svc에서 ArrayList 받아오기
 		
 		OrdersBean ordersBean = null;
 		ReceiverBean receiverBean = null;
 		
 		AdminOrderViewService orderViewService = new AdminOrderViewService();
-		ordersBean = orderViewService.infoOrders(orders_num);
-		receiverBean = orderViewService.infoReceiver(myDetailOrders.get(0).getReceiver_num());
+		ordersBean = orderViewService.infoOrders(orders_num); // svc에서 OrdersBean 받아오기
+		receiverBean = orderViewService.infoReceiver(myDetailOrders.get(0).getReceiver_num()); // svc에서 ReceiverBean 받아오기
 		
-		
-		
+		// request에 저장
 		request.setAttribute("myDetailOrders", myDetailOrders);
 		request.setAttribute("ordersBean", ordersBean);
 		request.setAttribute("receiverBean", receiverBean);

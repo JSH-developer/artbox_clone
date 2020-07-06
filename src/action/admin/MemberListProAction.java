@@ -35,12 +35,12 @@ public class MemberListProAction implements Action {
 		MemberListService memberListService = new MemberListService();
 		int listCount = 0;
 		ArrayList<MemberBean> memberList = null;
-		if(kwd.equals("")) {
+		if(kwd.equals("")) { // 검색 안했을 때
 			listCount = memberListService.getListCount();
-			memberList = memberListService.getMemberList(page, limit);
-		}else {
+			memberList = memberListService.getMemberList(page, limit); // svc에서 ArrayList 받아오기
+		}else { // 검색 했을 때
 			listCount = memberListService.getListCount(opt, kwd);
-			memberList = memberListService.getMemberList(page, limit, opt, kwd);
+			memberList = memberListService.getMemberList(page, limit, opt, kwd); // svc에서 ArrayList 받아오기
 		}
 		
 		int maxPage = (int)((double)listCount / limit + 0.95);
@@ -51,7 +51,7 @@ public class MemberListProAction implements Action {
 		}
 		
 		PageInfo pageInfo = new PageInfo(page, maxPage, startPage, endPage, listCount);
-		
+		// request에 값 저장
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("memberList", memberList);
 		

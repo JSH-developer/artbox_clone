@@ -14,7 +14,7 @@ public class MemberDeleteService {
 		Connection con = getConnection(); 
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
-		
+		// member테이블에서 삭제된 튜플 수 int값 으로 반환
 		int deleteCount = adminDAO.deleteMember(num);
 		
 		if(deleteCount>0) {

@@ -82,7 +82,7 @@ public class OrderDAO {
 		List<SelectOrderBean> OrderList = new ArrayList<SelectOrderBean>();
 		try {
 			String sql = "SELECT member.name, member.email, member.phone, member.point, product.num,"
-					+ " product.code, product.name, product.image, product.price, basket.quantity, product.category_code"
+					+ " product.code, product.name, product.image, product.price, basket.quantity, product.category_code, product.sale_price"
 					+ " FROM member JOIN basket ON member.id = basket.member_id"
 					+ " JOIN product ON product.num = basket.product_num"
 					+ " WHERE member_id=? AND basket.product_num=?";
@@ -102,6 +102,8 @@ public class OrderDAO {
 				bean.setItemprice(rs.getInt("price"));
 				bean.setQuantity(rs.getInt("quantity"));
 				bean.setItemCategory(rs.getString("category_code"));
+				bean.setItem_sale_price(rs.getInt("sale_price"));
+				
 				OrderList.add(bean);
 			}
 		} catch (SQLException e) {
@@ -154,6 +156,26 @@ public class OrderDAO {
 			 + ", " + ordersbean.getOrders_order_name() + ", " + ordersbean.getOrders_order_email() + ", " + ordersbean.getOrders_order_phone() 
 			 + ", " + ordersbean.getOrders_msg() + ", " + ordersbean.getOrders_point() + ", " + ordersbean.getOrders_total_price() 
 			 + ", " + ordersbean.getOrders_payMethod() + ", " + ordersbean.getOrders_state());
+			
+			// 포인트 사용시 깎임
+			if(ordersbean.getOrders_point()!=0) {
+			sql="CALL update_point('구매시 사용',?,'사용',?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1,"-"+ordersbean.getOrders_point() );
+			pstmt.setInt(2,-ordersbean.getOrders_point() );
+			pstmt.setString(3, ordersbean.getOrders_member_id());
+			pstmt.executeUpdate();
+			}
+			
+			if(ordersbean.getOrders_use_coupon() != null) {
+			System.out.println( ordersbean.getOrders_use_coupon());
+			sql="UPDATE coupon SET coup_use =0 WHERE num IN ("+ordersbean.getOrders_use_coupon()+")";
+			pstmt = con.prepareStatement(sql);
+			pstmt.executeUpdate();
+			
+			}
+			
+			
 		}  catch (SQLException e) {
 //			e.printStackTrace();
 			System.out.println("OrderDAO - insertOrder() 실패! : " + e.getMessage());

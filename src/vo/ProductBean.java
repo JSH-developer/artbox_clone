@@ -19,8 +19,16 @@ public class ProductBean {
 	private String product_option_code;
 	private String product_cnt_review;
 	private String product_cnt_order;
+	private int isNew;
 	
 	
+	
+	public int getIsNew() {
+		return isNew;
+	}
+	public void setIsNew(int isNew) {
+		this.isNew = isNew;
+	}
 	public String getProduct_cnt_review() {
 		return product_cnt_review;
 	}

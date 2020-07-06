@@ -13,7 +13,7 @@
 <script src="js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 
-var phonecheck = /^01([0|1|6|7|8|9]?)[-]?([0-9]{3,4})[-]?([0-9]{4})$/;
+var phonecheck = /^01([0|1|6|7|8|9]?)([-]{1})([0-9]{3,4})([-]{1})([0-9]{4})$/;
 	function check(){
 		if ($('#receiver').val() == '') {
 			alert('배송지 이름을 입력해주세요');
@@ -25,7 +25,7 @@ var phonecheck = /^01([0|1|6|7|8|9]?)[-]?([0-9]{3,4})[-]?([0-9]{4})$/;
 			 return false;
 		}else if ($('#phone').val() == '') {
 			alert('핸드폰번호를 입력해주세요.');
-			$.trim($('#receiver_name').focus());
+			$.trim($('#phone').focus());
 			 return false;
 		}else if (!phonecheck.test($('#phone').val())) {
 			alert('핸드폰번호 형식에 맞춰주세요');

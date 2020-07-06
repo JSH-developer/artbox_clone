@@ -17,7 +17,7 @@ public class AdminChangeStateService {
 		Connection con = getConnection(); 
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
-		
+		// 수정된 orders 테이블의 튜플 수 반환
 		int changeCount = adminDAO.changeState(state, num);
 		
 		if(changeCount>0) {

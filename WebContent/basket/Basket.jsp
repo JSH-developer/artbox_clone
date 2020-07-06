@@ -89,8 +89,10 @@ $(document).ready(function(){
 		var TotalPriceDelivery = 0; //총 배송비
 		var TotalPriceAmount = 0; //총 합계금액
 
+
 		$("input[name=BasketIdx]").each(function(){ //금액 계산
 			if ($(this).prop("checked")) {
+				
 				TotalPriceSum = TotalPriceSum + parseInt($(this).attr("itemprice"),10) * parseInt($(this).attr("data-itemquantity"),10);
 				TotalPriceDelivery = TotalPriceSum>=30000?0:2500;
 			}
@@ -163,10 +165,34 @@ function Select(id) {
 	
 <c:forEach var="basketList" items="${basketList }" varStatus="status">
 	<c:set var="price" value="${itemsList[status.index].product_price }"/>
+	<c:set var="sale_price" value="${itemsList[status.index].product_sale_price }"/>
+	<c:set var="result_price" value="${price}"/>
+	
+<!-- 	할인없을때 -->
+	<c:if test="${itemsList[status.index].product_sale_price == 0 }">
+	<c:set var="result_price" value="${price}"/>
+	</c:if>
+	
+<!-- 	할인 있을때 -->
+	<c:if test="${itemsList[status.index].product_sale_price > 0 }">	
+	
+<%-- 	<c:forEach var="itembean" items="${itemcoupon}"> --%>
+	 <c:if test="${!fn:contains(itemcoupon , itemsList[status.index].product_category_code)}"><!--쿠폰 있을때 -->
+	 	<c:set var="result_price" value="${price - sale_price}"/>
+	 	<c:set var="item_event" value="coupon"/>
+	 	
+	 </c:if>
+
+<%-- 	 </c:forEach> --%>
+	 
+	</c:if>
+	
+	
+	
 		<div class="tableDiv BasketRow">
 			<dl class="trBasket ${basketList.basket_num }" >
 				<dt class="tdCheck">
-					<input type="checkbox" name="BasketIdx" id="Item${basketList.basket_num }" value="${basketList.basket_num }" data-product_num="${basketList.basket_product_num }" data-basketIdx="${basketList.basket_num }" realitemprice="${itemsList[status.index].product_sale_price}" itemprice="${itemsList[status.index].product_price}" data-itemquantity="${basketList.basket_quantity }" >
+					<input type="checkbox" name="BasketIdx" id="Item${basketList.basket_num }" value="${basketList.basket_num }" data-product_num="${basketList.basket_product_num }" data-basketIdx="${basketList.basket_num }" realitemprice="${itemsList[status.index].product_sale_price}" itemprice="${result_price}" data-itemquantity="${basketList.basket_quantity }" >
 				</dt>
 				<dt class="tdImage"><a href="itemDetail.item?product_num=${basketList.basket_product_num }"><img src="${pageContext.request.contextPath}/upload/${itemsList[status.index].product_image }"></a></dt>
 				<dt class="tdInner">
@@ -176,7 +202,31 @@ function Select(id) {
 								<div class="BasketListItemName">${itemsList[status.index].product_name } (${itemsList[status.index].product_code })
 								</div>
 								<div class="BasketListPrice">
+								
+<!-- 								할인가격이 없을때 -->
+								<c:if test="${itemsList[status.index].product_sale_price == 0}">
 								<fmt:formatNumber value="${price }" pattern="#,###"/> 원 X ${basketList.basket_quantity }개 = <fmt:formatNumber value="${price*basketList.basket_quantity}" pattern="#,###"/>원
+								</c:if>
+<!-- 								할인가격이 있을때 -->
+								<c:if test="${itemsList[status.index].product_sale_price > 0}">
+								<c:choose>
+								 <c:when test="${fn:contains(itemcoupon, itemsList[status.index].product_category_code)}"><!--쿠폰 있을때 -->
+									<fmt:formatNumber value="${price }" pattern="#,###"/> 원 X ${basketList.basket_quantity }개 = <fmt:formatNumber value="${price*basketList.basket_quantity}" pattern="#,###"/>원
+								</c:when>
+								
+								<c:otherwise><!--쿠폰 없을때 -->
+								<span style="color:grey;text-decoration: line-through;"><fmt:formatNumber value="${price }" pattern="#,###"/> 원 </span>&nbsp;
+								<span style="color: red;"><fmt:formatNumber value="${price - sale_price}" pattern="#,###"/> 원 </span>
+								X ${basketList.basket_quantity }개 = <fmt:formatNumber value="${(price - sale_price) *basketList.basket_quantity}" pattern="#,###"/>원
+								
+								</c:otherwise>
+								
+								</c:choose>
+<%-- 								</c:if> --%>
+<%-- 								</c:forEach> --%>
+<%-- 								<input type="hidden" id="result_price" value="${result_price}"/> --%>
+								</c:if>
+								
 								</div>
 							</dd>
 							<dd class="tdDelete"><a class="BasketButtonX" href="javascript:fnBasketOne('QTY','${basketList.basket_num }',0,'${basketList.basket_product_num }');"><img src="${pageContext.request.contextPath}/Images/order/basket_x.png"></a></dd>
@@ -188,7 +238,7 @@ function Select(id) {
 							<dd><a class="BasketButton" href="javascript:fnChangeOption('${basketList.basket_num }');">옵션변경</a></dd>
 							
 							<dd class="tdBtn1"><a class="BasketButton" href="javascript:fnBasketOne('WISH','${basketList.basket_num }',0,0);">위시리스트</a></dd>
-							<dd class="tdBtn2"><a class="BasketButtonDark" href="javascript:fnBasketOne('BUY','${basketList.basket_num }',0,${basketList.basket_product_num });">바로주문</a></dd>
+							<dd class="tdBtn2"><a class="BasketButtonDark" href="javascript:fnBasketOne('BUY','${basketList.basket_num }',${basketList.basket_quantity },${basketList.basket_product_num });">바로주문</a></dd>
 						</dl>
 					</div>
 					<div class="ItemListChangeOption" id="ItemListChangeOption${basketList.basket_num }">

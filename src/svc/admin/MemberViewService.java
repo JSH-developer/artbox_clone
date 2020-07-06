@@ -18,6 +18,7 @@ public class MemberViewService {
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
 
+		// Member 테이블에서 index를 조회하여 MemberBean에 담아서 반환
 		memberBean = adminDAO.toViewMember(num);
 		
 		close(con);

@@ -20,6 +20,7 @@ public class OptionListService {
 		
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
+		// option 테이블의 index 갯수를 int값으로 출력
 		listCount = adminDAO.optionCount();
 		
 		if(listCount>0) {
@@ -41,6 +42,7 @@ public class OptionListService {
 		
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
+		// OptionBean을 ArrayList에 담아서 출력
 		optionList=adminDAO.toListOption(page, limit);
 		
 		if(!optionList.isEmpty()) {

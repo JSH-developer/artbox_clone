@@ -21,6 +21,7 @@ import action.member.MemberDeliveryBasicAction;
 import action.member.MemberDeliveryDeleteAction;
 import action.member.MemberDeliveryModifyAction;
 import action.member.MemberDeliveryModifyProAction;
+import action.member.MemberFindIdAction;
 import action.member.MemberJoinAction;
 import action.member.MemberJoinCheckAction;
 import action.member.MemberLoginAction;
@@ -242,6 +243,13 @@ public class MemberFrontController extends HttpServlet {
 			}
     	}else if(command.equals("/deliveryBasic.member")) {
     		action = new MemberDeliveryBasicAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	}else if(command.equals("/findIdForm.member")) {
+    		action = new MemberFindIdAction();
     		try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

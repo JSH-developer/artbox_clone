@@ -229,6 +229,13 @@
 	
 	// '장바구니 담기' 및 '바로 구매하기' 버튼 클릭 이벤트
 	function Order(id) {
+		if(${empty sessionScope.id}) {
+			var result = confirm("로그인 후 이용가능합니다.\n로그인 페이지로 이동하시겠습니까?");
+			if(result==true) {
+				location.href = "loginForm.member";
+			}
+			return false;
+		}
 		var product_num = $("input[name=product_num]").val();
 		var stockqty = $("input[name=stockqty]").val();
 		
@@ -236,7 +243,7 @@
 			alert("현재 재고량이 0개 입니다.");
 		}else{
 			if(id=='AddBasket') { // '장바구니 담기' 버튼 클릭 시
-				var result = confirm("선택하신 상품이 장바구니에 담겼습니다. 장바구니로 이동하시겠습니까?");
+				var result = confirm("선택하신 상품이 장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?");
 				// 확인/취소 선택 시 장바구니 상품 담음
 				// result(확인/취소) 값을 넘겨줘서 Action 클래스에서 장바구니 페이지 이동여부 판별
 				document.gfr.action = "insertBasket.basket?result="+result+"&product_num="+product_num;
@@ -255,7 +262,6 @@
 		var getId  = document.getElementById("loginId").value;
 		var coup_Num  = document.getElementById("coupNum").value;
 		
-		alert(getId);
 		
 		if(getId == "null" || getId == ""){
 			moveCheck = confirm("로그인하시겠습니까?"+getId);
@@ -263,11 +269,12 @@
 			if(moveCheck){
 				location.href = "loginForm.member";
 			}else{
-				alert("그대로 유지");
+// 				alert("그대로 유지");
 			}
 	} else {
-			var url = "CouponIssued.coupon?getid=" + getId + "&couponNum="+ coup_Num;
-			location.href = url;
+		var url = "CouponIssued.coupon?getid=" + getId + "&couponNum="+ coup_Num;
+		location.href = url;
+			
 		}
 	}
 	</script>
@@ -327,12 +334,12 @@
 							<!-- 			할인 있을때 -->
 							<c:if test="${empty itemcoupon.coupon_name}">
 								<fmt:parseNumber integerOnly="true" var="persent" value="${productBean.product_sale_price/productBean.product_price *100 }" />
-								<span style="color:red;"> ${productBean.product_price - productBean.product_sale_price }원 [ ${persent}% ]</span>
+								<span style="color:red;"><fmt:formatNumber value="${productBean.product_price - productBean.product_sale_price }" pattern="#,###"/>원 [ ${persent}% ]</span>
 							</c:if>
 							<!-- 				쿠폰 있을때 -->
 							<c:if test="${not empty itemcoupon.coupon_name}">
 								<fmt:parseNumber integerOnly="true" var="persent" value="${productBean.product_sale_price/productBean.product_price *100 }" />
-								<span style="color:red;">${productBean.product_price - productBean.product_sale_price }원  [ ${persent}% ]</span>
+								<span style="color:red;"><fmt:formatNumber value="${productBean.product_price - productBean.product_sale_price }" pattern="#,###"/>원  [ ${persent}% ]</span>
 								<input type="hidden" id="loginId" value="${sessionScope.id}">
 								<input type="hidden" id="coupNum" value="${itemcoupon.coupon_num}">
 								<input type="button" id="coup_btn" value="쿠폰받기" onclick= "cpClick();" ><br>

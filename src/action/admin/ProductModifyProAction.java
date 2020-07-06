@@ -21,12 +21,12 @@ public class ProductModifyProAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = new ActionForward();
 		
-		String opt = "";
+		String opt = ""; // 검색기능 사용시 opt(분류기준)값 받아오기
 		if(request.getParameter("opt") != null) {
 			opt = request.getParameter("opt");
 		}
 				
-		String kwd = "";
+		String kwd = ""; // 검색기능 사용시 kwd(검색단어)값 받아오기
 		if(request.getParameter("kwd") != null) {
 			opt = request.getParameter("kwd");
 		}
@@ -47,7 +47,7 @@ public class ProductModifyProAction implements Action {
 		
 //		ProductWriteService productWriteService = new ProductWriteService();
 		ProductModifyService productModifyService = new ProductModifyService();
-		ProductBean productBean = new ProductBean();
+		ProductBean productBean = new ProductBean(); // svc에 전달할 ProductBean 생성
 		productBean.setProduct_num(Integer.parseInt(multi.getParameter("num")));
 		productBean.setProduct_code(multi.getParameter("product_category_code") + multi.getParameter("product_option_code_origin")); // 상품코드 = 카테고리 + 옵션
 		productBean.setProduct_name(multi.getParameter("product_name"));
@@ -66,12 +66,11 @@ public class ProductModifyProAction implements Action {
 		productBean.setProduct_option_code(multi.getParameter("product_option_code_origin"));
 		productBean.setProduct_option_code(multi.getParameter("product_option_code"));
 		
-		boolean isUpdate = productModifyService.modifyProduct(productBean);
+		boolean isUpdate = productModifyService.modifyProduct(productBean); // svc에 ProductBean 전달 후 수정
 		
 		if(isUpdate) {
-			// dispatch 방식으로 이동
 			forward.setPath("ProductView.admin?num="+Integer.parseInt(multi.getParameter("num"))+"&page="+multi.getParameter("page")+"&opt="+opt+"&kwd="+kwd);
-		}else {
+		}else { // 실패시 alert창 생성
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script type=\"text/javascript\">");

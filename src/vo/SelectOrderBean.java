@@ -13,7 +13,14 @@ public class SelectOrderBean {
 	private int itemprice;
 	private int quantity;
 	private String itemCategory;
+	private int item_sale_price;
 	
+	public int getItem_sale_price() {
+		return item_sale_price;
+	}
+	public void setItem_sale_price(int item_sale_price) {
+		this.item_sale_price = item_sale_price;
+	}
 	public String getName() {
 		return name;
 	}

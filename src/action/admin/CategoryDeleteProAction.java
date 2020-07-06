@@ -15,11 +15,12 @@ public class CategoryDeleteProAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		
+		// 상품 인덱스, page 받아오기
 		int num = Integer.parseInt(request.getParameter("num"));
 		String page = request.getParameter("page");
 		
 		CategoryDeleteService categoryDeleteService = new CategoryDeleteService();
-		boolean isDelete = categoryDeleteService.deleteCategory(num);
+		boolean isDelete = categoryDeleteService.deleteCategory(num); // svc에서 삭제 수행
 		
 		if(isDelete) {
 			

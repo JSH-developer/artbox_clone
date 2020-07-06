@@ -16,6 +16,41 @@
 <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/event/myPage.css" rel="stylesheet" type="text/css">
 
+<script type="text/javascript">
+function onoff(s){
+	
+// 	var p = document.getElementById("grade_tab_in_1");
+	
+// 		$("#pc li").attr("class","on");
+
+// 	$("#btn"+s).addClass("on");
+
+for(var i=1;i<=5;i++){
+	var p = document.getElementById("grade_tab_in_"+i);
+	
+	if(i!=s){
+		$("#btn"+i).removeClass("on");
+		p.style.display = 'none';
+	
+	}else{
+		$("#btn"+i).addClass("on");
+		p.style.display = 'block';
+		
+	}
+	
+}
+	
+		
+		
+		
+		
+// 		$("p").removeClass("hilite");
+}
+
+
+</script>
+
+
 </head>
 <body>
 <div class="page">
@@ -71,12 +106,12 @@
 	<div class="grade_bottom">
 		<!-- grade_bottom_tab -->
 		<div class="grade_tab">
-			<ul class="pc">
-				<li class="btnGradeTab G1"></li>
-				<li class="btnGradeTab G2"></li>
-				<li class="btnGradeTab G3"></li>
-				<li class="btnGradeTab G4"></li>
-				<li class="btnGradeTab G5 on"></li>
+			<ul class="pc" id="pc">
+				<li id="btn1" class="btnGradeTab G1" onclick="onoff(1);"></li>
+				<li id="btn2" class="btnGradeTab G2" onclick="onoff(2);"></li>
+				<li id="btn3" class="btnGradeTab G3" onclick="onoff(3);"></li>
+				<li id="btn4" class="btnGradeTab G4" onclick="onoff(4);"></li>
+				<li id="btn5" class="btnGradeTab G5 on" onclick="onoff(5);"></li>
 			</ul>
 		</div>
 		<!--// grade_bottom_tab -->

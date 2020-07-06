@@ -34,9 +34,15 @@ public class OrderListAction implements Action {
 			return forward;
 		}
 		
+		//---쿠폰-------------------------------------------------------------------------------
+		// 쿠폰 불러오기
+		CouponService couponService = new CouponService();
+		ArrayList itemcoupon = couponService.getCouponCategory();
+		request.setAttribute("itemcoupon", itemcoupon);
+		
 		String product_num = request.getParameter("product_num"); // 상품 번호 가져오기
 		
-		CouponService couponService = new CouponService();
+		couponService = new CouponService();
 		ArrayList<CouponBean> mycouponList= couponService.getmycouponlist(id);
 		
 		if(mycouponList != null) {

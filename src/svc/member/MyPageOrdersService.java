@@ -21,6 +21,7 @@ public class MyPageOrdersService {
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
 		myOrders = adminDAO.getMyOrders(id);
+		// id값이 일치하는 OrdersBean만 ArrayList로 출력
 		
 		if(myOrders != null) {
 			commit(con);
