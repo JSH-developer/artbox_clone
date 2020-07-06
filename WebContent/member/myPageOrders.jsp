@@ -31,7 +31,7 @@ function buy(orders_order_num,point){
 <link href="${pageContext.request.contextPath}/css/member/myPage.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/member/myPageOrders.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
-<%-- <link href="${pageContext.request.contextPath}/css/slide.css" rel="stylesheet" type="text/css"> --%>
+<link href="${pageContext.request.contextPath}/css/slide.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 

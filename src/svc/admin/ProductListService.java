@@ -17,6 +17,7 @@ public class ProductListService {
 		
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
+		// product테이블의 index 갯수를 int형으로 반환
 		listCount = adminDAO.productCount();
 		
 		if(listCount>0) {
@@ -30,6 +31,7 @@ public class ProductListService {
 		return listCount;
 	}
 	
+	//오버로딩
 	public int getListCount(String opt, String kwd) {
 		int listCount=0;
 		
@@ -37,6 +39,7 @@ public class ProductListService {
 		
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
+		// product테이블의 opt와 kwd를 기준으로 일치하는 index 갯수를   int형으로 반환
 		listCount = adminDAO.productCount(opt, kwd);
 		
 		if(listCount>0) {
@@ -58,6 +61,7 @@ public class ProductListService {
 		
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
+		// ProductBean들을 ArrayList에 담아서 출력
 		productList=adminDAO.toListProduct(page, limit);
 		
 		if(!productList.isEmpty()) {
@@ -71,6 +75,7 @@ public class ProductListService {
 		return productList;
 	}
 	
+	// 오버로딩
 	public ArrayList<ProductBean> getProductList(int page, int limit, String opt, String kwd) {
 		ArrayList<ProductBean> productList = null;
 		
@@ -79,6 +84,7 @@ public class ProductListService {
 		
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
+		//  opt와 kwd를 기준으로 일치하는 ProductBean들을 ArrayList에 담아서 출력
 		productList=adminDAO.toListProduct(page, limit, opt, kwd);
 		
 		if(!productList.isEmpty()) {

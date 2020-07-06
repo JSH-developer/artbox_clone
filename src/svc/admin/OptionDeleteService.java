@@ -18,6 +18,7 @@ public class OptionDeleteService {
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
 		
+		// Option테이블에서 삭제된 튜플 수를 int 값으로 반환
 		int deleteCount = adminDAO.deleteOption(option_code);
 		
 		if(deleteCount>0) {

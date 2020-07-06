@@ -20,7 +20,7 @@ public class AdminOrderViewService {
 		Connection con = getConnection();
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
-
+		// 주문코드를 기준으로 조회된 정보를 OrdersBean에 담아서 반환
 		ordersBean = adminDAO.toViewOrders(orders_num);
 		
 		close(con);
@@ -34,7 +34,7 @@ public class AdminOrderViewService {
 		Connection con = getConnection();
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
-
+		// 인덱스를 기준으로 조회된 정보를 ReceiverBean에 담아서 반환
 		receiverBean = adminDAO.toViewReceiver(num);
 		
 		close(con);

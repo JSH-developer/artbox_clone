@@ -20,6 +20,7 @@ public class CategoryListService {
 		
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
+		// category 테이블의 index 갯수 int값 으로 반환
 		listCount = adminDAO.categoryCount();
 		
 		if(listCount>0) {
@@ -40,6 +41,7 @@ public class CategoryListService {
 		
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
+		// CategoryBean을 ArrayList에 담아서 반환
 		categoryList=adminDAO.toListCategory(page, limit);
 		
 		if(!categoryList.isEmpty()) {

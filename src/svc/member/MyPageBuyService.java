@@ -21,6 +21,7 @@ public class MyPageBuyService {
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
 		int changeCount = adminDAO.changeBuyState(orders_order_num);
+		// 주문번호가 일치하는 업데이트 된 튜플 수 int형으로 출력
 		
 		if(changeCount > 0) {
 			isChange = true;
@@ -42,6 +43,7 @@ public class MyPageBuyService {
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
 		int changeCount = adminDAO.changeBuyPoint(point, id);
+		// 포인트 업데이트 및 멤버 포인트 수정된 여부 int값으로 반환
 		
 		if(changeCount > 0) {
 			isChange = true;

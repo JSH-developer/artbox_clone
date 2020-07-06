@@ -19,18 +19,20 @@ public class MyPageCancelProAction implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = new ActionForward();
+		//svc에 전달할 주문번호, 포인트, 아이디 저장
 		String orders_order_num = request.getParameter("orders_order_num");
 		int point = Integer.parseInt(request.getParameter("point"));
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
 		
 		MyPageCancelService myPageCancelService = new MyPageCancelService();
-		myPageCancelService.changeCancelState(orders_order_num);
-		myPageCancelService.changeCancelPoint(point, id);
+		myPageCancelService.changeCancelState(orders_order_num); // svc에서 주문취소 수행
+		myPageCancelService.changeCancelPoint(point, id); // svc에서 포인트 추가 수행
 		
 		MyPageReService myPageReService = new MyPageReService();
-		List<OrdersBean> myRes = myPageReService.getMyRes(id);
+		List<OrdersBean> myRes = myPageReService.getMyRes(id);// svc에서 ArrayList 받아오기
 		
+		//request 값 저장
 		request.setAttribute("myRes", myRes);
 		
 		forward.setPath("/member/myPageRe.jsp");

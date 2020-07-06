@@ -17,6 +17,7 @@ import action.event.EventModifyFormAction;
 import action.event.EventModifyProAction;
 import action.event.EventWriteProAction;
 import action.event.EventproductviewAction;
+import action.event.MypageGradeAction;
 import action.event.MypagePointListAction;
 import action.event.listEventAction;
 import svc.admin.ProductWriteService;
@@ -128,6 +129,14 @@ public class EventFrontController extends HttpServlet {
 		}else if(command.equals("/MypagePointList.event")) { // 이벤트 삭제
 			System.out.println("/MypagePointList.event");
 			action = new MypagePointListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/MypageGrade.event")) { // 이벤트 삭제
+			System.out.println("/MypageGrade.event");
+			action = new MypageGradeAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

@@ -5,13 +5,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<%
-ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute("mycouponList");
-%>
-
-<%-- ${CouponBean.couponList} --%>
-
-<%-- <c:out value="${CouponBean.couponList}" default="hi" /> --%>
 
 <!DOCTYPE html>
 <html>
@@ -39,6 +32,8 @@ ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute(
 	<c:set var="bonusCouponCount" value="0"/>
 <c:set var="freeCouponCount" value="0"/>
 <c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
+<c:if test="${mycouponList[i].coupon_state eq 1 }">
+
 <c:set var="Coupon" value="${mycouponList[i].coupon_category}" />
 <c:if test="${Coupon eq 'bonuscoupon' }">
 <c:set var="bonusCouponCount" value="${bonusCouponCount=bonusCouponCount+1 }"/>
@@ -51,6 +46,7 @@ ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute(
 <c:set var="freeCouponCount" value="${freeCouponCount=freeCouponCount+1 }"/>
 </c:if>
 
+</c:if>
 </c:forEach>
 	
 	<div class="top_box">
@@ -101,11 +97,10 @@ ArrayList<CouponBean> myCouponList= (ArrayList<CouponBean>)request.getAttribute(
 
 
 
-
 <!-- 가지고 있는 쿠폰 목록 -->
 				<div class="coupon_tab on">온라인 전용 쿠폰 (${bonusCouponCount+goodsCouponCount+freeCouponCount })</div>
 		
-		<c:if test="${!empty mycouponList }">
+		<c:if test="${!empty mycouponList && mycouponList[i].coupon_state eq 1}">
 		
 		
 				<div class="coupon_box">

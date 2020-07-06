@@ -15,7 +15,15 @@ public class OrdersBean {
 	private String orders_payMethod; // 결제수단
 	private int orders_state; // 진행상태
 	private Timestamp orders_regdate; // 승인(결제)날짜
+	private String orders_use_coupon; // 주문시 쓰는 쿠폰
+	
 
+	public String getOrders_use_coupon() {
+		return orders_use_coupon;
+	}
+	public void setOrders_use_coupon(String orders_use_coupon) {
+		this.orders_use_coupon = orders_use_coupon;
+	}
 	public int getOrders_num() {
 		return orders_num;
 	}

@@ -21,6 +21,7 @@ public class MyPageReService {
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
 		myRes = adminDAO.getMyCancleOrders(id);
+		// id값이 일치하는 OrdersBean만 ArrayList로 반환
 		
 		if(myRes != null) {
 			commit(con);

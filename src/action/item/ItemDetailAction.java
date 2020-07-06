@@ -7,12 +7,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
+import svc.CouponService;
 import svc.admin.ProductViewService;
 import svc.item.GetCategorySVC;
 import svc.item.OtherOptionListSVC;
 import svc.item.QuestionListSVC;
 import svc.item.ReviewListSVC;
 import vo.ActionForward;
+import vo.CouponBean;
 import vo.ProductBean;
 import vo.QuestionBean;
 import vo.QuestionPageInfo;
@@ -77,6 +79,12 @@ public class ItemDetailAction implements Action {
 
 		QuestionPageInfo questionPageInfo = questionListSVC.getPageInfo(product_num, q_pageNum, q_pageSize, q_pageBlock);
 		request.setAttribute("questionPageInfo", questionPageInfo);
+		
+		//---쿠폰-------------------------------------------------------------------------------
+		// 상품에 맞는 쿠폰
+		CouponService couponService = new CouponService();
+		CouponBean itemcoupon = couponService.getCouponList(productBean.getProduct_category_code());
+		request.setAttribute("itemcoupon", itemcoupon);
 		
 		//dispatcher 포워딩 
 		forward = new ActionForward();

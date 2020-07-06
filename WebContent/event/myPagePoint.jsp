@@ -36,7 +36,7 @@
 	
 	<div class="top_box">
 		<div class="whoes">
-			<span>${Mypointrecode[0].member_id}</span> 님의 꿈캔디 현황 
+			<span>${name}</span> 님의 꿈캔디 현황 
 			<div class="guide_box pc">
 				꿈캔디는 현금처럼 쓰실 수 있는 마일리지로,<br>
 				아트박스/POOM 온라인 쇼핑몰 및 전국 직영매장에서 적립 및 사용하실 수 있습니다.

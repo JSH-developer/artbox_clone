@@ -26,7 +26,7 @@ public class CategoryListProAction implements Action {
 		
 		CategoryListService categoryListService = new CategoryListService();
 		int listCount = categoryListService.getListCount();
-		ArrayList<CategoryBean> categoryList =categoryListService.getCateogryList(page, limit);
+		ArrayList<CategoryBean> categoryList =categoryListService.getCateogryList(page, limit); // svc에서 ArrayList 반환
 		
 		int maxPage = (int)((double)listCount / limit + 0.95);
 		int startPage = (((int)((double)page / 10 + 0.9))-1)*10 +1 ;
@@ -37,7 +37,7 @@ public class CategoryListProAction implements Action {
 		
 		PageInfo pageInfo = new PageInfo(page, maxPage, startPage, endPage, listCount);
 		
-		
+		// request에 값 저장
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("categoryList", categoryList);
 		

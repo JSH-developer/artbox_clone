@@ -41,7 +41,7 @@
 <div class="admin_nav_wrap">
 <ul class="admin_nav">
 	<li><a href="home.admin">관리자 홈</a></li>
-	<li><a href="CouponWriteForm.coupon">쿠폰 관리</a></li>
+	<li><a href="listCoupon.coupon">쿠폰 관리</a></li>
  	<li><a href="listEvent.event">이벤트 관리</a></li>
 </ul>
 </div>
@@ -61,6 +61,7 @@
 					<th>이벤트 시작일</th>
 					<th>이벤트 마감일</th>
 					<th>이벤트 카테고리</th>
+					<th>이벤트 상태</th>
 				</tr>
 		<c:forEach var="i" begin="0" end="${fn:length(articleList) -1}" step="1">
 			
@@ -72,6 +73,7 @@
 					<td>${articleList[i].event_start}</td> 
 					<td>${articleList[i].event_limit}</td> 
 					<td>${articleList[i].event_category}</td> 
+					<td>${articleList[i].event_state}</td> 
 					<td><button onclick="location.href='EventModifyForm.event?board_num=${articleList[i].event_num}'">수정</button></td>
 					<td><button onclick="location.href='EventDeletePro.event?board_num=${articleList[i].event_num}&condition=${articleList[i].event_condition}'">삭제</button></td>
 				</tr>

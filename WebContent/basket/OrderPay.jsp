@@ -74,7 +74,7 @@ $(document).ready(function(){
 			}
 			$(this).val(maxValue);
 		}
-		$("input[name=TotalUseMileage]").val($(this).val());
+		$("input[name=TotalUseMileage]").val($(this).val(),10);
 		$("#TotalUseMileage").text("- " + parseInt($(this).val(), 10));
 		fnTotalPriceAmount();
 	});
@@ -285,7 +285,7 @@ function execDaumPostCode() {
 		var TotalPriceSum                 = parseInt($("input[name=TotalPriceSum]").val(), 10);
 		var TotalPriceDelivery            = parseInt($("input[name=TotalPriceDelivery]").val(), 10);
 		var TotalPriceMemberLevelDiscount = parseInt($("input[name=TotalPriceMemberLevelDiscount]").val(), 10);
-		var TotalUseMileage               = parseInt($("input[name=TotalUseMileage]").val(), 10);
+		var TotalUseMileage               = parseInt($("input[name=TotalUseMileage]").val(),10);
 		
 		var TotalUseBonusCoupon           = parseInt($("input[name=TotalUseBonusCoupon]").val(), 10);
 		var TotalUseGoodsCoupon           = parseInt($("input[name=TotalUseGoodsCoupon]").val(), 10);
@@ -376,7 +376,13 @@ function execDaumPostCode() {
 		var st = $(":input:radio[name=f_coupongroup]:checked").val();
 		total_sum.value = 0;
 		
-		if(st !="bonus"){
+		 var select_coupon = document.getElementById("select_coupon");
+		 select_coupon.value ="";
+		 var c_name= $(":input:radio[name=f_coupongroup]:checked").attr("coup_num");
+		 select_coupon.value = c_name;
+		
+		 
+		if(st !="bonus"){ // bonus가 아니면 check 초기화
 			 
 			 $('input:checkbox[name="f_couponmemberno"]').each(function() {
 				 $('input:checkbox[name=f_couponmemberno]').prop('checked', false);
@@ -398,6 +404,9 @@ function execDaumPostCode() {
 		 
 		 var sum = 0;
 		 var total_sum = document.getElementById("bonus_goods");
+		 var select_coupon = document.getElementById("select_coupon");
+		 select_coupon.value ="";
+		 
 		// checkbox의 name값이 current_product이면서 체크되어 있는 함수를 each함수로 호출한다.
 		$("input[name=f_couponmemberno]:checked").each(function() { 
 			
@@ -406,6 +415,10 @@ function execDaumPostCode() {
 			 total_sum.value = sum;
 			 
 			 sumCouponTotal(0,sum);
+			 
+			 var c_name= $(this).attr("coup_num");
+			 select_coupon.value += c_name+",";
+			 
 			 
 //	 		 $("#TotalUseGoodsCoupon").text(sum);
 		});
@@ -525,21 +538,54 @@ span.scoup { /*     쿠폰 팝업 창  */
 <c:set var="tps" value="0"/>
 <c:forEach var="orderList" items="${orderList }" varStatus="status">
    <c:set var="price" value="${orderList[0].itemprice }"/>
+   <c:set var="sale_price" value="${orderList[0].item_sale_price }"/>
+   <c:set var="result_price" value="${price}"/>
    <c:set var="qqq" value="${price*orderList[0].quantity }"/>
+   
+   
          <div class="tableDiv">
             <dl class="trOrderItem 2002200265">
                <dt class="tdImage"><a href="itemDetail.item?product_num=${orderList[0].itemNum }"><img src="${pageContext.request.contextPath}/upload/${orderList[0].itemImage }"/></a></dt>
                <dt class="tdInner">
                   <div class="BasketListItemName">${orderList[0].itemName } (${orderList[0].itemCode })
                   </div>
+<!--                   세일안할때 -->
+                  <c:if test="${sale_price ==0 }">
                   <div class="BasketListPrice">
                    / <fmt:formatNumber value="${price }" pattern="#,###"/>원 X ${orderList[0].quantity }개
                   </div>
+                  </c:if>
+<!--                   세일할때 -->
+   	                <c:if test="${sale_price > 0 }"> 
+			<c:choose>
+                  <c:when test="${fn:contains(itemcoupon, orderList[0].itemCategory)}"><!-- 쿠폰이벤트 -->
+                     <div class="BasketListPrice">
+                   / <fmt:formatNumber value="${price }" pattern="#,###"/>원 X ${orderList[0].quantity }개
+                  </div>
+                   </c:when>
+                   
+                    <c:otherwise><!-- 세일이벤트 -->
+                  <div class="BasketListPrice">
+                     <c:set var="result_price" value="${price- sale_price}"/>
+                   / <span style="color:grey;text-decoration: line-through;"><fmt:formatNumber value="${price }" pattern="#,###"/>원</span>
+				<span style="color: red;"><fmt:formatNumber value="${result_price}" pattern="#,###"/> 원 </span>
+                   X ${orderList[0].quantity }개
+                  </div>
+                  </c:otherwise>
+                  
+                  
+                  	</c:choose>
+                  </c:if>
+                  
+                  
                </dt>
                <dt class="tdPrice">
-                  <fmt:formatNumber value="${qqq }" pattern="#,###"/>원
-                  <c:set var="tps" value="${tps+qqq }"/>
+                  <fmt:formatNumber value="${result_price*orderList[0].quantity }" pattern="#,###"/>원
+                  <c:set var="tps" value="${tps + result_price*orderList[0].quantity }"/>
                </dt>
+               
+               
+               
             </dl>
          </div>
 </c:forEach>
@@ -574,7 +620,7 @@ span.scoup { /*     쿠폰 팝업 창  */
             <dl class="trOrder">
                <dt>이메일</dt>
                <dd>
-                  <input type="text" id="i_mememail" name="mememail" maxlength="50" value="${orderListOne[0].email }" placeholder="예) example@artbox.co.kr" />
+                  <input type="text" id="i_mememail" name="mememail" maxlength="50" value="${orderListOne[0].email }" placeholder="예) example@artfox.com" />
                   <p class="null"></p>
                   <input type="hidden" name="mememail1" />
                   <input type="hidden" name="mememail2" />
@@ -727,7 +773,7 @@ span.scoup { /*     쿠폰 팝업 창  */
                      <option value="재활용 박스에 담긴 상품을 받겠습니다!">재활용 박스에 담긴 상품을 받겠습니다!</option>
                   </select>
                   <p class="null"></p>
-                  <div class="textarea"><textarea id="i_shipalertdesc" name="shipalertdesc" style="resize: none;"></textarea></div>
+                  <div class="textarea"><textarea id="i_shipalertdesc" name="shipalertdesc" maxlength="30" placeholder="30자 이내로 작성해주세요." style="resize: none;"></textarea></div>
                   <p class="null"></p>
                </dd>
             </dl>
@@ -784,11 +830,11 @@ span.scoup { /*     쿠폰 팝업 창  */
 				<tr>
 <!-- 				|| tps>mycouponList[i].coupon_condition} -->
 					<td class="c_select_td">
-						<input type="radio" name="f_coupongroup" id="f_coupongroup_b${i}" value="${mycouponList[i].coupon_price}" onclick="selectCouponGroup(${mycouponList[i].coupon_price})"> 
+						<input type="radio" name="f_coupongroup" id="f_coupongroup_b${i}" value="${mycouponList[i].coupon_price}" onclick="selectCouponGroup(${mycouponList[i].coupon_price})" coup_num="${mycouponList[i].coupon_num}"> 
 						<label for="f_coupongroup_b${i}" style="cursor: pointer; cursor: hand;">
 						<font color="#696969"><b>보너스쿠폰</b></font></label></td>
 					<td  class="c_select_td_name">
-					<input type="checkbox" name="f_couponmemberno_1_1" id="f_couponmemberno_1_1" value="TI20060493648306" onclick="selectCouponMember(1, 1)" style="display: none;">
+<!-- 					<input type="checkbox" name="f_couponmemberno_1_1" id="f_couponmemberno_1_1" value="TI20060493648306" onclick="selectCouponMember(1, 1)" style="display: none;"> -->
 						
 						<label for="f_coupongroup_${i}" style="cursor: pointer; cursor: hand;">${mycouponList[i].coupon_name}</label></td>
 					<td class="c_select_td"><font color="#9e9e9e">${mycouponList[i].coupon_condition }</font></td>
@@ -843,20 +889,68 @@ span.scoup { /*     쿠폰 팝업 창  */
 							<tr>
 								<td height="5" colspan="4" align="left"></td>
 							</tr>
-<c:if test="${!empty mycouponList}"> 
+<%-- <c:if test="${!empty mycouponList}">  --%>
 	<c:forEach items="${orderList}" var="orderList">
+	
+<%-- 	 ${orderList[0].itemCategory } --%>
+	 
+              
+              
+<%--               <jsp:useBean id="itemMap" class="java.util.HashMap"/> --%>
+<%--               <c:set var="sss" value="${s+1}" /> --%>
+              
+<%--               <c:if test="${fn:contains(itemMap,orderList[0].itemCategory)}"> --%>
+<%--                <c:set value="${orderList[0].itemprice +itemMap.orderList[0].itemprice}" target="${itemMap}" property="${orderList[0].itemCategory}" /><br> --%>
+<%--  				</c:if> --%>
+ 				
+<%--  				  <c:if test="${!fn:contains(itemMap,orderList[0].itemCategory)}"> --%>
+<%--                <c:set value="${orderList[0].itemprice }" target="${itemMap}" property="${orderList[0].itemCategory}" /><br> --%>
+<%--  				</c:if> --%>
+ 				
+ 				
+<%--  				<c:out value="${itemMap}" /> // ${orderList[0].itemCategory } --%>
+
+
+<!-- ---------------------- -->
+ 				
+
+ 				
+
+<%-- <c:forEach var="itemcategory" items="${orderList[0].itemCategory}" varStatus="status"> --%>
+	 
+<%-- 	   <c:if test="${itemcategory == mycouponList[i].coupon_condition}"> --%>
+<%-- 	       ${itemcategory} / ${mycouponList[i].coupon_condition } --%>
+<%--     <jsp:useBean id="itemMap1" class="java.util.HashMap"/> --%>
+<%-- 	   <c:set value="${orderList[0].itemprice= itemMap1.orderList[0].itemprice+orderList[0].itemprice}" target="${itemMap1}" property="${orderList[0].itemCategory}" /> --%>
+	   
+<%-- 	  <c:out value="${itemMap1}" /> --%>
+	  
+<%-- 	  </c:if></c:forEach> --%>
+              
+              
          <c:forEach var="i" begin="0" end="${fn:length(mycouponList)-1}" step="1">
          <c:set var="myCoupon" value="${mycouponList[i].coupon_category }" />
-         
-          <c:if test="${fn:contains(orderList[0].itemCategory, mycouponList[i].coupon_condition)}">
+
+           
+          <c:forEach var="itemcategory" items="${orderList[0].itemCategory}" varStatus="status">
+          	 
+          	   <c:if test="${itemcategory == mycouponList[i].coupon_condition}">
+          	   
+          	   <c:set var="s" value="${s+1}"/>
+<%--             ${itemcategory} +${s} --%>
+           
+            
          <c:if test="${myCoupon == 'goodscoupon' }">
              <c:set var="GoodsCoupontCnt" value="${GoodsCoupontCnt= GoodsCoupontCnt+1 }"/>
              <fmt:parseNumber integerOnly="true" var="coup_discount" value="${orderList[0].itemprice * mycouponList[i].coupon_price /100}"/>
+             
+             
+             
                <tr>
                   <td  align="left"  class="c_select_td_name">
-                  <input type="checkbox" name="f_couponmemberno" id="f_couponmemberno_3_${i}" value="${coup_discount}" onclick="selectCouponMember('bonus', ${i})" >
+                  <input type="checkbox" name="f_couponmemberno" id="f_couponmemberno_3_${i}" value="${coup_discount}" onclick="selectCouponMember('bonus', ${i})" coup_num="${mycouponList[i].coupon_num}" >
                   <label for="f_couponmemberno_3_${i }" style="cursor: pointer; cursor: hand;">
-                  <font color="#696969">『${mycouponList[i].coupon_name}』<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 할인 쿠폰
+                  <font color="#696969">『${mycouponList[i].coupon_name}』할인 쿠폰
                      </font></label></td>
                   <td  class="c_select_td">
                    <font color="#9e9e9e">${mycouponList[i].coupon_condition}</font></td>
@@ -868,11 +962,20 @@ span.scoup { /*     쿠폰 팝업 창  */
                   <td  class="c_select_td"><font
                      color="#9e9e9e">${mycouponList[i].coupon_limit}</font></td>
                </tr>
+               
+               
+               
+               
+               
          </c:if>
-         </c:if>
+         
+          </c:if>
+            
+              </c:forEach>
+         
          </c:forEach>
          </c:forEach>
-</c:if>			
+<%-- </c:if>			 --%>
 						</tbody>
 					</table>
 				</td>
@@ -1047,7 +1150,8 @@ span.scoup { /*     쿠폰 팝업 창  */
             <dl class="trPrice">
                <dt>상품 쿠폰</dt>
                <dd><span id="TotalUseGoodsCoupon">- 0</span> 원
-               <input type="hidden" name="TotalUseGoodsCoupon" value="0" alt="0" /></dd>
+               <input type="hidden" name="TotalUseGoodsCoupon" value="0" alt="0" />
+               <input type="hidden" id="select_coupon" name="select_coupon" value="0" alt="0" /></dd>
             </dl>
             <dl class="trPrice">
                <dt>무료배송 쿠폰</dt>
@@ -1111,7 +1215,7 @@ span.scoup { /*     쿠폰 팝업 창  */
 <input type="hidden" id="pd_name" name="pd_name" value="${orderListOne[0].itemName }"/>
 <input type="hidden" name="stockqty" value="${stockqty}"/>
 <input type="hidden" name="product_num" value="${product_num}"/>
-<input type="hidden" name="RealTotalPrice" value="0"/>
+<input type="hidden" id="RealTotalPrice" name="RealTotalPrice" value="0"/>
 
 </form>
 
@@ -1181,7 +1285,7 @@ $("#btn_order").click(function(){
 // 		merchant_uid : 'mid_' + new Date().getTime(),
 // 		pay_method: 'card',
 // 		name: $("#pd_name").val(),
-// 		amount: 100, // $("#Total").val(),
+// 		amount: 100, // $("#RealTotalPrice").val(),
 // 	    buyer_email: $("#i_mememail").val(),
 // 	    buyer_name: $("#i_memname").val(),
 // 		buyer_tel: $("#tel").val(),

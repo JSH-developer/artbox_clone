@@ -22,38 +22,42 @@
 				</div>
 		</span>
 		<a href="#" onclick="GA_event('마이페이지_PC', '상단 메뉴', '이벤트 참여/당첨 내역');"><span class="MEvent">이벤트 참여/당첨 내역</span></a>
-</div>
+</div>		
 <div class="three_box">
 	<ul>
-		<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '등급혜택보기');">
+
 			<li class="Tbox1">
 				<c:if test="${grade eq 'BRONZ' }">
+				<a href="MypageGrade.event">
 					<span class="GName grade1">BRONZ</span>
-					<img class="GImg" src="Images/img/bronz.jpg" />
-					<span class="GSee grade1">회원님의 등급입니다.</span>
+					<img class="GImg" src="${pageContext.request.contextPath}/Images/img/bronz.jpg" />
+					<span class="GSee grade1">회원님의 등급입니다.</span></a>
 				</c:if>
 				<c:if test="${grade eq 'SILVER' }">
 					<span class="GName grade2">SILVER</span>
-					<img class="GImg" src="Images/img/silver.png" />
+					<img class="GImg" src="${pageContext.request.contextPath}/Images/img/silver.png" />
 					<span class="GSee grade2">회원님의 등급입니다.</span>
 				</c:if>
 				<c:if test="${grade eq 'GOLD' }">
 					<span class="GName grade3">GOLD</span>
-					<img class="GImg" src="Images/img/gold.png" />
+					<img class="GImg" src="${pageContext.request.contextPath}/Images/img/gold.png" />
 					<span class="GSee grade3">회원님의 등급입니다.</span>
 				</c:if>
 				<c:if test="${grade eq 'DIAMOND' }">
 					<span class="GName grade4">DIAMOND</span>
-					<img class="GImg" src="Images/img/diamond.png" />
+					<img class="GImg" src="${pageContext.request.contextPath}/Images/img/diamond.png" />
 					<span class="GSee grade4">회원님의 등급입니다.</span>
 				</c:if>
 			</li>
-		</a>
+
+
 		
 		
-		<a href="MypagePointList.event" onclick="GA_event('마이페이지', '상단 메뉴', '꿈캔디 내역');"><li
-			class="Tbox2"><img class="CImg" src="Images/img/point.png" /> <span
-				class="CCandy">${mpoint}</span></li></a>
+		
+		<li class="Tbox2">
+		<a href="MypagePointList.event" onclick="GA_event('마이페이지', '상단 메뉴', '꿈캔디 내역');">
+		<img class="CImg" src="Images/img/point.png"> 
+		<span class="CCandy">${mpoint}</span></a></li>
 		<li class="Tbox3">
 			<ul>
 				<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '주문/배송');"><li>
@@ -69,6 +73,7 @@
 		</li>
 	</ul>
 </div>
+
 <div>
 	<a href="#" onclick="GA_event('마이페이지_MO', '상단 메뉴', '이벤트 참여/당첨 내역');">
 	</a>

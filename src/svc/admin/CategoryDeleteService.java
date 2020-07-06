@@ -17,7 +17,7 @@ public class CategoryDeleteService {
 		Connection con = getConnection(); 
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		adminDAO.setConnection(con);
-		
+		// category 테이블에서 삭제된 튜플 수 int 값으로 반환
 		int deleteCount = adminDAO.deleteCategory(num);
 		
 		if(deleteCount>0) {

@@ -66,7 +66,7 @@ public class MemberJoinAction implements Action {
 				PrintWriter out = response.getWriter();
 
 				out.println("<script>");
-				out.println("alert('글 등록 실패')");
+				out.println("alert('회원가입 실패')");
 				out.println("history.back()");
 				out.println("</script>");
 

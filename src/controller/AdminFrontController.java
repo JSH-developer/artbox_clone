@@ -47,23 +47,20 @@ public class AdminFrontController extends HttpServlet {
 		ProductWriteService productWriteService = new ProductWriteService();
 		OptionWriteService optionWriteService = new OptionWriteService();
 		
-		if(command.equals("/home.admin")) { // 관리자 페이지 메인화면
+		if(command.equals("/home.admin")) { // 관리자 페이지 메인화면 이동
 			forward = new ActionForward();
 			forward.setPath("/admin/adminHome.jsp");
-		}else if(command.equals("/CategoryWriteForm.admin")) {
-			// 글쓰기 페이지 요청은 비즈니스 로직이 없는 View 페이지(JSP)로 바로 연결 수행
-			// => ActionForward 객체의 포워딩 방식을 별도로 설정하지 않음 => dispatcher 방식...
+		}else if(command.equals("/CategoryWriteForm.admin")) { // 카테고리 등록 화면 이동
 			forward = new ActionForward();
-//			forward.setRedirect(false); 기본값이라서 생략 가능함
 			forward.setPath("/admin/registCategory.jsp");
-		}else if(command.equals("/CategoryWritePro.admin")) {
+		}else if(command.equals("/CategoryWritePro.admin")) { // 카테고리 등록 수행
 			action = new CategoryWriteProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/CategoryList.admin")) {
+		}else if(command.equals("/CategoryList.admin")) { // 카테고리 목록 화면 이동
 			action = new CategoryListProAction();
 			try {
 				forward = action.execute(request, response);
@@ -77,9 +74,10 @@ public class AdminFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/ProductWriteForm.admin")) { // 상품 등록 페이지
+		}else if(command.equals("/ProductWriteForm.admin")) { // 상품 등록 페이지 이동
 			forward = new ActionForward();
 			
+			// select 박스에 카테고리와 옵션 목록 불러오기
 			String categorySelectList = productWriteService.categorySelectList();
 			request.setAttribute("categorySelectList", categorySelectList);
 			String optionSelectList = productWriteService.optionSelectList();
@@ -94,14 +92,14 @@ public class AdminFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/ProductList.admin")) { // 상품 리스트 페이지
+		}else if(command.equals("/ProductList.admin")) { // 상품 리스트 페이지 이동
 			action = new ProductListProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/ProductView.admin")) { // 상품 보기 페이지
+		}else if(command.equals("/ProductView.admin")) { // 상품 상세보기 페이지 이동
 			action = new ProductViewProAction();
 			try {
 				forward = action.execute(request, response);
@@ -121,7 +119,7 @@ public class AdminFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/ProductModifyPro.admin")) { // 상품 수정 페이지 수행
+		}else if(command.equals("/ProductModifyPro.admin")) { // 상품 수정  수행
 			action = new ProductModifyProAction();
 			try {
 				forward = action.execute(request, response);
@@ -135,13 +133,13 @@ public class AdminFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/OptionWriteForm.admin")) { // 옵션 등록 페이지
+		}else if(command.equals("/OptionWriteForm.admin")) { // 옵션 등록 페이지 이동 
 			String productSelectList = optionWriteService.productSelectList();
 			request.setAttribute("productSelectList", productSelectList);
 			forward = new ActionForward();
 			forward.setPath("/admin/registOption.jsp");
 			
-		}else if(command.equals("/OptionWritePro.admin")) { // 옵션 등록 하기
+		}else if(command.equals("/OptionWritePro.admin")) { // 옵션 등록 수행
 			action = new OptionWriteProAction();
 			try {
 				forward = action.execute(request, response);
@@ -155,42 +153,42 @@ public class AdminFrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/OptionList.admin")) { // 옵션 리스트 페이지
+		}else if(command.equals("/OptionList.admin")) { // 옵션 리스트 페이지 이동
 			action = new OptionListProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/MemberList.admin")) { // 회원 리스트 페이지
+		}else if(command.equals("/MemberList.admin")) { // 회원 리스트 페이지 이동
 			action = new MemberListProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/MemberView.admin")) { // 회원 보기 페이지
+		}else if(command.equals("/MemberView.admin")) { // 회원 상세보기 페이지 이동
 			action = new MemberViewProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/MemberDeletePro.admin")) { // 회원 삭제 
+		}else if(command.equals("/MemberDeletePro.admin")) { // 회원 삭제 수행 
 			action = new MemberDeleteProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/OrderList.admin")) { // 주문 리스트 페이지
+		}else if(command.equals("/OrderList.admin")) { // 주문 리스트 페이지 이동
 			action = new AdminOrderListProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/OrderView.admin")) { // 주문 상세보기 페이지
+		}else if(command.equals("/OrderView.admin")) { // 주문 상세보기 페이지 이동
 			action = new AdminOrderViewProAction();
 			try {
 				forward = action.execute(request, response);
@@ -226,8 +224,6 @@ public class AdminFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
-		
 		
 		
 		// ActionForward 객체 내의 포워딩 방식에 따라 각각의 포워딩 작업 수행

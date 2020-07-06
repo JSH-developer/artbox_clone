@@ -35,12 +35,12 @@ public class ProductWriteProAction implements Action{
 				new DefaultFileRenamePolicy()); // 파일명 중복 시 중복 파일명을 처리할 객체
 		
 		ProductWriteService productWriteService = new ProductWriteService();
-		ProductBean productBean = new ProductBean();
+		ProductBean productBean = new ProductBean(); //svc에 전달할 ProductBean생성
 		
-		if(multi.getParameter("product_option_code").equals("00")) {
-			productBean.setProduct_code(multi.getParameter("product_category_code") + productWriteService.countProduct() + multi.getParameter("product_option_code")); // 상품코드 = 카테고리 + 옵션
-		}else {
-			productBean.setProduct_code(multi.getParameter("product_category_code") + multi.getParameter("product_option_code")); // 상품코드 = 카테고리 + 옵션
+		if(multi.getParameter("product_option_code").equals("00")) { // 기본코드 생성시
+			productBean.setProduct_code(multi.getParameter("product_category_code") + productWriteService.countProduct() + multi.getParameter("product_option_code")); // 상품인덱스+00
+		}else { //옵션코드 생성시
+			productBean.setProduct_code(multi.getParameter("product_category_code") + multi.getParameter("product_option_code")); // 상품인덱스 + 옵션고유번호
 		}
 		 
 		productBean.setProduct_name(multi.getParameter("product_name"));
@@ -60,13 +60,12 @@ public class ProductWriteProAction implements Action{
 			productBean.setProduct_option_code(multi.getParameter("product_option_code"));
 		}
 		
-		boolean isRegist = productWriteService.registProduct(productBean);
+		boolean isRegist = productWriteService.registProduct(productBean); // svc에 ProductBean 전달
 		
 		
 		if(isRegist) {
-			// dispatch 방식으로 이동
 			forward.setPath("ProductList.admin");
-		}else {
+		}else { // 등록 실패시 alert창 띄우기
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script type=\"text/javascript\">");
