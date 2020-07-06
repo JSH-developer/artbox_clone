@@ -773,7 +773,7 @@ span.scoup { /*     쿠폰 팝업 창  */
                      <option value="재활용 박스에 담긴 상품을 받겠습니다!">재활용 박스에 담긴 상품을 받겠습니다!</option>
                   </select>
                   <p class="null"></p>
-                  <div class="textarea"><textarea id="i_shipalertdesc" name="shipalertdesc" style="resize: none;"></textarea></div>
+                  <div class="textarea"><textarea id="i_shipalertdesc" name="shipalertdesc" maxlength="30" placeholder="30자 이내로 작성해주세요." style="resize: none;"></textarea></div>
                   <p class="null"></p>
                </dd>
             </dl>
@@ -1215,7 +1215,7 @@ span.scoup { /*     쿠폰 팝업 창  */
 <input type="hidden" id="pd_name" name="pd_name" value="${orderListOne[0].itemName }"/>
 <input type="hidden" name="stockqty" value="${stockqty}"/>
 <input type="hidden" name="product_num" value="${product_num}"/>
-<input type="hidden" name="RealTotalPrice" value="0"/>
+<input type="hidden" id="RealTotalPrice" name="RealTotalPrice" value="0"/>
 
 </form>
 
@@ -1285,7 +1285,7 @@ $("#btn_order").click(function(){
 // 		merchant_uid : 'mid_' + new Date().getTime(),
 // 		pay_method: 'card',
 // 		name: $("#pd_name").val(),
-// 		amount: 100, // $("#Total").val(),
+// 		amount: 100, // $("#RealTotalPrice").val(),
 // 	    buyer_email: $("#i_mememail").val(),
 // 	    buyer_name: $("#i_memname").val(),
 // 		buyer_tel: $("#tel").val(),
