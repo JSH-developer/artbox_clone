@@ -121,7 +121,6 @@
 	<c:forEach var="i" begin="0" end="2" step="1">
 	<a class="NewArrival${i+1}" href="./itemDetail.item?product_num=${newItems[i].product_num}" target="_self" style=" 
 		background-image:url(${pageContext.request.contextPath}/upload/${newItems[i].product_image});" >
-			<b>${newItems[i].product_name}</b>
 		</a>
 		</c:forEach>
 		

@@ -8,16 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-    
-<%
-// 	ArrayList<EventBean> articleList=(ArrayList<EventBean>)request.getAttribute("articleList");
-//     PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
-// 	int listCount=pageInfo.getListCount();
-// 	int nowPage=pageInfo.getPage();
-// 	int maxPage=pageInfo.getMaxPage();
-// 	int startPage=pageInfo.getStartPage();
-// 	int endPage=pageInfo.getEndPage();
-%>
+
 
 <c:set var="listCount" value="${pageInfo.listCount}"></c:set>
 <c:set var="nowPage" value="${pageInfo.page}"></c:set>
@@ -57,7 +48,6 @@ font-size: 18px;}
 		<ul>
 			<li class="eventMiddle"><a href="EventCategoryList.event?event_category=sale_event" onclick="GA_event('HEAD', '최상단 메뉴', '인형/토이');">기획전</a></li>
 			<li class="eventMiddle"><a href="EventCategoryList.event?event_category=coup_event" onclick="GA_event('HEAD', '최상단 메뉴', '문구');">쿠폰존</a></li>
-			<li class="eventMiddle"><a href="${pageContext.request.contextPath}/event/basic.jsp" onclick="GA_event('HEAD', '최상단 메뉴', '패션');">타임이벤트</a></li>
 		</ul>
 </div>
 

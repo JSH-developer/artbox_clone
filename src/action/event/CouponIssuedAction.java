@@ -18,6 +18,8 @@ public class CouponIssuedAction implements Action {
 		
 		String getid = request.getParameter("getid");
 		int getCouponNum = Integer.parseInt(request.getParameter("couponNum"));
+		System.out.println("getid"+getid);
+		System.out.println("couponNum"+getCouponNum);
 		
 		CouponService couponService = new CouponService();
 		Boolean isSuceess = couponService.couponIssued(getid,getCouponNum);

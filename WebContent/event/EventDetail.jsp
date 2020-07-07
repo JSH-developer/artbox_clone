@@ -69,38 +69,17 @@ ${eventArticle.event_content }
 		
 		 	<c:set var="realprice" value="${itemList[i].product_price}" />
 		 	<c:set var="saleprice" value="${itemList[i].product_sale_price}" />
-		 	
-<%-- 		 		<c:if test="${ eventArticle.event_category eq 'coup_event'}" >  --%>
-<%-- 				<c:set var="coup_price" value="${itemcoupon.coupon_price}" /> --%>
-<%-- 				<c:set var="saleprice" value="${ realprice - coup_price}" /> --%>
-<%-- 				</c:if> --%>
-		 	
-<%-- 				<c:if test="${ eventArticle.event_category eq 'sale_event'}" >  --%>
-<%-- 				<c:set var="eventprice" value="${eventArticle.event_discount}" /> --%>
-<%-- 				<c:set var="saleprice" value="${ realprice - ((realprice * eventprice)/100)}" /> --%>
-<%-- 				</c:if> --%>
 				
 		
 		<fmt:parseNumber var="saleprice" value="${saleprice }" integerOnly="true" />
 
 <!-- 		상품불러오는코드		 -->
-<!-- itemDetail.item?product_num=6 -->
-<%-- 		<div class="event_content" onclick="location.href='itemDetail.item?product_num=${itemList[i].product_num}&page=${nowpage}&condition=${itemList[i].product_category_code}'"> --%>
 	<div class="event_content" onclick="location.href='itemDetail.item?product_num=${itemList[i].product_num}'">
 	<div>
 				<img src="${pageContext.request.contextPath}/upload/${itemList[i].product_image}" width="215px" height="215px">
 			
-				<b style="padding:0;">${itemList[i].product_name}</b>
-<%-- 				<p style="color:red;">${itemList[i].product_category_code}</p> --%>
+				<p><b style="padding:0;">${itemList[i].product_name}</b></p>
 				<p>
-<%-- 				<span id="rprice" >${realprice}원</span> --%>
-				
-<%-- 				<c:if test="${ eventArticle.event_category eq 'coup_event' or  eventArticle.event_category eq 'sale_event'}" >  --%>
-<!-- 				<style> -->
-<!-- /* 				span#rprice{text-decoration: line-through;color: grey;} */ -->
-<!-- 				</style> -->
-<%-- 				&nbsp; <span style="color: black;">${realprice - saleprice}원</span> --%>
-<%-- 				</c:if> --%>
 				
 	<c:if test="${itemList[i].product_sale_price == 0 }">
 		<span ><fmt:formatNumber value="${item.product_price}" pattern="#,###원" /></span>

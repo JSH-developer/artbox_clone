@@ -30,11 +30,13 @@
 	<div class="top_title">쿠폰</div>
 	
 	<c:set var="bonusCouponCount" value="0"/>
+	<c:set var="goodsCouponCount" value="0"/>
 <c:set var="freeCouponCount" value="0"/>
 <c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
 <c:if test="${mycouponList[i].coupon_use eq 1 }">
 
 <c:set var="Coupon" value="${mycouponList[i].coupon_category}" />
+
 <c:if test="${Coupon eq 'bonuscoupon' }">
 <c:set var="bonusCouponCount" value="${bonusCouponCount=bonusCouponCount+1 }"/>
 </c:if>
@@ -112,9 +114,20 @@
 		<c:set var="myCoupon" value="${mycouponList[i].coupon_category}" />
 		<c:if test="${myCoupon eq 'bonuscoupon'  && mycouponList[i].coupon_use eq 1}">
 							<li>
-								<div class="CouponImage">
-									<img
-										src="http://www.poom.co.kr/Images/Ver2/Mypoom/sale2000.jpg">
+								<div class="CouponImage" >
+								<c:if test="${mycouponList[i].coupon_price eq 1000 }">
+									<img src="${pageContext.request.contextPath}/Images/coupon/1000won.png" style="width: 250px;height: 100px;border: 1px solid lightgrey;">
+									</c:if>
+								<c:if test="${mycouponList[i].coupon_price eq 2000 }">
+									<img src="${pageContext.request.contextPath}/Images/coupon/2000won.png" style="width: 250px;height: 100px;border: 1px solid lightgrey;">
+									</c:if>
+								<c:if test="${mycouponList[i].coupon_price eq 3000}">
+								<img src="${pageContext.request.contextPath}/Images/coupon/3000won.png" style="width: 250px;height: 100px;border: 1px solid lightgrey;">
+									</c:if>
+								<c:if test="${mycouponList[i].coupon_price eq 5000}">
+									<img src="${pageContext.request.contextPath}/Images/coupon/5000won.png" style="width: 250px;height: 100px;border: 1px solid lightgrey;">
+									</c:if>	
+								
 								</div>
 									<div class="CouponName" title= "${ mycouponList[i].coupon_name}">
 								${mycouponList[i].coupon_name}</div>
@@ -130,16 +143,16 @@
 						</ul>
 					</div>
 					
-				<div class="detail_tab">상품 쿠폰 (${goodsCouponCount }장)</div>
-					<div class="CouponList">
+		<div class="detail_tab">상품 쿠폰 (${goodsCouponCount }장)</div>
+		
+		<div class="CouponList">
 						<ul>
 		<c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
 		<c:set var="myCoupon" value="${mycouponList[i].coupon_category}" />
 		<c:if test="${myCoupon eq 'goodscoupon' && mycouponList[i].coupon_use eq 1}">
 							<li>
 								<div class="CouponImage">
-									<img
-										src="http://www.poom.co.kr/Images/Ver2/Mypoom/sale2000.jpg">
+								<img src="${pageContext.request.contextPath}/Images/coupon/goodscoupon.png" style="width: 250px;height: 100px;border: 1px solid lightgrey;">
 								</div>
 									<div class="CouponName" title= "${ mycouponList[i].coupon_name}">
 								${mycouponList[i].coupon_name}</div>
@@ -148,10 +161,10 @@
 									<span>${mycouponList[i].coupon_reason}</span>
 								</div>
 							</li>
-						</c:if>
-						</c:forEach>
-						</ul>
-					</div>
+		</c:if>
+			</c:forEach>
+			</ul>
+		</div>
 
 
 					<div class="detail_tab">
@@ -163,7 +176,9 @@
 								<c:set var="myCoupon" value="${mycouponList[i].coupon_category}" />
 								<c:if test="${myCoupon eq 'freecoupon' && mycouponList[i].coupon_use eq 1}">
 									<li>
-										<div class="CouponImage"> <img src="http://www.poom.co.kr/Images/Ver2/Mypoom/sale2000.jpg"></div>
+										<div class="CouponImage"> 
+										<img src="${pageContext.request.contextPath}/Images/coupon/2500won.png" style="width: 250px;height: 100px;border: 1px solid lightgrey;">
+										</div>
 										<div class="CouponName" title="${ mycouponList[i].coupon_name}">${mycouponList[i].coupon_name}</div>
 										<div class="CouponInfo">
 											<span>${mycouponList[i].coupon_start} ~${mycouponList[i].coupon_limit}</span> 
@@ -182,13 +197,7 @@
 					
 					
 					
-				
-				
-				
-				
-				
-
-				<div class="coupon_tab on">매장 전용 쿠폰 (0장)</div>
+	<div class="coupon_tab on">매장 전용 쿠폰 (0장)</div>
 	
 	<div class="coupon_box nocoupon">보유한 쿠폰이 없습니다.</div>
 

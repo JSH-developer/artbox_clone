@@ -47,15 +47,13 @@
 				<li>
 					<div class="inner_box">
 						<div class="subj pc">사용가능 꿈캔디</div>
-<%-- 						point :${Mypointrecode[0].mypoint}/${mpoint } --%>
-						
-						<c:if test="${Mypointrecode[0].mypoint != '' } ">
+						<c:if test="${Mypointrecode ne '[]'}" >
 						<div class="cont type1">${Mypointrecode[0].mypoint }</div>
 						</c:if>
 						
-<%-- 						<c:if test="${Mypointrecode[0].mypoint == '' || Mypointrecode[0].mypoint == null } "> --%>
+						<c:if test="${Mypointrecode eq '[]'}" >
 						<div class="cont type1">${mpoint }</div>
-<%-- 						</c:if> --%>
+						</c:if>
 						
 						
 					</div>
@@ -105,11 +103,11 @@
 							</tr>
 						</tbody>
 					</table>
-					<c:if test="${empty Mypointrecode }">
+					<c:if test="${Mypointrecode eq '[]'}" >
 					<div class="noData">적립/사용 내역이 없습니다.</div>
 					</c:if>
 					
-					<c:if test="${!empty Mypointrecode }">
+					<c:if test="${Mypointrecode ne '[]'}" >
 					<table cellspacing="0">
 						<tbody>
 						<c:forEach var="i" begin="0" end="${fn:length(Mypointrecode) -1}" step="1">

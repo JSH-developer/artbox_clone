@@ -21,15 +21,16 @@ public class CouponWriteProAction implements Action {
 		couponBean.setCoupon_name(request.getParameter("coupon_name"));
 		couponBean.setCoupon_price(Integer.parseInt(request.getParameter("coupon_price")));
 		
-		String coup_condition = request.getParameter("coupon_p_condition");
-		System.out.println("condition: "+coup_condition);
-		System.out.println("p_condition: "+request.getParameter("coupon_p_condition"));
+		String coup_category = request.getParameter("coupon_category");
+		System.out.println("coup_category"+coup_category);
+		System.out.println("coupon_p_condition: "+request.getParameter("coupon_p_condition"));
+		System.out.println("coupon_condition: "+request.getParameter("coupon_condition"));
 		
-		if(coup_condition != null) {
-			System.out.println("안들어오나?");
+		if(coup_category.equals("bonuscoupon") ) {
+			System.out.println("보너스쿠폰");
 			couponBean.setCoupon_condition(request.getParameter("coupon_p_condition"));
-		}else {
-			System.out.println("0아닐때");
+		}else if(coup_category.equals("goodscoupon") ) {
+			System.out.println("상품쿠폰");
 			couponBean.setCoupon_condition(request.getParameter("coupon_condition"));
 		}
 		
