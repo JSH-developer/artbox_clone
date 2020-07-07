@@ -81,7 +81,7 @@
 </head>
 <body>
 <c:set var="showAllUrl" value="${pageContext.request.contextPath}/itemList.item?major=${code}&minor=&kwd=${kwd}&doOrder=&page=1&src="/>
-<c:set var="selectBoxUrl" value="http://localhost:8080${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&page=${page}&src=${src}"/>	
+<c:set var="selectBoxUrl" value="http://itwillbs9.cafe24.com/${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&page=${page}&src=${src}"/>	
 <c:set var="pagerUrl" value="${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=${doOrder}&page=${startPage+i}&src=${src}"/>	
 <c:set var="categoryUrl" value="${pageContext.request.contextPath}/itemList.item?major=${code}&kwd=${kwd}&doOrder=&page=1&src="/>	
 	<div class="page">
