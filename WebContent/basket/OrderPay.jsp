@@ -75,7 +75,7 @@ $(document).ready(function(){
 			$(this).val(maxValue);
 		}
 		$("input[name=TotalUseMileage]").val($(this).val(),10);
-		$("#TotalUseMileage").text("- " + parseInt($(this).val(), 10));
+		$("#TotalUseMileage").text("- " + setComma(parseInt($(this).val(), 10)));
 		fnTotalPriceAmount();
 	});
 	
@@ -1277,29 +1277,33 @@ $("#btn_order").click(function(){
 		return;
 	}
 	
-	// 아임포트 API
-// 	IMP.request_pay({
-// 		pg: 'inicis', // version 1.1.0부터 지원.
-// 		merchant_uid : 'mid_' + new Date().getTime(),
-// 		pay_method: 'card',
-// 		name: $("#pd_name").val(),
-// 		amount: 100, // $("#RealTotalPrice").val(),
-// 	    buyer_email: $("#i_mememail").val(),
-// 	    buyer_name: $("#i_memname").val(),
-// 		buyer_tel: $("#tel").val(),
-//     	buyer_addr: $("#i_shipaddr").val(),
-//     	buyer_postcode: $("#i_shipzipcode").val()
-// 	}, function(rsp) {
-// 		if ( rsp.success ) {
-//     		var msg = '결제가 완료되었습니다.';
-    		fr.submit();
-// 		} else {
-// 			var msg = '결제에 실패하였습니다.';
-// 			msg += '에러내용 : ' + rsp.error_msg;
-// 		}
-// 	alert(msg);
-// 	})
-	
+	// 총 결제 금액이 0원일 경우 아임포트 API 거치지않고 주문완료
+// 	if($("#RealTotalPrice").val() == 0) {
+		fr.submit();
+// 	} else { // 결제금액이 0원 이상일 경우 결제창 띄움
+// 		// 아임포트 API
+// 		IMP.request_pay({
+// 			pg: 'inicis', // version 1.1.0부터 지원.
+// 			merchant_uid : 'mid_' + new Date().getTime(),
+// 			pay_method: 'card',
+// 			name: $("#pd_name").val(),
+// 			amount: 100, // $("#RealTotalPrice").val(),
+// 		    buyer_email: $("#i_mememail").val(),
+// 		    buyer_name: $("#i_memname").val(),
+// 			buyer_tel: $("#tel").val(),
+//    	 		buyer_addr: $("#i_shipaddr").val(),
+//    	 		buyer_postcode: $("#i_shipzipcode").val()
+// 		}, function(rsp) {
+// 			if ( rsp.success ) {
+//     			var msg = '결제가 완료되었습니다.';
+//     			fr.submit();
+// 			} else {
+// 				var msg = '결제에 실패하였습니다.';
+// 				msg += '에러내용 : ' + rsp.error_msg;
+// 			}
+// 		alert(msg);
+// 		})
+// 	}
 });
 </script>
 <!--  푸터 -->
