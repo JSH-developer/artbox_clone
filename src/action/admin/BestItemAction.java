@@ -34,6 +34,10 @@ public class BestItemAction implements action.Action{
 		
 		request.setAttribute("newItems", newItems);
 		
+
+
+
+		
 //		event 리스트
 		int page = 1;
 		int limit = 10;
@@ -41,12 +45,17 @@ public class BestItemAction implements action.Action{
 		if(request.getParameter("page")!=null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
-		EventService eventService = new EventService();
 		
+		EventService eventService = new EventService();
 		int listCount = eventService.getAllListCount();
 		System.out.println("EventListAction - listCount : "+listCount);
 		
 		ArrayList<EventBean> eventList = eventService.getAllArticleList(page,limit);
+		
+//		drop event
+		System.out.println("dropEvent");
+		eventService.dropEvent(eventList);
+		
 		request.setAttribute("eventList", eventList);
 		
 		

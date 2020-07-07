@@ -19,6 +19,7 @@ public class EventWriteProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// 이벤트 등록 완료 action
 		ActionForward forward = null;
 		Timestamp reg_date = new Timestamp(System.currentTimeMillis());
 		

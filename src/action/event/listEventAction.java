@@ -18,6 +18,7 @@ public class listEventAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// admin용 모든 리스트 불러오기
 		ActionForward forward = null;
 		
 		int page = 1;
@@ -31,10 +32,16 @@ public class listEventAction implements Action {
 		
 		EventService eventService = new EventService();
 		
+		
+		
 		int listCount = eventService.getAllListCount();
 		System.out.println("EventListAction - listCount : "+listCount);
 		
 		ArrayList<EventBean> articleList = eventService.getAllArticleList(page,limit);
+		
+//		drop event
+		System.out.println("dropEvent");
+		eventService.dropEvent(articleList);
 		
 		// 페이징 처리를 위해 페이지 수 계산
 		// 1. 최대 페이지 번호 계산: 전체 게시물 수 / limit 결과를 반올림 처리 위해 0.95

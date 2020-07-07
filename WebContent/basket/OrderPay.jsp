@@ -823,18 +823,16 @@ span.scoup { /*     쿠폰 팝업 창  */
 			<!--  bonuscoupon 가져오는 for문 -->
 			<c:if test="${!empty mycouponList}"> 
 			<c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
+<!-- 			bonus 쿠폰인지 변수에 저장 -->
 			 <c:set var="myCoupon" value="${mycouponList[i].coupon_category}" />
-			
 			<c:if test="${myCoupon eq 'bonuscoupon' && total_price111 >= mycouponList[i].coupon_condition}">
 			  <c:set var="BonusCoupontCnt" value="${BonusCoupontCnt=BonusCoupontCnt+1 }"/>
 				<tr>
-<!-- 				|| tps>mycouponList[i].coupon_condition} -->
 					<td class="c_select_td">
 						<input type="radio" name="f_coupongroup" id="f_coupongroup_b${i}" value="${mycouponList[i].coupon_price}" onclick="selectCouponGroup(${mycouponList[i].coupon_price})" coup_num="${mycouponList[i].coupon_num}"> 
 						<label for="f_coupongroup_b${i}" style="cursor: pointer; cursor: hand;">
 						<font color="#696969"><b>보너스쿠폰</b></font></label></td>
 					<td  class="c_select_td_name">
-<!-- 					<input type="checkbox" name="f_couponmemberno_1_1" id="f_couponmemberno_1_1" value="TI20060493648306" onclick="selectCouponMember(1, 1)" style="display: none;"> -->
 						
 						<label for="f_coupongroup_${i}" style="cursor: pointer; cursor: hand;">${mycouponList[i].coupon_name}</label></td>
 					<td class="c_select_td"><font color="#9e9e9e">${mycouponList[i].coupon_condition }</font></td>

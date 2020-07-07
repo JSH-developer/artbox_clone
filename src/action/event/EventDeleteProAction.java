@@ -13,6 +13,7 @@ public class EventDeleteProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// 이벤트 삭제 action
 		ActionForward forward = null;
 		
 		// admin 확인 절차 넣기
