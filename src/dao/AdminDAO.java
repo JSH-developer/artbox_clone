@@ -1343,7 +1343,12 @@ public class AdminDAO {
 		ArrayList<ProductBean> bestList= new ArrayList<ProductBean>();
 		
 		try {
-			String sql="SELECT num,name,image,price,sale_price FROM count ORDER BY cnt_order DESC, regdate DESC limit 0,10";
+			String sql="SELECT num,name,image,price,sale_price FROM product LEFT OUTER JOIN\r\n" + 
+					"(SELECT product_num,cnt_order,cnt_review FROM (SELECT product_num, SUM(quantity) 'cnt_order' FROM orders_detail GROUP BY product_num) cnt1\r\n" + 
+					"LEFT OUTER JOIN (SELECT product_num 'tmp_pn', COUNT(num) 'cnt_review' FROM review GROUP BY product_num) cnt2\r\n" + 
+					"ON cnt1.product_num = cnt2.tmp_pn) cnt_tbl\r\n" + 
+					"ON product.num = cnt_tbl.product_num\r\n" + 
+					"ORDER BY cnt_order DESC, regdate DESC limit 0,10;";
 			// count 뷰를 활용해 1차적으로 주문량이 가장 많은 상품을 구하고 2차적으로 등록날짜 내림차순 기준으로 10개의 상품을 구한다.
 			pstmt=con.prepareStatement(sql);
 			

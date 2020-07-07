@@ -11,6 +11,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import action.Action;
+import svc.item.ReviewUpdateSVC;
 import svc.item.ReviewWriteSVC;
 import vo.ActionForward;
 import vo.ReviewBean;
@@ -25,7 +26,6 @@ public class ReviewWriteAction implements Action {
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
 		
-		
 		// 현재 컨텍스트(객체) 정보 가져오기 위해 request 객체로부터 getServletContext() 메서드 호출
 		ServletContext context = request.getServletContext();
 		
@@ -39,7 +39,7 @@ public class ReviewWriteAction implements Action {
 		String realFolder = context.getRealPath(saveFolder);
 		
 		// 업로드 할 최대 파일 사이즈 지정(전체 숫자 입력 보단 단위별로 분리하는 것이 좋다!)
-		int fileSize = 1024 * 1024 * 10; // 1024byte = 1KByte * 1024 = 1MB * 10 = 10MB 
+		int fileSize = 1024 * 1024 * 50; // 1024byte = 1KByte * 1024 = 1MB * 50 = 50MB 
 		
 		// MultiPartRequest 객체 생성 => cos.jar 필요
 		MultipartRequest multi = new MultipartRequest(
@@ -57,6 +57,15 @@ public class ReviewWriteAction implements Action {
 //		}
 		
 		request.setCharacterEncoding("UTF-8");
+		String review_num = (String)multi.getParameter("review_num");
+		if(review_num.equals("")) {
+			System.out.println("작성임");
+			reviewBean.setReview_product_num(Integer.parseInt(multi.getParameter("product_num")));
+		}else {
+			System.out.println("수정임");
+			reviewBean.setReview_num(Integer.parseInt(review_num));
+		}	
+		reviewBean.setReview_skill(Integer.parseInt(multi.getParameter("skill")));
 		reviewBean.setReview_skill(Integer.parseInt(multi.getParameter("skill")));
 		reviewBean.setReview_design(Integer.parseInt(multi.getParameter("design")));
 		reviewBean.setReview_price(Integer.parseInt(multi.getParameter("price")));
@@ -68,10 +77,15 @@ public class ReviewWriteAction implements Action {
 		reviewBean.setReview_img4(multi.getFilesystemName("review_img4"));
 		reviewBean.setReview_img5(multi.getFilesystemName("review_img5"));
 		reviewBean.setReview_member_id(id);
-		reviewBean.setReview_product_num(Integer.parseInt(multi.getParameter("product_num")));
 		
-		ReviewWriteSVC reviewWriteSVC = new ReviewWriteSVC();
-		boolean isWriteSuccess = reviewWriteSVC.registReview(reviewBean);
+		boolean isWriteSuccess;
+		if(review_num.equals("")) {
+			ReviewWriteSVC reviewWriteSVC = new ReviewWriteSVC();
+			isWriteSuccess = reviewWriteSVC.registReview(reviewBean);
+		}else {
+			ReviewUpdateSVC reviewUpdateSVC = new ReviewUpdateSVC();
+			isWriteSuccess = reviewUpdateSVC.updateReview(reviewBean);
+		}	
 		
 		if(!isWriteSuccess) {
 			response.setContentType("text/html;charset=UTF-8");

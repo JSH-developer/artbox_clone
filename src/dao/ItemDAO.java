@@ -262,6 +262,69 @@ public class ItemDAO {
 		
 		return insertCount;
 	}
+	
+	
+	public int updateReview(ReviewBean reviewBean) {
+		int updateCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {			
+			String sql = "UPDATE review "
+					+ "SET skill=?, design=?, price=?, quality=?, content=?, img1=?, img2=?, img3=?, img4=?, img5=? "
+					+ "WHERE num =?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, reviewBean.getReview_skill());
+			pstmt.setInt(2, reviewBean.getReview_design());
+			pstmt.setInt(3, reviewBean.getReview_price());
+			pstmt.setInt(4, reviewBean.getReview_quality());
+			pstmt.setString(5, reviewBean.getReview_content());
+			pstmt.setString(6, reviewBean.getReview_img1());
+			pstmt.setString(7, reviewBean.getReview_img2());
+			pstmt.setString(8, reviewBean.getReview_img3());
+			pstmt.setString(9, reviewBean.getReview_img4());
+			pstmt.setString(10, reviewBean.getReview_img5());
+			pstmt.setInt(11, reviewBean.getReview_num());
+
+			// UPDATE 구문 실행 후 리턴되는 결과값을 updateCount 변수에 저장
+			updateCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - updateReview() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return updateCount;
+	}
+
+	public int deleteReview(String id, int review_num) {
+		int deleteCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {			
+			String sql = "DELETE FROM review WHERE num=? AND member_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, review_num);
+			pstmt.setString(2, id);
+
+			// DELETE 구문 실행 후 리턴되는 결과값을 deleteCount 변수에 저장
+			deleteCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - deleteReview() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return deleteCount;
+	}
+	
 
 	public int selectItemReviewListCount(String id) {
 		int listCount=0;
@@ -320,7 +383,7 @@ public class ItemDAO {
 				itemReviewList.add(article);
 			}
 		} catch (SQLException e) {
-			System.out.println("ItemDAO - selectReviewList() 실패! : " + e.getMessage());
+			System.out.println("ItemDAO - selectItemReviewList() 실패! : " + e.getMessage());
 		} finally {
 			close(rs);
 			close(pstmt);
@@ -328,7 +391,81 @@ public class ItemDAO {
 		
 		return itemReviewList;
 	}
+		
 
+	public int selectItemReviewModListCount(String id) {
+		int listCount=0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {String sql = "SELECT COUNT(num) FROM review WHERE member_id=? ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - selectItemReviewModListCount() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	
+	public ArrayList<ReviewBean> selectItemReviewModList(String id, int page, int limit) {
+		ArrayList<ReviewBean> itemReviewModList = new ArrayList<ReviewBean>();
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int startRow = (page - 1) * limit;
+		
+		try {
+			String sql = "SELECT * "
+					+ "FROM review INNER JOIN product ON review.product_num = product.num "
+					+ "WHERE member_id=? LIMIT ?,?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, limit);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ReviewBean article = new ReviewBean();
+				article.setReview_num(rs.getInt("review.num"));
+				article.setReview_skill(rs.getInt("review.skill"));
+				article.setReview_design(rs.getInt("review.design"));
+				article.setReview_price(rs.getInt("review.price"));
+				article.setReview_quality(rs.getInt("review.quality"));
+				article.setReview_regdate(rs.getTimestamp("review.regdate"));
+				article.setReview_content(rs.getString("review.content"));
+				article.setReview_re_name(rs.getString("product.image"));
+				article.setReview_member_id(rs.getString("review.member_id"));
+				article.setReview_product_num(rs.getInt("review.product_num"));
+				article.setReview_img1(rs.getString("review.img1"));
+				article.setReview_img2(rs.getString("review.img2"));
+				article.setReview_img3(rs.getString("review.img3"));
+				article.setReview_img4(rs.getString("review.img4"));
+				article.setReview_img5(rs.getString("review.img5"));
+				itemReviewModList.add(article);
+			}
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - selectItemReviewModList() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return itemReviewModList;
+	}
+	
+	
 	public int selecReviewtListCount(int porduct_num) {
 		int listCount = 0;
 		
@@ -403,6 +540,33 @@ public class ItemDAO {
 		
 		return reviewList;
 	}
+
+	public int updateReviewAnswer(int reNum, String reName, String reContent) {
+		int updateCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "UPDATE review SET re_check=?,re_name=?,re_regdate=now(),re_content=? WHERE num=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, 1);
+			pstmt.setString(2, reName);
+			pstmt.setString(3, reContent);
+			pstmt.setInt(4, reNum);
+			
+			updateCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - updateReviewAnswer() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return updateCount;
+	}
 	
 	public int insertQuestion(QuestionBean questionBean) {
 		int insertCount = 0;
@@ -462,10 +626,12 @@ public class ItemDAO {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				QuestionBean article = new QuestionBean();
+				article.setQuestion_num(rs.getInt("num"));
 				article.setQuestion_title(rs.getString("title"));
 				article.setQuestion_content(rs.getString("content"));
 				article.setQuestion_answer(rs.getString("answer"));
 				article.setQuestion_member_id(rs.getString("member_id"));
+				article.setQuestion_product_num(rs.getInt("product_num"));
 				article.setQuestion_regdate(rs.getTimestamp("regdate"));
 				questionList.add(article);
 			}
@@ -505,8 +671,33 @@ public class ItemDAO {
 	}
 
 
+	public int updateQuestionAnswer(int qnaNum, String qnaContent) {
+		int updateCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "UPDATE question SET answer=? WHERE num=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, qnaContent);
+			pstmt.setInt(2, qnaNum);
+			
+			updateCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - updateQuestionAnswer() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return updateCount;
+	}
+	
+	
 	public CategoryBean getCategory(String product_category_code) {
-		System.out.println("getCategory");
 		CategoryBean categoryBean = new CategoryBean();
 		
 		PreparedStatement pstmt = null;
@@ -532,12 +723,4 @@ public class ItemDAO {
 		return categoryBean;
 	}
 
-
-
-
-	
-
-
-
-	
 }

@@ -16,7 +16,6 @@ public class ReviewListAction  implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		
 		request.setCharacterEncoding("UTF-8");
 		int porduct_num = Integer.parseInt(request.getParameter("product_num"));
 		
@@ -47,7 +46,6 @@ public class ReviewListAction  implements Action {
 		// 페이징 정보를 저장할 PageInfo 객체 생성 및 데이터 저장
 		PageInfo pageInfo = new PageInfo(page, maxPage, startPage, endPage, listCount);
 		request.setAttribute("reviewPageInfo", pageInfo);
-
 		
 		forward = new ActionForward();
 		forward.setPath("/item/reviewList.jsp");

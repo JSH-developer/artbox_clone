@@ -22,10 +22,16 @@
 					<span class="td type2">${rl.review_content }</span>
 					<span class="td"><fmt:formatDate value="${rl.review_regdate }" pattern="yyyy-MM-dd"/></span>
 					<span class="td">${rl.review_member_id }</span>
+					<c:if test="${rl.review_re_check == 1 }">
+						<span class="td"></span>
+						<span class="td topline type2"> └ ${rl.review_re_content }</span>
+						<span class="td topline "><fmt:formatDate value="${rl.review_re_regdate }" pattern="yyyy-MM-dd"/></span>
+						<span class="td topline ">${rl.review_re_name }</span>
+					</c:if>
 				</div>
 				
 				<div class="ps">
-					<span class="ps_score">${score * 2}</span>
+					<span class="ps_score"><fmt:formatNumber value="${score * 2}" type="number" pattern="0" /></span>
 					<div class="ps_sub1">
 						<span>기능 <c:forEach var="i" begin="1" end="${rl.review_skill }" step="1">★</c:forEach><c:forEach var="i" begin="${rl.review_skill + 1}" end="5" step="1">☆</c:forEach></span>
 						<span>디자인 <c:forEach var="i" begin="1" end="${rl.review_design }" step="1">★</c:forEach><c:forEach var="i" begin="${rl.review_design + 1}" end="5" step="1">☆</c:forEach></span>
@@ -40,7 +46,24 @@
 						<c:if test="${!empty rl.review_img4 }"><img src="${pageContext.request.contextPath}/upload/${rl.review_img4}"></c:if>
 						<c:if test="${!empty rl.review_img5 }"><img src="${pageContext.request.contextPath}/upload/${rl.review_img5}"></c:if>
 					</div>
+					<c:if test="${rl.review_re_check == 0 }">
+						<c:if test="${id eq 'admin' }">
+							<form action="reviewAnswer.item" method="post">
+								<input type="hidden" name="product_num" value="${rl.review_product_num }">
+								<input type="hidden" name="reNum" value="${rl.review_num }">
+								작성자 &nbsp;&nbsp; : &nbsp;&nbsp; <input type="text" name="reName">
+								<textarea name="reContent"></textarea>
+								<input type="submit" value="답변하기">
+							</form>
+						</c:if>
+					</c:if>
 				</div>
+				<c:if test="${rl.review_re_check == 1 }">
+					<div class="ps">
+						<div class="ps_sub4">${rl.review_re_name }</div>
+						<div class="ps_sub5">${rl.review_re_content }</div>
+					</div>
+				</c:if>
 			</div>
 		</c:forEach> 
 		<div class="paging">
@@ -75,3 +98,4 @@
 		</div>
 	</c:otherwise>
 </c:choose>
+

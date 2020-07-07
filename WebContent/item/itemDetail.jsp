@@ -13,7 +13,7 @@
     <link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
     <link href="${pageContext.request.contextPath}/css/item/itemDetail.css" rel="stylesheet" type="text/css">
 	<link href="${pageContext.request.contextPath}/css/item/swiper.min.css" rel="stylesheet" type="text/css">
-	<script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/swiper.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 	
 	<script type="text/javascript">
@@ -23,21 +23,23 @@
 // 		replaceMajor();
 		//문의 불러옴
 		goQuestionPage("${questionPageInfo.pageNum}");
+		//리뷰 불러옴
 		goReviewPage(1);
+		//합계금액
 		fnCheckPriseSum();
 	}
 	//대분류 카테고리 replace
-	function replaceMajor(){
-		var major = '${categoryBean.category_sup }';		
-		if(major == 'DT') {$('.major').html('인형/토이');}
-		else if(major == 'FA') {$('.major').html('문구');}
-		else if(major == 'FS') {$('.major').html('패션');}
-		else if(major == 'KB') {$('.major').html('주방/욕실');}
-		else if(major == 'LD') {$('.major').html('리빙/데코');}
-		else if(major == 'DI') {$('.major').html('디지털/가전');}
-		else if(major == 'TR') {$('.major').html('여행');}
-		else if(major == 'BE') {$('.major').html('뷰티');}
-	}
+// 	function replaceMajor(){
+// 		var major = '${categoryBean.category_sup }';		
+// 		if(major == 'DT') {$('.major').html('인형/토이');}
+// 		else if(major == 'FA') {$('.major').html('문구');}
+// 		else if(major == 'FS') {$('.major').html('패션');}
+// 		else if(major == 'KB') {$('.major').html('주방/욕실');}
+// 		else if(major == 'LD') {$('.major').html('리빙/데코');}
+// 		else if(major == 'DI') {$('.major').html('디지털/가전');}
+// 		else if(major == 'TR') {$('.major').html('여행');}
+// 		else if(major == 'BE') {$('.major').html('뷰티');}
+// 	}
 	// 후기,문의 테이블 클릭시 토글 오픈
 	$(document).on('click','.tr',function(){
 		if ($(this).parent().find(".ps").hasClass("on"))
@@ -140,12 +142,6 @@
 	function commas(x) {
 	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
-	// 장바구니 버튼 눌렀을때
-	function cartCheck(){
-		var result = confirm("선택하신 상품이 장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?");
-		document.gfr.action = "addCart.cart?result=" + result;
-		document.gfr.submit();
-	}	
 	// 위시 버튼 눌렀을때
 	$(document).on("click",".btn-wish", function(){
 		var isId = false;
@@ -321,9 +317,9 @@
 				<div class="text-info">
 					<div class="pdt-name">${productBean.product_name } (${productBean.product_code})</div>
 					<div class="pdt-category">
-						<a href="${pageContext.request.contextPath}/itemList.item?major=${fn:substring(productBean.product_code,0,2)}" class="major">${category_sup }</a>
+						<a href="${pageContext.request.contextPath}/itemList.item?major=${fn:substring(productBean.product_code,0,2)}&minor=&page=1&kwd=&doOrder=&src=" class="major">${category_sup }</a>
 						&gt;
-						<a href="${pageContext.request.contextPath}/itemList.item?minor=${productBean.product_category_code}" class="minor">${category_sub }</a>
+						<a href="${pageContext.request.contextPath}/itemList.item?major=${fn:substring(productBean.product_code,0,2)}&minor=${productBean.product_category_code}&page=1&kwd=&doOrder=&src=" class="minor">${category_sub }</a>
 					</div>
 					<div class="pdt-right pdt-price">
 						<span id="rprice">
