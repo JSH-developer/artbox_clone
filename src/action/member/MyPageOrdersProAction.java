@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import svc.member.MemberCheckService;
 import svc.member.MyPageOrdersService;
 import vo.ActionForward;
+import vo.MemberBean;
 import vo.OrdersBean;
 
 public class MyPageOrdersProAction implements Action{
@@ -22,7 +23,9 @@ public class MyPageOrdersProAction implements Action{
 		MyPageOrdersService myPageOrdersService = new MyPageOrdersService();
 		List<OrdersBean> myOrders = myPageOrdersService.getMyOrders(id);
 		
+		MemberBean bb = myPageOrdersService.myPoint(id);
 		
+		request.setAttribute("point", bb.getPoint());
 		
 		request.setAttribute("myOrders", myOrders);
 		

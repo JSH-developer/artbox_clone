@@ -53,7 +53,7 @@
 		
 		<a href="MypagePointList.event" onclick="GA_event('마이페이지', '상단 메뉴', '꿈캔디 내역');"><li
 			class="Tbox2"><img class="CImg" src="Images/img/point.png" /> <span
-				class="CCandy">0</span></li></a>
+				class="CCandy">${point }</span></li></a>
 		<li class="Tbox3">
 			<ul>
 				<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '주문/배송');"><li>

@@ -43,7 +43,7 @@
 				onsubmit="return check()">
 				<div class="form">
 					<div class="radioMargin">
-						<input type="radio" id="phoneCheck" name="pmail"><span class="radioName">휴대전화</span>
+						<input type="radio" id="phoneCheck" name="pmail" checked="checked"><span class="radioName">휴대전화</span>
 						<input type="radio" id="emailCheck"	name="pmail"><span class="radioName">이메일</span>
 					</div>
 					<div>
