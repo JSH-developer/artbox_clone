@@ -51,23 +51,19 @@
 			</li>
 
 
-		
-		
-		
-		<li class="Tbox2">
-		<a href="MypagePointList.event" onclick="GA_event('마이페이지', '상단 메뉴', '꿈캔디 내역');">
-		<img class="CImg" src="Images/img/point.png"> 
-		<span class="CCandy">${mpoint}</span></a></li>
+		<a href="MypagePointList.event" onclick="GA_event('마이페이지', '상단 메뉴', '꿈캔디 내역');"><li
+			class="Tbox2"><img class="CImg" src="Images/img/point.png" /> <span
+				class="CCandy">${point }</span></li></a>
 		<li class="Tbox3">
 			<ul>
 				<a href="#" onclick="GA_event('마이페이지', '상단 메뉴', '주문/배송');"><li>
-						<span>주문/배송</span><span>0</span>
+						<span>주문/배송</span><span>${orderCount }</span>
 				</li></a>
 				<a href="MypageCouponList.coupon" onclick="GA_event('마이페이지', '상단 메뉴', '쿠폰');"><li>
-						<span>쿠폰</span><span>4</span>
+						<span>쿠폰</span><span>${coupCount }</span>
 				</li></a>
 				<a href="itemReview.item" onclick="GA_event('마이페이지', '상단 메뉴', '쿠매후기');"><li>
-						<span>구매후기</span><span>0</span>
+						<span>구매후기</span><span>${reviewCount }</span>
 				</li></a>
 			</ul>
 		</li>

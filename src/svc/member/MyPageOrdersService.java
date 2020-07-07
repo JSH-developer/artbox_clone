@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.util.List;
 
 import dao.AdminDAO;
+import dao.MemberDAO;
+import vo.MemberBean;
 import vo.OrdersBean;
 
 public class MyPageOrdersService {
@@ -32,6 +34,58 @@ public class MyPageOrdersService {
 		close(con);
 		
 		return myOrders;
+	}
+
+	public MemberBean myPoint(String id) {
+		MemberBean bb = new MemberBean();
+		Connection con = getConnection();
+		
+		MemberDAO memberDAO = MemberDAO.getInstance();
+		memberDAO.setConnection(con);
+		bb = memberDAO.myName(id);
+		
+		close(con);
+		
+		return bb;
+	}
+
+	public int orderCount(String id) {
+		int orderCount = 0;
+		Connection con = getConnection();
+		MemberDAO memberDAO = MemberDAO.getInstance();
+		memberDAO.setConnection(con);
+		
+		orderCount = memberDAO.orderCount(id);
+		
+		close(con);
+		
+		return orderCount;
+	}
+
+	public int coupCount(String id) {
+		int coup = 0;
+		Connection con = getConnection();
+		MemberDAO memberDAO = MemberDAO.getInstance();
+		memberDAO.setConnection(con);
+		
+		coup = memberDAO.coupCount(id);
+		
+		close(con);
+		
+		return coup;
+	}
+
+	public int reviewCount(String id) {
+		int reviewCount = 0;
+		Connection con = getConnection();
+		MemberDAO memberDAO = MemberDAO.getInstance();
+		memberDAO.setConnection(con);
+		
+		reviewCount = memberDAO.reviewCount(id);
+		
+		close(con);
+		
+		return reviewCount;
 	}
 
 }
