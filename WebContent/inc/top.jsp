@@ -30,7 +30,9 @@
 			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=TR&page=1&kwd=&minor=&doOrder=">여행</a></li>
 			<li class="CategoryMiddle"><a href="${pageContext.request.contextPath}/itemList.item?major=BE&page=1&kwd=&minor=&doOrder=">뷰티</a></li>
 			<li class="CategoryMiddle"><a href="EventCategoryList.event?event_category=sale_event" onclick="GA_event('HEAD', '최상단 메뉴', '뷰티');">이벤트</a></li>
+			<c:if test="${sessionScope.grade eq 'ADMIN'}">
 			<li class="CategoryMiddle"><a href="home.admin" onclick="GA_event('HEAD', '최상단 메뉴', '여행');">관리자</a></li>
+			</c:if>
 			<li class="Cart">
 				<a href="${pageContext.request.contextPath}/listBasket.basket" title="장바구니">
 					<img src="${pageContext.request.contextPath}/Images/common/top_icon_cart.png">

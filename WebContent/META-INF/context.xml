@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Context>
-	<!-- DBCP 사용을 위한 환경 설정 -->
+	<!-- DBCP 사용을 위한 환경 설정 -> localhost 에서 사용시 --> 
 	<Resource
 		name = "jdbc/MySQL"
 		auth = "Container"
@@ -13,4 +13,19 @@
 		url = "jdbc:mysql://localhost:3306/artbox_clone?serverTimezone=UTC"
 		maxIdle = "5"
 	/>
+	  
+	<!-- cafe24 업로드 시 -->
+	<!--
+	<Resource
+		name = "jdbc/MySQL"
+		auth = "Container"
+		type = "javax.sql.DataSource"	
+		username="itwillbs9"
+		password="itwillbs8030909"
+		driverClassName="com.mysql.cj.jdbc.Driver"
+		factory = "org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
+		url = "jdbc:mysql://localhost/itwillbs9?serverTimezone=UTC"
+		maxIdle = "5"
+	/>
+	-->
 </Context>
