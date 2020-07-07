@@ -24,7 +24,7 @@ a {text-decoration:none}
 .reviewInfo span:last-child {padding: 16px 0 0 0; color: #9d9d9d;}
 
 .reviewTab {height:62px; line-height:62px; text-align:center; border:1px solid #000000; border-radius:5px;}
-.reviewTab span {float:left; display:inline-block; width:50%; color:#000000; height:61px; font-size:20px; border-radius:4px;}
+.reviewTab span {float:left; display:inline-block; width:50%; color:#000000; height:61px; font-size:20px; border-radius:4px; cursor: pointer;}
 .reviewTab span.on { background-color:#000000; color:#ffffff;  }
 
 .ReviewNone {text-align:center; padding:70px 0 70px 0; color:#9d9d9d; font-size:18px;}
@@ -43,6 +43,33 @@ a {text-decoration:none}
 .ItemList .itemprice { display:inline-block; }
 .ItemList .itemprice.sale_Y { color:#e71e22; }
 .ItemList .discountrate { display:inline-block; color:#e71e22; }
+
+
+.ModItemList { display:table; width:100%; }
+.ModItemList li { position:relative; display:block; width:100%; padding:0 0 0 230px;  min-height:205px; margin:25px 0 0 0; }
+.ModItemList li:last-child {width: 100%; text-align: center; padding: 0;}
+.ModItemList li .img { display:block; position:absolute; top:0; left:0; width:205px;}
+.ModItemList li .img img { width:100%; }
+
+.ModItemList li .modbox { display:block; position:relative; background-color:#f5f5f5; min-height:205px; padding:20px 150px 20px 160px; }
+.ModItemList li .modbox .sub1 { display:block; width:140px; position:absolute; top:20px; left:20px; border-right:1px solid #ffffff; }
+.ModItemList li .modbox .sub1 .point { display:block; padding:0 0 0 50px; font-size:14px; line-height:22px; color:#000000; position:relative; }
+.ModItemList li .modbox .sub1 .point:after { display:block; position:absolute; top:0; left:0; }
+.ModItemList li .modbox .sub1 .point.s:after { content:"기능"; }
+.ModItemList li .modbox .sub1 .point.d:after { content:"디자인"; }
+.ModItemList li .modbox .sub1 .point.p:after { content:"가격"; }
+.ModItemList li .modbox .sub1 .point.q:after { content:"품질"; }
+.ModItemList li .modbox .sub1 .totalpoint { display:block; margin:10px auto 0 auto; width: 62px; height: 62px; background: url(../../Images/item/img_postscript_score.png?v=20180814) no-repeat center; font-size: 18px; font-weight: bold; color: #ffffff; padding: 8px 0 0 10px; }
+
+.ModItemList li .modbox .sub2 { display:block;  padding: 0 0 0 20px; }
+.ModItemList li .modbox .sub2 .sub2_cont { display:block; font-size:16px; line-height:20px; color:#000000; margin:0 0 10px 0; white-space:pre-line;}
+.ModItemList li .modbox .sub2 .sub2_img { display:block; width:140px; float:left; margin:40px 10px 0 0;}
+.ModItemList li .modbox .sub2 .sub2_img img { width:100%; max-width:140px; }
+.ModItemList li .modbox .sub2:after { display:block; content:" "; clear:both; }
+.ModItemList li .modbox .btnEpilogueModify { position:absolute; top:50%; right:20px; margin-top:-40px; width:100px; height:35px; background-color:#ffffff; color:#424242; border-radius:5px; border:1px solid #424242; font-size:16px; cursor: pointer; }
+.ModItemList li .modbox .btnEpilogueDelete { position:absolute; bottom:50%; right:20px; margin-bottom:-40px; width:100px; height:35px; background-color:#424242; color:#ffffff; border-radius:5px; border:1px solid #424242; font-size:16px;  cursor: pointer; }
+
+
 
 .paging {padding:60px 0; text-align: center;}
 .paging .box{display: inline-block; height: 35px;}

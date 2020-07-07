@@ -31,7 +31,6 @@ public class ItemDetailAction implements Action {
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("id");
 		request.setAttribute("id", id);
-		System.out.println("id = " + id);
 		
 		//admin의 svc.ProductViewService 객체 재활용 
 		ProductViewService pvs = new ProductViewService();
@@ -69,8 +68,8 @@ public class ItemDetailAction implements Action {
 		//----------------------------------------------------------------------------------
 		
 		int q_pageNum = 1;	// 현재 페이지 번호
-		int q_pageSize = 2;	// 한 페이지에 보여줄 게시물 수
-		int q_pageBlock = 2;// 한 화면에 보여줄 페이지 수
+		int q_pageSize = 5;	// 한 페이지에 보여줄 게시물 수
+		int q_pageBlock = 10;// 한 화면에 보여줄 페이지 수
 		
 		
 		QuestionListSVC questionListSVC = new QuestionListSVC();
