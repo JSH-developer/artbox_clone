@@ -313,7 +313,7 @@ public class MemberDAO {
 	public int orderCount(String id) {
 		int orderCount = 0;
 		try {
-			String sql = "SELECT count(num) as 'orderCount' FROM orders where id = ?";
+			String sql = "SELECT count(num) as 'orderCount' FROM orders where member_id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			if(rs.next()) {
@@ -326,6 +326,42 @@ public class MemberDAO {
 			close(pstmt);
 		}
 		return orderCount;
+	}
+
+	public int coupCount(String id) {
+		int coupCount = 0;
+		try {
+			String sql = "SELECT count(num) as 'couponCount' FROM coupon where member_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			if(rs.next()) {
+				coupCount = rs.getInt("couponCount");
+			}
+		} catch (Exception e) {
+			System.out.println("coupCount오류 - "+e.getMessage());
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return coupCount;
+	}
+
+	public int reviewCount(String id) {
+		int reviewCount = 0;
+		try {
+			String sql = "SELECT count(num) as 'reviewCount' FROM review where member_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			if(rs.next()) {
+				reviewCount = rs.getInt("reviewCount");
+			}
+		} catch (Exception e) {
+			System.out.println("coupCount오류 - "+e.getMessage());
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return reviewCount;
 	}
 
 }

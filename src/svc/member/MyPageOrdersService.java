@@ -56,7 +56,35 @@ public class MyPageOrdersService {
 		
 		orderCount = memberDAO.orderCount(id);
 		
+		close(con);
+		
 		return orderCount;
+	}
+
+	public int coupCount(String id) {
+		int coup = 0;
+		Connection con = getConnection();
+		MemberDAO memberDAO = MemberDAO.getInstance();
+		memberDAO.setConnection(con);
+		
+		coup = memberDAO.coupCount(id);
+		
+		close(con);
+		
+		return coup;
+	}
+
+	public int reviewCount(String id) {
+		int reviewCount = 0;
+		Connection con = getConnection();
+		MemberDAO memberDAO = MemberDAO.getInstance();
+		memberDAO.setConnection(con);
+		
+		reviewCount = memberDAO.reviewCount(id);
+		
+		close(con);
+		
+		return reviewCount;
 	}
 
 }
