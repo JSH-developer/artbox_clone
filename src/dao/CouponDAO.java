@@ -48,7 +48,6 @@ public class CouponDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			System.out.println("insertArticle- try ");
 			
 			String sql = "INSERT INTO couponlist VALUES(null,?,?,?,?,?,?,?,1)";
 			pstmt = con.prepareStatement(sql);
@@ -189,7 +188,7 @@ public class CouponDAO {
 				
 				couponList.add(couponBean);
 				
-				// 이벤트 종료 안되었을 때
+				// 이벤트 종료 안되었을 때 날짜 비교후 삭제
 				if(rs.getInt("coup_state")==1) {
 					Date nowDate = new Date();
 					SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
@@ -206,10 +205,6 @@ public class CouponDAO {
 					}
 
 				}
-				
-				
-				
-				
 			}
 			
 			
@@ -286,20 +281,6 @@ public class CouponDAO {
 	}
 
 
-	
-//	// 아이디가 쿠폰 갖고 있는지 확인
-//	public int selectCouponCheck(String id, String couponName) {
-//		int check = 0;
-//		
-//		PreparedStatement pstmt = null;
-//		ResultSet rs=null;
-//		
-//		String sql = "SELECT * FROM coupon where ";
-//		
-//		
-//		return check;
-//	}
-
 	// 쿠폰 카테고리만 불러오기
 		public ArrayList<CouponBean> selectCouponCategory() {
 			ArrayList couponList = new ArrayList();
@@ -325,8 +306,6 @@ public class CouponDAO {
 				close(pstmt);
 				close(rs);
 			}
-			
-			
 			
 			return couponList;
 		}

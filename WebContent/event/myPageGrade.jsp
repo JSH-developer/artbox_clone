@@ -39,8 +39,6 @@ for(var i=1;i<=5;i++){
 function cpClick(num){
 	var moveCheck;
 	var getId  = document.getElementById("loginId").value;
-
-	alert(getId+" : "+num);
 	
 	if(getId == "null" || getId == ""){
 
@@ -64,7 +62,22 @@ function cpClick(num){
 
 
 </script>
-
+<style>
+span.scoup { /*     쿠폰 팝업 창  */
+	display: inline-block;
+	width: 80px;
+	height: 40px;
+	line-height: 56px;
+	background-color: #424242;
+	text-align: center;
+	color: #ffffff;
+	font-size: 16px;
+	border-radius: 5px;
+}
+#grade_tab_in_5 li{
+	height: 45px;
+}
+</style>
 
 </head>
 <body>
@@ -260,26 +273,23 @@ function cpClick(num){
 				<dt>회원님 혜택</dt>
 				<dd>
 					<ul>
-						
 				<c:if test="${grade eq 'BRONZ' }">
-						<li>2,000원 할인쿠폰 1장 (3만원 이상 구매 시)&nbsp; <input type="button" id="coup_btn" value="발급받기" onclick= "cpClick(4);" ></li>
-						<li>무료배송 쿠폰 1장&nbsp;<input type="button" id="coup_btn" value="발급받기" onclick= "cpClick(5);" ></li>
+						<li>2,000원 할인쿠폰 1장 (3만원 이상 구매 시)&nbsp;&nbsp; <span class="scoup" style="font-size: 15px;cursor: pointer; cursor: hand;" onClick="cpClick(4);">발급받기</span></li>
+						<li>무료배송 쿠폰 1장&nbsp;<span class="scoup" style="font-size: 15px;cursor: pointer; cursor: hand;" onClick="cpClick(5);">발급받기</span></li>
 				</c:if>
 				<c:if test="${grade eq 'SILVER' }">
-						<li>3,000원 할인쿠폰 1장 (2만원 이상 구매 시)&nbsp;<input type="button" id="coup_btn" value="발급받기" onclick= "cpClick(3);" ></li>
-						<li>무료배송 쿠폰 1장&nbsp;<input type="button" id="coup_btn" value="발급받기" onclick= "cpClick(5);" ></li>
+						<li>3,000원 할인쿠폰 1장 (2만원 이상 구매 시)&nbsp;&nbsp;<span class="scoup" style="font-size: 15px;cursor: pointer; cursor: hand;" onClick="cpClick(3);">발급받기</span></li>
+						<li>무료배송 쿠폰 1장&nbsp;<span class="scoup" style="font-size: 15px;cursor: pointer; cursor: hand;" onClick="cpClick(5);">발급받기</span></li>
 				</c:if>
 				<c:if test="${grade eq 'GOLD' }">
-						<li>5,000원 할인쿠폰 1장 (1만원 이상 구매 시)&nbsp;<input type="button" id="coup_btn" value="발급받기" onclick= "cpClick(2);" ></li>
-						<li>무료배송 쿠폰 2장</li>
-						<li><input type="button" id="coup_btn" value="발급받기" onclick= "cpClick(6);" >
-						<input type="button" id="coup_btn" value="발급받기" onclick= "cpClick(5);" ></li>
+						<li>5,000원 할인쿠폰 1장 (1만원 이상 구매 시)&nbsp;&nbsp;<span class="scoup" style="font-size: 15px;cursor: pointer; cursor: hand;" onClick="cpClick(2);">발급받기</span></li>
+						<li>무료배송 쿠폰 2장 &nbsp;<span class="scoup" style="font-size: 15px;cursor: pointer; cursor: hand;" onClick="cpClick(6);">발급받기</span>
+						<span class="scoup" style="font-size: 15px;cursor: pointer; cursor: hand;" onClick="cpClick(5);">발급받기</span></li>
 				</c:if>
 				<c:if test="${grade eq 'DIAMOND' }">
-						<li>15,000원 할인쿠폰 1장(금액상관없이)&nbsp;<input type="button" id="coup_btn" value="발급받기" onclick= "cpClick(1);" ></li>
-						<li>무료배송 쿠폰 2장</li>
-						<li><input type="button" id="coup_btn" value="발급받기" onclick= "cpClick(6);" >
-						<input type="button" id="coup_btn" value="발급받기" onclick= "cpClick(5);" ></li>
+						<li>15,000원 할인쿠폰 1장(금액상관없이)&nbsp;&nbsp;<span class="scoup" style="font-size: 15px;cursor: pointer; cursor: hand;" onClick="cpClick(1);">발급받기</span></li>
+						<li>무료배송 쿠폰 2장 &nbsp;<span class="scoup" style="font-size: 15px;cursor: pointer; cursor: hand;" onClick="cpClick(6);">발급받기</span>
+						<span class="scoup" style="font-size: 15px;cursor: pointer; cursor: hand;" onClick="cpClick(5);">발급받기</span></li>
 				</c:if>
 						
 						

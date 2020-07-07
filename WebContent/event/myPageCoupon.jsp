@@ -116,16 +116,16 @@
 							<li>
 								<div class="CouponImage" >
 								<c:if test="${mycouponList[i].coupon_price eq 1000 }">
-									<img src="${pageContext.request.contextPath}/Images/coupon/1000won.png" style="width: 250px;height: 100px;border: 1px solid lightgrey;">
+									<img src="${pageContext.request.contextPath}/Images/coupon/1000won.png" style="width: 210px;height: 100px;border: 1px solid lightgrey;">
 									</c:if>
 								<c:if test="${mycouponList[i].coupon_price eq 2000 }">
-									<img src="${pageContext.request.contextPath}/Images/coupon/2000won.png" style="width: 250px;height: 100px;border: 1px solid lightgrey;">
+									<img src="${pageContext.request.contextPath}/Images/coupon/2000won.png" style="width: 210px;height: 100px;border: 1px solid lightgrey;">
 									</c:if>
 								<c:if test="${mycouponList[i].coupon_price eq 3000}">
-								<img src="${pageContext.request.contextPath}/Images/coupon/3000won.png" style="width: 250px;height: 100px;border: 1px solid lightgrey;">
+								<img src="${pageContext.request.contextPath}/Images/coupon/3000won.png" style="width: 210px;height: 100px;border: 1px solid lightgrey;">
 									</c:if>
 								<c:if test="${mycouponList[i].coupon_price eq 5000}">
-									<img src="${pageContext.request.contextPath}/Images/coupon/5000won.png" style="width: 250px;height: 100px;border: 1px solid lightgrey;">
+									<img src="${pageContext.request.contextPath}/Images/coupon/5000won.png" style="width: 210px;height: 100px;border: 1px solid lightgrey;">
 									</c:if>	
 								
 								</div>
@@ -152,7 +152,7 @@
 		<c:if test="${myCoupon eq 'goodscoupon' && mycouponList[i].coupon_use eq 1}">
 							<li>
 								<div class="CouponImage">
-								<img src="${pageContext.request.contextPath}/Images/coupon/goodscoupon.png" style="width: 250px;height: 100px;border: 1px solid lightgrey;">
+								<img src="${pageContext.request.contextPath}/Images/coupon/goodscoupon.png" style="width: 210px;height: 100px;border: 1px solid lightgrey;">
 								</div>
 									<div class="CouponName" title= "${ mycouponList[i].coupon_name}">
 								${mycouponList[i].coupon_name}</div>
@@ -177,7 +177,7 @@
 								<c:if test="${myCoupon eq 'freecoupon' && mycouponList[i].coupon_use eq 1}">
 									<li>
 										<div class="CouponImage"> 
-										<img src="${pageContext.request.contextPath}/Images/coupon/2500won.png" style="width: 250px;height: 100px;border: 1px solid lightgrey;">
+										<img src="${pageContext.request.contextPath}/Images/coupon/2500won.png" style="width: 210px;height: 100px;border: 1px solid lightgrey;">
 										</div>
 										<div class="CouponName" title="${ mycouponList[i].coupon_name}">${mycouponList[i].coupon_name}</div>
 										<div class="CouponInfo">

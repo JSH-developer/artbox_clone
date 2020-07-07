@@ -31,7 +31,6 @@ public class CouponFrontController extends HttpServlet {
 
 
 		if(command.equals("/listCoupon.coupon")){	// 쿠폰 등록 입력
-			System.out.println("/listCoupon.coupon");
 
 			action = new CouponAllListAction(); 
 			try {
@@ -41,7 +40,6 @@ public class CouponFrontController extends HttpServlet {
 			}
 		
 		}else if(command.equals("/CouponWritePro.coupon")) {	// 쿠폰 등록 Pro
-			System.out.println("/CouponWritePro.coupon");
 			action = new CouponWriteProAction();
 			try {
 				forward = action.execute(request, response);
@@ -50,7 +48,6 @@ public class CouponFrontController extends HttpServlet {
 			}
 			
 		}else if(command.equals("/MypageCouponList.coupon")) {	// 마이페이지 
-			System.out.println("/MypageCouponList.coupon");
 			action = new MypageCouponListAction();
 			try {
 				forward = action.execute(request, response);
@@ -59,7 +56,6 @@ public class CouponFrontController extends HttpServlet {
 			}
 			
 		}else if(command.equals("/CouponIssued.coupon")) {	// 버튼누르면 쿠폰 발급
-			System.out.println("/CouponIssued.coupon");
 			action = new CouponIssuedAction();
 			try {
 				forward = action.execute(request, response);
@@ -68,7 +64,6 @@ public class CouponFrontController extends HttpServlet {
 			}
 			
 		}else if(command.equals("/CouponDeletePro.coupon")) {	// 쿠폰 삭제
-			System.out.println("/CouponDeletePro.coupon");
 			action = new CouponDeleteProAction();
 			try {
 				forward = action.execute(request, response);

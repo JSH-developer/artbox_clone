@@ -42,9 +42,9 @@
 				<small>*주말 및 공휴일은 1:1 문의/상담을 이용해주세요.</small>
 			</li>
 			<li class="TwoButton">
-				<a href="#" onclick="GA_event('FOOT', '최하단 메뉴 PC', '자주하는 질문');">
+				<a href="#" >
 				<img src="${pageContext.request.contextPath}/Images/common/footer_btn1.png">자주하는 질문</a>
-				<a href="#" onclick="GA_event('FOOT', '최하단 메뉴 PC', '1:1 문의/상담');">
+				<a href="#" >
 				<img src="${pageContext.request.contextPath}/Images/common/footer_btn2.png">1:1 문의/상담</a>
 			</li>
 

@@ -28,19 +28,12 @@ public class listEventAction implements Action {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 		
-		
-		
 		EventService eventService = new EventService();
-		
-		
-		
 		int listCount = eventService.getAllListCount();
-		System.out.println("EventListAction - listCount : "+listCount);
 		
 		ArrayList<EventBean> articleList = eventService.getAllArticleList(page,limit);
 		
 //		drop event
-		System.out.println("dropEvent");
 		eventService.dropEvent(articleList);
 		
 		// 페이징 처리를 위해 페이지 수 계산
