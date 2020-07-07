@@ -48,4 +48,15 @@ public class MyPageOrdersService {
 		return bb;
 	}
 
+	public int orderCount(String id) {
+		int orderCount = 0;
+		Connection con = getConnection();
+		MemberDAO memberDAO = MemberDAO.getInstance();
+		memberDAO.setConnection(con);
+		
+		orderCount = memberDAO.orderCount(id);
+		
+		return orderCount;
+	}
+
 }

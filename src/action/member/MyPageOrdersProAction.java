@@ -21,12 +21,16 @@ public class MyPageOrdersProAction implements Action{
 		String id = (String)session.getAttribute("id");
 		
 		MyPageOrdersService myPageOrdersService = new MyPageOrdersService();
-		List<OrdersBean> myOrders = myPageOrdersService.getMyOrders(id);
 		
+		List<OrdersBean> myOrders = myPageOrdersService.getMyOrders(id);
 		MemberBean bb = myPageOrdersService.myPoint(id);
+		int orderCount = myPageOrdersService.orderCount(id);
+		
+		
+		
+		
 		
 		request.setAttribute("point", bb.getPoint());
-		
 		request.setAttribute("myOrders", myOrders);
 		
 		
