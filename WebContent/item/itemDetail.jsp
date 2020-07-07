@@ -229,7 +229,7 @@
 	
 	// '장바구니 담기' 및 '바로 구매하기' 버튼 클릭 이벤트
 	function Order(id) {
-		if('${empty sessionScope.id}') {
+		if(${empty sessionScope.id}) {
 			var result = confirm("로그인 후 이용가능합니다.\n로그인 페이지로 이동하시겠습니까?");
 			if(result==true) {
 				location.href = "loginForm.member";
