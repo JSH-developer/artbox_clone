@@ -20,9 +20,9 @@ public class QuestionAnswerAction implements Action {
 		
 
 		HttpSession session = request.getSession();
-		String id = (String)session.getAttribute("id");
+		String grade = (String)session.getAttribute("grade");
 
-		if(!id.equals("admin")) {
+		if(!grade.equals("ADMIN")) {
 			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");

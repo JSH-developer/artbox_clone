@@ -92,7 +92,6 @@
 	})
 	// 후기 작성시 체크
 	function reviewcheck() {
-		alert("체크");
 		var result = false;
 		if($('input[name=skill]').val() == ""){
 			alert("별점(기능)을 입력해 주세요.");
