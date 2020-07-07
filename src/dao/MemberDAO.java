@@ -316,6 +316,7 @@ public class MemberDAO {
 			String sql = "SELECT count(num) as 'orderCount' FROM orders where member_id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				orderCount = rs.getInt("orderCount");
 			}
@@ -334,6 +335,7 @@ public class MemberDAO {
 			String sql = "SELECT count(num) as 'couponCount' FROM coupon where member_id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				coupCount = rs.getInt("couponCount");
 			}
@@ -352,6 +354,7 @@ public class MemberDAO {
 			String sql = "SELECT count(num) as 'reviewCount' FROM review where member_id = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				reviewCount = rs.getInt("reviewCount");
 			}
