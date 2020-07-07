@@ -153,15 +153,15 @@ function getCookie(cookieName) {
 </script>
 <!--                                         아이디 저장하기 끝                                                   -->
 
-		<div class="simpleLogin">간편 로그인</div>
-		<div class="img">
-			<a href=""><img alt="네이버" src="Images/img/naver.png"
-				style="padding-left: 50px;"></a> <a href=""><img alt="카카오"
-				src="Images/img/kakao.png"></a> <a href=""><img alt="페이스북"
-				src="Images/img/facebook.png"></a> <a href=""><img alt="구글"
-				src="Images/img/google.png"></a>
-		</div>
-	</div>
+<!-- 		<div class="simpleLogin">간편 로그인</div> -->
+<!-- 		<div class="img"> -->
+<!-- 			<a href=""><img alt="네이버" src="Images/img/naver.png" -->
+<!-- 				style="padding-left: 50px;"></a> <a href=""><img alt="카카오" -->
+<!-- 				src="Images/img/kakao.png"></a> <a href=""><img alt="페이스북" -->
+<!-- 				src="Images/img/facebook.png"></a> <a href=""><img alt="구글" -->
+<!-- 				src="Images/img/google.png"></a> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 	<!--  푸터 -->
 	<jsp:include page="../inc/bottom.jsp"></jsp:include>
 	<!--  푸터 -->
