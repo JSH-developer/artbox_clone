@@ -135,6 +135,8 @@ public class CouponDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
+				
+				System.out.println("condtion: "+rs.getString("coup_condition"));
 				sql = "INSERT IGNORE INTO coupon VALUES(null,?,?,?,?,?,?,?,?,?)";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1,rs.getString("coup_name"));

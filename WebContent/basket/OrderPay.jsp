@@ -909,13 +909,12 @@ span.scoup { /*     쿠폰 팝업 창  */
 
            
           <c:forEach var="itemcategory" items="${orderList[0].itemCategory}" varStatus="status">
-          	 
           	   <c:if test="${itemcategory == mycouponList[i].coupon_condition}">
           	   
           	   <c:set var="s" value="${s+1}"/>
            
             
-         <c:if test="${myCoupon == 'goodscoupon' || mycouponList[i].coupon_use eq 1}">
+         <c:if test="${myCoupon == 'goodscoupon'}">
              <c:set var="GoodsCoupontCnt" value="${GoodsCoupontCnt= GoodsCoupontCnt+1 }"/>
              <fmt:parseNumber integerOnly="true" var="coup_discount" value="${orderList[0].itemprice * mycouponList[i].coupon_price /100}"/>
              

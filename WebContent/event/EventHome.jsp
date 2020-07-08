@@ -56,29 +56,13 @@ font-size: 18px;}
  <div class="eventContainer">
 
 
-		<%
-// 		if(articleList != null && listCount > 0){
-// 			// 오늘 날짜 구함
-// 			Date nowDate = new Date();
-// 			SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
-// 			int nowwDate = Integer.parseInt(sf.format(nowDate));
-			
-// 		for(int i=0;i<articleList.size();i++){
-// 			// 저장된 이벤트 날짜 구해서 - 빼고 계산
-// 			String startdate = articleList.get(i).getEvent_start().replaceAll("-","");
-// 			String limitdate = articleList.get(i).getEvent_limit().replaceAll("-","");
-// 			int startdate1 = Integer.parseInt(startdate);
-// 			int limitdate1 = Integer.parseInt(limitdate);
-// 			// 오늘 날짜와 이벤트 날짜 비교해서 이벤트 띄우기
-// 			if( startdate1 <= nowwDate && limitdate1 >= nowwDate){
-		%>
 		<c:choose>
 		<c:when test="${!empty articleList and listCount > 0 }"> 
 <!-- 		현재 시간구하고, 진행중인 이벤트만 띄우기 -->
 		<c:set var="now" value="<%=new java.util.Date()%>" />
 		<c:set var="nowwDate"><fmt:formatDate value="${now}" pattern="yyyyMMdd"/></c:set>
 <!-- 		이벤트 리스트 불러오기 -->
-		<c:forEach var="i" begin="0" end="${fn:length(articleList)}" step="1">
+		<c:forEach var="i" begin="0" end="${fn:length(articleList)-1}" step="1">
 		
 		<c:set var="startdate" value="${fn:replace(articleList[i].event_start, '-', '')}" />
 		<c:set var="limitdate" value="${fn:replace(articleList[i].event_limit, '-', '')}" />
@@ -88,7 +72,7 @@ font-size: 18px;}
 		
 		<div class="event_content" onclick="location.href='EventDetail.event?board_num=${articleList[i].event_num}&page=${nowPage}&condition=${articleList[i].event_condition}'">
 			<div style="margin: 0 auto;">
-				<p><img src="${pageContext.request.contextPath}/Images/event/${articleList[i].event_img}" width="360px" height="250px"></p>
+				<p><img src="${pageContext.request.contextPath}/upload/${articleList[i].event_img}" width="360px" height="250px"></p>
 			<p><span style="font-weight: bold;color: #262729; ">${articleList[i].event_titie}</span>
 				
 				<c:if test="${'sale_event' == articleList[i].event_category}">
@@ -104,15 +88,14 @@ font-size: 18px;}
 		</div>
 	</c:if>
 <!-- 	종료된 이벤트, 클릭해도 들어가지지않음 -->
-	<c:if test="${startdate > nowwDate and limitdate < nowwDate }">
+	<c:if test="${startdate > nowwDate or limitdate < nowwDate }">
 		
-
 				<div style="margin: 0 auto;">
-				<p><img src="${pageContext.request.contextPath}/Images/event/${articleList[i].event_img}" width="360px" height="250px"
+				<p><img src="${pageContext.request.contextPath}/upload/${articleList[i].event_img}" width="360px" height="250px"
 				style="color: grey;"></p>
 				<p><span style="font-weight: bold;color: #262729; ">${articleList[i].event_titie}</span>
 				<span style="color:red;">[${articleList[i].event_discount}%]</span></p>
-				<p style="color: grey;font-size: 14px;">${articleList[i].event_start}~${articleList[i].event_limit}</p>
+				<p style="color: grey;font-size: 14px;">종료된 이벤트 입니다.</p>
 			</div>
 
 			</c:if>

@@ -159,16 +159,25 @@ public class OrderDAO {
 			
 			// 포인트 사용시 깎임
 			if(ordersbean.getOrders_point()!=0) {
-			sql="CALL update_point('구매시 사용',?,'사용',?,?)";
+//			sql="CALL update_point('구매시 사용',?,'사용',?,?)";
+			sql = "INSERT INTO point VALUES(null,'구매시 사용',?,'사용',?,?,null)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1,"-"+ordersbean.getOrders_point() );
-			pstmt.setInt(2,-ordersbean.getOrders_point() );
+			pstmt.setString(1,"-"+ordersbean.getOrders_use_point() );
+			pstmt.setInt(2,-ordersbean.getOrders_use_point() );
 			pstmt.setString(3, ordersbean.getOrders_member_id());
 			pstmt.executeUpdate();
 			}
 			
+			// 포인트 사용시 깎임
+			if(ordersbean.getOrders_point()!=0) {
+			sql = "UPDATE member SET point = point - ? WHERE id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1,ordersbean.getOrders_use_point() );
+			pstmt.setString(2, ordersbean.getOrders_member_id());
+			pstmt.executeUpdate();
+			}
+			
 			if(ordersbean.getOrders_use_coupon() != null) {
-			System.out.println( ordersbean.getOrders_use_coupon());
 			sql="UPDATE coupon SET coup_use =0 WHERE num IN ("+ordersbean.getOrders_use_coupon()+")";
 			pstmt = con.prepareStatement(sql);
 			pstmt.executeUpdate();
