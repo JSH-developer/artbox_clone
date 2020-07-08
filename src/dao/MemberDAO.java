@@ -35,7 +35,7 @@ public class MemberDAO {
 	public int JoinInsert(MemberBean bb) { // 회원가입 INSERT
 		int insertCount = 0;
 		try {
-			String sql = "INSERT INTO member VALUES(null,?,?,?,?,?,?,?,?,?,0,?,?,1,now())";
+			String sql = "INSERT INTO member VALUES(null,?,?,?,?,?,?,?,?,?,10000,?,?,1,now())";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bb.getId());
 			pstmt.setString(2, bb.getPw());
