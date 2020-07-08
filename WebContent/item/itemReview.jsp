@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<jsp:useBean id="now" class="java.util.Date" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -125,9 +126,9 @@
 	<div class="reviewWrap">
 		<div class="reviewTitle">구매후기</div>
 		<div class="reviewInfo">
-			<span>- 10자 이상 150자 미만의 상품후기 작성 시 꿈캔디 100개, 150자 이상의 후기 혹은 사진이 첨부된 후기 작성 시 꿈캔디 200개를 적립해 드립니다.</span>
+<!-- 			<span>- 10자 이상 150자 미만의 상품후기 작성 시 꿈캔디 100개, 150자 이상의 후기 혹은 사진이 첨부된 후기 작성 시 꿈캔디 200개를 적립해 드립니다.</span> -->
 			<span>- 베스트후기로 선정되신 분께는 꿈캔디 3,000개를 추가로 적립해 드립니다.</span>
-			<span>- 해당 상품의 첫번째 후기를 남겨주신 분께는 꿈캔디 500개를 추가로 적립해 드립니다.</span>
+<!-- 			<span>- 해당 상품의 첫번째 후기를 남겨주신 분께는 꿈캔디 500개를 추가로 적립해 드립니다.</span> -->
 			<span>- 구매후기는 구매확정일 기준으로 6개월 이내에 작성 가능합니다. 구매후기 작성기한은 아래 리스트에서 확인해 주세요.</span>
 			<span class="reviewWarning">* 구매/취소/반품하신 상품과 무관한 내용이나 이미지, 비방, 도배성 글 등 부적합한 내용일 때는 통보없이 삭제 및 지급된 꿈캔디가 회수될 수 있습니다.</span>
 		</div>
@@ -153,6 +154,16 @@
 							<span class="itemprice sale_N">${irl.product_price }원</span>
 						</span>
 						<a class="btnWrite modal" href="javascript:setOpen(${irl.product_num });">구매후기 쓰기</a>
+						<fmt:formatDate value="${now}" pattern="yyyyMMddhhmm" var="nowDate" />
+<%-- 						<fmt:parseDate var="startDate" value="${now }" pattern="yyyyMMddHHmm" /> --%>
+<%-- 						<fmt:parseDate var="endDate" value="${irl.product_regdate }" pattern="yyyyMMddHHmm" /> --%>
+						${nowDate }<c:if test="${openDate < nowDate && closeDate > nowDate}">
+    						<div id="main_popup">
+     						   <a href="javascript:" onclick="javascript:windowOpen();">스크립트</a>
+    						    <button type="button" onclick="mainPopClose()" title="팝업 닫기" class="btn_pop_close"><img src="/img/comm/btn_pop_close.png" alt="팝업 닫기"></button>
+   						 </div>
+						</c:if>
+						
 						<span class="deadline">작성기한: <fmt:formatDate value="${irl.product_regdate }" pattern="yyyy.MM.dd"/>까지</span>
 					</li>
 				</c:forEach>

@@ -1,5 +1,6 @@
 package action.item;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,8 @@ public class ItemReviewAction implements Action {
 		String tab = request.getParameter("tab");
 		request.setAttribute("tab",tab);
 
+		Timestamp now = new Timestamp(System.currentTimeMillis());
+		request.setAttribute("now",now);
 		
 		//-------------------------------------------------------------------------------------------
 		
