@@ -39,6 +39,22 @@ $(document).ready(function(){
 
 </head>
 <body>
+<c:choose>
+<c:when test="${empty grade}">
+	<script>
+		alert("관리자만 접근이 가능한 페이지입니다.");
+		location.href="Home.home";
+	</script>
+</c:when>
+<c:otherwise>
+	<c:if test="${grade ne 'ADMIN'}">
+	<script>
+		alert("관리자만 접근이 가능한 페이지입니다.");
+		location.href="Home.home";
+	</script>
+	</c:if>
+</c:otherwise>
+</c:choose> 
 <h1><img src="${pageContext.request.contextPath}/Images/admin/otto.png" width="50px" height="50px"/>현재 진행상태는 '<span id="status_now"></span>' 입니다.<img src="${pageContext.request.contextPath}/Images/admin/otto.png" width="50px" height="50px"/></h1>
 <form action="changeStatePro.admin" method="post">
 <select id="status_select" name="state">

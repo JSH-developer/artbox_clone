@@ -1255,13 +1255,20 @@ public class AdminDAO {
 		int changeCount = 0;
 		
 		try {
-			String sql="CALL update_point('구매 확정','구매 확정에 따른 포인트 적립','적립',?,?)";
+//			String sql="CALL update_point('구매 확정','구매 확정에 따른 포인트 적립','적립',?,?)";
 			//update_point 프로시저 사용, point 테이블에 튜플 추가 및 member 테이블에 point값 변경
+			String sql = "INSERT INTO point VALUES(null,'구매 확정','구매 확정에 따른 포인트 적립','적립',?,?,null)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, point);
 			pstmt.setString(2, id);
-			
 			changeCount = pstmt.executeUpdate();
+			
+			sql = "UPDATE member SET point = point + ? WHERE id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, point);
+			pstmt.setString(2, id);
+			changeCount += pstmt.executeUpdate();
+			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -1296,13 +1303,19 @@ public class AdminDAO {
 		int changeCount = 0;
 		
 		try {
-			String sql="CALL update_point('구매 취소','구매 취소에 따른 금액 포인트로 환불','적립',?,?)";
+//			String sql="CALL update_point('구매 취소','구매 취소에 따른 금액 포인트로 환불','적립',?,?)";
 			//update_point 프로시저 사용, point 테이블에 튜플 추가 및 member 테이블에 point값 변경
+			String sql = "INSERT INTO point VALUES(null,'구매 취소','구매 취소에 따른 금액 포인트 환불','적립',?,?,null)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, point);
 			pstmt.setString(2, id);
-			
 			changeCount = pstmt.executeUpdate();
+			
+			sql = "UPDATE member SET point = point + ? WHERE id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, point);
+			pstmt.setString(2, id);
+			changeCount += pstmt.executeUpdate();			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -1348,7 +1361,7 @@ public class AdminDAO {
 					"LEFT OUTER JOIN (SELECT product_num 'tmp_pn', COUNT(num) 'cnt_review' FROM review GROUP BY product_num) cnt2\r\n" + 
 					"ON cnt1.product_num = cnt2.tmp_pn) cnt_tbl\r\n" + 
 					"ON product.num = cnt_tbl.product_num\r\n" + 
-					"ORDER BY cnt_order DESC, regdate DESC limit 0,10;";
+					"ORDER BY cnt_order DESC, regdate DESC limit 0,10";
 			// count 뷰를 활용해 1차적으로 주문량이 가장 많은 상품을 구하고 2차적으로 등록날짜 내림차순 기준으로 10개의 상품을 구한다.
 			pstmt=con.prepareStatement(sql);
 			
