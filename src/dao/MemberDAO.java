@@ -313,7 +313,7 @@ public class MemberDAO {
 	public int orderCount(String id) {
 		int orderCount = 0;
 		try {
-			String sql = "SELECT count(num) as 'orderCount' FROM orders where member_id = ?";
+			String sql = "SELECT count(num) as 'orderCount' FROM orders where member_id = ? AND state <> -1";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();

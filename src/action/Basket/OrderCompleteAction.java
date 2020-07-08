@@ -90,7 +90,7 @@ public class OrderCompleteAction implements Action {
 			}
 		String use_point= request.getParameter("TotalUseMileage").replace(" ", "");
 		System.out.println(select_free_coupon+" 쓴 쿠폰 "+request.getParameter("select_coupon"));
-//		ordersbean.setOrders_point(Integer.parseInt(use_point)); // 포인트
+		ordersbean.setOrders_use_point(Integer.parseInt(use_point)); // 포인트
 		ordersbean.setOrders_use_coupon(select_free_coupon+","+use_coupon);
 		
 		// 배송지 추가를 위해 입력받은 데이터를 저장할 ReceiverBean 객체 생성

@@ -53,6 +53,22 @@ function changeStatus(){
  <!-- 헤더 -->
     <jsp:include page="/inc/top.jsp"></jsp:include>
  <!-- 헤더 -->
+  <c:choose>
+<c:when test="${empty grade}">
+	<script>
+		alert("관리자만 접근이 가능한 페이지입니다.");
+		location.href="Home.home";
+	</script>
+</c:when>
+<c:otherwise>
+	<c:if test="${grade ne 'ADMIN'}">
+	<script>
+		alert("관리자만 접근이 가능한 페이지입니다.");
+		location.href="Home.home";
+	</script>
+	</c:if>
+</c:otherwise>
+</c:choose> 
  
  <input type = "hidden" name = "page" value = "${page}"/>
  

@@ -545,7 +545,12 @@ public class EventDAO {
 					System.out.println("nowwDate"+nowwDate);
 					System.out.println(eventList.get(i).getEvent_condition());
 					
-					String sql2 = "CALL drop_event(?)";
+					String sql2 = "UPDATE product SET sale_price = 0 WHERE category_code= ?";
+					pstmt = con.prepareStatement(sql2);
+					pstmt.setString(1, eventList.get(i).getEvent_condition());
+					updateCount = pstmt.executeUpdate();
+					
+					sql2 = "UPDATE event_board SET event_state = 0 WHERE event_condition = ?";
 					pstmt = con.prepareStatement(sql2);
 					pstmt.setString(1, eventList.get(i).getEvent_condition());
 					updateCount = pstmt.executeUpdate();
