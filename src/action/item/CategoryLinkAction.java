@@ -134,7 +134,7 @@ public class CategoryLinkAction implements Action {
 
 		// --------------------------페이징처리 start-----------------------------
 		// startPage 구하기
-		int startPage = page - (page - 1) % 5;
+		int startPage = (page/5)*page+1;
 		int startIndex = 0;
 		int lastPage = 0;
 		// startIndex 구하기

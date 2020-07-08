@@ -232,7 +232,7 @@
 				</div>
 				<div class="paging">
 					<c:if test="${startPage-5>0}">
-						<a href=""><span class="pager-left_box"></span></a>
+						<a href="${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=${doOrder}&page=${startPage-1}&src=${src}"><span class="pager-left_box"></span></a>
 					</c:if>
 					<c:forEach var="i" begin="0" end="4" step="1">
 						<c:if test="${(startPage+i)<=lastPage }">
@@ -241,7 +241,7 @@
 						</c:if>
 					</c:forEach>
 					<c:if test="${startPage+5<=lastPage }">
-						<a href=""><span class="pager-right_box"></span></a>
+						<a href="${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=${doOrder}&page=${startPage+5}&src=${src}"><span class="pager-right_box"></span></a>
 					</c:if>
 				</div>
 			</div>
