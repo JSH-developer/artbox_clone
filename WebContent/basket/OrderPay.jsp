@@ -1142,7 +1142,7 @@ span.scoup { /*     쿠폰 팝업 창  */
       <div class="TotalPriceAmount">
          총 결제금액 <span id="TotalPriceAmount"><fmt:formatNumber value="${tps+tpd}" pattern="#,###"/></span> 원<br />&nbsp;<br />
          <small>(적립 예정 꿈캔디 <span id="TotalMileageAmount"><fmt:formatNumber value="${tps/100}" pattern="#,###"/></span>개)</small>
-         <input type="hidden" name="point" value="${tps/100}">
+         <input type="hidden" name="point" value="${tps}">
       </div>
 
       <div class="OrderAgree">

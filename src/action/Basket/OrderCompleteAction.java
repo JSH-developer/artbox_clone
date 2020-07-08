@@ -77,7 +77,7 @@ public class OrderCompleteAction implements Action {
 		ordersbean.setOrders_order_email(request.getParameter("mememail")); // 주문자이메일
 		ordersbean.setOrders_order_phone(request.getParameter("tel")); // 주문자번호
 		ordersbean.setOrders_msg(request.getParameter("shipalertdesc")); // 배송메세지
-
+		ordersbean.setOrders_point(Integer.parseInt(request.getParameter("point"))/100); // 적립포인트
 		ordersbean.setOrders_total_price(Integer.parseInt(request.getParameter("RealTotalPrice"))); // 총합계
 		ordersbean.setOrders_payMethod("card"); // 결제 페이방법
 		ordersbean.setOrders_state(0); // 배송상태 (0 default:결제완료-배송준비중)
@@ -90,7 +90,7 @@ public class OrderCompleteAction implements Action {
 			}
 		String use_point= request.getParameter("TotalUseMileage").replace(" ", "");
 		System.out.println(select_free_coupon+" 쓴 쿠폰 "+request.getParameter("select_coupon"));
-		ordersbean.setOrders_point(Integer.parseInt(use_point)); // 포인트
+//		ordersbean.setOrders_point(Integer.parseInt(use_point)); // 포인트
 		ordersbean.setOrders_use_coupon(select_free_coupon+","+use_coupon);
 		
 		// 배송지 추가를 위해 입력받은 데이터를 저장할 ReceiverBean 객체 생성
