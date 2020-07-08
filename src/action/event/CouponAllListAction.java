@@ -15,7 +15,7 @@ public class CouponAllListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+		// 모든 쿠폰 불러오는 action - admin
 		ActionForward forward = null;
 		
 		// 저장된 쿠폰 리스트 불러오기

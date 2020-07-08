@@ -47,11 +47,11 @@
 						<c:if test="${!empty rl.review_img5 }"><img src="${pageContext.request.contextPath}/upload/${rl.review_img5}"></c:if>
 					</div>
 					<c:if test="${rl.review_re_check == 0 }">
-						<c:if test="${id eq 'admin' }">
+						<c:if test="${sessionScope.grade eq 'ADMIN'}">
 							<form action="reviewAnswer.item" method="post">
 								<input type="hidden" name="product_num" value="${rl.review_product_num }">
 								<input type="hidden" name="reNum" value="${rl.review_num }">
-								작성자 &nbsp;&nbsp; : &nbsp;&nbsp; <input type="text" name="reName">
+								<input type="hidden" name="reName" value="${id }">
 								<textarea name="reContent"></textarea>
 								<input type="submit" value="답변하기">
 							</form>

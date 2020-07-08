@@ -33,7 +33,7 @@
 							<c:otherwise>${ql.question_answer }</c:otherwise>
 						</c:choose>
 					</div>
-					<c:if test="${id eq 'admin'}">
+					<c:if test="${sessionScope.grade eq 'ADMIN'}">
 						<c:if test="${empty ql.question_answer }">
 							<form action="questionAnswer.item" method="post">
 								<input type="hidden" name="product_num" value="${ql.question_product_num }">

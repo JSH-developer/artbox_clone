@@ -121,7 +121,6 @@
 	<c:forEach var="i" begin="0" end="2" step="1">
 	<a class="NewArrival${i+1}" href="./itemDetail.item?product_num=${newItems[i].product_num}" target="_self" style=" 
 		background-image:url(${pageContext.request.contextPath}/upload/${newItems[i].product_image});" >
-			<b>${newItems[i].product_name}</b>
 		</a>
 		</c:forEach>
 		
@@ -139,12 +138,27 @@
 	</a>
 	<div class="EventList">
 	
-	<c:forEach var="i" begin="0" end="2" step="1">
+	
+			<c:set var="now" value="<%=new java.util.Date()%>" />
+		<c:set var="nowwDate"><fmt:formatDate value="${now}" pattern="yyyyMMdd"/></c:set>
+<!-- 		이벤트 리스트 불러오기 -->
+		<c:forEach var="i" begin="0" end="${fn:length(eventList)}" step="1">
+		
+		<c:set var="startdate" value="${fn:replace(eventList[i].event_start, '-', '')}" />
+		<c:set var="limitdate" value="${fn:replace(eventList[i].event_limit, '-', '')}" />
+<!-- 		진행중인 이벤트 -->
+		<c:if test="${startdate <= nowwDate and limitdate >= nowwDate }">
 	<a class="Event${i+1}" href="EventDetail.event?board_num=${eventList[i].event_num}&page=1&condition=${eventList[i].event_condition}" target="_self" style=" 
 		background-image:url(${pageContext.request.contextPath}/upload/${eventList[i].event_img});" >
-			<b>${eventList[i].event_titie}</b>
 		</a>
+		
+		
+		</c:if>
+		
+		
+		
 		</c:forEach>
+		
 		
 		<div class="clear"></div>
 		

@@ -18,6 +18,7 @@ public class EventDetailAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// 이벤트 상세 내용보여주기
 		ActionForward forward = null;
 		
 		int page = 1;

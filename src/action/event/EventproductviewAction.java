@@ -14,7 +14,7 @@ public class EventproductviewAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+		// 이벤트하고 있는 상품으로 가는 action - test 버전... 이거 삭제해도됨
 		ActionForward forward = null;
 		
 		// 조건 불러오기

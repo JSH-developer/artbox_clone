@@ -1,20 +1,17 @@
 package action.event;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
-import svc.EventService;
 import vo.ActionForward;
-import vo.PointBean;
 
 public class MypageGradeAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// 마이페이지에서 회원 등급별 페이지 불러오기
 		ActionForward forward = null;
 		
 		HttpSession session = request.getSession();

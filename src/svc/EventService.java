@@ -1,16 +1,14 @@
 package svc;
 
-import vo.EventBean;
-import vo.PointBean;
-import vo.ProductBean;
-
 import static db.jdbcUtil.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.List;
 
 import dao.EventDAO;
+import vo.EventBean;
+import vo.PointBean;
+import vo.ProductBean;
 
 
 public class EventService {
@@ -207,6 +205,27 @@ public class EventService {
 		close(con);
 		
 		return point;
+	}
+
+	// 이벤트 내리기
+	public void dropEvent(ArrayList<EventBean> eventList) {
+		System.out.println("dropEvent");
+		
+		Connection con = getConnection();
+		EventDAO eventDAO = EventDAO.getInstance();
+		eventDAO.setConnection(con);
+		
+		
+		int isSuccess = eventDAO.dropEvent(eventList);
+		
+		
+		if(isSuccess>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
 	}
 
 

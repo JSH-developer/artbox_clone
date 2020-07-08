@@ -332,7 +332,7 @@ public class MemberDAO {
 	public int coupCount(String id) {
 		int coupCount = 0;
 		try {
-			String sql = "SELECT count(num) as 'couponCount' FROM coupon where member_id = ?";
+			String sql = "SELECT count(num) as 'couponCount' FROM coupon where member_id = ? and coup_use =1";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();

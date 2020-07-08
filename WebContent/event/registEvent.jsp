@@ -71,7 +71,7 @@ $(document).ready(function() {
 </script>
 
 <!-- registProduct 페이지에 대한 전용 css, 딴 css 필요없음!!!!!! -->
-<link href="${pageContext.request.contextPath}/css/admin/registProduct.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/admin/adminRegist.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#event_condition option").each(function() {
@@ -110,21 +110,19 @@ $(document).ready(function(){
 <div class="admin_nav_wrap">
 <ul class="admin_nav">
 	<li><a href="Home.admin">관리자 홈</a></li>
-	<li><a href="#">이벤트 목록</a></li>
- 	<li><a href="#">이벤트 등록</a></li>
- 	<li><a href="#">이벤트 수정</a></li>
+	<li><a href="listEvent.event">이벤트 목록</a></li>
 </ul>
 </div>
 <br>
 
-<h1>이벤트 수정</h1>
+
+<h1>이벤트 등록 (모든항목이 필수*)</h1>
 <form action="EventWritePro.event" method="post" enctype="multipart/form-data">
 <table class="reg_tab">
 	<tr><th>이벤트 제목</th><td><input type="text" name="event_title"></td></tr>
 	<tr><th>이벤트 내용</th><td style="margin-left:100px"><textarea id="summernote" name="event_content"></textarea></td></tr>
-	<tr><th>이벤트 할인%</th><td><input type="text" name="event_discount" placeholder="세일은 %로, 쿠폰은 차감가격 입력"></td></tr>
-	<tr><th>이벤트 조건</th><td><select id="event_condition" name="event_condition"><option>카테고리를 선택해주세요</option>${categorySelectList}</select>
-		</td></tr>
+	<tr><th>이벤트 할인%</th><td><input type="text" name="event_discount" placeholder="할인하는 %입력, 쿠폰이벤트는 해당쿠폰 할인% 입력해줘야합니다."></td></tr>
+	<tr><th>이벤트 조건</th><td><select id="event_condition" name="event_condition"><option>카테고리를 선택해주세요</option>${categorySelectList}</select></td></tr>
 	<tr><th>이벤트 시작일</th><td><input type="date" name="event_start"></td></tr>
 	<tr><th>이벤트 마감일</th><td><input type="date" name="event_limit"></td></tr>
 	<tr><th>대표 이미지</th><td><input type="file" name="event_img" accept="image/*"></td></tr>

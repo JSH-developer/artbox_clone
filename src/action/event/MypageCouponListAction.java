@@ -16,7 +16,7 @@ public class MypageCouponListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+		// 마이페이지에서 회원이 갖고있는 쿠폰 불러오기 action
 		ActionForward forward = new ActionForward();
 		
 		ServletContext context = request.getServletContext();

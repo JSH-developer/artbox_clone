@@ -13,7 +13,6 @@ import action.Action;
 import action.event.CouponAllListAction;
 import action.event.CouponDeleteProAction;
 import action.event.CouponIssuedAction;
-import action.event.CouponSelectAction;
 import action.event.CouponWriteProAction;
 import action.event.MypageCouponListAction;
 import vo.ActionForward;
@@ -32,7 +31,6 @@ public class CouponFrontController extends HttpServlet {
 
 
 		if(command.equals("/listCoupon.coupon")){	// 쿠폰 등록 입력
-			System.out.println("/listCoupon.coupon");
 
 			action = new CouponAllListAction(); 
 			try {
@@ -42,7 +40,6 @@ public class CouponFrontController extends HttpServlet {
 			}
 		
 		}else if(command.equals("/CouponWritePro.coupon")) {	// 쿠폰 등록 Pro
-			System.out.println("/CouponWritePro.coupon");
 			action = new CouponWriteProAction();
 			try {
 				forward = action.execute(request, response);
@@ -51,7 +48,6 @@ public class CouponFrontController extends HttpServlet {
 			}
 			
 		}else if(command.equals("/MypageCouponList.coupon")) {	// 마이페이지 
-			System.out.println("/MypageCouponList.coupon");
 			action = new MypageCouponListAction();
 			try {
 				forward = action.execute(request, response);
@@ -59,16 +55,7 @@ public class CouponFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-		}else if(command.equals("/testSelectmain.coupon")) {	// 쿠폰 적용 테스트
-			System.out.println("/testSelectmain.coupon");
-
-			forward = new ActionForward();
-			//		forward.setRedirect(false); // 포워딩 방식을 Dispatcher 방식으로 설정(기본값 생략 가능)
-			forward.setPath("/event/PayCoupon.jsp"); // 이동할 View 페이지 경로 지정
-
-			
 		}else if(command.equals("/CouponIssued.coupon")) {	// 버튼누르면 쿠폰 발급
-			System.out.println("/CouponIssued.coupon");
 			action = new CouponIssuedAction();
 			try {
 				forward = action.execute(request, response);
@@ -76,17 +63,7 @@ public class CouponFrontController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-		}else if(command.equals("/CouponSelect.coupon")) {	// 쿠폰 확인
-			System.out.println("/CouponSelect.coupon");
-			action = new CouponSelectAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-		}else if(command.equals("/CouponDeletePro.coupon")) {	// 쿠폰 확인
-			System.out.println("/CouponDeletePro.coupon");
+		}else if(command.equals("/CouponDeletePro.coupon")) {	// 쿠폰 삭제
 			action = new CouponDeleteProAction();
 			try {
 				forward = action.execute(request, response);

@@ -13,11 +13,13 @@ public class CouponIssuedAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+		// 쿠폰 발급 aciton
 		ActionForward forward = null;
 		
 		String getid = request.getParameter("getid");
 		int getCouponNum = Integer.parseInt(request.getParameter("couponNum"));
+		System.out.println("getid"+getid);
+		System.out.println("couponNum"+getCouponNum);
 		
 		CouponService couponService = new CouponService();
 		Boolean isSuceess = couponService.couponIssued(getid,getCouponNum);

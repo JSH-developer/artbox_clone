@@ -3,9 +3,6 @@
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%EventBean eventArticle=(EventBean)request.getAttribute("eventArticle"); %>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,7 +99,7 @@ $(document).ready(function(){
 })
 </script>
 <!-- registProduct 페이지에 대한 전용 css, 딴 css 필요없음!!!!!! -->
-<link href="${pageContext.request.contextPath}/css/admin/registProduct.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/admin/adminRegist.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>

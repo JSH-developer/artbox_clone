@@ -18,6 +18,7 @@ public class EventModifyProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// 이벤트 수정 form 가져와서 저장
 		ActionForward forward = null;
 		
 		ServletContext context = request.getServletContext();

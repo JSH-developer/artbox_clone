@@ -17,6 +17,7 @@ public class MypagePointListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// 마이페이지 회원 포인트 불러오기
 		ActionForward forward = null;
 		
 		HttpSession session = request.getSession();

@@ -42,10 +42,10 @@
 			<li class="MyPage">
 			
 				<c:if test="${!empty sessionScope.id }">
-					<a href="myPageOrders.member" title="마이페이지" onclick="GA_event('HEAD', '최상단 메뉴', '마이페이지');"><img src="${pageContext.request.contextPath}/Images/common/top_icon_login.png" id="MyInfoSummaryIcon"></a>
+					<a href="myPageOrders.member" title="마이페이지"><img src="${pageContext.request.contextPath}/Images/common/top_icon_login.png" id="MyInfoSummaryIcon"></a>
 				</c:if>
 				<c:if test="${empty sessionScope.id }">
-					<a href="loginForm.member" title="로그인" onclick="GA_event('HEAD', '최상단 메뉴', '로그인');"><img src="${pageContext.request.contextPath}/Images/common/top_icon_login.png" id="MyInfoSummaryIcon"></a>
+					<a href="loginForm.member" title="로그인"><img src="${pageContext.request.contextPath}/Images/common/top_icon_login.png" id="MyInfoSummaryIcon"></a>
 				</c:if>
 			
 			</li>

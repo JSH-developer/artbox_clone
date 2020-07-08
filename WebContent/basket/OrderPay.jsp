@@ -75,7 +75,7 @@ $(document).ready(function(){
 			$(this).val(maxValue);
 		}
 		$("input[name=TotalUseMileage]").val($(this).val(),10);
-		$("#TotalUseMileage").text("- " + parseInt($(this).val(), 10));
+		$("#TotalUseMileage").text("- " + setComma(parseInt($(this).val(), 10)));
 		fnTotalPriceAmount();
 	});
 	
@@ -189,6 +189,8 @@ $(document).ready(function(){
 	fnCouponSelect = function(obj) {
 		var DcNumber = $(obj).find(":selected").attr("alt");
 		var MemberCouponIdx = $(obj).find(":selected").val();
+		var select_free_coupon = document.getElementById("select_free_coupon");
+		
 		if ($(obj).attr("name") == "BonusCouponIdx") {
 			if (DcNumber == "0" && MemberCouponIdx != "") { // DcNumber=0 이면 꿈캔디 적립쿠폰으로 인식
 				alert("꿈캔디는 상품 구매 확정 시 자동으로 적립됩니다.");
@@ -197,9 +199,19 @@ $(document).ready(function(){
 			$("#TotalUseBonusCoupon").text("- " + parseInt(DcNumber, 10));
 			fnTotalPriceAmount();
 		} else if ($(obj).attr("name") == "FreeCouponIdx") {
+			
+			select_free_coupon.value ="";
+			select_free_coupon.value= MemberCouponIdx;
+			
+			
 			$("input[name=TotalUseFreeCoupon]").val(DcNumber);
 			$("#TotalUseFreeCoupon").text("- " + setComma(parseInt(DcNumber, 10)));
 			fnTotalPriceAmount();
+			
+			
+			
+			
+			
 		}
 	}
 	
@@ -823,24 +835,24 @@ span.scoup { /*     쿠폰 팝업 창  */
 			<!--  bonuscoupon 가져오는 for문 -->
 			<c:if test="${!empty mycouponList}"> 
 			<c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
+<!-- 			bonus 쿠폰인지 변수에 저장 -->
 			 <c:set var="myCoupon" value="${mycouponList[i].coupon_category}" />
-			
+			 <c:if test="${mycouponList[i].coupon_use eq 1 }">
 			<c:if test="${myCoupon eq 'bonuscoupon' && total_price111 >= mycouponList[i].coupon_condition}">
 			  <c:set var="BonusCoupontCnt" value="${BonusCoupontCnt=BonusCoupontCnt+1 }"/>
 				<tr>
-<!-- 				|| tps>mycouponList[i].coupon_condition} -->
 					<td class="c_select_td">
 						<input type="radio" name="f_coupongroup" id="f_coupongroup_b${i}" value="${mycouponList[i].coupon_price}" onclick="selectCouponGroup(${mycouponList[i].coupon_price})" coup_num="${mycouponList[i].coupon_num}"> 
 						<label for="f_coupongroup_b${i}" style="cursor: pointer; cursor: hand;">
 						<font color="#696969"><b>보너스쿠폰</b></font></label></td>
 					<td  class="c_select_td_name">
-<!-- 					<input type="checkbox" name="f_couponmemberno_1_1" id="f_couponmemberno_1_1" value="TI20060493648306" onclick="selectCouponMember(1, 1)" style="display: none;"> -->
 						
 						<label for="f_coupongroup_${i}" style="cursor: pointer; cursor: hand;">${mycouponList[i].coupon_name}</label></td>
 					<td class="c_select_td"><font color="#9e9e9e">${mycouponList[i].coupon_condition }</font></td>
 					<td class="c_select_td" style="padding-right: 10px"><font color="#fc2c03"><b>${mycouponList[i].coupon_price}</b></font></td>
 					<td class="c_select_td"><font color="#9e9e9e">${mycouponList[i].coupon_limit }</font></td>
 				</tr>
+				</c:if>
 				</c:if>
 				</c:forEach>
 			</c:if>		
@@ -889,44 +901,8 @@ span.scoup { /*     쿠폰 팝업 창  */
 							<tr>
 								<td height="5" colspan="4" align="left"></td>
 							</tr>
-<%-- <c:if test="${!empty mycouponList}">  --%>
 	<c:forEach items="${orderList}" var="orderList">
-	
-<%-- 	 ${orderList[0].itemCategory } --%>
-	 
-              
-              
-<%--               <jsp:useBean id="itemMap" class="java.util.HashMap"/> --%>
-<%--               <c:set var="sss" value="${s+1}" /> --%>
-              
-<%--               <c:if test="${fn:contains(itemMap,orderList[0].itemCategory)}"> --%>
-<%--                <c:set value="${orderList[0].itemprice +itemMap.orderList[0].itemprice}" target="${itemMap}" property="${orderList[0].itemCategory}" /><br> --%>
-<%--  				</c:if> --%>
- 				
-<%--  				  <c:if test="${!fn:contains(itemMap,orderList[0].itemCategory)}"> --%>
-<%--                <c:set value="${orderList[0].itemprice }" target="${itemMap}" property="${orderList[0].itemCategory}" /><br> --%>
-<%--  				</c:if> --%>
- 				
- 				
-<%--  				<c:out value="${itemMap}" /> // ${orderList[0].itemCategory } --%>
 
-
-<!-- ---------------------- -->
- 				
-
- 				
-
-<%-- <c:forEach var="itemcategory" items="${orderList[0].itemCategory}" varStatus="status"> --%>
-	 
-<%-- 	   <c:if test="${itemcategory == mycouponList[i].coupon_condition}"> --%>
-<%-- 	       ${itemcategory} / ${mycouponList[i].coupon_condition } --%>
-<%--     <jsp:useBean id="itemMap1" class="java.util.HashMap"/> --%>
-<%-- 	   <c:set value="${orderList[0].itemprice= itemMap1.orderList[0].itemprice+orderList[0].itemprice}" target="${itemMap1}" property="${orderList[0].itemCategory}" /> --%>
-	   
-<%-- 	  <c:out value="${itemMap1}" /> --%>
-	  
-<%-- 	  </c:if></c:forEach> --%>
-              
               
          <c:forEach var="i" begin="0" end="${fn:length(mycouponList)-1}" step="1">
          <c:set var="myCoupon" value="${mycouponList[i].coupon_category }" />
@@ -937,14 +913,11 @@ span.scoup { /*     쿠폰 팝업 창  */
           	   <c:if test="${itemcategory == mycouponList[i].coupon_condition}">
           	   
           	   <c:set var="s" value="${s+1}"/>
-<%--             ${itemcategory} +${s} --%>
            
             
-         <c:if test="${myCoupon == 'goodscoupon' }">
+         <c:if test="${myCoupon == 'goodscoupon' || mycouponList[i].coupon_use eq 1}">
              <c:set var="GoodsCoupontCnt" value="${GoodsCoupontCnt= GoodsCoupontCnt+1 }"/>
              <fmt:parseNumber integerOnly="true" var="coup_discount" value="${orderList[0].itemprice * mycouponList[i].coupon_price /100}"/>
-             
-             
              
                <tr>
                   <td  align="left"  class="c_select_td_name">
@@ -975,7 +948,6 @@ span.scoup { /*     쿠폰 팝업 창  */
          
          </c:forEach>
          </c:forEach>
-<%-- </c:if>			 --%>
 						</tbody>
 					</table>
 				</td>
@@ -1057,7 +1029,7 @@ span.scoup { /*     쿠폰 팝업 창  */
                   &nbsp;&nbsp;<span class="MobileBr"></span>
                   상품쿠폰 (<span id="GoodsCouponTotCnt">${GoodsCoupontCnt }</span>장)
                    &nbsp;&nbsp;<span class="MobileBr"></span>
-            <span class="scoup" style="font-size: 13pt;" onClick="open_pop();">쿠폰사용</span>
+            <span class="scoup" style="font-size: 13pt;cursor: pointer; cursor: hand;" onClick="open_pop();">쿠폰사용</span>
                </dd>
             </dl>
          </div>
@@ -1082,8 +1054,9 @@ span.scoup { /*     쿠폰 팝업 창  */
 							
 							<c:forEach  var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
 							<c:set var="Coupon" value="${mycouponList[i].coupon_category}"/>
-							<c:if test="${'freecoupon' == Coupon }">
-							<option value="53146604" alt="${mycouponList[i].coupon_price }">
+							<c:if test="${'freecoupon' eq Coupon && mycouponList[i].coupon_use eq 1}">
+							
+							<option value="${mycouponList[i].coupon_num }" alt="${mycouponList[i].coupon_price }">
 							${mycouponList[i].coupon_name}</option>
 							</c:if>
 						</c:forEach>
@@ -1156,7 +1129,8 @@ span.scoup { /*     쿠폰 팝업 창  */
             <dl class="trPrice">
                <dt>무료배송 쿠폰</dt>
                <dd><span id="TotalUseFreeCoupon">- 0</span> 원
-               <input type="hidden" name="TotalUseFreeCoupon" value="0" /></dd>
+               <input type="hidden" name="TotalUseFreeCoupon" value="0" />
+               <input type="hidden" id="select_free_coupon" name="select_free_coupon" value="0" alt="0" /></dd>
             </dl>
             <dl class="trPrice">
                <dt>꿈캔디 사용</dt>
@@ -1279,29 +1253,33 @@ $("#btn_order").click(function(){
 		return;
 	}
 	
-	// 아임포트 API
-// 	IMP.request_pay({
-// 		pg: 'inicis', // version 1.1.0부터 지원.
-// 		merchant_uid : 'mid_' + new Date().getTime(),
-// 		pay_method: 'card',
-// 		name: $("#pd_name").val(),
-// 		amount: 100, // $("#RealTotalPrice").val(),
-// 	    buyer_email: $("#i_mememail").val(),
-// 	    buyer_name: $("#i_memname").val(),
-// 		buyer_tel: $("#tel").val(),
-//     	buyer_addr: $("#i_shipaddr").val(),
-//     	buyer_postcode: $("#i_shipzipcode").val()
-// 	}, function(rsp) {
-// 		if ( rsp.success ) {
-//     		var msg = '결제가 완료되었습니다.';
-    		fr.submit();
-// 		} else {
-// 			var msg = '결제에 실패하였습니다.';
-// 			msg += '에러내용 : ' + rsp.error_msg;
-// 		}
-// 	alert(msg);
-// 	})
-	
+	// 총 결제 금액이 0원일 경우 아임포트 API 거치지않고 주문완료
+// 	if($("#RealTotalPrice").val() == 0) {
+		fr.submit();
+// 	} else { // 결제금액이 0원 이상일 경우 결제창 띄움
+// 		// 아임포트 API
+// 		IMP.request_pay({
+// 			pg: 'inicis', // version 1.1.0부터 지원.
+// 			merchant_uid : 'mid_' + new Date().getTime(),
+// 			pay_method: 'card',
+// 			name: $("#pd_name").val(),
+// 			amount: 100, // $("#RealTotalPrice").val(),
+// 		    buyer_email: $("#i_mememail").val(),
+// 		    buyer_name: $("#i_memname").val(),
+// 			buyer_tel: $("#tel").val(),
+//    	 		buyer_addr: $("#i_shipaddr").val(),
+//    	 		buyer_postcode: $("#i_shipzipcode").val()
+// 		}, function(rsp) {
+// 			if ( rsp.success ) {
+//     			var msg = '결제가 완료되었습니다.';
+//     			fr.submit();
+// 			} else {
+// 				var msg = '결제에 실패하였습니다.';
+// 				msg += '에러내용 : ' + rsp.error_msg;
+// 			}
+// 		alert(msg);
+// 		})
+// 	}
 });
 </script>
 <!--  푸터 -->

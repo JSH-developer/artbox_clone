@@ -12,8 +12,7 @@ public class EventModifyFormAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("EventModifyFormAction");
-		
+		// 이벤트 수정 form action
 		ActionForward forward  =null;
 		
 		// 이벤트 조건, 이벤트 글num 불러오기
