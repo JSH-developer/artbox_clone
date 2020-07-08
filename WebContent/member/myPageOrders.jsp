@@ -51,9 +51,9 @@ function buy(orders_order_num,point){
 			<ul>
 				<li onclick="location.href='myPageOrders.member'" class="on">주문/배송</li>
 				<li onclick="location.href='myPageRe.member'">취소/반품/교환</li>
-				<li onclick="location.href='myPageWishlist.member'">위시리스트</li>
-				<li onclick="location.href='myPageQ&A.member'">상품Q&A</li>
-				<li onclick="location.href='myPageQuestion.member'">1:1 문의/상담</li>
+				<li >위시리스트</li>
+				<li >상품Q&A</li>
+				<li >1:1 문의/상담</li>
 			</ul>
 		</div>
 

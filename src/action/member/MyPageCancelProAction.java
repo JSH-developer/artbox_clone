@@ -35,7 +35,7 @@ public class MyPageCancelProAction implements Action{
 		//request 값 저장
 		request.setAttribute("myRes", myRes);
 		
-		forward.setPath("/member/myPageRe.jsp");
+		forward.setPath("/myPageRe.member");
 		return forward;
 	}
 
