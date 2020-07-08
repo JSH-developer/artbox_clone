@@ -13,16 +13,10 @@
   <link rel="icon" href="${pageContext.request.contextPath}/Images/common/tab.ico" type="image/x-icon">
 <title>ARTBOX(포트폴리오)</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-
-<link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath}/css/admin/adminRegist.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath}/css/admin/adminList.css" rel="stylesheet" type="text/css">
-
-</head>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.5.0.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#coupon_codition option").each(function() {
+	$("option").each(function() {
 		var text = $(this).text();
 		
 		if(text.indexOf('DT') != -1) {
@@ -48,6 +42,15 @@ $(document).ready(function(){
 	
 })
 </script>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+<link href="${pageContext.request.contextPath}/css/front.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/admin/adminRegist.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/css/admin/adminList.css" rel="stylesheet" type="text/css">
+
+</head>
+
 <body>
 
 <!-- 헤더 -->
@@ -89,7 +92,6 @@ $(document).ready(function(){
 	<tr class="btn_tr"><td colspan="2"><input type="submit" value="쿠폰등록"></td></tr>
 </table>
 </form>
-<p><% out.print(request.getRealPath("/upload")); %></p> <br>
 <!-- /쿠폰 등록 -->
 
 <!-- 쿠폰 리스트 -->

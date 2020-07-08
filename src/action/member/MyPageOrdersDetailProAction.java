@@ -11,6 +11,7 @@ import svc.admin.AdminOrderViewService;
 import svc.member.MemberCheckService;
 import svc.member.MyPageOrdersService;
 import vo.ActionForward;
+import vo.MemberBean;
 import vo.OrdersBean;
 import vo.OrdersDetailBean;
 import vo.ReceiverBean;
@@ -34,6 +35,19 @@ public class MyPageOrdersDetailProAction implements Action{
 		AdminOrderViewService orderViewService = new AdminOrderViewService();
 		ordersBean = orderViewService.infoOrders(orders_num); // svc에서 OrdersBean 받아오기
 		receiverBean = orderViewService.infoReceiver(myDetailOrders.get(0).getReceiver_num()); // svc에서 ReceiverBean 받아오기
+		
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("id");
+		MyPageOrdersService myPageOrdersService = new MyPageOrdersService();
+		MemberBean bb = myPageOrdersService.myPoint(id);
+		int orderCount = myPageOrdersService.orderCount(id);
+		int coupCount = myPageOrdersService.coupCount(id);
+		int reviewCount = myPageOrdersService.reviewCount(id);
+		
+		request.setAttribute("point", bb.getPoint());
+		request.setAttribute("orderCount", orderCount);
+		request.setAttribute("coupCount", coupCount);
+		request.setAttribute("reviewCount", reviewCount);
 		
 		// request에 저장
 		request.setAttribute("myDetailOrders", myDetailOrders);

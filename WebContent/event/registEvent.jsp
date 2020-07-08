@@ -74,6 +74,7 @@ $(document).ready(function() {
 <link href="${pageContext.request.contextPath}/css/admin/adminRegist.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 $(document).ready(function(){
+	jQuery.noConflict();
 	$("#event_condition option").each(function() {
 		var text = $(this).text();
 		
@@ -134,7 +135,6 @@ $(document).ready(function(){
 </table>
 </form>
 </div>
-<p><% out.print(request.getRealPath("/upload")); %></p>
 
  <!--  푸터 -->
  <jsp:include page="/inc/bottom.jsp"></jsp:include>

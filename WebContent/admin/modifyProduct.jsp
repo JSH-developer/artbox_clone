@@ -28,6 +28,29 @@ $(document).ready(function(){
 	$("#modfSubmit").click(function(){
 		$("#option_code").removeAttr("disabled")
 	});
+	
+	$("#product_category_code option").each(function() {
+		var text = $(this).text();
+		
+		if(text.indexOf('DT') != -1) {
+			$(this).html(text.replace('DT', '인형/토이'));
+		}else if(text.indexOf('FA') != -1) {
+			$(this).html(text.replace('FA', '문구'));	
+		}else if(text.indexOf('FS') != -1){
+			$(this).html(text.replace('FS', '패션'));
+		}else if(text.indexOf('KB') != -1){
+			$(this).html(text.replace('KB', '주방/욕실'));
+		}else if(text.indexOf('LD') != -1){
+			$(this).html(text.replace('LD', '리빙/데코'));
+		}else if(text.indexOf('DI') != -1){
+			$(this).html(text.replace('DI', '디지털/가전'));
+		}else if(text.indexOf('TR') != -1){
+			$(this).html(text.replace('TR', '여행'));
+		}else if(text.indexOf('BE') != -1){
+			$(this).html(text.replace('BE', '뷰티'));	
+		}
+		
+		});
 
 })
 </script>
@@ -133,7 +156,7 @@ $(document).ready(function() {
 	<input type="hidden" name="num" value="${param.num}">
 	<input type="hidden" name="page" value="${param.page}">
 <table class="reg_tab">
-	<tr><th>상품카테고리</th><td><select id="category_code" name="product_category_code"><c:out value="${categorySelectList}" escapeXml="false"/></select></td></tr>
+	<tr><th>상품카테고리</th><td><select id="product_category_code" name="product_category_code"><c:out value="${categorySelectList}" escapeXml="false"/></select></td></tr>
 	<tr><th>상품옵션</th><td><select id="option_code" name="product_option_code"><option value="00">기본옵션(+0)</option><c:out value="${optionSelectList}" escapeXml="false"/></select></td></tr>
 	<input type="hidden" name="product_option_code_origin" value= "<c:out value="${productBean.product_option_code}"/>" >
 	<tr><th>상품명</th><td><input type="text" name="product_name" value="<c:out value="${productBean.product_name}"/>"></td></tr>

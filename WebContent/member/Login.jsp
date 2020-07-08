@@ -44,6 +44,7 @@
 			</div>
 			<input type="submit" value="로그인" class="loginButton">
 		</form>
+		</div>
 
 
 		<script src="js/jquery-3.5.0.js"></script>
