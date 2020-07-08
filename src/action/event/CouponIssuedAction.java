@@ -41,7 +41,7 @@ public class CouponIssuedAction implements Action {
 			System.out.println("쿠폰 발급받기 성공");
 			
 			out.println("<script>");
-			out.println("if(confirm('쿠폰을 확인하시겠습니까?'))");
+			out.println("if(confirm('쿠폰이 발급되었습니다.쿠폰을 확인하시겠습니까?'))");
 			out.println("{location.href='MypageCouponList.coupon';}");
 			out.println("else");
 			out.println("{history.back()}");

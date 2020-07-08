@@ -42,7 +42,7 @@ function cpClick(num){
 	
 	if(getId == "null" || getId == ""){
 
-		moveCheck = confirm("로그인하시겠습니까?"+getId);
+		moveCheck = confirm("회원만 등록 가능합니다.로그인하시겠습니까?"+getId);
 		
 		if(moveCheck){
 			location.href = "loginForm.member";

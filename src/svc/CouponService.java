@@ -158,20 +158,5 @@ public class CouponService {
 	}
 
 	
-//	// 아이디가 쿠폰 갖고 있는지 확인
-//	public int selectCouponCheck(String id, String couponName) {
-//		int check = 0;
-//		
-//		Connection con = getConnection();
-//		CouponDAO couponDAO = CouponDAO.getInstance();
-//		couponDAO.setConnection(con);
-//		
-//		check = couponDAO.selectCouponCheck(id, couponName);
-//		
-//		
-//		return check;
-//	}
-
-	
 	
 }
