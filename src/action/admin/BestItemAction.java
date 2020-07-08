@@ -42,10 +42,6 @@ public class BestItemAction implements action.Action{
 		int page = 1;
 		int limit = 10;
 		
-		if(request.getParameter("page")!=null) {
-			page = Integer.parseInt(request.getParameter("page"));
-		}
-		
 		EventService eventService = new EventService();
 		int listCount = eventService.getAllListCount();
 		System.out.println("EventListAction - listCount : "+listCount);

@@ -26,7 +26,7 @@ public class EventWriteProAction implements Action {
 		ServletContext context = request.getServletContext();
 		
 		// 프로젝트 상에서의 가상 업로드 폴더 위치 지정
-		String saveFolder ="/eventUpload"; // 현재 위치(Webcontent)의 하위폴더이므로 "/폴더명" 사용 
+		String saveFolder ="/upload"; // 현재 위치(Webcontent)의 하위폴더이므로 "/폴더명" 사용 
 		
 		// ServletContext객체를 사용하여 가상 폴더에 대응하는 실제 폴더 위치 가져오기
 		// => 이클립스 사용시 실제 업로드 폴더 위치
