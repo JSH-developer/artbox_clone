@@ -75,9 +75,9 @@ font-size: 18px;}
 				<p><img src="${pageContext.request.contextPath}/upload/${articleList[i].event_img}" width="360px" height="250px"></p>
 			<p><span style="font-weight: bold;color: #262729; ">${articleList[i].event_titie}</span>
 				
-				<c:if test="${'sale_event' == articleList[i].event_category}">
+				
 					<span style="color:red;">[${articleList[i].event_discount}%]</span>
-				</c:if>
+			
 			</p>
 				
 		
@@ -94,7 +94,7 @@ font-size: 18px;}
 				<p><img src="${pageContext.request.contextPath}/upload/${articleList[i].event_img}" width="360px" height="250px"
 				style="color: grey;"></p>
 				<p><span style="font-weight: bold;color: #262729; ">${articleList[i].event_titie}</span>
-				<span style="color:red;">[${articleList[i].event_discount}%]</span></p>
+				</p>
 				<p style="color: grey;font-size: 14px;">종료된 이벤트 입니다.</p>
 			</div>
 
