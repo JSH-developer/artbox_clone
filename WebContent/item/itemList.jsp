@@ -82,7 +82,6 @@
 <body>
 <c:set var="showAllUrl" value="${pageContext.request.contextPath}/itemList.item?major=${code}&minor=&kwd=${kwd}&doOrder=&page=1&src="/>
 <c:set var="selectBoxUrl" value="http://itwillbs9.cafe24.com/${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&page=${page}&src=${src}"/>	
-<c:set var="pagerUrl" value="${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=${doOrder}&page=${startPage+i}&src=${src}"/>	
 <c:set var="categoryUrl" value="${pageContext.request.contextPath}/itemList.item?major=${code}&kwd=${kwd}&doOrder=&page=1&src="/>	
 	<div class="page">
 		<!-- 헤더 -->
@@ -233,16 +232,16 @@
 				</div>
 				<div class="paging">
 					<c:if test="${startPage-5>0}">
-						<a href=""><span class="pager-left_box"></span></a>
+						<a href="${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=${doOrder}&page=${startPage-1}&src=${src}"><span class="pager-left_box"></span></a>
 					</c:if>
 					<c:forEach var="i" begin="0" end="4" step="1">
 						<c:if test="${(startPage+i)<=lastPage }">
 							<span class="page_num"><a
-								href="${pagerUrl }">${startPage+i}</a></span>
+								href="${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=${doOrder}&page=${startPage+i}&src=${src}">${startPage+i}</a></span>
 						</c:if>
 					</c:forEach>
 					<c:if test="${startPage+5<=lastPage }">
-						<a href=""><span class="pager-right_box"></span></a>
+						<a href="${pageContext.request.contextPath}/itemList.item?major=${code}&minor=${minorCategoryCode }&kwd=${kwd}&doOrder=${doOrder}&page=${startPage+5}&src=${src}"><span class="pager-right_box"></span></a>
 					</c:if>
 				</div>
 			</div>
