@@ -10,14 +10,25 @@ public class OrdersBean {
 	private String orders_order_email; // 주문자 이메일
 	private String orders_order_phone; // 주문자 폰번호
 	private String orders_msg; // 배송메세지
-	private int orders_point; // 결제포인트
+	private int orders_point; // 결제 후 적립되는 포인트
 	private int orders_total_price; // 결제(최종)금액
 	private String orders_payMethod; // 결제수단
 	private int orders_state; // 진행상태
 	private Timestamp orders_regdate; // 승인(결제)날짜
 	private String orders_use_coupon; // 주문시 쓰는 쿠폰
+	private int orders_use_point; // 주문시 쓰는 포인트
+	
+	
+	
 	
 
+
+	public int getOrders_use_point() {
+		return orders_use_point;
+	}
+	public void setOrders_use_point(int orders_use_point) {
+		this.orders_use_point = orders_use_point;
+	}
 	public String getOrders_use_coupon() {
 		return orders_use_coupon;
 	}
