@@ -40,11 +40,12 @@ public class ItemDAO {
 	public ArrayList<ProductBean> selectMajorLink(String majorCategory) {
 		String sql = "SELECT * FROM product " + 
 				"LEFT OUTER JOIN " + 
-				"(SELECT product_num,cnt_order,cnt_review FROM (SELECT product_num, SUM(quantity) 'cnt_order' FROM orders_detail GROUP BY product_num) cnt1 " + 
+				"(SELECT product_num,cnt_order,cnt_review FROM " +
+				"(SELECT product_num, SUM(quantity) 'cnt_order' FROM orders_detail GROUP BY product_num) cnt1 " + 
 				"LEFT OUTER JOIN (SELECT product_num 'tmp_pn', COUNT(num) 'cnt_review' FROM review GROUP BY product_num) cnt2 " + 
 				"ON cnt1.product_num = cnt2.tmp_pn) cnt_tbl " + 
-				"ON product.num = cnt_tbl.product_num "
-				+ "where category_code like ? order by num desc";
+				"ON product.num = cnt_tbl.product_num " +
+				"where category_code like ? order by num desc";
 		ProductBean productBean = null;
 		ArrayList<ProductBean> listProduct = new ArrayList<ProductBean>();
 		try {
