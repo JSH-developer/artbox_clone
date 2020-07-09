@@ -51,7 +51,8 @@ $(document).ready(function(){
 	fnBasketOne = function(actiontype, basketIdx, qty, product_num, stockCount){
 // 		alert(actiontype+"\n"+basketIdx+"\n"+qty+"\n"+product_num); // 값 확인용
 		if(stockCount <= 0) {
-			alert("현재 재고량이 0개 입니다.");
+			alert("현재 재고량이 0개 입니다.\n해당 상품을 장바구니에서 삭제합니다.");
+			location.href = "deleteBasket.basket?basketIdx="+basketIdx+"&product_num="+product_num;
 			return;
 		}
 		if (actiontype == "BUY") { // '바로주문하기' 버튼 클릭 => 특정 상품만 주문
@@ -72,12 +73,13 @@ $(document).ready(function(){
 			alert("0 이상의 값을 입력해야 합니다.");
 			return;
 		} else if(stockCount <= 0) {
-			alert("현재 재고량이 0개 입니다.");
+			alert("현재 재고량이 0개 입니다.\n해당 상품을 장바구니에서 삭제합니다.");
 			location.href = "deleteBasket.basket?basketIdx="+basketIdx+"&product_num="+product_num;
 			return;
 		} else if(qty > stockCount) {
 			alert("현재 재고량이 " + stockCount + "개 입니다.");
 			$("#Qty"+basketIdx).val(stockCount);
+			return;
 		}
 		$("#Qty"+basketIdx).val(qty);
 	}
@@ -204,7 +206,14 @@ function Select(id) {
 		<div class="tableDiv BasketRow">
 			<dl class="trBasket ${basketList.basket_num }" >
 				<dt class="tdCheck">
-					<input type="checkbox" name="BasketIdx" id="Item${basketList.basket_num }" value="${basketList.basket_num }" data-product_num="${basketList.basket_product_num }" data-basketIdx="${basketList.basket_num }" realitemprice="${itemsList[status.index].product_sale_price}" itemprice="${result_price}" data-itemquantity="${basketList.basket_quantity }" >
+					<input type="checkbox" name="BasketIdx" id="Item${basketList.basket_num }" value="${basketList.basket_num }"
+					data-product_num="${basketList.basket_product_num }"
+					data-basketIdx="${basketList.basket_num }"
+					realitemprice="${itemsList[status.index].product_sale_price}"
+					itemprice="${result_price}"
+					data-itemquantity="${basketList.basket_quantity }"
+					data-stockCount="${itemsList[status.index].product_stock_count }">
+					
 					<c:out value="${stockCount }"></c:out>
 				</dt>
 				<dt class="tdImage"><a href="itemDetail.item?product_num=${basketList.basket_product_num }"><img src="${pageContext.request.contextPath}/upload/${itemsList[status.index].product_image }"></a></dt>

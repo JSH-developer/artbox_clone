@@ -38,7 +38,7 @@
 			}
 			return false;
 		}
-		if('${item.product_stock_count }' <= 0){
+		if($(this).attr("data-stockCount") <= 0){
 			alert("현재 재고량이 0개 입니다.");
 		} else {
 			var product_name = $(this).attr("data-pdName"); // 상품이름
@@ -198,6 +198,7 @@
 											<a class="basket off"
 												data-pdNum='${item.product_num }'
 												data-pdName='${item.product_name } (${item.product_code })'
+												data-stockCount='${item.product_stock_count }'
 												style="color: white;">
 											<i class="fas fa-shopping-cart"></i>
 											</a>
