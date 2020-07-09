@@ -152,11 +152,11 @@
 			if ($(this).hasClass("on")){
 				$(this).removeClass("on");
 				$(this).addClass("off");
-				alert('상품이 위시리스트에서 제거되었습니다.');
+// 				alert('상품이 위시리스트에서 제거되었습니다.');
 			} else {
 				$(this).removeClass("off");
 				$(this).addClass("on");
-				alert('상품이 위시리스트에 추가되었습니다.');
+// 				alert('상품이 위시리스트에 추가되었습니다.');
 			}
 		}
 	});

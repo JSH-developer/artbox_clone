@@ -89,7 +89,7 @@ public class ReviewWriteAction implements Action {
 				isWriteSuccess = reviewWriteSVC.registReview(reviewBean);
 			}else if(isWrite == -1){
 				out.println("<script>");
-				out.println("alert('review 등록 실패! - 이미 작성한 후기입니다.')");
+				out.println("alert('이미 작성한 후기입니다.')");
 				out.println("history.back()");
 				out.println("</script>");
 			}
