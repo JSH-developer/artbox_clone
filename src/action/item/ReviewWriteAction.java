@@ -78,18 +78,27 @@ public class ReviewWriteAction implements Action {
 		reviewBean.setReview_img5(multi.getFilesystemName("review_img5"));
 		reviewBean.setReview_member_id(id);
 		
-		boolean isWriteSuccess;
+		response.setContentType("text/html;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		boolean isWriteSuccess = false;
 		if(review_num.equals("")) {
 			ReviewWriteSVC reviewWriteSVC = new ReviewWriteSVC();
-			isWriteSuccess = reviewWriteSVC.registReview(reviewBean);
+			int isWrite = reviewWriteSVC.checkReview(reviewBean);
+			if(isWrite == 1) {
+				isWriteSuccess = reviewWriteSVC.registReview(reviewBean);
+			}else if(isWrite == -1){
+				out.println("<script>");
+				out.println("alert('review 등록 실패! - 이미 작성한 후기입니다.')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
 		}else {
 			ReviewUpdateSVC reviewUpdateSVC = new ReviewUpdateSVC();
 			isWriteSuccess = reviewUpdateSVC.updateReview(reviewBean);
 		}	
 		
 		if(!isWriteSuccess) {
-			response.setContentType("text/html;charset=UTF-8");
-			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			out.println("alert('review 등록 실패!')");
 			out.println("history.back()");

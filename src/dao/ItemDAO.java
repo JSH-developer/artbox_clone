@@ -215,6 +215,33 @@ public class ItemDAO {
 		return otherOptionList;
 	}
 	
+
+	public int insertCheckReview(ReviewBean reviewBean) {
+		int isWrite=1;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT * from review WHERE member_id=? AND product_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, reviewBean.getReview_member_id());
+			pstmt.setInt(2, reviewBean.getReview_product_num());
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				isWrite=-1;
+			}
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - insertCheckReview() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return isWrite;
+	}
+	
 	
 	public int insertReview(ReviewBean reviewBean) {
 		int insertCount = 0;

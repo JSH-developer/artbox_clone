@@ -30,4 +30,16 @@ public class ReviewWriteSVC {
 		return isWriteSucces;
 	}
 
+	public int checkReview(ReviewBean reviewBean) {
+		int isWrite;
+
+		Connection con = getConnection();
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		itemDAO.setConnection(con);
+		
+		isWrite = itemDAO.insertCheckReview(reviewBean);
+		
+		return isWrite;
+	}
+
 }
