@@ -132,7 +132,12 @@
 	});
 	//수량 변동시 가격 변동
 	function fnCheckPriseSum(){
-		var returnValue = parseInt('${productBean.product_price - productBean.product_sale_price }',10)* parseInt($("[name=stockqty]").val(),10);
+		var returnValue;
+		if('${empty itemcoupon.coupon_name}'){
+			returnValue = parseInt('${productBean.product_price - productBean.product_sale_price }',10)* parseInt($("[name=stockqty]").val(),10);		
+		}else{
+			returnValue = parseInt('${productBean.product_price }',10)* parseInt($("[name=stockqty]").val(),10);		
+		}
 		if(returnValue < 0){
 			$(".pdt-totalprice").html(commas(0) + " 원");
 		}else{		
