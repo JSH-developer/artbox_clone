@@ -831,14 +831,18 @@ span.scoup { /*     쿠폰 팝업 창  */
 			
 					<table width="750" border="0" cellspacing="0" cellpadding="0">
 						<tbody>
-						 <c:set var="total_price111" value="${tps}" />
+						 
 			<!--  bonuscoupon 가져오는 for문 -->
 			<c:if test="${!empty mycouponList}"> 
 			<c:forEach var="i" begin="0" end="${fn:length(mycouponList)}" step="1">
 <!-- 			bonus 쿠폰인지 변수에 저장 -->
 			 <c:set var="myCoupon" value="${mycouponList[i].coupon_category}" />
-			 <c:if test="${mycouponList[i].coupon_use eq 1 }">
-			<c:if test="${myCoupon eq 'bonuscoupon' && total_price111 >= mycouponList[i].coupon_condition}">
+			 
+			<c:if test="${myCoupon eq 'bonuscoupon' and mycouponList[i].coupon_use eq 1 }">
+			
+			<fmt:parseNumber integerOnly="true" var="total_price111" value="${tps}" />
+			<fmt:parseNumber integerOnly="true" var="coupon_condition" value="${mycouponList[i].coupon_condition}" />
+			<c:if test="${total_price111 >= coupon_condition}">
 			  <c:set var="BonusCoupontCnt" value="${BonusCoupontCnt=BonusCoupontCnt+1 }"/>
 				<tr>
 					<td class="c_select_td">
