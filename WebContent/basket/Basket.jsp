@@ -211,10 +211,7 @@ function Select(id) {
 					data-basketIdx="${basketList.basket_num }"
 					realitemprice="${itemsList[status.index].product_sale_price}"
 					itemprice="${result_price}"
-					data-itemquantity="${basketList.basket_quantity }"
-					data-stockCount="${itemsList[status.index].product_stock_count }">
-					
-					<c:out value="${stockCount }"></c:out>
+					data-itemquantity="${basketList.basket_quantity }">
 				</dt>
 				<dt class="tdImage"><a href="itemDetail.item?product_num=${basketList.basket_product_num }"><img src="${pageContext.request.contextPath}/upload/${itemsList[status.index].product_image }"></a></dt>
 				<dt class="tdInner">
