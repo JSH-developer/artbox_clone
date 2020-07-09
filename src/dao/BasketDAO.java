@@ -105,6 +105,7 @@ public class BasketDAO {
 				rs2 = pstmt2.executeQuery();
 				while(rs2.next()) {
 					ProductBean productBean = new ProductBean();
+					productBean.setProduct_stock_count(rs2.getInt("stock_count"));
 					productBean.setProduct_code(rs2.getString("code"));
 					productBean.setProduct_price(rs2.getInt("price"));
 					productBean.setProduct_name(rs2.getString("name"));

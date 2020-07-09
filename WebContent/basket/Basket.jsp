@@ -48,8 +48,12 @@ $(document).ready(function(){
 	}
 	
 	// '바로주문하기' 및 'X버튼(삭제)' 및 '옵션변경' 버튼 클릭 이벤트
-	fnBasketOne = function(actiontype, basketIdx, qty, product_num){
+	fnBasketOne = function(actiontype, basketIdx, qty, product_num, stockCount){
 // 		alert(actiontype+"\n"+basketIdx+"\n"+qty+"\n"+product_num); // 값 확인용
+		if(stockCount <= 0) {
+			alert("현재 재고량이 0개 입니다.");
+			return;
+		}
 		if (actiontype == "BUY") { // '바로주문하기' 버튼 클릭 => 특정 상품만 주문
 			location.href = "order.order?basketIdx="+basketIdx+"&product_num="+product_num+"&stockqty="+qty;
 		} else if (actiontype == "QTY" && qty == 0) { // 'X' 버튼 클릭 => 특정 상품만 삭제
@@ -62,11 +66,18 @@ $(document).ready(function(){
 	}
 	
 	// 상품 수량 변경 옵션
-	fnSetQty = function(basketIdx, add){
+	fnSetQty = function(basketIdx, add, stockCount, product_num){
 		var qty = parseInt($("#Qty"+basketIdx).val(), 10) + parseInt(add, 10);
 		if (qty <= 0) {
 			alert("0 이상의 값을 입력해야 합니다.");
 			return;
+		} else if(stockCount <= 0) {
+			alert("현재 재고량이 0개 입니다.");
+			location.href = "deleteBasket.basket?basketIdx="+basketIdx+"&product_num="+product_num;
+			return;
+		} else if(qty > stockCount) {
+			alert("현재 재고량이 " + stockCount + "개 입니다.");
+			$("#Qty"+basketIdx).val(stockCount);
 		}
 		$("#Qty"+basketIdx).val(qty);
 	}
@@ -165,6 +176,7 @@ function Select(id) {
 	
 <c:forEach var="basketList" items="${basketList }" varStatus="status">
 	<c:set var="price" value="${itemsList[status.index].product_price }"/>
+	<c:set var="stockCount" value="${itemsList[status.index].product_stock_count }"/>
 	<c:set var="sale_price" value="${itemsList[status.index].product_sale_price }"/>
 	<c:set var="result_price" value="${price}"/>
 	
@@ -193,6 +205,7 @@ function Select(id) {
 			<dl class="trBasket ${basketList.basket_num }" >
 				<dt class="tdCheck">
 					<input type="checkbox" name="BasketIdx" id="Item${basketList.basket_num }" value="${basketList.basket_num }" data-product_num="${basketList.basket_product_num }" data-basketIdx="${basketList.basket_num }" realitemprice="${itemsList[status.index].product_sale_price}" itemprice="${result_price}" data-itemquantity="${basketList.basket_quantity }" >
+					<c:out value="${stockCount }"></c:out>
 				</dt>
 				<dt class="tdImage"><a href="itemDetail.item?product_num=${basketList.basket_product_num }"><img src="${pageContext.request.contextPath}/upload/${itemsList[status.index].product_image }"></a></dt>
 				<dt class="tdInner">
@@ -238,14 +251,14 @@ function Select(id) {
 							<dd><a class="BasketButton" href="javascript:fnChangeOption('${basketList.basket_num }');">옵션변경</a></dd>
 							
 							<dd class="tdBtn1"><a class="BasketButton" href="javascript:fnBasketOne('WISH','${basketList.basket_num }',0,0);">위시리스트</a></dd>
-							<dd class="tdBtn2"><a class="BasketButtonDark" href="javascript:fnBasketOne('BUY','${basketList.basket_num }',${basketList.basket_quantity },${basketList.basket_product_num });">바로주문</a></dd>
+							<dd class="tdBtn2"><a class="BasketButtonDark" href="javascript:fnBasketOne('BUY','${basketList.basket_num }',${basketList.basket_quantity },${basketList.basket_product_num }, ${stockCount });">바로주문</a></dd>
 						</dl>
 					</div>
 					<div class="ItemListChangeOption" id="ItemListChangeOption${basketList.basket_num }">
 						<ul class="option">
 						
 							<li class="OptionIdx"><input type="hidden" name="OptionIdx" id="OptionIdx${basketList.basket_product_num }" value="${basketList.basket_product_num }"></li>
-							<li class="Qty"><p><a href="javascript:fnSetQty('${basketList.basket_num }',-1);">-</a><input type="tel" name="Qty" id="Qty${basketList.basket_num }" value="${basketList.basket_quantity }" readonly="readonly" /><a href="javascript:fnSetQty('${basketList.basket_num }',1);">+</a></p></li>
+							<li class="Qty"><p><a href="javascript:fnSetQty('${basketList.basket_num }',-1, ${stockCount }, ${basketList.basket_product_num });">-</a><input type="tel" name="Qty" id="Qty${basketList.basket_num }" value="${basketList.basket_quantity }" readonly="readonly" /><a href="javascript:fnSetQty('${basketList.basket_num }',1, ${stockCount }, ${basketList.basket_product_num });">+</a></p></li>
 							<li class="Btn"><a class="BasketButton m0" href="javascript:fnBasketOne('QTY','${basketList.basket_num }',document.getElementById('Qty${basketList.basket_num }').value,document.getElementById('OptionIdx${basketList.basket_product_num }').value);">변경완료</a></li>
 						</ul>
 						<div class="clear"></div>
