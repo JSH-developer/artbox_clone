@@ -200,30 +200,25 @@ public class ItemDAO {
 	public int insertCheckReview(ReviewBean reviewBean) {
 		int isWrite=1;
 		
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		
-//		try {
-//			String sql = "SELECT * from review WHERE option_code LIKE ? AND option_code NOT LIKE ?";
-//			pstmt = con.prepareStatement(sql);
-//			pstmt.setString(1, reviewBean.getReview_member_id());
-//			pstmt.setString(2, reviewBean.getReview_product_num());	// 3은 구매확정 상태
-//			
-//			rs = pstmt.executeQuery();
-//			while(rs.next()) {
-//				ProductBean article = new ProductBean();
-//				article.setProduct_num(rs.getInt("num"));
-//				article.setProduct_image(rs.getString("image"));
-//				article.setProduct_name(rs.getString("name"));
-//				article.setProduct_price(rs.getInt("price"));
-//				otherOptionList.add(article);
-//			}
-//		} catch (SQLException e) {
-//			System.out.println("ItemDAO - selectOtherOptionList() 실패! : " + e.getMessage());
-//		} finally {
-//			close(rs);
-//			close(pstmt);
-//		}
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT * from review WHERE member_id=? AND product_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, reviewBean.getReview_member_id());
+			pstmt.setInt(2, reviewBean.getReview_product_num());
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				isWrite=-1;
+			}
+		} catch (SQLException e) {
+			System.out.println("ItemDAO - insertCheckReview() 실패! : " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
 
 		return isWrite;
 	}

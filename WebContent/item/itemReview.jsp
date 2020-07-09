@@ -153,17 +153,16 @@
 						<span class="itemamt">
 							<span class="itemprice sale_N">${irl.product_price }원</span>
 						</span>
-						<a class="btnWrite modal" href="javascript:setOpen(${irl.product_num });">구매후기 쓰기</a>
 						<fmt:formatDate value="${now}" pattern="yyyyMMddhhmm" var="nowDate" />
-<%-- 						<fmt:parseDate var="startDate" value="${now }" pattern="yyyyMMddHHmm" /> --%>
-<%-- 						<fmt:parseDate var="endDate" value="${irl.product_regdate }" pattern="yyyyMMddHHmm" /> --%>
-						${nowDate }<c:if test="${openDate < nowDate && closeDate > nowDate}">
-    						<div id="main_popup">
-     						   <a href="javascript:" onclick="javascript:windowOpen();">스크립트</a>
-    						    <button type="button" onclick="mainPopClose()" title="팝업 닫기" class="btn_pop_close"><img src="/img/comm/btn_pop_close.png" alt="팝업 닫기"></button>
-   						 </div>
-						</c:if>
-						
+						<fmt:formatDate value="${irl.product_regdate }" pattern="yyyyMMddhhmm" var="productDate" />						
+						<c:choose>
+							<c:when test="${productDate >= nowDate }">
+								<a class="btnWrite modal" href="javascript:setOpen(${irl.product_num });">구매후기 쓰기</a>
+							</c:when>
+							<c:otherwise>
+								<a class="btnWrite ">기한초과</a>
+							</c:otherwise>
+						</c:choose>
 						<span class="deadline">작성기한: <fmt:formatDate value="${irl.product_regdate }" pattern="yyyy.MM.dd"/>까지</span>
 					</li>
 				</c:forEach>
