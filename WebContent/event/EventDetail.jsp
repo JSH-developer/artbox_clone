@@ -117,7 +117,7 @@ ${eventArticle.event_content }
 		[이전]&nbsp;
 		</c:when>
 		<c:otherwise>
-		<a href="EventList.event?page=${nowPage-1 }">[이전]</a>&nbsp;
+		<a href="EventDetail.event?page=${nowPage-1 }&board_num=${e_board_num}&condition=${e_condition}">[이전]</a>&nbsp;
 	</c:otherwise>
 	</c:choose>
 	
@@ -127,7 +127,7 @@ ${eventArticle.event_content }
 		[${a}]
 		</c:when>
 		<c:otherwise>
-		<a href="EventList.event?page=${a}">[${a}]
+		<a href="EventDetail.event?page=${a}&board_num=${e_board_num}&condition=${e_condition}">[${a}]
 		</a>&nbsp;
 		</c:otherwise>
 		
@@ -139,7 +139,7 @@ ${eventArticle.event_content }
 		[다음]
 		</c:when>
 		<c:otherwise>
-		<a href="EventList.event?page=${nowPage+1 }">[다음]</a>
+		<a href="EventDetail.event?page=${nowPage+1 }&board_num=${e_board_num}&condition=${e_condition}">[다음]</a>
 		</c:otherwise>
 		
 		</c:choose>

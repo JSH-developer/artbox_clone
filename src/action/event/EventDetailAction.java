@@ -18,11 +18,12 @@ public class EventDetailAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("EventDetailAction");
 		// 이벤트 상세 내용보여주기
-		ActionForward forward = null;
+		ActionForward forward = new ActionForward();
 		
 		int page = 1;
-		int limit = 10;
+		int limit = 9;
 		
 		if(request.getParameter("page")!=null) {
 			page = Integer.parseInt(request.getParameter("page"));
@@ -32,6 +33,9 @@ public class EventDetailAction implements Action {
 		String condition = request.getParameter("condition");
 		// 이벤트 조건, 이벤트 글num 불러오기
 		int eBoard_Num = Integer.parseInt(request.getParameter("board_num"));
+		
+		request.setAttribute("e_condition", condition);
+		request.setAttribute("e_board_num", eBoard_Num);
 		
 		
 		// EventService 객체 호출
@@ -74,7 +78,9 @@ public class EventDetailAction implements Action {
 		request.setAttribute("itemList", itemList);
 		request.setAttribute("eventArticle", eventArticle);
 		
-		forward = new ActionForward();
+		
+		
+		
 		forward.setPath("/event/EventDetail.jsp");
 		
 		

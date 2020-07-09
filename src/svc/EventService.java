@@ -31,6 +31,8 @@ public class EventService {
 			rollback(con);
 		}
 		
+		close(con);
+		
 		
 		return writeSuccess;
 	}
@@ -132,7 +134,7 @@ public class EventService {
 			rollback(con);
 		}
 		
-		
+		close(con);
 		return modifySuccess;
 	}
 
@@ -154,7 +156,7 @@ public class EventService {
 			rollback(con);
 		}
 		
-		
+		close(con);
 		return deleteSuccess;
 	}
 

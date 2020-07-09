@@ -127,7 +127,7 @@ font-size: 18px;}
 		[이전]&nbsp;
 		</c:when>
 		<c:otherwise>
-		<a href="EventList.event?page=${nowPage-1 }">[이전]</a>&nbsp;
+		<a href="EventCategoryList.event?page=${nowPage-1 }&event_category=${e_event_category}">[이전]</a>&nbsp;
 	</c:otherwise>
 	</c:choose>
 	
@@ -137,7 +137,7 @@ font-size: 18px;}
 		[${a}]
 		</c:when>
 		<c:otherwise>
-		<a href="EventList.event?page=${a}">[${a}]
+		<a href="EventCategoryList.event?page=${a}&event_category=${e_event_category}">[${a}]
 		</a>&nbsp;
 		</c:otherwise>
 		
@@ -149,7 +149,7 @@ font-size: 18px;}
 		[다음]
 		</c:when>
 		<c:otherwise>
-		<a href="EventList.event?page=${nowPage+1 }">[다음]</a>
+		<a href="EventCategoryList.event?page=${nowPage+1 }&event_category=${e_event_category}">[다음]</a>
 		</c:otherwise>
 		
 		</c:choose>

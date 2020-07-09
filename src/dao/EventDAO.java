@@ -337,7 +337,6 @@ public class EventDAO {
 		int updateCount =0;
 		
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		
 		
 		try {

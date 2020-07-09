@@ -94,7 +94,7 @@
 		[이전]&nbsp;
 		</c:when>
 		<c:otherwise>
-		<a href="EventList.event?page=${nowPage-1 }">[이전]</a>&nbsp;
+		<a href="listEvent.event?page=${nowPage-1 }">[이전]</a>&nbsp;
 	</c:otherwise>
 	</c:choose>
 	
@@ -104,7 +104,7 @@
 		[${a}]
 		</c:when>
 		<c:otherwise>
-		<a href="EventList.event?page=${a}">[${a}]
+		<a href="listEvent.event?page=${a}">[${a}]
 		</a>&nbsp;
 		</c:otherwise>
 		
@@ -116,7 +116,7 @@
 		[다음]
 		</c:when>
 		<c:otherwise>
-		<a href="EventList.event?page=${nowPage+1 }">[다음]</a>
+		<a href="listEvent.event?page=${nowPage+1 }">[다음]</a>
 		</c:otherwise>
 		
 		</c:choose>

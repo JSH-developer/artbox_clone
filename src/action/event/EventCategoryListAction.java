@@ -19,7 +19,7 @@ public class EventCategoryListAction implements Action {
 		ActionForward forward = null;
 		
 		int page = 1;
-		int limit = 10;
+		int limit = 9;
 		
 		// 카테고리가 세일인지 할인인지 확인함
 		String event_category = request.getParameter("event_category");
@@ -55,6 +55,8 @@ public class EventCategoryListAction implements Action {
 		// request 객체에 PageInfo 객체와 ArrayList 객체 저장
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("articleList", articleList);
+		
+		request.setAttribute("e_event_category", event_category);
 		
 		forward = new ActionForward();
 		forward.setPath("/event/EventHome.jsp");
