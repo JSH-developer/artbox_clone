@@ -22,7 +22,7 @@ public class ProductWriteProAction implements Action{
 		
 		ServletContext context = request.getServletContext();
 		
-		String saveFolder="/eventUpload";
+		String saveFolder="/upload";
 		String realFolder = context.getRealPath(saveFolder);
 	
 		int fileSize = 1024 * 1024 * 10; // 1024Byte = 1KByte * 1024 = 1MB * 10 = 10MB
